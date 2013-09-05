@@ -4,7 +4,7 @@
    i18n:domain="collective.tablepage" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <property name="title" i18n:translate="">Page with Table</property>
   <property name="description"
-    i18n:translate="">A document with an editable table</property>
+    i18n:translate="">A page with an editable table</property>
   <property name="content_meta_type">TablePage</property>
   <property name="content_icon">++resource++collective.tablepage.images/document_icon.gif</property>
   <property name="product">collective.tablepage</property>

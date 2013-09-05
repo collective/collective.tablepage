@@ -6,6 +6,7 @@
     i18n_domain="collective.tablepage">
     
   <five:registerPackage package="." initialize=".initialize" />
+  <i18n:registerTranslations directory="locales" />
 
   <include package="collective.datagridcolumns" />
   <include file="permissions.zcml" />
@@ -19,7 +20,7 @@
       name="default"
       title="Page with Table"
       directory="profiles/default"
-      description="A Plone content that contains an editable table"
+      description="Add a new content type, that contains an editable table"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   

@@ -86,7 +86,8 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
               default=["listing"],
               widget=atapi.MultiSelectionWidget(
                         label=_(u'CSS classes'),
-                        description=_(u'CSS classes to be applied to the table'),
+                        description=_(u'CSS classes to be applied to the table.\n'
+                                      u'This list is taken from available TinyMCE style for tables.'),
                         format="checkbox",
                         visible={'view': 'invisible', 'edit': 'visible'},
                         condition="object/getCSSClassesVocabulary",
@@ -135,7 +136,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
               widget=atapi.BooleanWidget(
                         label=_(u'Shown download link for data'),
                         description=_('help_download_enabled',
-                                      default=u'Display a download link of contents inside the table in CSV format'),
+                                      default=u'Display a download link for data inside the table in CSV format'),
             ),
     ),
 

@@ -1,0 +1,145 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-09-05 16:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.tablepage\n"
+
+#: ../profiles/default/types/TablePage.xml
+msgid "A page with an editable table"
+msgstr ""
+
+msgid "Add a new content type, that contains an editable table"
+msgstr ""
+
+#: ../content/tablepage.py:88
+msgid "CSS classes"
+msgstr ""
+
+#: ../content/tablepage.py:89
+msgid "CSS classes to be applied to the table.
+This list is taken from available TinyMCE style for tables."
+msgstr ""
+
+#: ../content/tablepage.py:53
+msgid "Columns"
+msgstr ""
+
+#: ../profiles/default/types/TablePage.xml
+msgid "Edit table"
+msgstr ""
+
+#: ../profiles/default/types/TablePage.xml
+msgid "Page with Table"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ../browser/view.py:119
+msgid "Row changed"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ../browser/view.py:152
+msgid "Row deleted"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ../browser/view.py:148
+msgid "Row has been deleted"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ../browser/view.py:172
+msgid "Row has been moved"
+msgstr ""
+
+#: ../browser/view.py:61
+msgid "Row has been saved"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ../browser/view.py:176
+msgid "Row moved"
+msgstr ""
+
+#: ../content/tablepage.py:137
+msgid "Shown download link for data"
+msgstr ""
+
+#: ../content/tablepage.py:74
+msgid "Table caption"
+msgstr ""
+
+#: ../browser/templates/upload-csv.pt:45
+msgid "Upload"
+msgstr ""
+
+#. Default: "${count} rows added"
+#: ../browser/updownload.py:58
+msgid "count_rows_added"
+msgstr ""
+
+#. Default: "The CSV MUST contains an header row. Headers must be equals to ids used in the configuration (current possible values are: ${cols})."
+#: ../browser/templates/upload-csv.pt:26
+msgid "csv_upload_help"
+msgstr ""
+
+#. Default: "Display a download link for data inside the table in CSV format"
+#: ../content/tablepage.py:138
+msgid "help_download_enabled"
+msgstr ""
+
+#. Default: "Definition of rows inside the table"
+#: ../content/tablepage.py:54
+msgid "help_pageColumns"
+msgstr ""
+
+#. Default: "Optional summary of table contents"
+#: ../content/tablepage.py:75
+msgid "help_table_caption"
+msgstr ""
+
+#. Default: "Text after the table"
+#: ../content/tablepage.py:113
+msgid "label_text_after"
+msgstr ""
+
+#. Default: "Text before the table"
+#: ../content/tablepage.py:43
+msgid "label_text_before"
+msgstr ""
+
+#. Default: "Back to table editing"
+#: ../browser/templates/upload-csv.pt:17
+msgid "label_up_to_smart_link_setup"
+msgstr ""
+
+#. Default: "Id \"${col_name}\" is duplicated"
+#: ../content/tablepage.py:198
+msgid "pagecolumn_validation_error_duplicated_id"
+msgstr ""
+
+#. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
+#: ../content/tablepage.py:204
+msgid "pagecolumn_validation_error_id_format"
+msgstr ""
+
+#. Default: "A reserved value has been used for \"id\""
+#: ../content/tablepage.py:208
+msgid "pagecolumn_validation_error_id_invalid"
+msgstr ""
+
+#. Default: "Line ${line_number} not added because duplicated data has been found"
+#: ../browser/updownload.py:49
+msgid "warn_duplicate"
+msgstr ""
+
