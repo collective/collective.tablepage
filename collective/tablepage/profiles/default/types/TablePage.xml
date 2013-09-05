@@ -6,7 +6,7 @@
   <property name="description"
     i18n:translate="">A document with an editable table</property>
   <property name="content_meta_type">TablePage</property>
-  <property name="content_icon">document_icon.gif</property>
+  <property name="content_icon">++resource++collective.tablepage.images/document_icon.gif</property>
   <property name="product">collective.tablepage</property>
   <property name="factory">addTablePage</property>
   <property name="immediate_view">atct_edit</property>

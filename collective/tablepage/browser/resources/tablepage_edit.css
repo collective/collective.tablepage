@@ -35,6 +35,10 @@ table.tablePage .command img {
 	min-width: 3em;
 }
 
+table.tablePage tbody tr.noResults {
+	text-align: center;
+}
+
 /*
 .tablePage tfoot td {
 	border-top: 1px solid;

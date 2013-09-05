@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 version = '0.1'
 
-tests_require = ['zope.testing']
+tests_require = ['plone.app.testing', ]
 
 install_requires = ['setuptools',
                     'collective.datagridcolumns>0.4.0',
@@ -16,11 +16,11 @@ if sys.version_info < (2, 6):
     # A RedTurtle branch (see https://github.com/RedTurtle/Products.DataGridField/tree/1.6)
     install_requires.append('Products.DatagridField>1.6.3')
 else:
-    install_requires.append('Products.DatagridField>=1.9.0')    
+    install_requires.append('Products.DatagridField>=1.9.0dev')    
 
 setup(name='collective.tablepage',
       version=version,
-      description="A Plone content that contains an editable table",
+      description="A Plone content focused onto an editable table",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from

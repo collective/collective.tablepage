@@ -161,6 +161,13 @@ class TablePage(base.ATCTContent):
         """
         return self.getText()
 
+    security.declareProtected(permissions.ModifyPortalContent, 'EditableBody')
+    def EditableBody(self):
+        """CMF compatibility method
+        """
+        #return self.getRawText()
+        return self.getText()
+
     security.declareProtected(permissions.View, 'getText')
     def getText(self, mimetype=None):
         text = ""

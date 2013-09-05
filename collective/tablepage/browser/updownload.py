@@ -81,7 +81,7 @@ class DownloadDataView(BrowserView):
     """
     
     def __call__(self):
-        target = self.context.request.form.get('target')
+        target = self.request.form.get('target')
         for_editor = target == 'editor' or False
         columns = []
         for conf in self.context.getPageColumns():

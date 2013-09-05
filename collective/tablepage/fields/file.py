@@ -32,7 +32,7 @@ class FileField(BaseField):
         return ''
 
     def attachment_storage(self):
-        attachment_storage = self.context.getAttachmentStorage()
+        attachment_storage = self.context.getAttachmentStorage() or aq_parent(aq_inner(self.context))
         catalog = getToolByName(self.context, 'portal_catalog')
         return catalog(portal_type='File', path='/'.join(attachment_storage.getPhysicalPath()))
 
@@ -56,8 +56,10 @@ class FileDataRetriever(object):
             description = request.get('description_%s' % name)
             file = request.get(name)
             newId = folder.generateUniqueId('File')
-            folder.invokeFactory(id=newId, type_name='File', title=title, description=description)
+            folder.invokeFactory(id=newId, type_name='File',
+                                 title=title, description=description)
             new_doc = folder[newId]
+            new_doc.edit(file=file)
             new_doc._renameAfterCreation()
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
