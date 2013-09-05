@@ -1,0 +1,3 @@
+<a href="" tal:content="options/title"
+           tal:attributes="href string:${options/url}/at_download/file">
+</a>

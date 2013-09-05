@@ -1,0 +1,36 @@
+<label tal:attributes="for view/configuration/id"
+       tal:content="view/configuration/label">A good field</label>
+<div class="formHelp" tal:content="view/configuration/description">
+	Help filling me
+</div>
+<div class="field subField">
+	<label tal:attributes="for view/configuration/id">Upload a new document</label>
+	<div class="formHelp">
+		Provide a new document
+	</div>
+	<label tal:attributes="for string:title_${view/configuration/id}">Title</label> <br/>
+	<input type="text" id="" name="" value=""
+	       tal:attributes="id string:title_${view/configuration/id};
+		                   name string:title_${view/configuration/id};" /> <br/>
+	<label tal:attributes="for string:description_${view/configuration/id}">Description</label>
+	<textarea id="" name="" tal:attributes="id string:description_${view/configuration/id};
+		                                    name string:description_${view/configuration/id};"></textarea>
+	<input type="file" id="" name="" value=""
+	       tal:attributes="id view/configuration/id;
+		                   name view/configuration/id;" />
+</div>
+<div class="field subField">
+	<label tal:attributes="for view/configuration/id">Select an existing document</label>
+	<div class="formHelp">
+		You can select an existing document
+	</div>
+	<select id="" name="" tal:attributes="id string:existing_${view/configuration/id};
+	                                      name string:existing_${view/configuration/id};">
+		<option value=""></option>
+		<option value=""
+		        tal:repeat="file view/attachment_storage"
+				tal:attributes="value file/UID;
+				                selected python:file.UID==options.get('data') and 'selected' or False"
+				tal:content="python:file.Title or file.id"></option>
+	</select>
+</div>

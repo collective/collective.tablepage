@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.tablepage">
+
+  <!-- basic permission for accessing the table editing features -->
+  <permission
+      id="collective.tablepage.EditTable"
+      title="collective.tablepage: Edit Table"
+     />
+
+  <!-- permission for full-power on the table editing (move and edit other-guy's rows) -->
+  <permission
+      id="collective.tablepage.ManageTable"
+      title="collective.tablepage: Manage Table"
+     />
+
+  <!-- can perform massive CSV load -->
+  <permission
+      id="collective.tablepage.UploadCSV"
+      title="collective.tablepage: Upload CSV"
+     />
+
+</configure>

@@ -1,0 +1,9 @@
+<label tal:attributes="for view/configuration/id"
+       tal:content="view/configuration/label">A good field</label>
+<div class="formHelp" tal:content="view/configuration/description">
+	Help filling me
+</div>
+<textarea id="" name=""
+          tal:attributes="id view/configuration/id;
+	      name view/configuration/id;"
+		  tal:content="options/data"></textarea>

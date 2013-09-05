@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<object name="TablePage"
+   meta_type="Factory-based Type Information with dynamic views"
+   i18n:domain="collective.tablepage" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <property name="title" i18n:translate="">Page with Table</property>
+  <property name="description"
+    i18n:translate="">A document with an editable table</property>
+  <property name="content_meta_type">TablePage</property>
+  <property name="content_icon">document_icon.gif</property>
+  <property name="product">collective.tablepage</property>
+  <property name="factory">addTablePage</property>
+  <property name="immediate_view">atct_edit</property>
+  <property name="global_allow">True</property>
+  <property name="filter_content_types">False</property>
+  <property name="allow_discussion">False</property>
+  <property name="default_view">document_view</property>
+  <property name="view_methods">
+    <element value="document_view" />
+  </property>
+  <alias from="(Default)" to="(dynamic view)" />
+  <alias from="edit" to="atct_edit" />
+  <alias from="edit-table" to="@@tablepage-edit" />
+  <alias from="sharing" to="@@sharing" />
+  <alias from="view" to="(selected layout)" />
+  <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/" visible="True">
+    <permission value="View" />
+  </action>
+  <action title="Edit" action_id="edit" category="object" condition_expr=""
+    url_expr="string:${object_url}/edit" visible="True">
+    <permission value="Modify portal content" />
+  </action>
+  <action title="Edit table" action_id="edit_table" category="object" condition_expr=""
+    url_expr="string:${object_url}/edit-table" visible="True" i18n:attributes="title">
+    <permission value="collective.tablepage: Edit Table" />
+  </action>
+</object>

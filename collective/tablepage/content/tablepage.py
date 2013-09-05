@@ -1,0 +1,211 @@
+# -*- coding: utf-8 -*-
+
+import re
+
+from zope.interface import implements
+from zope.component import queryUtility
+
+from Products.CMFCore.utils import getToolByName
+from AccessControl import ClassSecurityInfo
+from Products.Archetypes import atapi
+from Products.Archetypes import PloneMessageFactory as pmf
+from Products.CMFCore import permissions
+from Products.ATContentTypes.content.document import ATDocumentSchema
+from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content import base
+from Products.ATContentTypes.configuration import zconf
+
+from Products.DataGridField.DataGridField import DataGridField
+from Products.DataGridField.DataGridWidget import DataGridWidget
+from Products.DataGridField.CheckboxColumn import CheckboxColumn
+from Products.DataGridField.Column import Column
+
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+
+from collective.datagridcolumns.SelectColumn import SelectColumn
+from collective.datagridcolumns.TextAreaColumn import TextAreaColumn
+
+from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage.interfaces import ITablePage
+from collective.tablepage.config import PROJECTNAME
+
+from Products.TinyMCE.interfaces.utility import ITinyMCE
+
+TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
+
+    atapi.TextField('textBefore',
+              required=False,
+              searchable=True,
+              storage=atapi.AnnotationStorage(migrate=True),
+              validators=('isTidyHtmlWithCleanup',),
+              default_output_type='text/x-html-safe',
+              widget=atapi.RichWidget(
+                        label=_(u'label_text_before', default=u'Text before the table'),
+                        visible={'view': 'invisible', 'edit': 'visible'},
+                        rows=25,
+                        allow_file_upload=zconf.ATDocument.allow_document_upload),
+    ),
+
+    DataGridField('pageColumns',
+        storage=atapi.AnnotationStorage(),
+        columns=("id", "label", "description", "type", "vocabulary", ),
+        widget=DataGridWidget(
+            label=_(u"Columns"),
+            description=_('help_pageColumns',
+                          default=u"Definition of rows inside the table"),
+            visible={'view': 'invisible', 'edit': 'visible'},
+            columns={
+                 'id' : Column(pmf(u"Column id"), required=True),
+                 'label' : Column(pmf(u"Column label"), required=True),
+                 'description' : TextAreaColumn(pmf(u"Column description")),
+                 'type' : SelectColumn(pmf(u"Type of data"),
+                                       vocabulary_factory="collective.tablepage.vocabulary.column_types",
+                                       required=True),
+                 'vocabulary' : TextAreaColumn(pmf(u"Vocabulary for the column (one item on every row)")),
+#                 'options': CheckboxColumn(pmf(u"Additional column's options")),
+            },
+        ),
+    ),
+
+    atapi.StringField('tableCaption',
+              required=False,
+              searchable=False,
+              widget=atapi.StringWidget(
+                        label=_(u'Table caption'),
+                        description=_('help_table_caption',
+                                      default=u'Optional summary of table contents'),
+                        size=50,
+                        visible={'view': 'invisible', 'edit': 'visible'},
+            ),
+    ),
+
+    atapi.LinesField('cssClasses',
+              required=False,
+              searchable=False,
+              vocabulary='getCSSClassesVocabulary',
+              default=["listing"],
+              widget=atapi.MultiSelectionWidget(
+                        label=_(u'CSS classes'),
+                        description=_(u'CSS classes to be applied to the table'),
+                        format="checkbox",
+                        visible={'view': 'invisible', 'edit': 'visible'},
+                        condition="object/getCSSClassesVocabulary",
+            ),
+    ),
+
+    atapi.ComputedField('text',
+        expression="object/getText",
+        searchable=True,        
+        widget=atapi.ComputedWidget(
+            label=ATDocumentSchema['text'].widget.label,
+            description=ATDocumentSchema['text'].widget.description,
+        )
+    ),
+
+    atapi.TextField('textAfter',
+              required=False,
+              searchable=True,
+              storage=atapi.AnnotationStorage(migrate=True),
+              validators=('isTidyHtmlWithCleanup',),
+              default_output_type='text/x-html-safe',
+              widget=atapi.RichWidget(
+                        label=_(u'label_text_after', default=u'Text after the table'),
+                        visible={'view': 'invisible', 'edit': 'visible'},
+                        rows=25,
+                        allow_file_upload=zconf.ATDocument.allow_document_upload),
+    ),
+
+    atapi.ReferenceField('attachmentStorage',
+            allowed_types=('Folder',),
+            relationship="tablepage_storage",
+            widget=ReferenceBrowserWidget(label=u"Attachment storage",
+                                          description=u"Select the folder where users will be able to store attachments for "
+                                                      u"attachment-like columns (if any).\n"
+                                                      u"Users must be able to add new contents on that folder; if not, he "
+                                                      u"will be only able to select existings items.",
+                                          force_close_on_insert=True,
+                                          visible={'view': 'invisible', 'edit': 'visible'},
+                                          ),
+    ),
+
+    atapi.BooleanField('downloadEnabled',
+              required=False,
+              searchable=False,
+              schemata="settings",
+              widget=atapi.BooleanWidget(
+                        label=_(u'Shown download link for data'),
+                        description=_('help_download_enabled',
+                                      default=u'Display a download link of contents inside the table in CSV format'),
+            ),
+    ),
+
+))
+
+
+schemata.finalizeATCTSchema(TablePageSchema, moveDiscussion=False)
+
+TablePageSchema.moveField('downloadEnabled', after='tableContents')
+
+class TablePage(base.ATCTContent):
+    """A document with an editable table"""
+    
+    implements(ITablePage)
+    security = ClassSecurityInfo()
+
+    meta_type = "TablePage"
+    schema = TablePageSchema
+
+    security.declareProtected(permissions.View, 'CookedBody')
+    def CookedBody(self, stx_level='ignored'):
+        """CMF compatibility method
+        """
+        return self.getText()
+
+    security.declareProtected(permissions.View, 'getText')
+    def getText(self, mimetype=None):
+        text = ""
+        if self.getTextBefore():
+            text += self.getTextBefore()
+        # BBB: must be "empty" for empty table
+        table_text = self.restrictedTraverse('@@view-table')()
+        if table_text:
+            text += table_text
+        if self.getTextAfter():
+            text += self.getTextAfter()
+        if mimetype:
+            portal_transforms = getToolByName(self, 'portal_transforms')
+            return str(portal_transforms.convertToData(mimetype, text))
+        return text
+
+    security.declarePrivate('validate_pageColumns')
+    def validate_pageColumns(self, value):
+        """Need to check some table format"""
+        ids = []
+        for record in value:
+            # do not validate the hidden empty row
+            if record.get('orderindex_').isdigit():
+                id = record.get('id', '')
+                try:
+                    ids.index(id)
+                    return _('pagecolumn_validation_error_duplicated_id',
+                             default=u'Id "${col_name}" is duplicated',
+                             mapping={'col_name': id})
+                except ValueError:
+                        ids.append(id)
+                if not re.match(r"^[a-zA-Z][a-zA-Z0-9.\-_]*$", id):
+                    return _('pagecolumn_validation_error_id_format',
+                             default=u'Invalid value: "${col_name}". "Column Id" must not contains special characters',
+                             mapping={'col_name': id})
+                if id=='__creator__':
+                    return _('pagecolumn_validation_error_id_invalid',
+                             default=u'A reserved value has been used for "id"')
+
+    security.declareProtected(permissions.View, 'getCSSClassesVocabulary')
+    def getCSSClassesVocabulary(self):
+        utility = queryUtility(ITinyMCE)
+        if utility:
+            return atapi.DisplayList([[style.split('|')[1],
+                                       pmf(style.split('|')[0])] for style in utility.tablestyles.splitlines()])
+        return tuple()
+
+atapi.registerType(TablePage, PROJECTNAME)

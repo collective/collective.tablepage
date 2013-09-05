@@ -1,0 +1,54 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.tablepage">
+
+   <!-- field widgets -->
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".text.TextField"
+       name="string"
+       />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".text.TextAreaField"
+       name="text"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".select.SelectField"
+       name="select"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".file.FileField"
+       name="file"
+       />
+
+   <!-- data retrivers -->
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".base.BaseFieldDataRetriever"
+       />
+
+   <!-- data retrivers -->
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".file.FileDataRetriever"
+	   name="file"
+       />
+
+
+</configure>

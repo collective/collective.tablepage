@@ -1,0 +1,42 @@
+/*
+ * Styles for Table Page
+ */
+
+.field .subField {
+	padding:1em;
+	border: 1px solid #e0e0e0;
+	margin-bottom: 2px;
+}
+
+.rowCommands a,
+.tablePage .rowCommands a:hover,
+.rowCommands a:hover,
+.rowCommands a:active,
+.rowCommands a:visited {
+	text-decoration: none;
+}
+
+.tablePageField input[type=text] {
+	width: 100%;
+}
+
+table.tablePage .command img {
+	vertical-align: baseline;	
+}
+.rowCommands .command {
+	margin: 2px 5px 2px 2px;
+}
+
+.tablePage tfoot .rowCommands {
+	text-align: right;
+}
+
+.tablePage th.rowCommands {
+	min-width: 3em;
+}
+
+/*
+.tablePage tfoot td {
+	border-top: 1px solid;
+}
+*/

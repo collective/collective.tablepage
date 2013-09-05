@@ -1,0 +1,70 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.tablepage">
+
+  <include package="plone.app.contentmenu" />
+
+  <browser:resourceDirectory
+	 name="collective.tablepage.images"
+	 directory="images"
+	 />
+  <browser:resourceDirectory
+	 name="collective.tablepage.resources"
+	 directory="resources"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="tablepage-edit"
+	 class=".view.TableEditView"
+	 template="templates/tablepage-edit.pt"
+	 permission="collective.tablepage.EditTable"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="view-table"
+	 class=".table.TableViewView"
+	 template="templates/view-table.pt"
+	 permission="zope2.View"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="edit-record"
+	 class=".view.EditRecordView"
+	 template="templates/edit-record.pt"
+	 permission="collective.tablepage.EditTable"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="delete-record"
+	 class=".view.DeleteRecordView"
+	 permission="collective.tablepage.EditTable"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="move-record"
+	 class=".view.MoveRecordView"
+	 permission="collective.tablepage.ManageTable"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="upload-rows"
+	 class=".updownload.UploadDataView"
+	 template="templates/upload-csv.pt"
+	 permission="collective.tablepage.UploadCSV"
+	 />
+
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="download-table"
+	 class=".updownload.DownloadDataView"
+	 permission="zope2.View"
+	 />
+
+</configure>

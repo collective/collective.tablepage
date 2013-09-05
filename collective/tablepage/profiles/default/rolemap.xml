@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="collective.tablepage: Add TablePage" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Contributor" />
+    </permission>
+    <permission name="collective.tablepage: Edit Table" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Contributor" />
+      <role name="Editor" />
+    </permission>
+    <permission name="collective.tablepage: Manage Table" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Editor" />
+    </permission>	
+    <permission name="collective.tablepage: Upload CSV" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Contributor" />
+      <role name="Editor" />
+    </permission>
+  </permissions>
+</rolemap>
