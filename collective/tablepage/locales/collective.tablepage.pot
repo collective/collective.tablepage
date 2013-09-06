@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-06 14:20+0000\n"
+"POT-Creation-Date: 2013-09-06 14:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,18 @@ msgstr ""
 #: ./content/tablepage.py:91
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
+msgstr ""
+
+#: ./content/tablepage.py:60
+msgid "Column description"
+msgstr ""
+
+#: ./content/tablepage.py:58
+msgid "Column id"
+msgstr ""
+
+#: ./content/tablepage.py:59
+msgid "Column label"
 msgstr ""
 
 #: ./content/tablepage.py:53
@@ -147,6 +159,10 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
+#: ./content/tablepage.py:61
+msgid "Type of data"
+msgstr ""
+
 #: ./browser/templates/upload-csv.pt:45
 msgid "Upload"
 msgstr ""
@@ -165,6 +181,10 @@ msgstr ""
 
 #: ./browser/templates/upload-csv.pt:32
 msgid "Upload..."
+msgstr ""
+
+#: ./content/tablepage.py:64
+msgid "Vocabulary for the column"
 msgstr ""
 
 #. Default: "${count} rows added"
@@ -240,6 +260,11 @@ msgstr ""
 #. Default: "A reserved value has been used for \"id\""
 #: ./content/tablepage.py:211
 msgid "pagecolumn_validation_error_id_invalid"
+msgstr ""
+
+#. Default: "One item on every row. Used only when the type is \"Select\""
+#: ./content/tablepage.py:65
+msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"

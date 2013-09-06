@@ -14,24 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
-msgid "Column description"
-msgstr "Descrizione colonna"
-
-msgid "Column id"
-msgstr "Id colonna"
-
-msgid "Column label"
-msgstr "Etichetta colonna"
-
 msgid "Edit table"
 msgstr "Modifica tabella"
 
-msgid "vocabulary_column_description"
-msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
-
-msgid "Type of data"
-msgstr "Tipo di dato"
-
-msgid "Vocabulary for the column"
-msgstr "Vocabolario della colonna"
 

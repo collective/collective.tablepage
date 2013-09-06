@@ -33,6 +33,18 @@ msgstr "Torna alla modifica della tabella"
 msgid "CSS classes"
 msgstr "Classi CSS"
 
+#: ./content/tablepage.py:60
+msgid "Column description"
+msgstr "Descrizione colonna"
+
+#: ./content/tablepage.py:58
+msgid "Column id"
+msgstr "Id colonna"
+
+#: ./content/tablepage.py:59
+msgid "Column label"
+msgstr "Etichetta colonna"
+
 #: ./content/tablepage.py:53
 msgid "Columns"
 msgstr "Colonne"
@@ -141,6 +153,10 @@ msgstr "Didascalia tabella"
 msgid "Text"
 msgstr "Testo"
 
+#: ./content/tablepage.py:61
+msgid "Type of data"
+msgstr "Tipo di dato"
+
 #: ./browser/templates/upload-csv.pt:45
 msgid "Upload"
 msgstr "Carica"
@@ -160,6 +176,10 @@ msgstr "Carica dati con CSV"
 #: ./browser/templates/upload-csv.pt:32
 msgid "Upload..."
 msgstr "Carica..."
+
+#: ./content/tablepage.py:64
+msgid "Vocabulary for the column"
+msgstr "Vocabolario della colonna"
 
 #. Default: "${count} rows added"
 #: ./browser/updownload.py:58
@@ -235,6 +255,11 @@ msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere ca
 #: ./content/tablepage.py:211
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
+
+#. Default: "One item on every row. Used only when the type is \"Select\""
+#: ./content/tablepage.py:65
+msgid "vocabulary_column_description"
+msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
 #: ./browser/updownload.py:49
