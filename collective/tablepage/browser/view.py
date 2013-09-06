@@ -70,7 +70,7 @@ class EditRecordView(BrowserView):
         """Display all fields for this content"""
         fields = []
         for conf in self.configuration:
-            col_type = conf['type'].lower()
+            col_type = conf['type']
             field = getMultiAdapter((self.context, self.request),
                                     IColumnField, name=col_type)
             field.configuration = conf
@@ -91,7 +91,7 @@ class EditRecordView(BrowserView):
         to_be_saved = {}
         for conf in configuration:
             id = conf['id']
-            col_type = conf['type'].lower()
+            col_type = conf['type']
             try:
                 retriever = getAdapter(context,
                                        IColumnDataRetriever,

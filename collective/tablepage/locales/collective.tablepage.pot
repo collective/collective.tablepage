@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-06 08:20+0000\n"
+"POT-Creation-Date: 2013-09-06 14:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,19 @@ msgstr ""
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
-#: ./content/tablepage.py:88
+#: ./browser/templates/view-table.pt:25
+msgid "Add new row"
+msgstr ""
+
+#: ./browser/templates/upload-csv.pt:17
+msgid "Back to table editing"
+msgstr ""
+
+#: ./content/tablepage.py:90
 msgid "CSS classes"
 msgstr ""
 
-#: ./content/tablepage.py:89
+#: ./content/tablepage.py:91
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
 msgstr ""
@@ -34,12 +42,58 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: ./profiles/default/types/TablePage.xml
-msgid "Edit table"
+#: ./browser/templates/view-table.pt:47
+msgid "Download as CSV"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:40
+msgid "Download data in CSV format"
+msgstr ""
+
+#: ./browser/templates/edit-record.pt:17
+#: ./browser/templates/view-table.pt:66
+msgid "Edit row"
+msgstr ""
+
+#: ./browser/templates/tablepage-edit.pt:13
+msgid "Edit table data"
+msgstr ""
+
+#: ./browser/templates/upload-csv.pt:34
+#: ./fields/templates/file.pt:25
+msgid "File"
+msgstr ""
+
+#: ./browser/templates/edit-record.pt:22
+msgid "Fill data of this table's row"
+msgstr ""
+
+#: ./browser/templates/upload-csv.pt:39
+msgid "Look for duplicated record"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:90
+msgid "Move row down"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:82
+msgid "Move row up"
+msgstr ""
+
+#: ./browser/templates/edit-record.pt:13
+msgid "New row"
 msgstr ""
 
 #: ./profiles/default/types/TablePage.xml
 msgid "Page with Table"
+msgstr ""
+
+#: ./browser/templates/edit-record.pt:29
+msgid "Provide data for the row"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:73
+msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
@@ -71,16 +125,46 @@ msgstr ""
 msgid "Row moved"
 msgstr ""
 
-#: ./content/tablepage.py:137
+msgid "Select"
+msgstr ""
+
+#: ./fields/templates/file.pt:32
+msgid "Select an existing document"
+msgstr ""
+
+#: ./content/tablepage.py:140
 msgid "Shown download link for data"
 msgstr ""
 
-#: ./content/tablepage.py:74
+# FIELD - start
+msgid "String"
+msgstr ""
+
+#: ./content/tablepage.py:76
 msgid "Table caption"
+msgstr ""
+
+msgid "Text"
 msgstr ""
 
 #: ./browser/templates/upload-csv.pt:45
 msgid "Upload"
+msgstr ""
+
+#: ./fields/templates/file.pt:12
+msgid "Upload a new document"
+msgstr ""
+
+#: ./browser/templates/upload-csv.pt:13
+msgid "Upload data from CSV"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:34
+msgid "Upload data with CSV"
+msgstr ""
+
+#: ./browser/templates/upload-csv.pt:32
+msgid "Upload..."
 msgstr ""
 
 #. Default: "${count} rows added"
@@ -93,9 +177,24 @@ msgstr ""
 msgid "csv_upload_help"
 msgstr ""
 
+#. Default: "Add, Edit or Delete rows in the main table of this content"
+#: ./browser/templates/tablepage-edit.pt:17
+msgid "description_edit_table_view"
+msgstr ""
+
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:138
+#: ./content/tablepage.py:141
 msgid "help_download_enabled"
+msgstr ""
+
+#. Default: "Before adding a row, check if there's already a row with EXACTLY the same data. In that case: skip it."
+#: ./browser/templates/upload-csv.pt:40
+msgid "help_look_for_duplicate"
+msgstr ""
+
+#. Default: "Provide a new document. A new File content will be created."
+#: ./fields/templates/file.pt:13
+msgid "help_new_file"
 msgstr ""
 
 #. Default: "Definition of rows inside the table"
@@ -103,13 +202,18 @@ msgstr ""
 msgid "help_pageColumns"
 msgstr ""
 
+#. Default: "You can select an existing File content from folder ${storage}"
+#: ./fields/templates/file.pt:36
+msgid "help_select_file"
+msgstr ""
+
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:75
+#: ./content/tablepage.py:77
 msgid "help_table_caption"
 msgstr ""
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:113
+#: ./content/tablepage.py:115
 msgid "label_text_after"
 msgstr ""
 
@@ -118,23 +222,23 @@ msgstr ""
 msgid "label_text_before"
 msgstr ""
 
-#. Default: "Back to table editing"
-#: ./browser/templates/upload-csv.pt:17
-msgid "label_up_to_smart_link_setup"
+#. Default: "Seems you have not permission to access the file storage. You can't load any attachment from the configured folder."
+#: ./fields/templates/file.pt:53
+msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:198
+#: ./content/tablepage.py:201
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:204
+#: ./content/tablepage.py:207
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:208
+#: ./content/tablepage.py:211
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 

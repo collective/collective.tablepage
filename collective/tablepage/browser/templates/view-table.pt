@@ -23,23 +23,30 @@
 		<tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+1">
 			<tal:canedit condition="view/edit_mode">
 			    <a class="command" href="" title="Add new row"
+				   i18n:attributes="title"
 				   tal:attributes="href string:${context/absolute_url}/@@edit-record">
 			        <img alt="Add new row" src=""
+					     i18n:attributes="alt"
 			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
 			    </a>
 			    <a class="command" href="" title="Upload data with CSV"
 				   tal:attributes="href string:${context/absolute_url}/@@upload-rows">
 			        <img alt="Upload data with CSV" src=""
+					     i18n:attributes="alt"
 			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
 			    </a>
 			</tal:canedit>
 			<tal:download_enabled tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
 			    <a class="command" href="" title="Download data in CSV format"
 				   tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
+				   i18n:attributes="title"
 				   tal:attributes="href string:${context/absolute_url}/@@download-table${target_mode}">
 			        <img alt="Download data in CSV format" src=""
-			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png" />
-					<span tal:condition="not:view/edit_mode" class="discreet">Download as CSV</span>
+			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
+						 i18n:attributes="alt"/>
+					<span class="discreet"
+					      tal:condition="not:view/edit_mode"
+						  i18n:translate="">Download as CSV</span>
 			    </a>			
 			</tal:download_enabled>
 		</td></tr>
@@ -57,27 +64,35 @@
 			    tal:condition="view/edit_mode">
 			    <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
 	                <a class="command" href="" title="Edit row"
+					   i18n:attributes="title"
 					   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
 	                    <img alt="Edit row" src=""
+						     i18n:attributes="alt"
 	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
 	                </a>
 	                <a class="command" href="" title="Remove row"
+					   i18n:attributes="title"
 					   tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">
 	                    <img alt="Remove row" src=""
+						     i18n:attributes="alt"
 	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />
 	                </a>
 				</tal:mine-or-editor>
 				<tal:manager-or-mine condition="has_tablemanager_permission">
 	                <a class="command" href="" title="Move row up"
+					   i18n:attributes="title"
 					   tal:condition="not:repeat/row/start"
 					   tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up">
 	                    <img alt="Move row up" src=""
+						     i18n:attributes="alt"
 	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png" />
 	                </a>
-	                <a class="command" href="" title="Move row down" 
+	                <a class="command" href="" title="Move row down"
+					   i18n:attributes="title"
 					   tal:condition="not:repeat/row/end"
 					   tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down">
 	                    <img alt="Move row down" src=""
+						     i18n:attributes="alt"
 	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png" />
 	                </a>
 				</tal:manager-or-mine>

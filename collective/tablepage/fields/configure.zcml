@@ -9,14 +9,14 @@
 	        zope.publisher.interfaces.browser.IBrowserRequest"
        provides="collective.tablepage.interfaces.IColumnField"
        factory=".text.TextField"
-       name="string"
+       name="String"
        />
    <adapter
        for="collective.tablepage.interfaces.ITablePage
 	        zope.publisher.interfaces.browser.IBrowserRequest"
        provides="collective.tablepage.interfaces.IColumnField"
        factory=".text.TextAreaField"
-       name="text"
+       name="Text"
        />
 
    <adapter
@@ -24,7 +24,7 @@
 	        zope.publisher.interfaces.browser.IBrowserRequest"
        provides="collective.tablepage.interfaces.IColumnField"
        factory=".select.SelectField"
-       name="select"
+       name="Select"
        />
 
    <adapter
@@ -32,7 +32,7 @@
 	        zope.publisher.interfaces.browser.IBrowserRequest"
        provides="collective.tablepage.interfaces.IColumnField"
        factory=".file.FileField"
-       name="file"
+       name="File"
        />
 
    <!-- data retrivers -->
@@ -42,12 +42,11 @@
        factory=".base.BaseFieldDataRetriever"
        />
 
-   <!-- data retrivers -->
    <adapter
        for="collective.tablepage.interfaces.ITablePage"
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
        factory=".file.FileDataRetriever"
-	   name="file"
+	   name="File"
        />
 
 

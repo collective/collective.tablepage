@@ -10,18 +10,23 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <h1 class="documentFirstHeading"> 
-            New/Edit Row
+        <h1 class="documentFirstHeading" i18n:translate=""
+		    tal:condition="not:request/row-index|nothing"> 
+            New row
+        </h1>
+        <h1 class="documentFirstHeading" i18n:translate=""
+		    tal:condition="request/row-index|nothing"> 
+            Edit row
         </h1>
 
-        <p class="documentDescription">
-            foo
+        <p class="documentDescription" i18n:translate="">
+            Fill data of this table's row
         </p>
 
         <form id="editRow" class="enableUnloadProtection" method="post" enctype="multipart/form-data" action=""
               tal:attributes="action string:${view/context/absolute_url}/@@${view/__name__}">
             <fieldset>
-                <legend>Provide data for the row</legend>
+                <legend i18n:translate="">Provide data for the row</legend>
             
                 <div class="field tablePageField" tal:repeat="field view/fields">
                     <tal:field define="value python:view.data.get(field.configuration['id'])"

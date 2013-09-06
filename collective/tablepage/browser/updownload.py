@@ -91,7 +91,7 @@ class DownloadDataView(BrowserView):
             try:
                 retriever = getAdapter(self.context,
                                        IColumnDataRetriever,
-                                       name=conf['type'].lower())
+                                       name=conf['type'])
             except ComponentLookupError:
                 retriever = IColumnDataRetriever(self.context)
             column['adapter'] = retriever

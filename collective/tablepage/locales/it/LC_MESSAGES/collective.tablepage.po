@@ -21,7 +21,15 @@ msgstr "Una pagina con una tabella modificabile"
 msgid "Add a new content type, that contains an editable table"
 msgstr "Aggiunge un nuovo tipo di contenuto, che contiene una tabella modificabile"
 
-#: ./content/tablepage.py:88
+#: ./browser/templates/view-table.pt:25
+msgid "Add new row"
+msgstr "Aggiungi una nuova riga"
+
+#: ./browser/templates/upload-csv.pt:17
+msgid "Back to table editing"
+msgstr "Torna alla modifica della tabella"
+
+#: ./content/tablepage.py:90
 msgid "CSS classes"
 msgstr "Classi CSS"
 
@@ -29,13 +37,59 @@ msgstr "Classi CSS"
 msgid "Columns"
 msgstr "Colonne"
 
-#: ./profiles/default/types/TablePage.xml
-msgid "Edit table"
-msgstr "Modifica tabella"
+#: ./browser/templates/view-table.pt:47
+msgid "Download as CSV"
+msgstr "Scarica come CSV"
+
+#: ./browser/templates/view-table.pt:40
+msgid "Download data in CSV format"
+msgstr "Scarica i dati in formato CSV"
+
+#: ./browser/templates/edit-record.pt:17
+#: ./browser/templates/view-table.pt:66
+msgid "Edit row"
+msgstr "Modifica riga"
+
+#: ./browser/templates/tablepage-edit.pt:13
+msgid "Edit table data"
+msgstr "Modifica i dati della tabella"
+
+#: ./browser/templates/upload-csv.pt:34
+#: ./fields/templates/file.pt:25
+msgid "File"
+msgstr ""
+
+#: ./browser/templates/edit-record.pt:22
+msgid "Fill data of this table's row"
+msgstr "Compila i dati di questa riga della tabella"
+
+#: ./browser/templates/upload-csv.pt:39
+msgid "Look for duplicated record"
+msgstr "Cerca record duplicati"
+
+#: ./browser/templates/view-table.pt:90
+msgid "Move row down"
+msgstr "Muovi riga giù"
+
+#: ./browser/templates/view-table.pt:82
+msgid "Move row up"
+msgstr "Muovi riga su"
+
+#: ./browser/templates/edit-record.pt:13
+msgid "New row"
+msgstr "Nuova riga"
 
 #: ./profiles/default/types/TablePage.xml
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
+
+#: ./browser/templates/edit-record.pt:29
+msgid "Provide data for the row"
+msgstr "Fornisci i dati della riga"
+
+#: ./browser/templates/view-table.pt:73
+msgid "Remove row"
+msgstr "Elimina riga"
 
 #. Default: "collective.tablepage"
 #: ./browser/view.py:119
@@ -66,17 +120,46 @@ msgstr "La riga è stata salvata"
 msgid "Row moved"
 msgstr "Riga mossa"
 
-#: ./content/tablepage.py:137
-msgid "Shown download link for data"
-msgstr ""
+msgid "Select"
+msgstr "Selezione"
 
-#: ./content/tablepage.py:74
+#: ./fields/templates/file.pt:32
+msgid "Select an existing document"
+msgstr "Seleziona un documento esistente"
+
+#: ./content/tablepage.py:140
+msgid "Shown download link for data"
+msgstr "Mostra collegamento per scaricare dati"
+
+msgid "String"
+msgstr "Stringa"
+
+#: ./content/tablepage.py:76
 msgid "Table caption"
 msgstr "Didascalia tabella"
+
+msgid "Text"
+msgstr "Testo"
 
 #: ./browser/templates/upload-csv.pt:45
 msgid "Upload"
 msgstr "Carica"
+
+#: ./fields/templates/file.pt:12
+msgid "Upload a new document"
+msgstr "Carica un nuovo documento"
+
+#: ./browser/templates/upload-csv.pt:13
+msgid "Upload data from CSV"
+msgstr "Carica dati da CSV"
+
+#: ./browser/templates/view-table.pt:34
+msgid "Upload data with CSV"
+msgstr "Carica dati con CSV"
+
+#: ./browser/templates/upload-csv.pt:32
+msgid "Upload..."
+msgstr "Carica..."
 
 #. Default: "${count} rows added"
 #: ./browser/updownload.py:58
@@ -88,23 +171,43 @@ msgstr "${count} righe aggiunte"
 msgid "csv_upload_help"
 msgstr "Il CSV DEVE contenere una riga di intestazione. Le intestazioni devono essere uguali agli id usati nella configurazione (i valori attualmente possibili sono: ${cols})."
 
+#. Default: "Add, Edit or Delete rows in the main table of this content"
+#: ./browser/templates/tablepage-edit.pt:17
+msgid "description_edit_table_view"
+msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
+
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:138
+#: ./content/tablepage.py:141
 msgid "help_download_enabled"
-msgstr "Mostra un link per scaricare i dati dentro alla tabella in formato CSV"
+msgstr "Mostra un link per scaricare i dati contenuti nella tabella in formato CSV"
+
+#. Default: "Before adding a row, check if there's already a row with EXACTLY the same data. In that case: skip it."
+#: ./browser/templates/upload-csv.pt:40
+msgid "help_look_for_duplicate"
+msgstr "Prima di aggiungere una riga, controlla se esiste già una riga con ESATTAMENTE gli stessi dati. In questo caso: saltala."
+
+#. Default: "Provide a new document. A new File content will be created."
+#: ./fields/templates/file.pt:13
+msgid "help_new_file"
+msgstr "Fornisci un nuovo documento. Verrà creato un nuovo contenuto File."
 
 #. Default: "Definition of rows inside the table"
 #: ./content/tablepage.py:54
 msgid "help_pageColumns"
 msgstr "Definizione delle righe dentro alla tabella"
 
+#. Default: "You can select an existing File content from folder ${storage}"
+#: ./fields/templates/file.pt:36
+msgid "help_select_file"
+msgstr "Puoi selezionare un File esistente dalla cartella ${storage}"
+
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:75
+#: ./content/tablepage.py:77
 msgid "help_table_caption"
 msgstr "Sommario opzionale dei contenuti della tabella"
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:113
+#: ./content/tablepage.py:115
 msgid "label_text_after"
 msgstr "Testo dopo la tabella"
 
@@ -113,23 +216,23 @@ msgstr "Testo dopo la tabella"
 msgid "label_text_before"
 msgstr "Testo prima della tabella"
 
-#. Default: "Back to table editing"
-#: ./browser/templates/upload-csv.pt:17
-msgid "label_up_to_smart_link_setup"
-msgstr "Torna alla modifica della tabella"
+#. Default: "Seems you have not permission to access the file storage. You can't load any attachment from the configured folder."
+#: ./fields/templates/file.pt:53
+msgid "no_attachment_storage_access"
+msgstr "Sembra che tu non abbia i permessi per accedere al repositori dei file. Non puoi caricare nessun file dalla cartella configurata."
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:198
+#: ./content/tablepage.py:201
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:204
+#: ./content/tablepage.py:207
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:208
+#: ./content/tablepage.py:211
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 

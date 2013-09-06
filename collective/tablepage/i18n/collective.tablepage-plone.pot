@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-05 15:51+0000\n"
+"POT-Creation-Date: 2013-09-06 08:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,27 +12,25 @@ msgstr ""
 "Language-Code: en\n"
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: collective.tablepage\n"
+"Domain: plone\n"
 
-msgid "Page with Table"
+msgid "Column id"
 msgstr ""
 
-msgid "Add a new content type, that contains an editable table"
+msgid "Column label"
 msgstr ""
 
-# FIELD - start
-
-msgid "String"
+msgid "Column description"
 msgstr ""
 
-msgid "Text"
+msgid "Type of data"
 msgstr ""
 
-msgid "Select"
+msgid "Vocabulary for the column"
 msgstr ""
 
-msgid "File"
+msgid "vocabulary_column_description"
 msgstr ""
 
-# FIELD - end
-
+msgid "Edit table"
+msgstr ""

@@ -10,12 +10,12 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <h1 class="documentFirstHeading"> 
-            Now editing...
+        <h1 class="documentFirstHeading" i18n:translate=""> 
+            Edit table data
         </h1>
 
-        <p class="documentDescription">
-            todo
+        <p class="documentDescription"  i18n:translate="description_edit_table_view">
+            Add, Edit or Delete rows in the main table of this content
         </p>
 
         <div id="tablePageContainer"

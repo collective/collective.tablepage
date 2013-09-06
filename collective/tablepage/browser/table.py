@@ -35,13 +35,13 @@ class TableViewView(BrowserView):
         adapters = {}
         # let's cache adapters
         for conf in self.context.getPageColumns():
-            col_type = conf['type'].lower()
+            col_type = conf['type']
             adapters[col_type] = getMultiAdapter((self.context, self.request),
                                                  IColumnField, name=col_type)
         for record in storage:
             row = []
             for conf in self.context.getPageColumns():
-                field = adapters[conf['type'].lower()]
+                field = adapters[conf['type']]
                 row.append(field.render_view(record.get(conf['id'])))
             rows.append(row)
         return rows

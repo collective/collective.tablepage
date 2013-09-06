@@ -61,8 +61,10 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                  'type' : SelectColumn(pmf(u"Type of data"),
                                        vocabulary_factory="collective.tablepage.vocabulary.column_types",
                                        required=True),
-                 'vocabulary' : TextAreaColumn(pmf(u"Vocabulary for the column (one item on every row)")),
-#                 'options': CheckboxColumn(pmf(u"Additional column's options")),
+                 'vocabulary' : TextAreaColumn(pmf(u"Vocabulary for the column"),
+                                               col_description=pmf("vocabulary_column_description",
+                                                                   default=u"One item on every row. "
+                                                                           u"Used only when the type is \"Select\"")),
             },
         ),
     ),
@@ -123,7 +125,8 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                                           description=u"Select the folder where users will be able to store attachments for "
                                                       u"attachment-like columns (if any).\n"
                                                       u"Users must be able to add new contents on that folder; if not, he "
-                                                      u"will be only able to select existings items.",
+                                                      u"will be only able to select existings items.\n"
+                                                      u"If not provided, the folder containing this document will be used.",
                                           force_close_on_insert=True,
                                           visible={'view': 'invisible', 'edit': 'visible'},
                                           ),
@@ -212,8 +215,12 @@ class TablePage(base.ATCTContent):
     def getCSSClassesVocabulary(self):
         utility = queryUtility(ITinyMCE)
         if utility:
+            translation_service = getToolByName(self, 'translation_service')
             return atapi.DisplayList([[style.split('|')[1],
-                                       pmf(style.split('|')[0])] for style in utility.tablestyles.splitlines()])
+                                       translation_service.utranslate(msgid=style.split('|')[0],
+                                                                      domain="plone.tinymce",
+                                                                      context=self)] \
+                            for style in utility.tablestyles.splitlines()])
         return tuple()
 
 atapi.registerType(TablePage, PROJECTNAME)

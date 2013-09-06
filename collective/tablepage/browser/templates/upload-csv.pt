@@ -10,14 +10,14 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
 
-        <h1 class="documentFirstHeading"> 
+        <h1 class="documentFirstHeading" i18n:translate=""> 
             Upload data from CSV
         </h1>
 
         <a href=""
            class="link-parent"
            tal:attributes="href string:${context/absolute_url}/edit-table"
-           i18n:translate="label_up_to_smart_link_setup">
+           i18n:translate="">
             Back to table editing
         </a>
 
@@ -29,15 +29,15 @@
         <form id="uploadData" method="post" enctype="multipart/form-data" action=""
               tal:attributes="action string:${view/context/absolute_url}/@@${view/__name__}">
             <fieldset>
-                <legend>CSV with rows for the table</legend>
+                <legend i18n:translate="">Upload...</legend>
 				<div class="field">
-					<label for="csv">File</label>
+					<label for="csv" i18n:translate="">File</label>
 	                <input type="file" name="csv" id="csv" />
 				</div>
 				<div class="field">
 	                <input type="checkbox" name="look_for_duplicate" id="look_for_duplicate" value="1" />
-					<label for="look_for_duplicate">Look for duplicated record</label>
-					<div class="formHelp">
+					<label for="look_for_duplicate" i18n:translate="">Look for duplicated record</label>
+					<div class="formHelp" i18n:translate="help_look_for_duplicate">
 						Before adding a row, check if there's already a row with EXACTLY the same data.
 						In that case: skip it.
 					</div>
