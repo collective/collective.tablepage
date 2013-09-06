@@ -152,7 +152,7 @@ TablePageSchema.moveField('downloadEnabled', after='tableContents')
 
 class TablePage(base.ATCTContent):
     """A document with an editable table"""
-    
+
     implements(ITablePage)
     security = ClassSecurityInfo()
 
@@ -222,5 +222,10 @@ class TablePage(base.ATCTContent):
                                                                       context=self)] \
                             for style in utility.tablestyles.splitlines()])
         return tuple()
+
+    security.declareProtected(permissions.ModifyPortalContent, 'setText')
+    def setText(self):
+        # for some reason, this is needed
+        pass
 
 atapi.registerType(TablePage, PROJECTNAME)

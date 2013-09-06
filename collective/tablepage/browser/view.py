@@ -63,6 +63,8 @@ class EditRecordView(BrowserView):
             return
         elif form.get('row-index') is not None:
             # load an existing row
+            if not self.check_manager_or_mine_record(form.get('row-index')):
+                raise Unauthorized("You can't modify that record")
             self.data = self.storage[form.get('row-index')]
         return self.index()
 
@@ -81,6 +83,18 @@ class EditRecordView(BrowserView):
     @memoize
     def storage(self):
         return IDataStorage(self.context)
+
+    def check_manager_or_mine_record(self, index):
+        """Security check on a record in the storage"""
+        storage = self.storage
+        context = self.context
+        member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
+        sm = getSecurityManager()
+        # check permissions: must be the owner user or have the "Manage table" permission
+        if not sm.checkPermission(config.MANAGE_TABLE, context) \
+                    and member.getId()!=storage[index].get('__creator__'):
+            return False
+        return True
 
     def _save(self):
         form = self.request.form
@@ -105,10 +119,7 @@ class EditRecordView(BrowserView):
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
             if form.get('row-index') is not None:
                 index = form.get('row-index')
-                sm = getSecurityManager()
-                # check permissions: must be the owner user or have the "Manage table" permission
-                if not sm.checkPermission(config.MANAGE_TABLE, context) \
-                            and member.getId()!=storage[index].get('__creator__'):
+                if not self.check_manager_or_mine_record(index):
                     raise Unauthorized("You can't modify that record")
                 storage.update(index, to_be_saved)
             else:
