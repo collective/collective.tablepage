@@ -127,11 +127,11 @@ class EditRecordView(BrowserView):
                 storage.add(to_be_saved)
             # if the table is changed, the content is changed
             _ = getToolByName(context, 'translation_service').utranslate
-            self._addNewversion(_(msgid="Row changed",
+            self._addNewVersion(_(msgid="Row changed",
                                   domain="collective.tablepage",
                                   context=context))
 
-    def _addNewversion(self, comment=''):
+    def _addNewVersion(self, comment=''):
         """Content must be updated, so the history machinery will save a new version"""
         context = self.context
         context.reindexObject()
@@ -160,7 +160,7 @@ class DeleteRecordView(EditRecordView):
                                       domain="collective.tablepage",
                                       context=context))
             # if the table is changed, the content is changed 
-            self._addNewversion(_(msgid="Row deleted",
+            self._addNewVersion(_(msgid="Row deleted",
                                   domain="collective.tablepage",
                                   context=context))
         self.request.response.redirect("%s/edit-table" % context.absolute_url())
@@ -184,7 +184,7 @@ class MoveRecordView(EditRecordView):
                                       domain="collective.tablepage",
                                       context=self.context))
             # if the table is changed, the content is changed
-            self._addNewversion(_(msgid="Row moved",
+            self._addNewVersion(_(msgid="Row moved",
                                   domain="collective.tablepage",
                                   context=self.context))
         self.request.response.redirect("%s/edit-table" % self.context.absolute_url())
