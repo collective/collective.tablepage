@@ -60,7 +60,8 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                  'description' : TextAreaColumn(_(u"Column description")),
                  'type' : SelectColumn(_(u"Type of data"),
                                        vocabulary_factory="collective.tablepage.vocabulary.column_types",
-                                       required=True),
+                                       required=True,
+                                       default="String"),
                  'vocabulary' : TextAreaColumn(_(u"Vocabulary for the column"),
                                                col_description=_("vocabulary_column_description",
                                                                    default=u"One item on every row. "
