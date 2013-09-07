@@ -23,11 +23,7 @@ class TablePageLayer(PloneSandboxLayer):
         xmlconfig.file('configure.zcml',
                        collective.tablepage,
                        context=configurationContext)
-        import Products.DataGridField
-        xmlconfig.file('configure.zcml',
-                       Products.DataGridField,
-                       context=configurationContext)
-        z2.installProduct(app, 'collective.tablepage', 'Products.DataGridField')
+        z2.installProduct(app, 'collective.tablepage')
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'collective.tablepage:default')

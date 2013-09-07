@@ -37,6 +37,9 @@ class DataStorage(object):
     def __delitem__(self, index):
         del self._ann[index]
 
+    def __len__(self):
+        return len(self._ann)
+
     def clear(self):
         """Clear all storage data"""
         ann = IAnnotations(self.context)

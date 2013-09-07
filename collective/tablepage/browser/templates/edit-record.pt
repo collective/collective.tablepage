@@ -9,13 +9,12 @@
 
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
-
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="not:request/row-index|nothing"> 
+		    tal:condition="python:request.get('row-index') is None"> 
             New row
         </h1>
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="request/row-index|nothing"> 
+		    tal:condition="python:request.get('row-index') is not None"> 
             Edit row
         </h1>
 

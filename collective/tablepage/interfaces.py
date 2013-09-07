@@ -30,6 +30,9 @@ class IDataStorage(Interface):
     def __delitem__(index):
         """Delete an item from the storage, by index"""
 
+    def __len__():
+        """Items in the storage"""
+
     def clear():
         """Clear all storage data"""
 
