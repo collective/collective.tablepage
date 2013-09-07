@@ -31,7 +31,7 @@ class FileField(BaseField):
 
     def can_add_file(self):
         member = getMultiAdapter((self.context, self.request), name=u'plone_portal_state').member()
-        return member.has_permission(permissions[TYPE_TO_CREATE], self.context.getAttachmentStorage())
+        return member.has_permission(permissions[TYPE_TO_CREATE], self.attachment_storage)
 
     @property
     @memoize
@@ -54,7 +54,9 @@ class FileField(BaseField):
 
     def attachments(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        return catalog(portal_type='File', path='/'.join(self.attachment_storage.getPhysicalPath()))
+        return catalog(portal_type='File',
+                       path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
+                             'depth':1})
 
 
 class FileDataRetriever(object):
@@ -70,7 +72,7 @@ class FileDataRetriever(object):
         self.context = context
 
     def get_from_request(self, name, request):
-        if request.get(name).filename:
+        if request.get(name) and request.get(name).filename:
             folder = self.context.getAttachmentStorage() or aq_parent(aq_inner(self.context))
             title = request.get('title_%s' % name)
             description = request.get('description_%s' % name)
