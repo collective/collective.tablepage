@@ -14,23 +14,5 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
-msgid "Column id"
-msgstr ""
-
-msgid "Column label"
-msgstr ""
-
-msgid "Column description"
-msgstr ""
-
-msgid "Type of data"
-msgstr ""
-
-msgid "Vocabulary for the column"
-msgstr ""
-
-msgid "vocabulary_column_description"
-msgstr ""
-
 msgid "Edit table"
 msgstr ""

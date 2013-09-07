@@ -137,7 +137,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
               searchable=False,
               schemata="settings",
               widget=atapi.BooleanWidget(
-                        label=_(u'Shown download link for data'),
+                        label=_(u'Show download link for data'),
                         description=_('help_download_enabled',
                                       default=u'Display a download link for data inside the table in CSV format'),
             ),

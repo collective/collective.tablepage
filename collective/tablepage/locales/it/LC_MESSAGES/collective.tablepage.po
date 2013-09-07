@@ -57,7 +57,7 @@ msgstr "Scarica come CSV"
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
-#: ./browser/templates/edit-record.pt:17
+#: ./browser/templates/edit-record.pt:16
 #: ./browser/templates/view-table.pt:66
 msgid "Edit row"
 msgstr "Modifica riga"
@@ -71,7 +71,7 @@ msgstr "Modifica i dati della tabella"
 msgid "File"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:22
+#: ./browser/templates/edit-record.pt:21
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
 
@@ -87,7 +87,7 @@ msgstr "Muovi riga giù"
 msgid "Move row up"
 msgstr "Muovi riga su"
 
-#: ./browser/templates/edit-record.pt:13
+#: ./browser/templates/edit-record.pt:12
 msgid "New row"
 msgstr "Nuova riga"
 
@@ -95,7 +95,7 @@ msgstr "Nuova riga"
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
 
-#: ./browser/templates/edit-record.pt:29
+#: ./browser/templates/edit-record.pt:28
 msgid "Provide data for the row"
 msgstr "Fornisci i dati della riga"
 
@@ -104,22 +104,22 @@ msgid "Remove row"
 msgstr "Elimina riga"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:119
+#: ./browser/view.py:130
 msgid "Row changed"
 msgstr "Riga cambiata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:152
+#: ./browser/view.py:163
 msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:148
+#: ./browser/view.py:159
 msgid "Row has been deleted"
 msgstr "La riga è stata eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:172
+#: ./browser/view.py:183
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
@@ -128,7 +128,7 @@ msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:176
+#: ./browser/view.py:187
 msgid "Row moved"
 msgstr "Riga mossa"
 
@@ -140,8 +140,8 @@ msgid "Select an existing document"
 msgstr "Seleziona un documento esistente"
 
 #: ./content/tablepage.py:140
-msgid "Shown download link for data"
-msgstr "Mostra collegamento per scaricare dati"
+msgid "Show download link for data"
+msgstr "Mostra link the scaricati i dati"
 
 msgid "String"
 msgstr "Stringa"

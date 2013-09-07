@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-06 14:29+0000\n"
+"POT-Creation-Date: 2013-09-07 15:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Download data in CSV format"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:17
+#: ./browser/templates/edit-record.pt:16
 #: ./browser/templates/view-table.pt:66
 msgid "Edit row"
 msgstr ""
@@ -76,7 +76,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:22
+#: ./browser/templates/edit-record.pt:21
 msgid "Fill data of this table's row"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Move row up"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:13
+#: ./browser/templates/edit-record.pt:12
 msgid "New row"
 msgstr ""
 
@@ -100,7 +100,7 @@ msgstr ""
 msgid "Page with Table"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:29
+#: ./browser/templates/edit-record.pt:28
 msgid "Provide data for the row"
 msgstr ""
 
@@ -109,22 +109,22 @@ msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:119
+#: ./browser/view.py:130
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:152
+#: ./browser/view.py:163
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:148
+#: ./browser/view.py:159
 msgid "Row has been deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:172
+#: ./browser/view.py:183
 msgid "Row has been moved"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:176
+#: ./browser/view.py:187
 msgid "Row moved"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgid "Select an existing document"
 msgstr ""
 
 #: ./content/tablepage.py:140
-msgid "Shown download link for data"
+msgid "Show download link for data"
 msgstr ""
 
 # FIELD - start
