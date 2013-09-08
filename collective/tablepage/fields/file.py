@@ -56,7 +56,7 @@ class FileField(BaseField):
         catalog = getToolByName(self.context, 'portal_catalog')
         return catalog(portal_type='File',
                        path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
-                             'depth':1})
+                             'depth': 1})
 
 
 class FileDataRetriever(object):

@@ -29,6 +29,7 @@ class TablePageLayer(PloneSandboxLayer):
         applyProfile(portal, 'collective.tablepage:default')
         workflowTool = getToolByName(portal, 'portal_workflow')
         workflowTool.setDefaultChain('simple_publication_workflow')
+        workflowTool.setChainForPortalTypes(('File',), ())
         #quickInstallProduct(portal, 'collective.analyticspanel')
         acl_users = getToolByName(portal, 'acl_users')
         setRoles(portal, TEST_USER_ID, ['Member', 'Manager'])
