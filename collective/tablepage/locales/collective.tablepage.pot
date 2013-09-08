@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-07 15:11+0000\n"
+"POT-Creation-Date: 2013-09-08 13:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,11 @@ msgstr ""
 msgid "Back to table editing"
 msgstr ""
 
-#: ./content/tablepage.py:90
+#: ./content/tablepage.py:91
 msgid "CSS classes"
 msgstr ""
 
-#: ./content/tablepage.py:91
+#: ./content/tablepage.py:92
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
 msgstr ""
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Select an existing document"
 msgstr ""
 
-#: ./content/tablepage.py:140
+#: ./content/tablepage.py:141
 msgid "Show download link for data"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "String"
 msgstr ""
 
-#: ./content/tablepage.py:76
+#: ./content/tablepage.py:77
 msgid "Table caption"
 msgstr ""
 
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
-#: ./content/tablepage.py:64
+#: ./content/tablepage.py:65
 msgid "Vocabulary for the column"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:141
+#: ./content/tablepage.py:142
 msgid "help_download_enabled"
 msgstr ""
 
@@ -228,12 +228,12 @@ msgid "help_select_file"
 msgstr ""
 
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:77
+#: ./content/tablepage.py:78
 msgid "help_table_caption"
 msgstr ""
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:115
+#: ./content/tablepage.py:116
 msgid "label_text_after"
 msgstr ""
 
@@ -242,28 +242,28 @@ msgstr ""
 msgid "label_text_before"
 msgstr ""
 
-#. Default: "Seems you have not permission to access the file storage. You can't load any attachment from the configured folder."
+#. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:53
 msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:201
+#: ./content/tablepage.py:202
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:207
+#: ./content/tablepage.py:208
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:211
+#: ./content/tablepage.py:212
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
 #. Default: "One item on every row. Used only when the type is \"Select\""
-#: ./content/tablepage.py:65
+#: ./content/tablepage.py:66
 msgid "vocabulary_column_description"
 msgstr ""
 

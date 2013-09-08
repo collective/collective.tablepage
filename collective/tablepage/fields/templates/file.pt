@@ -51,7 +51,7 @@
     tal:condition="python: view.attachment_storage is None">
 	<dt i18n:domain="plone" i18n:translate="">Warning</dt>
 	<dd i18n:translate="no_attachment_storage_access">
-		Seems you have not permission to access the file storage.
+		Seems you have no permission to access the file storage.
 		You can't load any attachment from the configured folder.
 	</dd>
 </dl>
