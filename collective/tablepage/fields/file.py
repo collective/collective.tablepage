@@ -29,6 +29,15 @@ class FileField(BaseField):
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
 
+    def render_view(self, data):
+        self.data = data or ''
+        uuid = data
+        rcatalog = getToolByName(self.context, 'reference_catalog')
+        obj = rcatalog.lookupObject(uuid)
+        if obj:
+            return self.view_template(title=obj.Title(), url=obj.absolute_url())
+        return ''
+
     def can_add_file(self):
         member = getMultiAdapter((self.context, self.request), name=u'plone_portal_state').member()
         return member.has_permission(permissions[TYPE_TO_CREATE], self.attachment_storage)
@@ -44,19 +53,20 @@ class FileField(BaseField):
         except Unauthorized:
             return None
 
-    def render_view(self, data):
-        uuid = data
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
-        if obj:
-            return self.view_template(title=obj.Title(), url=obj.absolute_url())
-        return ''
-
     def attachments(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        return catalog(portal_type='File',
-                       path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
-                             'depth': 1})
+        files_in_storage = catalog(portal_type='File',
+                                   path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
+                                         'depth': 1,
+                                         'order_by': 'getObjPositionInParent',
+        })
+        if self.data:
+            # we must handle the special case where the storage has been changed and
+            # when editing we haven't the old file still there
+            old = catalog(UID=self.data)
+            if old and old[0].getPath() not in [a.getPath() for a in files_in_storage]:
+                return old + files_in_storage 
+        return files_in_storage
 
 
 class FileDataRetriever(object):

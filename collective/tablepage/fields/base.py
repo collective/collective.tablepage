@@ -13,13 +13,16 @@ class BaseField(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.data = None
         self.configuration = None
 
     def render_edit(self, data):
-        return self.edit_template(data=data or '')
+        self.data = data or ''
+        return self.edit_template(data=data)
 
     def render_view(self, data):
-        return self.view_template(data=data or '')
+        self.data = data or ''
+        return self.view_template(data=data)
 
 
 class BaseFieldDataRetriever(object):
