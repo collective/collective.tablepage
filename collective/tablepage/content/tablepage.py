@@ -47,6 +47,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
     ),
 
     DataGridField('pageColumns',
+        required=True,
         storage=atapi.AnnotationStorage(),
         columns=("id", "label", "description", "type", "vocabulary", ),
         widget=DataGridWidget(
