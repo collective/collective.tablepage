@@ -72,11 +72,12 @@ class SecurityTestCase(unittest.TestCase):
         self.assertTrue('Seems you have no permission to access the file storage' in view())
 
     def test_view_forbidden_attachment(self):
-        """todo"""
+        """Although attachment is not accessible, normal table visitor can see the link"""
         portal = self.layer['portal']
         tp = portal.table_page
         folder = portal.folder
         tp.manage_setLocalRoles('user0', ('Contributor',))
         storage = IDataStorage(tp)
         storage.add({'__creator__': 'user0', 'att': folder.attachment.UID()})
-        tp() # TODO
+        logout()
+        self.assertTrue('An ancient attachment' in tp())

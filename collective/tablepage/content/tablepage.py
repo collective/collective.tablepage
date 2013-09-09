@@ -181,9 +181,9 @@ class TablePage(base.ATCTContent):
         # BBB: must be "empty" for empty table
         table_text = self.restrictedTraverse('@@view-table')()
         if table_text:
-            text += table_text
+            text += "\n" + table_text
         if self.getTextAfter():
-            text += self.getTextAfter()
+            text += "\n" + self.getTextAfter()
         if mimetype:
             portal_transforms = getToolByName(self, 'portal_transforms')
             return str(portal_transforms.convertToData(mimetype, text))
