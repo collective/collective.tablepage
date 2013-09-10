@@ -9,7 +9,7 @@ tests_require = ['plone.app.testing', ]
 
 install_requires = ['setuptools',
                     'Products.ATContentTypes',
-                    'collective.datagridcolumns>0.4.0',
+                    'collective.datagridcolumns>=0.5.0',
                     'Products.TinyMCE',
                     ]
 

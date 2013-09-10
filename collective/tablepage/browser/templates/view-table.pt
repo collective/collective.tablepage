@@ -1,14 +1,14 @@
 <table i18n:domain="collective.tablepage"
        class="listing tablePage"
        tal:define="portal_url view/portal_url;
-	               headers view/headers;
-				   rows view/rows;
-				   has_tablemanager_permission view/check_tablemanager_permission;
-				   cssClasses python:' '.join(context.getCssClasses());"
-	   tal:attributes="class python: cssClasses and cssClasses + ' tablePage' or 'tablePage'"
-	   tal:condition="python: view.edit_mode or len(rows)>0">
-	    <caption tal:condition="context/getTableCaption"
-		         tal:content="context/getTableCaption">This table is for...</caption>
+                   headers view/headers;
+                   rows view/rows;
+                   has_tablemanager_permission view/check_tablemanager_permission;
+                   cssClasses python:' '.join(context.getCssClasses());"
+       tal:attributes="class python: cssClasses and cssClasses + ' tablePage' or 'tablePage'"
+       tal:condition="python: view.edit_mode or len(rows)>0">
+        <caption tal:condition="context/getTableCaption"
+                 tal:content="context/getTableCaption">This table is for...</caption>
     <thead>
         <tr>
             <th tal:repeat="header headers" scope="col" class="nosort">
@@ -19,90 +19,91 @@
         </tr>
     </thead>
 
-	<tfoot class="visualNoPrint">
-		<tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+1">
-			<tal:canedit condition="view/edit_mode">
-			    <a class="command" href="" title="Add new row"
-				   i18n:attributes="title"
-				   tal:attributes="href string:${context/absolute_url}/@@edit-record">
-			        <img alt="Add new row" src=""
-					     i18n:attributes="alt"
-			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
-			    </a>
-			    <a class="command" href="" title="Upload data with CSV"
-				   tal:attributes="href string:${context/absolute_url}/@@upload-rows">
-			        <img alt="Upload data with CSV" src=""
-					     i18n:attributes="alt"
-			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
-			    </a>
-			</tal:canedit>
-			<tal:download_enabled tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
-			    <a class="command" href="" title="Download data in CSV format"
-				   tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
-				   i18n:attributes="title"
-				   tal:attributes="href string:${context/absolute_url}/@@download-table${target_mode}">
-			        <img alt="Download data in CSV format" src=""
-			             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
-						 i18n:attributes="alt"/>
-					<span class="discreet"
-					      tal:condition="not:view/edit_mode"
-						  i18n:translate="">Download as CSV</span>
-			    </a>			
-			</tal:download_enabled>
-		</td></tr>
-	</tfoot>
+    <tfoot class="visualNoPrint">
+        <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+1">
+            <tal:canedit condition="view/edit_mode">
+                <a class="command" href="" title="Add new row"
+                   i18n:attributes="title"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                    <img alt="Add new row" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
+                <a class="command" href="" title="Upload data with CSV"
+                   i18n:attributes="title"
+                   tal:attributes="href string:${context/absolute_url}/@@upload-rows">
+                    <img alt="Upload data with CSV" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
+                </a>
+            </tal:canedit>
+            <tal:download_enabled tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
+                <a class="command" href="" title="Download data in CSV format"
+                   tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
+                   i18n:attributes="title"
+                   tal:attributes="href string:${context/absolute_url}/@@download-table${target_mode}">
+                    <img alt="Download data in CSV format" src=""
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
+                         i18n:attributes="alt"/>
+                    <span class="discreet"
+                          tal:condition="not:view/edit_mode"
+                          i18n:translate="">Download as CSV</span>
+                </a>            
+            </tal:download_enabled>
+        </td></tr>
+    </tfoot>
 
     <tbody>
-    	<tal:rows repeat="row rows">
+        <tal:rows repeat="row rows">
         <tr tal:define="even repeat/row/even"
-		    tal:attributes="class python:even and 'odd' or 'even'">
+            tal:attributes="class python:even and 'odd' or 'even'">
             <td tal:repeat="cell row">
                 <span tal:replace="structure cell" />
             </td>
             <td class="rowCommands"
-			    tal:define="row_index repeat/row/index;"
-			    tal:condition="view/edit_mode">
-			    <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
-	                <a class="command" href="" title="Edit row"
-					   i18n:attributes="title"
-					   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
-	                    <img alt="Edit row" src=""
-						     i18n:attributes="alt"
-	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
-	                </a>
-	                <a class="command" href="" title="Remove row"
-					   i18n:attributes="title"
-					   tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">
-	                    <img alt="Remove row" src=""
-						     i18n:attributes="alt"
-	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />
-	                </a>
-				</tal:mine-or-editor>
-				<tal:manager-or-mine condition="has_tablemanager_permission">
-	                <a class="command" href="" title="Move row up"
-					   i18n:attributes="title"
-					   tal:condition="not:repeat/row/start"
-					   tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up">
-	                    <img alt="Move row up" src=""
-						     i18n:attributes="alt"
-	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png" />
-	                </a>
-	                <a class="command" href="" title="Move row down"
-					   i18n:attributes="title"
-					   tal:condition="not:repeat/row/end"
-					   tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down">
-	                    <img alt="Move row down" src=""
-						     i18n:attributes="alt"
-	                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png" />
-	                </a>
-				</tal:manager-or-mine>
+                tal:define="row_index repeat/row/index;"
+                tal:condition="view/edit_mode">
+                <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
+                    <a class="command" href="" title="Edit row"
+                       i18n:attributes="title"
+                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
+                        <img alt="Edit row" src=""
+                             i18n:attributes="alt"
+                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
+                    </a>
+                    <a class="command" href="" title="Remove row"
+                       i18n:attributes="title"
+                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">
+                        <img alt="Remove row" src=""
+                             i18n:attributes="alt"
+                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />
+                    </a>
+                </tal:mine-or-editor>
+                <tal:manager-or-mine condition="has_tablemanager_permission">
+                    <a class="command" href="" title="Move row up"
+                       i18n:attributes="title"
+                       tal:condition="not:repeat/row/start"
+                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up">
+                        <img alt="Move row up" src=""
+                             i18n:attributes="alt"
+                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png" />
+                    </a>
+                    <a class="command" href="" title="Move row down"
+                       i18n:attributes="title"
+                       tal:condition="not:repeat/row/end"
+                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down">
+                        <img alt="Move row down" src=""
+                             i18n:attributes="alt"
+                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png" />
+                    </a>
+                </tal:manager-or-mine>
             </td>
         </tr>
-		</tal:rows>
+        </tal:rows>
         <tr class="noResults" tal:condition="not: view/rows">
-        	<td tal:attributes="colspan python:len(headers)+1">
-        		No rows
-			</td>
+            <td tal:attributes="colspan python:len(headers)+1">
+                No rows
+            </td>
         </tr>
     </tbody>
 </table>

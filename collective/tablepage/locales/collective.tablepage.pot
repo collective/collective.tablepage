@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-08 13:18+0000\n"
+"POT-Creation-Date: 2013-09-10 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,41 +29,41 @@ msgstr ""
 msgid "Back to table editing"
 msgstr ""
 
-#: ./content/tablepage.py:91
+#: ./content/tablepage.py:92
 msgid "CSS classes"
 msgstr ""
 
-#: ./content/tablepage.py:92
+#: ./content/tablepage.py:93
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
 msgstr ""
 
-#: ./content/tablepage.py:60
+#: ./content/tablepage.py:61
 msgid "Column description"
 msgstr ""
 
-#: ./content/tablepage.py:58
+#: ./content/tablepage.py:59
 msgid "Column id"
 msgstr ""
 
-#: ./content/tablepage.py:59
+#: ./content/tablepage.py:60
 msgid "Column label"
 msgstr ""
 
-#: ./content/tablepage.py:53
+#: ./content/tablepage.py:54
 msgid "Columns"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:47
+#: ./browser/templates/view-table.pt:48
 msgid "Download as CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:40
+#: ./browser/templates/view-table.pt:41
 msgid "Download data in CSV format"
 msgstr ""
 
 #: ./browser/templates/edit-record.pt:16
-#: ./browser/templates/view-table.pt:66
+#: ./browser/templates/view-table.pt:67
 msgid "Edit row"
 msgstr ""
 
@@ -84,11 +84,11 @@ msgstr ""
 msgid "Look for duplicated record"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:90
+#: ./browser/templates/view-table.pt:91
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:82
+#: ./browser/templates/view-table.pt:83
 msgid "Move row up"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Provide data for the row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:73
+#: ./browser/templates/view-table.pt:74
 msgid "Remove row"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 msgid "Select an existing document"
 msgstr ""
 
-#: ./content/tablepage.py:141
+#: ./content/tablepage.py:142
 msgid "Show download link for data"
 msgstr ""
 
@@ -152,14 +152,14 @@ msgstr ""
 msgid "String"
 msgstr ""
 
-#: ./content/tablepage.py:77
+#: ./content/tablepage.py:78
 msgid "Table caption"
 msgstr ""
 
 msgid "Text"
 msgstr ""
 
-#: ./content/tablepage.py:61
+#: ./content/tablepage.py:62
 msgid "Type of data"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Upload data from CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:34
+#: ./browser/templates/view-table.pt:32
 msgid "Upload data with CSV"
 msgstr ""
 
@@ -183,7 +183,7 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
-#: ./content/tablepage.py:65
+#: ./content/tablepage.py:66
 msgid "Vocabulary for the column"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:142
+#: ./content/tablepage.py:143
 msgid "help_download_enabled"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgid "help_new_file"
 msgstr ""
 
 #. Default: "Definition of rows inside the table"
-#: ./content/tablepage.py:54
+#: ./content/tablepage.py:55
 msgid "help_pageColumns"
 msgstr ""
 
@@ -228,12 +228,12 @@ msgid "help_select_file"
 msgstr ""
 
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:78
+#: ./content/tablepage.py:79
 msgid "help_table_caption"
 msgstr ""
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:116
+#: ./content/tablepage.py:117
 msgid "label_text_after"
 msgstr ""
 
@@ -248,22 +248,22 @@ msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:202
+#: ./content/tablepage.py:203
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:208
+#: ./content/tablepage.py:209
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:212
+#: ./content/tablepage.py:213
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
 #. Default: "One item on every row. Used only when the type is \"Select\""
-#: ./content/tablepage.py:66
+#: ./content/tablepage.py:67
 msgid "vocabulary_column_description"
 msgstr ""
 

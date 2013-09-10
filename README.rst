@@ -31,8 +31,9 @@ Configuring the table
 
 The most important field is "**Columns**", where you can define the column structure of you table.
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1.0-02.png
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-02.png/image_large
    :alt: Page with Table configuration 
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-02.png
 
 For every column you can define some information like header's content and other description, but you must also define
 the *type* of data in the column.
@@ -62,14 +63,16 @@ Filling the table
 Configuration is not changing anything on your layour, but users with *Contributor* role on this document will see a
 new tab: "**Edit table**".
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1.0-01.png
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png/image_large
    :alt: Page with Table view 
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png
 
 When accessing the "*Edit table data*" view users will be able to add new rows to the table and edit their own rows.
 The data form given to the user is generated using the configuration options that the document creator defined before.
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1.0-03.png
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-03.png/image_large
    :alt: Add new row in the table 
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-03.png
 
 Some note:
 
@@ -78,19 +81,21 @@ Some note:
 * Users with "*Editor*" roles is able to edit or delete all rows
 * Users with "*Editor*" roles is able change row order
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1.0-04.png
-   :alt: Table editing 
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-04.png/image_large
+   :alt: Table editing
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-04.png
 
 When switching back to main document view, the generated table is part of the document body text.
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1.0-05.png
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-05.png/image_large
    :alt: Page with Table view
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-05.png
 
 Download and Upload data
 ------------------------
 
 * You can optionally display a link for download the table content as a CSV
-  (activate the "**Show download link for data**" from "*Settings*")
+  (activate the "*Show download link for data*" from "*Settings*")
 * Contributors can pupulate the table uploading a CSV file
 
 Column of type "File"
@@ -130,9 +135,9 @@ For Plone 3.3 you need some special configuration like:
 
 * A `custom branch of DataGridField`__ where we backported some new features from 1.8 branch
 * Available table styles are taken from TinyMCE configuration, so you must use it instead of Kupu
+* No versioning support is available
 
 __ https://github.com/RedTurtle/Products.DataGridField/tree/1.6
-
 
 Credits
 =======
