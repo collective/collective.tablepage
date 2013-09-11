@@ -19,7 +19,7 @@
         </tr>
     </thead>
 
-    <tfoot class="visualNoPrint">
+    <tfoot class="visualNoPrint" tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
         <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+1">
             <tal:canedit condition="view/edit_mode">
                 <a class="command" href="" title="Add new row"
@@ -37,7 +37,7 @@
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
                 </a>
             </tal:canedit>
-            <tal:download_enabled tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
+            <tal:download_enabled>
                 <a class="command" href="" title="Download data in CSV format"
                    tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
                    i18n:attributes="title"
@@ -101,7 +101,8 @@
         </tr>
         </tal:rows>
         <tr class="noResults" tal:condition="not: view/rows">
-            <td tal:attributes="colspan python:len(headers)+1">
+            <td tal:attributes="colspan python:len(headers)+1"
+			    i18n:translate="">
                 No rows
             </td>
         </tr>
