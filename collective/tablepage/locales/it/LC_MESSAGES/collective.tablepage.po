@@ -91,6 +91,10 @@ msgstr "Muovi riga su"
 msgid "New row"
 msgstr "Nuova riga"
 
+#: ./browser/templates/view-table.pt:104
+msgid "No rows"
+msgstr "Nessuna riga"
+
 #: ./profiles/default/types/TablePage.xml
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
@@ -141,7 +145,7 @@ msgstr "Seleziona un documento esistente"
 
 #: ./content/tablepage.py:142
 msgid "Show download link for data"
-msgstr "Mostra link the scaricati i dati"
+msgstr "Mostra link per scaricati i dati"
 
 msgid "String"
 msgstr "Stringa"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-10 15:07+0000\n"
+"POT-Creation-Date: 2013-09-11 08:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,6 +94,10 @@ msgstr ""
 
 #: ./browser/templates/edit-record.pt:12
 msgid "New row"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:104
+msgid "No rows"
 msgstr ""
 
 #: ./profiles/default/types/TablePage.xml
