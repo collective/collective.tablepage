@@ -176,10 +176,10 @@ class TablePage(base.ATCTContent):
 
     security.declareProtected(permissions.View, 'getText')
     def getText(self, mimetype=None):
+        """text field accessor"""
         text = ""
         if self.getTextBefore():
             text += self.getTextBefore()
-        # BBB: must be "empty" for empty table
         table_text = self.restrictedTraverse('@@view-table')()
         if table_text:
             text += "\n" + table_text

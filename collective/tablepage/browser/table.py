@@ -19,6 +19,12 @@ class TableViewView(BrowserView):
         self.datagrid = context.getField('pageColumns')
         self.edit_mode = False
 
+    def __call__(self):
+        storage = IDataStorage(self.context)
+        if not self.edit_mode and len(storage)==0:
+            return ""
+        return self.index()
+
     def headers(self):
         data = self.datagrid.get(self.context)
         results = []
