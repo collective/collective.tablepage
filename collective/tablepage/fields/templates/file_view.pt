@@ -1,3 +1,6 @@
-<a href="" tal:content="options/title"
-           tal:attributes="href string:${options/url}/at_download/file">
+<a href="" tal:attributes="href string:${options/url}/at_download/file">
+	<img src="" alt="" 
+	     tal:define="portal_url context/@@plone_portal_state/portal_url"
+		 tal:attributes="src string:${portal_url}/${options/icon}" />
+	<span tal:replace="options/title" />
 </a>

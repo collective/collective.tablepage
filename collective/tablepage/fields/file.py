@@ -35,7 +35,9 @@ class FileField(BaseField):
         rcatalog = getToolByName(self.context, 'reference_catalog')
         obj = rcatalog.lookupObject(uuid)
         if obj:
-            return self.view_template(title=obj.Title(), url=obj.absolute_url())
+            return self.view_template(title=obj.Title() or obj.getId(),
+                                      url=obj.absolute_url(),
+                                      icon=obj.getIcon(relative_to_portal=1))
         return ''
 
     def can_add_file(self):
