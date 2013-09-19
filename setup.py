@@ -22,7 +22,7 @@ else:
 
 setup(name='collective.tablepage',
       version=version,
-      description="A Plone content focused onto an editable table",
+      description="A Plone page with an editable table as main content",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -40,7 +40,7 @@ setup(name='collective.tablepage',
       keywords='plone page table plonegov',
       author='RedTurtle Technology',
       author_email='sviluppoplone@redturtle.it',
-      url='http://svn.plone.org/svn/collective/',
+      url='http://plone.org/products/collective.tablepage',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective', ],
