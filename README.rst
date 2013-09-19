@@ -96,7 +96,7 @@ Download and Upload data
 
 * You can optionally display a link for download the table content as a CSV
   (activate the "*Show download link for data*" from "*Settings*")
-* Contributors can pupulate the table uploading a CSV file
+* Contributors can populate the table uploading a CSV file
 
 Column of type "File"
 ---------------------
