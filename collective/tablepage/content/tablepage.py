@@ -182,7 +182,7 @@ class TablePage(base.ATCTContent):
             text += self.getTextBefore()
         table_text = self.restrictedTraverse('@@view-table')()
         if table_text:
-            text += "\n" + table_text
+            text += "\n" + table_text.encode('utf-8')
         if self.getTextAfter():
             text += "\n" + self.getTextAfter()
         if mimetype:
