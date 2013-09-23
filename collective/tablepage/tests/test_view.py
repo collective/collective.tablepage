@@ -25,12 +25,11 @@ class ViewTestCase(unittest.TestCase):
 
     def test_encoding(self):
         """Be sure that we have no problems with non-ASCII chars"""
-        # 
         portal = self.layer['portal']
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
         tp = portal.table_page
         tp.edit(textBefore='<p>L\xc3\xb2r\xc3\xa8m Ips\xc3\xb9m</p>',
-                pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
                               'type': 'String', 'vocabulary': ''}])
         storage = IDataStorage(tp)
         storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1'})
@@ -38,3 +37,4 @@ class ViewTestCase(unittest.TestCase):
             tp.getText()
         except UnicodeDecodeError:
             self.fail("getText() raised UnicodeDecodeError unexpectedly!")
+

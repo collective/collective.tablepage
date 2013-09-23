@@ -31,8 +31,9 @@ class TableViewView(BrowserView):
         for d in data:
             if not d:
                 continue
-            results.append(dict(label=tablepageMessageFactory(d['label']),
-                                description=tablepageMessageFactory(d.get('description', ''))))
+            results.append(dict(label=tablepageMessageFactory(d['label'].decode('utf-8')),
+                                description=tablepageMessageFactory(d.get('description', '').decode('utf-8')),
+                                ))
         return results
 
     def rows(self):
