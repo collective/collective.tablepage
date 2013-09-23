@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.1.1 (unreleased)
+0.1.1 (2013-09-23)
 ------------------
 
 - Fixed UnicodeDecodeError problem with non-ASCII chars [keul]
