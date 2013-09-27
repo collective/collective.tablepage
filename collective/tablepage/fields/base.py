@@ -6,7 +6,7 @@ from collective.tablepage.interfaces import IColumnDataRetriever
 class BaseField(object):
     """Generic helper class for all fields"""
 
-    # not implemente; subclasses must change this
+    # not implemented; subclasses must change this
     edit_template = None
     view_template = None
     
@@ -17,8 +17,9 @@ class BaseField(object):
         self.configuration = None
 
     def render_edit(self, data):
-        self.data = data or ''
-        return self.edit_template(data=data)
+        data = data or ''
+        self.data = data.decode('utf-8')
+        return self.edit_template(data=self.data)
 
     def render_view(self, data):
         self.data = data or ''

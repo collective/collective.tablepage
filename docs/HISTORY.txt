@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.2 (unreleased)
-----------------
+0.1.2 (unreleased)
+------------------
 
-- Nothing changed yet.
-
+- fixed encoding error on columns headers [keul]
+- fixed encoding error on editing rows [keul]
 
 0.1.1 (2013-09-23)
 ------------------
