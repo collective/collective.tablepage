@@ -30,7 +30,7 @@
     url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content" />
   </action>
-  <action title="Edit table" action_id="edit_table" category="object" condition_expr=""
+  <action title="Edit table" action_id="edit_table" category="object" condition_expr="object/getPageColumns"
     url_expr="string:${object_url}/edit-table" visible="True" i18n:domain="plone" i18n:attributes="title">
     <permission value="collective.tablepage: Edit Table" />
   </action>

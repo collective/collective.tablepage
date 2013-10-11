@@ -147,7 +147,6 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
     ),
 
     atapi.StringField('showHeaders',
-              required=True,
               searchable=False,
               schemata="settings",
               default="always",
