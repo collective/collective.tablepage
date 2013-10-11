@@ -25,6 +25,16 @@ class TableViewView(BrowserView):
             return ""
         return self.index()
 
+    def showHeaders(self):
+        """Logic for display table headers"""
+        show_headers_options = self.context.getShowHeaders()
+        if show_headers_options and show_headers_options!='always':
+            if show_headers_options=='view_only' and self.edit_mode:
+                return False
+            if show_headers_options=='edit_only' and not self.edit_mode:
+                return False
+        return True
+
     def headers(self):
         data = self.datagrid.get(self.context)
         results = []

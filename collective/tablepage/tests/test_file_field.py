@@ -2,8 +2,12 @@
 
 import unittest
 
+from StringIO import StringIO
+import os.path
+
 from zope import interface
 from zope.component import queryUtility
+from zope.component import getMultiAdapter
 from AccessControl import Unauthorized
 
 from plone.app.testing import TEST_USER_ID
@@ -81,3 +85,61 @@ class SecurityTestCase(unittest.TestCase):
         storage.add({'__creator__': 'user0', 'att': folder.attachment.UID()})
         logout()
         self.assertTrue('An ancient attachment' in tp())
+
+    def test_file_creation_1(self):
+        """Same file can be added multiple times when title is provided"""
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        folder = portal.folder
+        tp.manage_setLocalRoles('user0', ('Contributor',))
+        with open(__file__) as f:
+            file = StringIO(f.read())
+        file.filename = os.path.basename(__file__)
+        request.form['att'] = file
+        request.form['title_att'] = "A python file"
+        request.form['form.submitted'] = "1"
+        view = getMultiAdapter((tp, request), name='edit-record')
+        view()
+        self.assertTrue('a-python-file' in folder.objectIds())
+        file.seek(0)
+        request.form['att'] = file
+        request.form['title_att'] = "A python file"
+        request.form['form.submitted'] = "1"
+        view()
+        self.assertTrue('a-python-file-1' in folder.objectIds())        
+        file.seek(0)
+        request.form['att'] = file
+        request.form['title_att'] = "A python file"
+        request.form['form.submitted'] = "1"
+        request.form['title_att'] = "Another python file"        
+        view()
+        self.assertTrue('another-python-file' in folder.objectIds())
+
+    def test_file_creation_2(self):
+        """When title is not provided, file id is used and we can't add multiple files (same as Plone)"""
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        folder = portal.folder
+        tp.manage_setLocalRoles('user0', ('Contributor',))
+        with open(__file__) as f:
+            file = StringIO(f.read())
+        filename = os.path.basename(__file__)
+        file.filename = filename
+        request.form['att'] = file
+        request.form['form.submitted'] = "1"
+        view = getMultiAdapter((tp, request), name='edit-record')
+        view()
+        file_content = folder[filename]
+        self.assertTrue(file_content.getId() in folder.objectIds())
+        self.assertEqual(len(folder.objectIds()), 2)
+        file.seek(0)
+        request.form['att'] = file
+        request.form['form.submitted'] = "1"
+        view()
+        # we still have two files
+        self.assertEqual(len(folder.objectIds()), 2)
+        storage = IDataStorage(tp)
+        self.assertEqual(storage[0]['att'], storage[1]['att'])
+        

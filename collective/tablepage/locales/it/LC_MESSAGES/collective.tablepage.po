@@ -14,6 +14,18 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 
+#: ./content/tablepage.py:253
+msgid "... always display"
+msgstr "... mostra sempre"
+
+#: ./content/tablepage.py:251
+msgid "... only on page view"
+msgstr "... solo nella vista della pagina"
+
+#: ./content/tablepage.py:252
+msgid "... only when editing table"
+msgstr "... solo in modifica della tabella"
+
 #: ./profiles/default/types/TablePage.xml
 msgid "A page with an editable table"
 msgstr "Una pagina con una tabella modificabile"
@@ -24,6 +36,10 @@ msgstr "Aggiunge un nuovo tipo di contenuto, che contiene una tabella modificabi
 #: ./browser/templates/view-table.pt:25
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
+
+#: ./content/tablepage.py:126
+msgid "Attachment storage"
+msgstr "Contenitore allegati"
 
 #: ./browser/templates/upload-csv.pt:17
 msgid "Back to table editing"
@@ -143,9 +159,17 @@ msgstr "Selezione"
 msgid "Select an existing document"
 msgstr "Seleziona un documento esistente"
 
-#: ./content/tablepage.py:142
+#: ./content/tablepage.py:143
 msgid "Show download link for data"
 msgstr "Mostra link per scaricati i dati"
+
+#: ./content/tablepage.py:157
+msgid "Show headers"
+msgstr "Mostra intestazioni"
+
+#: ./content/tablepage.py:158
+msgid "Show table headers when..."
+msgstr "Mostra le intestazioni della tabella quando..."
 
 msgid "String"
 msgstr "Stringa"
@@ -185,6 +209,14 @@ msgstr "Carica..."
 msgid "Vocabulary for the column"
 msgstr "Vocabolario della colonna"
 
+#. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
+#: ./content/tablepage.py:127
+msgid "attachmentStorage_help"
+msgstr ""
+"Seleziona la cartella dove gli utenti potranno caricare allegati per le colonne di tipo simil-allegato (se ve ne sono).\n"
+"Gli utenti devono avere i diritti di caricare contenuti in questa cartella; se no, saranno solo in grado di selezionare elementi già esistenti.\n"
+"Se non fornita, sarà usata la cartella contenente questo documento."
+
 #. Default: "${count} rows added"
 #: ./browser/updownload.py:58
 msgid "count_rows_added"
@@ -200,8 +232,15 @@ msgstr "Il CSV DEVE contenere una riga di intestazione. Le intestazioni devono e
 msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:98
+msgid "duplicate_file_error"
+msgstr ""
+"Esiste già un elemento chiamato ${name} in questa cartella.\n"
+"Il caricamento dell'allegato è stato annullato."
+
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:143
+#: ./content/tablepage.py:144
 msgid "help_download_enabled"
 msgstr "Mostra un link per scaricare i dati contenuti nella tabella in formato CSV"
 
@@ -246,17 +285,17 @@ msgid "no_attachment_storage_access"
 msgstr "Sembra che tu non abbia i permessi per accedere al repositori dei file. Non puoi caricare nessun file dalla cartella configurata."
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:203
+#: ./content/tablepage.py:218
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:209
+#: ./content/tablepage.py:224
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:213
+#: ./content/tablepage.py:228
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 

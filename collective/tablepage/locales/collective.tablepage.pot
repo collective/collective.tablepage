@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-09-11 08:12+0000\n"
+"POT-Creation-Date: 2013-10-11 14:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,18 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 
+#: ./content/tablepage.py:253
+msgid "... always display"
+msgstr ""
+
+#: ./content/tablepage.py:251
+msgid "... only on page view"
+msgstr ""
+
+#: ./content/tablepage.py:252
+msgid "... only when editing table"
+msgstr ""
+
 #: ./profiles/default/types/TablePage.xml
 msgid "A page with an editable table"
 msgstr ""
@@ -23,6 +35,10 @@ msgstr ""
 
 #: ./browser/templates/view-table.pt:25
 msgid "Add new row"
+msgstr ""
+
+#: ./content/tablepage.py:126
+msgid "Attachment storage"
 msgstr ""
 
 #: ./browser/templates/upload-csv.pt:17
@@ -148,8 +164,16 @@ msgstr ""
 msgid "Select an existing document"
 msgstr ""
 
-#: ./content/tablepage.py:142
+#: ./content/tablepage.py:143
 msgid "Show download link for data"
+msgstr ""
+
+#: ./content/tablepage.py:157
+msgid "Show headers"
+msgstr ""
+
+#: ./content/tablepage.py:158
+msgid "Show table headers when..."
 msgstr ""
 
 # FIELD - start
@@ -191,6 +215,11 @@ msgstr ""
 msgid "Vocabulary for the column"
 msgstr ""
 
+#. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
+#: ./content/tablepage.py:127
+msgid "attachmentStorage_help"
+msgstr ""
+
 #. Default: "${count} rows added"
 #: ./browser/updownload.py:58
 msgid "count_rows_added"
@@ -206,8 +235,13 @@ msgstr ""
 msgid "description_edit_table_view"
 msgstr ""
 
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:98
+msgid "duplicate_file_error"
+msgstr ""
+
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:143
+#: ./content/tablepage.py:144
 msgid "help_download_enabled"
 msgstr ""
 
@@ -252,17 +286,17 @@ msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:203
+#: ./content/tablepage.py:218
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:209
+#: ./content/tablepage.py:224
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:213
+#: ./content/tablepage.py:228
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 

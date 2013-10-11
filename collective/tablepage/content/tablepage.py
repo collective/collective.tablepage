@@ -123,12 +123,13 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
     atapi.ReferenceField('attachmentStorage',
             allowed_types=('Folder',),
             relationship="tablepage_storage",
-            widget=ReferenceBrowserWidget(label=u"Attachment storage",
-                                          description=u"Select the folder where users will be able to store attachments for "
-                                                      u"attachment-like columns (if any).\n"
-                                                      u"Users must be able to add new contents on that folder; if not, he "
-                                                      u"will be only able to select existings items.\n"
-                                                      u"If not provided, the folder containing this document will be used.",
+            widget=ReferenceBrowserWidget(label=_(u"Attachment storage"),
+                                          description=_('attachmentStorage_help',
+                                                        default=u"Select the folder where users will be able to store attachments for "
+                                                                u"attachment-like columns (if any).\n"
+                                                                u"Users must be able to add new contents on that folder; if not, they "
+                                                                u"will be only able to select existings items.\n"
+                                                                u"If not provided, the folder containing this document will be used."),
                                           force_close_on_insert=True,
                                           visible={'view': 'invisible', 'edit': 'visible'},
                                           ),
@@ -144,6 +145,20 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                                       default=u'Display a download link for data inside the table in CSV format'),
             ),
     ),
+
+    atapi.StringField('showHeaders',
+              required=True,
+              searchable=False,
+              schemata="settings",
+              default="always",
+              vocabulary="showHeadersVocabulary",
+              enforceVocabulary=True,
+              widget=atapi.SelectionWidget(
+                        label=_(u'Show headers'),
+                        description=_(u'Show table headers when...'),
+            ),
+    ),
+
 
 ))
 
@@ -229,5 +244,13 @@ class TablePage(base.ATCTContent):
     def setText(self):
         # for some reason, this is needed
         pass
+
+    security.declarePublic('showHeadersVocabulary')
+    def showHeadersVocabulary(self):
+        return atapi.DisplayList(
+            (('view_only', _("... only on page view")),
+            ('edit_only', _("... only when editing table")),
+            ('always', _("... always display"))),
+        )
 
 atapi.registerType(TablePage, PROJECTNAME)

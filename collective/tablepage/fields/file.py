@@ -5,6 +5,7 @@ from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from zope.component import queryUtility
+from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.base import BaseFieldDataRetriever
@@ -37,6 +38,7 @@ class FileField(BaseField):
         if obj:
             return self.view_template(title=obj.Title() or obj.getId(),
                                       url=obj.absolute_url(),
+                                      description=obj.Description(),
                                       icon=obj.getIcon(relative_to_portal=1))
         return ''
 
@@ -90,6 +92,15 @@ class FileDataRetriever(object):
             description = request.get('description_%s' % name)
             file = request.get(name)
             newId = folder.generateUniqueId(TYPE_TO_CREATE)
+            if not title and file.filename in folder.objectIds():
+                # WARNING: we don't get the file title, to obtain the id
+                plone_utils = getToolByName(self.context, 'plone_utils')
+                plone_utils.addPortalMessage(_('duplicate_file_error',
+                                               default=u'There is already an item named ${name} in this folder.\n'
+                                                       u'Loading of the attachment has been aborted.',
+                                               mapping={'name': file.filename}),
+                                             type='warning')
+                return {name: folder[file.filename].UID()}
             folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
                                  title=title, description=description)
             new_doc = folder[newId]

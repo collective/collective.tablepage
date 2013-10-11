@@ -9,7 +9,7 @@
        tal:condition="python: view.edit_mode or len(rows)>0">
         <caption tal:condition="context/getTableCaption"
                  tal:content="context/getTableCaption">This table is for...</caption>
-    <thead>
+    <thead tal:condition="view/showHeaders">
         <tr>
             <th tal:repeat="header headers" scope="col" class="nosort">
                 <span tal:replace="header/label">Header 1</span>
@@ -37,7 +37,7 @@
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
                 </a>
             </tal:canedit>
-            <tal:download_enabled>
+            <tal:download_enabled tal:condition="rows">
                 <a class="command" href="" title="Download data in CSV format"
                    tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
                    i18n:attributes="title"

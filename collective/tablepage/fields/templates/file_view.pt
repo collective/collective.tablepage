@@ -1,4 +1,5 @@
-<a href="" tal:attributes="href string:${options/url}/at_download/file">
+<a href="" tal:attributes="href string:${options/url}/at_download/file;
+                           title string:${options/description};">
 	<img src="" alt="" 
 	     tal:define="portal_url context/@@plone_portal_state/portal_url"
 		 tal:attributes="src string:${portal_url}/${options/icon}" />

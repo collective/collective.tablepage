@@ -4,8 +4,11 @@ Changelog
 0.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Fixed missing translations [keul]
+- Do not display "download as CSV" for empty tables [keul]
+- Added an option for choose when display headers [keul]
+- Handle loading of duplicate file id: file is not loaded twice but
+  same reference is kept [keul]
 
 0.1.2 (2013-09-27)
 ------------------
