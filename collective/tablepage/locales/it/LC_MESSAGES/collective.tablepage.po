@@ -14,15 +14,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 
-#: ./content/tablepage.py:253
+#: ./content/tablepage.py:252
 msgid "... always display"
 msgstr "... mostra sempre"
 
-#: ./content/tablepage.py:251
+#: ./content/tablepage.py:250
 msgid "... only on page view"
 msgstr "... solo nella vista della pagina"
 
-#: ./content/tablepage.py:252
+#: ./content/tablepage.py:251
 msgid "... only when editing table"
 msgstr "... solo in modifica della tabella"
 
@@ -124,22 +124,27 @@ msgid "Remove row"
 msgstr "Elimina riga"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:130
+#: ./browser/view.py:132
+msgid "Row added"
+msgstr "Riga aggiunta"
+
+#. Default: "collective.tablepage"
+#: ./browser/view.py:126
 msgid "Row changed"
 msgstr "Riga cambiata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:163
+#: ./browser/view.py:166
 msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:159
+#: ./browser/view.py:162
 msgid "Row has been deleted"
 msgstr "La riga è stata eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:183
+#: ./browser/view.py:186
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
@@ -148,7 +153,7 @@ msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:187
+#: ./browser/view.py:190
 msgid "Row moved"
 msgstr "Riga mossa"
 
@@ -163,11 +168,11 @@ msgstr "Seleziona un documento esistente"
 msgid "Show download link for data"
 msgstr "Mostra link per scaricati i dati"
 
-#: ./content/tablepage.py:157
+#: ./content/tablepage.py:156
 msgid "Show headers"
 msgstr "Mostra intestazioni"
 
-#: ./content/tablepage.py:158
+#: ./content/tablepage.py:157
 msgid "Show table headers when..."
 msgstr "Mostra le intestazioni della tabella quando..."
 
@@ -285,17 +290,17 @@ msgid "no_attachment_storage_access"
 msgstr "Sembra che tu non abbia i permessi per accedere al repositori dei file. Non puoi caricare nessun file dalla cartella configurata."
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:218
+#: ./content/tablepage.py:217
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:224
+#: ./content/tablepage.py:223
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:228
+#: ./content/tablepage.py:227
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 

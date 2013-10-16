@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-11 14:37+0000\n"
+"POT-Creation-Date: 2013-10-16 07:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,15 +14,15 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 
-#: ./content/tablepage.py:253
+#: ./content/tablepage.py:252
 msgid "... always display"
 msgstr ""
 
-#: ./content/tablepage.py:251
+#: ./content/tablepage.py:250
 msgid "... only on page view"
 msgstr ""
 
-#: ./content/tablepage.py:252
+#: ./content/tablepage.py:251
 msgid "... only when editing table"
 msgstr ""
 
@@ -129,22 +129,27 @@ msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:130
+#: ./browser/view.py:132
+msgid "Row added"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ./browser/view.py:126
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:163
+#: ./browser/view.py:166
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:159
+#: ./browser/view.py:162
 msgid "Row has been deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:183
+#: ./browser/view.py:186
 msgid "Row has been moved"
 msgstr ""
 
@@ -153,7 +158,7 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:187
+#: ./browser/view.py:190
 msgid "Row moved"
 msgstr ""
 
@@ -168,11 +173,11 @@ msgstr ""
 msgid "Show download link for data"
 msgstr ""
 
-#: ./content/tablepage.py:157
+#: ./content/tablepage.py:156
 msgid "Show headers"
 msgstr ""
 
-#: ./content/tablepage.py:158
+#: ./content/tablepage.py:157
 msgid "Show table headers when..."
 msgstr ""
 
@@ -286,17 +291,17 @@ msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:218
+#: ./content/tablepage.py:217
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:224
+#: ./content/tablepage.py:223
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:228
+#: ./content/tablepage.py:227
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 

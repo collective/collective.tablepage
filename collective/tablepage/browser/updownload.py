@@ -11,6 +11,15 @@ from zope.component import getAdapter
 from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 
+try:
+    from Products.CMFEditions.utilities import isObjectChanged
+    from Products.CMFEditions.utilities import maybeSaveVersion
+    from Products.CMFEditions.utilities import isObjectVersioned
+    VERSIONING_SUPPORT = True
+except ImportError:
+    # No versioning support for Plone 3.3 version of CMFEditions
+    VERSIONING_SUPPORT = False
+
 
 class UploadDataView(BrowserView):
     """Massive upload of rows using CSV"""
@@ -55,12 +64,20 @@ class UploadDataView(BrowserView):
                     tobe_saved['__creator__'] = member.getId()
                     counter += 1
                     storage.add(tobe_saved)
-            putils.addPortalMessage(_('count_rows_added',
-                                      default=u'${count} rows added',
-                                      mapping={'count': counter}))
-            request.response.redirect('%s/edit-table' % context.absolute_url())
-            return
+            msg = _('count_rows_added',
+                    default=u'${count} rows added',
+                    mapping={'count': counter})
+            putils.addPortalMessage(msg)
+            self._addNewVersion(msg)
+            return request.response.redirect('%s/edit-table' % context.absolute_url())
         return self.index()
+
+    def _addNewVersion(self, comment=''):
+        """Content must be updated, so the history machinery will save a new version"""
+        context = self.context
+        context.reindexObject()
+        if VERSIONING_SUPPORT and isObjectChanged(context) and isObjectVersioned(context):
+            maybeSaveVersion(context, comment=comment)
 
     def _checkDuplicateRow(self, new_line, storage):
         """Iterate onto the storage, returns True if there's at least a row with the sae data of the new row"""

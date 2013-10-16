@@ -4,8 +4,10 @@ Changelog
 0.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- Different versioning message when a row is changed
+  or modified [keul]
+- Added missing versioning attempt when using CSV upload
+  [keul]
 
 0.2 (2013-10-11)
 ----------------

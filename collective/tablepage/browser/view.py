@@ -117,19 +117,21 @@ class EditRecordView(BrowserView):
                 to_be_saved.update(**data)
         if to_be_saved:
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
+            _ = getToolByName(context, 'translation_service').utranslate
             if form.get('row-index') is not None:
                 index = form.get('row-index')
                 if not self.check_manager_or_mine_record(index):
                     raise Unauthorized("You can't modify that record")
                 storage.update(index, to_be_saved)
+                self._addNewVersion(_(msgid="Row changed",
+                                      domain="collective.tablepage",
+                                      context=context))
             else:
                 to_be_saved['__creator__'] = member.getId()
                 storage.add(to_be_saved)
-            # if the table is changed, the content is changed
-            _ = getToolByName(context, 'translation_service').utranslate
-            self._addNewVersion(_(msgid="Row changed",
-                                  domain="collective.tablepage",
-                                  context=context))
+                self._addNewVersion(_(msgid="Row added",
+                                      domain="collective.tablepage",
+                                      context=context))
 
     def _addNewVersion(self, comment=''):
         """Content must be updated, so the history machinery will save a new version"""
