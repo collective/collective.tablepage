@@ -1,8 +1,8 @@
 <form tal:omit-tag="not:view/edit_mode"
       id="tableForm"
-	  action=""
-	  method="post"
-	  tal:attributes="action string:${context/absolute_url}/@@delete-record">
+      action=""
+      method="post"
+      tal:attributes="action string:${context/absolute_url}/@@delete-record">
 
 <table i18n:domain="collective.tablepage"
        class="listing tablePage"
@@ -18,9 +18,9 @@
     <thead tal:condition="view/showHeaders">
         <tr>
             <th class="nosort" tal:condition="python: view.edit_mode and rows"
-			    onclick="">
+                onclick="">
                 <input type="checkbox" id="selectAll" title="Select/unselect all"
-				       i18n:attributes="title">
+                       i18n:attributes="title">
             </th>
             <th tal:repeat="header headers" scope="col" class="nosort">
                 <span tal:replace="header/label">Header 1</span>
@@ -43,7 +43,7 @@
                 <a class="command" href="" title="Delete selected rows"
                    i18n:attributes="title"
                    href=""
-				   onclick="$('#tableForm').submit();return false;">
+                   onclick="$('#tableForm').submit();return false;">
                     <img alt="Delete rows" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/remove.png" />
@@ -74,17 +74,18 @@
 
     <tbody>
         <tal:rows repeat="row rows">
-        <tr tal:define="even repeat/row/even"
+        <tr tal:define="even repeat/row/even;
+                        row_index repeat/row/index;"
             tal:attributes="class python:even and 'odd' or 'even'">
             <td tal:condition="python:view.edit_mode">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
-				       tal:attributes="value repeat/row/index" />
+                       tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
+                       tal:attributes="value repeat/row/index" />
             </td>
             <td tal:repeat="cell row">
                 <span tal:replace="structure cell" />
             </td>
             <td class="rowCommands"
-                tal:define="row_index repeat/row/index;"
                 tal:condition="view/edit_mode">
                 <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
                     <a class="command" href="" title="Edit row"

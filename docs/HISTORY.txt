@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.4 (unreleased)
-----------------
+0.3.1 (unreleased)
+------------------
 
-- Nothing changed yet.
-
+- Do not display selection checkbox if I cant delete a row
+  [keul]
 
 0.3 (2013-10-18)
 ----------------
