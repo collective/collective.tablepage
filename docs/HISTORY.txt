@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2013-10-18)
 ----------------
 
 - Different versioning message when a row is changed
