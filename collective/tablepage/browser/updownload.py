@@ -45,9 +45,9 @@ class UploadDataView(BrowserView):
             putils = getToolByName(context, 'plone_utils')
             for line, row in enumerate(reader):
                 if first:
-                    headers = [h for h in row if h in valid_headers]
+                    headers = [h.strip() for h in row if h.strip()]
                     # CSV row is accessed by index
-                    headers = [(h, headers.index(h)) for h in headers]
+                    headers = [(h, headers.index(h)) for h in headers if h in valid_headers]
                     first = False
                     continue
                 tobe_saved = {}
