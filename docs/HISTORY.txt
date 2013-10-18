@@ -8,6 +8,10 @@ Changelog
   or modified [keul]
 - Added missing versioning attempt when using CSV upload
   [keul]
+- Fixed a performance/security problem: data inside text cells
+  were transformed to HTML without any check (and this was also
+  *really* slow)
+  [keul]
 
 0.2 (2013-10-11)
 ----------------

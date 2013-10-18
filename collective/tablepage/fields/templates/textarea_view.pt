@@ -1,4 +1,4 @@
 <span tal:define="portal_transforms nocall:context/portal_transforms;
                   text options/data;"
       tal:condition="text"
-      tal:replace="structure python:str(portal_transforms.convertToData('text/html', text))" />
+      tal:replace="structure python:view.renderText(text)" />
