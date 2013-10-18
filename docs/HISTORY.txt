@@ -12,6 +12,8 @@ Changelog
   were transformed to HTML without any check (and this was also
   *really* slow)
   [keul]
+- Can now delete multiple (or all) rows
+  [keul]
 
 0.2 (2013-10-11)
 ----------------

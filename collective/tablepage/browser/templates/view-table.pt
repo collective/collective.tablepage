@@ -1,3 +1,9 @@
+<form tal:omit-tag="not:view/edit_mode"
+      id="tableForm"
+	  action=""
+	  method="post"
+	  tal:attributes="action string:${context/absolute_url}/@@delete-record">
+
 <table i18n:domain="collective.tablepage"
        class="listing tablePage"
        tal:define="portal_url view/portal_url;
@@ -11,6 +17,11 @@
                  tal:content="context/getTableCaption">This table is for...</caption>
     <thead tal:condition="view/showHeaders">
         <tr>
+            <th class="nosort" tal:condition="python: view.edit_mode and rows"
+			    onclick="">
+                <input type="checkbox" id="selectAll" title="Select/unselect all"
+				       i18n:attributes="title">
+            </th>
             <th tal:repeat="header headers" scope="col" class="nosort">
                 <span tal:replace="header/label">Header 1</span>
                 <div class="discreet" tal:content="header/description">This is for...</div>
@@ -20,7 +31,7 @@
     </thead>
 
     <tfoot class="visualNoPrint" tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
-        <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+1">
+        <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+2">
             <tal:canedit condition="python: view.edit_mode and context.getPageColumns()">
                 <a class="command" href="" title="Add new row"
                    i18n:attributes="title"
@@ -28,6 +39,14 @@
                     <img alt="Add new row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
+                <a class="command" href="" title="Delete selected rows"
+                   i18n:attributes="title"
+                   href=""
+				   onclick="$('#tableForm').submit();return false;">
+                    <img alt="Delete rows" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/remove.png" />
                 </a>
                 <a class="command" href="" title="Upload data with CSV"
                    i18n:attributes="title"
@@ -57,6 +76,10 @@
         <tal:rows repeat="row rows">
         <tr tal:define="even repeat/row/even"
             tal:attributes="class python:even and 'odd' or 'even'">
+            <td tal:condition="python:view.edit_mode">
+                <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
+				       tal:attributes="value repeat/row/index" />
+            </td>
             <td tal:repeat="cell row">
                 <span tal:replace="structure cell" />
             </td>
@@ -102,9 +125,11 @@
         </tal:rows>
         <tr class="noResults" tal:condition="not: view/rows">
             <td tal:attributes="colspan python:len(headers)+1"
-			    i18n:translate="">
+                i18n:translate="">
                 No rows
             </td>
         </tr>
     </tbody>
 </table>
+
+</form>

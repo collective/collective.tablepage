@@ -146,25 +146,36 @@ class DeleteRecordView(EditRecordView):
     
     def __call__(self):
         context = self.context
-        index = self.request.form.get('row-index')
-        if index is not None:
+        indexes = self.request.form.get('row-index')
+        if indexes is not None:
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
+            putils = getToolByName(context, 'plone_utils')
+            _ = getToolByName(context, 'translation_service').utranslate
             sm = getSecurityManager()
             # check permissions: must be the owner user or have the "Manage table" permission
             storage = self.storage
-            if not sm.checkPermission(config.MANAGE_TABLE, context) \
-                        and member.getId()!=storage[index].get('__creator__'):
-                    raise Unauthorized("You can't delete that record")
-            del storage[index]
-            putils = getToolByName(context, 'plone_utils')
-            _ = getToolByName(context, 'translation_service').utranslate
-            putils.addPortalMessage(_(msgid='Row has been deleted',
-                                      domain="collective.tablepage",
-                                      context=context))
+            if isinstance(indexes, int):
+                # we get an int when clicking on single row delete command
+                indexes = [indexes,]
+            for c, index in enumerate(indexes):
+                if not sm.checkPermission(config.MANAGE_TABLE, context) \
+                            and member.getId()!=storage[index].get('__creator__'):
+                        raise Unauthorized("You can't delete that record")
+                del storage[index-c]
+
+            if len(indexes)==1:
+                msg = _(msgid="Row deleted",
+                        domain="collective.tablepage",
+                        context=context)
+            else:
+                msg = _(msgid='${count} rows deleted',
+                        domain="collective.tablepage",
+                        mapping={'count': len(indexes)},
+                        context=context)
+            putils.addPortalMessage(msg)
             # if the table is changed, the content is changed 
-            self._addNewVersion(_(msgid="Row deleted",
-                                  domain="collective.tablepage",
-                                  context=context))
+            self._addNewVersion(msg)
+
         self.request.response.redirect("%s/edit-table" % context.absolute_url())
 
 

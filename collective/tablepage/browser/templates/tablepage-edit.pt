@@ -5,6 +5,27 @@
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="collective.tablepage">
+
+<head>
+<metal:js fill-slot="javascript_head_slot">
+<script type="text/javascript">
+<!--
+(function ($) {
+    $(document).ready(function () {
+		$('#selectAll').click(function(event) {
+            if ($(this).is(':checked')) {
+                $('.selectRow').attr('checked', 'checked');
+            } else {
+                $('.selectRow').removeAttr('checked');
+            }
+        });
+    });
+})(jQuery);
+//-->
+</script>
+</metal:js>
+</head>
+
 <body>
 
 <metal:main fill-slot="main">

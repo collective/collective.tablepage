@@ -14,6 +14,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 
+#. Default: "collective.tablepage"
+#: ./browser/view.py:171
+msgid "${count} rows deleted"
+msgstr "${count} righe eliminate"
+
 #: ./content/tablepage.py:252
 msgid "... always display"
 msgstr "... mostra sempre"
@@ -33,7 +38,7 @@ msgstr "Una pagina con una tabella modificabile"
 msgid "Add a new content type, that contains an editable table"
 msgstr "Aggiunge un nuovo tipo di contenuto, che contiene una tabella modificabile"
 
-#: ./browser/templates/view-table.pt:25
+#: ./browser/templates/view-table.pt:36
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
 
@@ -65,20 +70,28 @@ msgstr "Etichetta colonna"
 msgid "Columns"
 msgstr "Colonne"
 
-#: ./browser/templates/view-table.pt:48
+#: ./browser/templates/view-table.pt:47
+msgid "Delete rows"
+msgstr "Elimina righe"
+
+#: ./browser/templates/view-table.pt:43
+msgid "Delete selected rows"
+msgstr "Elimina le righe selezionate"
+
+#: ./browser/templates/view-table.pt:67
 msgid "Download as CSV"
 msgstr "Scarica come CSV"
 
-#: ./browser/templates/view-table.pt:41
+#: ./browser/templates/view-table.pt:60
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
 #: ./browser/templates/edit-record.pt:16
-#: ./browser/templates/view-table.pt:67
+#: ./browser/templates/view-table.pt:91
 msgid "Edit row"
 msgstr "Modifica riga"
 
-#: ./browser/templates/tablepage-edit.pt:13
+#: ./browser/templates/tablepage-edit.pt:34
 msgid "Edit table data"
 msgstr "Modifica i dati della tabella"
 
@@ -95,11 +108,11 @@ msgstr "Compila i dati di questa riga della tabella"
 msgid "Look for duplicated record"
 msgstr "Cerca record duplicati"
 
-#: ./browser/templates/view-table.pt:91
+#: ./browser/templates/view-table.pt:115
 msgid "Move row down"
 msgstr "Muovi riga giù"
 
-#: ./browser/templates/view-table.pt:83
+#: ./browser/templates/view-table.pt:107
 msgid "Move row up"
 msgstr "Muovi riga su"
 
@@ -107,7 +120,7 @@ msgstr "Muovi riga su"
 msgid "New row"
 msgstr "Nuova riga"
 
-#: ./browser/templates/view-table.pt:104
+#: ./browser/templates/view-table.pt:128
 msgid "No rows"
 msgstr "Nessuna riga"
 
@@ -119,7 +132,7 @@ msgstr "Pagina con Tabella"
 msgid "Provide data for the row"
 msgstr "Fornisci i dati della riga"
 
-#: ./browser/templates/view-table.pt:74
+#: ./browser/templates/view-table.pt:98
 msgid "Remove row"
 msgstr "Elimina riga"
 
@@ -134,17 +147,12 @@ msgid "Row changed"
 msgstr "Riga cambiata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:166
+#: ./browser/view.py:167
 msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:162
-msgid "Row has been deleted"
-msgstr "La riga è stata eliminata"
-
-#. Default: "collective.tablepage"
-#: ./browser/view.py:186
+#: ./browser/view.py:196
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
@@ -153,7 +161,7 @@ msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:190
+#: ./browser/view.py:200
 msgid "Row moved"
 msgstr "Riga mossa"
 
@@ -163,6 +171,10 @@ msgstr "Selezione"
 #: ./fields/templates/file.pt:32
 msgid "Select an existing document"
 msgstr "Seleziona un documento esistente"
+
+#: ./browser/templates/view-table.pt:22
+msgid "Select/unselect all"
+msgstr "Seleziona/deseleziona tutti"
 
 #: ./content/tablepage.py:143
 msgid "Show download link for data"
@@ -202,7 +214,7 @@ msgstr "Carica un nuovo documento"
 msgid "Upload data from CSV"
 msgstr "Carica dati da CSV"
 
-#: ./browser/templates/view-table.pt:32
+#: ./browser/templates/view-table.pt:51
 msgid "Upload data with CSV"
 msgstr "Carica dati con CSV"
 
@@ -223,7 +235,7 @@ msgstr ""
 "Se non fornita, sarà usata la cartella contenente questo documento."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:58
+#: ./browser/updownload.py:67
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -233,7 +245,7 @@ msgid "csv_upload_help"
 msgstr "Il CSV DEVE contenere una riga di intestazione. Le intestazioni devono essere uguali agli id usati nella configurazione (i valori attualmente possibili sono: ${cols})."
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:17
+#: ./browser/templates/tablepage-edit.pt:38
 msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
@@ -310,7 +322,7 @@ msgid "vocabulary_column_description"
 msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:49
+#: ./browser/updownload.py:58
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
 

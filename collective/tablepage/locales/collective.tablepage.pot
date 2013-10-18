@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-16 07:28+0000\n"
+"POT-Creation-Date: 2013-10-18 14:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,11 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
+
+#. Default: "collective.tablepage"
+#: ./browser/view.py:171
+msgid "${count} rows deleted"
+msgstr ""
 
 #: ./content/tablepage.py:252
 msgid "... always display"
@@ -33,7 +38,7 @@ msgstr ""
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:25
+#: ./browser/templates/view-table.pt:36
 msgid "Add new row"
 msgstr ""
 
@@ -70,20 +75,28 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:48
+#: ./browser/templates/view-table.pt:47
+msgid "Delete rows"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:43
+msgid "Delete selected rows"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:67
 msgid "Download as CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:41
+#: ./browser/templates/view-table.pt:60
 msgid "Download data in CSV format"
 msgstr ""
 
 #: ./browser/templates/edit-record.pt:16
-#: ./browser/templates/view-table.pt:67
+#: ./browser/templates/view-table.pt:91
 msgid "Edit row"
 msgstr ""
 
-#: ./browser/templates/tablepage-edit.pt:13
+#: ./browser/templates/tablepage-edit.pt:34
 msgid "Edit table data"
 msgstr ""
 
@@ -100,11 +113,11 @@ msgstr ""
 msgid "Look for duplicated record"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:91
+#: ./browser/templates/view-table.pt:115
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:83
+#: ./browser/templates/view-table.pt:107
 msgid "Move row up"
 msgstr ""
 
@@ -112,7 +125,7 @@ msgstr ""
 msgid "New row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:104
+#: ./browser/templates/view-table.pt:128
 msgid "No rows"
 msgstr ""
 
@@ -124,7 +137,7 @@ msgstr ""
 msgid "Provide data for the row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:74
+#: ./browser/templates/view-table.pt:98
 msgid "Remove row"
 msgstr ""
 
@@ -139,17 +152,12 @@ msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:166
+#: ./browser/view.py:167
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:162
-msgid "Row has been deleted"
-msgstr ""
-
-#. Default: "collective.tablepage"
-#: ./browser/view.py:186
+#: ./browser/view.py:196
 msgid "Row has been moved"
 msgstr ""
 
@@ -158,7 +166,7 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:190
+#: ./browser/view.py:200
 msgid "Row moved"
 msgstr ""
 
@@ -167,6 +175,10 @@ msgstr ""
 
 #: ./fields/templates/file.pt:32
 msgid "Select an existing document"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:22
+msgid "Select/unselect all"
 msgstr ""
 
 #: ./content/tablepage.py:143
@@ -208,7 +220,7 @@ msgstr ""
 msgid "Upload data from CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:32
+#: ./browser/templates/view-table.pt:51
 msgid "Upload data with CSV"
 msgstr ""
 
@@ -226,7 +238,7 @@ msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:58
+#: ./browser/updownload.py:67
 msgid "count_rows_added"
 msgstr ""
 
@@ -236,7 +248,7 @@ msgid "csv_upload_help"
 msgstr ""
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:17
+#: ./browser/templates/tablepage-edit.pt:38
 msgid "description_edit_table_view"
 msgstr ""
 
@@ -311,7 +323,7 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:49
+#: ./browser/updownload.py:58
 msgid "warn_duplicate"
 msgstr ""
 
