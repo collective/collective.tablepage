@@ -4,13 +4,10 @@ from Acquisition import aq_inner, aq_parent
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
-from zope.component import queryUtility
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
-from collective.tablepage.fields.base import BaseFieldDataRetriever
 from collective.tablepage.fields.base import BaseField
-from plone.i18n.normalizer.interfaces import IURLNormalizer
 from plone.memoize.instance import memoize
 from AccessControl import Unauthorized
 
@@ -105,7 +102,8 @@ class FileDataRetriever(object):
                                  title=title, description=description)
             new_doc = folder[newId]
             new_doc.edit(file=file)
-            new_doc._renameAfterCreation()
+            # this will trigger auto-rename and proper lifecycle events
+            new_doc.processForm()
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
             return {name: request.get("existing_%s" % name)}

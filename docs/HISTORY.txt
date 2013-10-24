@@ -6,6 +6,8 @@ Changelog
 
 - Do not display selection checkbox if I cant delete a row
   [keul]
+- Raise lifecycle events properly when creating files
+  [keul]
 
 0.3 (2013-10-18)
 ----------------
