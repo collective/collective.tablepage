@@ -2,13 +2,13 @@
       id="tableForm"
       action=""
       method="post"
+      tal:define="rows view/rows;"
       tal:attributes="action string:${context/absolute_url}/@@delete-record">
 
 <table i18n:domain="collective.tablepage"
        class="listing tablePage"
        tal:define="portal_url view/portal_url;
                    headers view/headers;
-                   rows view/rows;
                    has_tablemanager_permission view/check_tablemanager_permission;
                    cssClasses python:' '.join(context.getCssClasses());"
        tal:attributes="class python: cssClasses and cssClasses + ' tablePage' or 'tablePage'"
@@ -124,7 +124,7 @@
             </td>
         </tr>
         </tal:rows>
-        <tr class="noResults" tal:condition="not: view/rows">
+        <tr class="noResults" tal:condition="not: rows">
             <td tal:attributes="colspan python:len(headers)+1"
                 i18n:translate="">
                 No rows
