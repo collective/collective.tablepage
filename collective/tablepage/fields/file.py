@@ -102,7 +102,9 @@ class FileDataRetriever(object):
                                  title=title, description=description)
             new_doc = folder[newId]
             new_doc.edit(file=file)
-            # this will trigger auto-rename and proper lifecycle events
+            # force rename (processForm will not work with files)
+            new_doc._renameAfterCreation()
+            # this will trigger proper lifecycle events
             new_doc.processForm()
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
