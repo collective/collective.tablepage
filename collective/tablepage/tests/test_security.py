@@ -2,17 +2,14 @@
 
 import unittest
 
-from zope import interface
-from zope.component import queryUtility
 from AccessControl import Unauthorized
 
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
-from plone.app.testing import logout
 
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
+
 
 class SecurityTestCase(unittest.TestCase):
     

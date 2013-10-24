@@ -5,12 +5,8 @@ import unittest
 from StringIO import StringIO
 import os.path
 
-from zope import interface
-from zope.component import queryUtility
 from zope.component import getMultiAdapter
-from AccessControl import Unauthorized
 
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import logout
@@ -67,7 +63,6 @@ class SecurityTestCase(unittest.TestCase):
         """Contributor can't add or select any file without permissions of the storage folder"""
         portal = self.layer['portal']
         tp = portal.table_page
-        folder = portal.folder
         tp.manage_setLocalRoles('user0', ('Contributor',))
         login(portal, 'user0')
         view = tp.restrictedTraverse('@@edit-record')

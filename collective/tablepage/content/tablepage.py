@@ -8,7 +8,6 @@ from zope.component import queryUtility
 from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
-from Products.Archetypes import PloneMessageFactory as pmf
 from Products.CMFCore import permissions
 from Products.ATContentTypes.content.document import ATDocumentSchema
 from Products.ATContentTypes.content import schemata
@@ -17,7 +16,6 @@ from Products.ATContentTypes.configuration import zconf
 
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
-from Products.DataGridField.CheckboxColumn import CheckboxColumn
 from Products.DataGridField.Column import Column
 
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget

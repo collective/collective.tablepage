@@ -2,14 +2,10 @@
 
 import unittest
 
-from zope import interface
-from zope.component import queryUtility, getMultiAdapter
-from AccessControl import Unauthorized
+from zope.component import getMultiAdapter
 
-from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
-from plone.app.testing import logout
 
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import IColumnField
@@ -21,7 +17,6 @@ class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
         portal = self.layer['portal']
-        wtool = portal.portal_workflow
         login(portal, TEST_USER_NAME)
 
     def test_encoding(self):

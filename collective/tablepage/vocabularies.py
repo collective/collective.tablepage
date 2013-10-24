@@ -7,15 +7,10 @@ except ImportError:
     from zope.app.schema.vocabulary import IVocabularyFactory
 
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
 from zope.component import getAdapters
-
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import PloneMessageFactory as pmf
-
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
-from collective.tablepage import logger
+
 
 class ColumnTypesVocabulary(object):
     """Vocabulary factory for column types
