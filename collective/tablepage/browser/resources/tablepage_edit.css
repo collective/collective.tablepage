@@ -39,6 +39,11 @@ table.tablePage tbody tr.noResults {
 	text-align: center;
 }
 
+.tablePage caption {
+	font-weight: bold;
+	font-size: 110%;
+}
+
 /*
 .tablePage tfoot td {
 	border-top: 1px solid;
