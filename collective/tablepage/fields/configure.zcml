@@ -35,6 +35,15 @@
        name="File"
        />
 
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".file.MultipleFilesField"
+       name="Files"
+       />
+
+
    <!-- data retrivers -->
    <adapter
        for="collective.tablepage.interfaces.ITablePage"
@@ -47,6 +56,12 @@
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
        factory=".file.FileDataRetriever"
 	   name="File"
+       />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".file.MultipleFilesDataRetriever"
+	   name="Files"
        />
 
 

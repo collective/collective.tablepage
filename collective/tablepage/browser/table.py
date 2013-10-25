@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from zope.component import getMultiAdapter
-from Products.Five.browser import BrowserView
-from plone.memoize.view import memoize
 from AccessControl import getSecurityManager
-from collective.tablepage import tablepageMessageFactory
-from collective.tablepage.interfaces import IDataStorage
-from collective.tablepage.interfaces import IColumnField
+from Products.Five.browser import BrowserView
 from collective.tablepage import config
+from collective.tablepage import tablepageMessageFactory
+from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.interfaces import IDataStorage
+from plone.memoize.view import memoize
+from zope.component import getMultiAdapter
 
 
 class TableViewView(BrowserView):

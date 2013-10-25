@@ -21,22 +21,29 @@ except ImportError:
 
 TYPE_TO_CREATE = 'File'
 
+
 class FileField(BaseField):
     implements(IColumnField)
 
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
 
-    def render_view(self, data):
-        self.data = data or ''
-        uuid = data
+    def _get_obj_info(self, uuid):
         rcatalog = getToolByName(self.context, 'reference_catalog')
         obj = rcatalog.lookupObject(uuid)
         if obj:
-            return self.view_template(title=obj.Title() or obj.getId(),
-                                      url=obj.absolute_url(),
-                                      description=obj.Description(),
-                                      icon=obj.getIcon(relative_to_portal=1))
+            return dict(title=obj.Title() or obj.getId(),
+                        url=obj.absolute_url(),
+                        description=obj.Description(),
+                        icon=obj.getIcon(relative_to_portal=1))
+        return None
+
+    def render_view(self, data):
+        self.data = data or ''
+        uuid = data
+        obj_info = self._get_obj_info(uuid)
+        if obj_info:
+            return self.view_template(**obj_info)
         return ''
 
     def can_add_file(self):
@@ -68,6 +75,28 @@ class FileField(BaseField):
             if old and old[0].getPath() not in [a.getPath() for a in files_in_storage]:
                 return old + files_in_storage 
         return files_in_storage
+
+
+class MultipleFilesField(FileField):
+    implements(IColumnField)
+
+    edit_template = ViewPageTemplateFile('templates/multi_file.pt')
+    view_template = ViewPageTemplateFile('templates/multi_file_view.pt')
+
+    def render_edit(self, data):
+        self.data = data or []
+        return self.edit_template(data=self.data)
+
+    def render_view(self, data):
+        self.data = data or []
+        results = []
+        for uuid in data:
+            obj_info = self._get_obj_info(uuid)
+            if obj_info:
+                results.append(obj_info)
+        if results:
+            return self.view_template(files=results)
+        return results
 
 
 class FileDataRetriever(object):
@@ -119,3 +148,66 @@ class FileDataRetriever(object):
         if obj:
             return obj.absolute_url()
         return ''
+
+
+class MultipleFilesDataRetriever(object):
+    """
+    The implementation of IColumnDataRetriever for multiple files will:
+     * save a set of Files content type in the folder
+     * return a list of UID
+    """
+
+    implements(IColumnDataRetriever)
+
+    def __init__(self, context):
+        self.context = context
+
+    def get_from_request(self, name, request):
+        results = []
+        context = self.context
+        folder = context.getAttachmentStorage() or aq_parent(aq_inner(context))
+        plone_utils = getToolByName(context, 'plone_utils')
+        # first of all we need also to check for existings selected files
+        for existing_selection in request.get("existing_%s" % name, []):
+            results.append(existing_selection)
+        cnt = len(request.get("existing_%s" % name, []))
+        while True:
+            if request.get("%s_%s" % (name, cnt)) and request.get("%s_%s" % (name, cnt)).filename:
+                title = request.get('title_%s_%s' % (name, cnt))
+                description = request.get('description_%s_%s' % (name, cnt))
+                file = request.get("%s_%s" % (name, cnt))
+                cnt += 1
+                newId = folder.generateUniqueId(TYPE_TO_CREATE)
+                if not title and file.filename in folder.objectIds():
+                    # WARNING: we don't get the file title, to obtain the id
+                    plone_utils.addPortalMessage(_('duplicate_file_error',
+                                                   default=u'There is already an item named ${name} in this folder.\n'
+                                                           u'Loading of the attachment has been aborted.',
+                                                   mapping={'name': file.filename}),
+                                                 type='warning')
+                    results.append(folder[file.filename].UID())
+                    continue
+                folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
+                                     title=title, description=description)
+                new_doc = folder[newId]
+                new_doc.edit(file=file)
+                # force rename (processForm will not work with files)
+                new_doc._renameAfterCreation()
+                # this will trigger proper lifecycle events
+                new_doc.processForm()
+                results.append(new_doc.UID())
+            else:
+                break
+        return {name: results}
+
+    def data_for_display(self, data):
+        """Get proper URL to the resource mapped by an uuid"""
+        rcatalog = getToolByName(self.context, 'reference_catalog')
+        results = []
+        for uuid in data:
+            obj = rcatalog.lookupObject(uuid)
+            if obj:
+                results.append(obj.absolute_url())
+            else:
+                results.append('')
+        return results

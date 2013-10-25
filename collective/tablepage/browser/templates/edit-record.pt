@@ -5,6 +5,49 @@
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="collective.tablepage">
+
+<head>
+<metal:js fill-slot="javascript_head_slot">
+<script type="text/javascript">
+<!--
+(function ($) {
+    $(document).ready(function () {
+        /**
+         * add new file
+         */
+
+		var fieldInc = 1;
+		var patt = /_\d+$/;
+		function incAttribute(elem, name) {
+			var attr = elem.attr(name);
+			var oldVal = parseInt(patt.exec(attr)[0].substr(1, attr.length-1), 10);
+			elem.attr(name, attr.replace( patt, '_' + (oldVal + fieldInc) ));
+		}
+		
+		// Save the new field model for later
+		var subFieldFile = $('.fileField').clone();
+        $('#newFile').click(function(event) {
+			event.preventDefault();
+			var newFileField = subFieldFile.clone().hide();
+            $('.fileField:last').after(newFileField);
+			newFileField.find(':input').each(function() {
+				incAttribute($(this), 'id');
+				incAttribute($(this), 'name');
+			});
+			newFileField.find('label').each(function() {
+				incAttribute($(this), 'for');
+			});
+			newFileField.slideDown('fast');
+			newFileField.find(':input:first').focus();
+			fieldInc++;
+        });
+    });
+})(jQuery);
+//-->
+</script>
+</metal:js>
+</head>
+
 <body>
 
 <metal:main fill-slot="main">

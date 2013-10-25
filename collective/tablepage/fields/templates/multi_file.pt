@@ -1,0 +1,67 @@
+<tal:filefield
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.tablepage">
+
+<tal:can_see_storage tal:condition="python:view.attachment_storage is not None">
+	<label tal:attributes="for view/configuration/id"
+	       tal:content="view/configuration/label">A good field</label>
+	<div class="formHelp" tal:content="view/configuration/description">
+		Help filling me
+	</div>
+
+	<div class="field subField fileField"
+	     tal:condition="view/can_add_file"
+		 tal:define="data options/data;
+		             ldata python:len(data);">
+		<label tal:attributes="for string:${view/configuration/id}_${ldata}" i18n:translate="">Upload a new document</label>
+		<div class="formHelp" i18n:translate="help_new_file">
+			Provide a new document. A new File content will be created.
+		</div>
+		<label tal:attributes="for string:title_${view/configuration/id}_${ldata}"
+		       i18n:domain="plone" i18n:translate="">Title</label> <br/>
+		<input type="text" id="" name="" value=""
+		       tal:attributes="id string:title_${view/configuration/id}_${ldata};
+			                   name string:title_${view/configuration/id}_${ldata};" /> <br/>
+		<label tal:attributes="for string:description_${view/configuration/id}_${ldata}"
+		       i18n:domain="plone" i18n:translate="">Description</label>
+		<textarea id="" name="" tal:attributes="id string:description_${view/configuration/id}_${ldata};
+			                                    name string:description_${view/configuration/id}_${ldata};"></textarea>
+		<label tal:attributes="for string:${view/configuration/id}_${ldata}"
+		       i18n:translate="">File</label> <br/>
+		<input type="file" id="" name="" value=""
+		       tal:attributes="id string:${view/configuration/id}_${ldata};
+			                   name string:${view/configuration/id}_${ldata};" />
+	</div>
+	<input type="button" id="newFile" value="Add another" />
+
+	<div class="field subField">
+		<label tal:attributes="for string:existing_${view/configuration/id};"
+		       i18n:translate="">Select existing documents</label>
+		<div class="formHelp" i18n:translate="help_select_multiple_files">
+			You can also select existing File contents from folder
+			<a href="" tal:attributes="href view/attachment_storage/absolute_url"
+			   i18n:name="storage" tal:content="view/attachment_storage/Title" />
+		</div>
+		<select id="" name="" multiple="multiple"
+		        tal:attributes="id string:existing_${view/configuration/id};
+                                name string:existing_${view/configuration/id}:list;">
+			<option value=""
+			        tal:repeat="file view/attachments"
+					tal:attributes="value file/UID;
+					                selected python:file.UID in options.get('data') and 'selected' or False"
+					tal:content="python:file.Title or file.id"></option>
+		</select>
+	</div>
+</tal:can_see_storage>
+
+<dl class="portalMessage warning"
+    tal:condition="python: view.attachment_storage is None">
+	<dt i18n:domain="plone" i18n:translate="">Warning</dt>
+	<dd i18n:translate="no_attachment_storage_access">
+		Seems you have no permission to access the file storage.
+		You can't load any attachment from the configured folder.
+	</dd>
+</dl>
+
+</tal:filefield>

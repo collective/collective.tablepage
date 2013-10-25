@@ -12,7 +12,10 @@
 <!--
 (function ($) {
     $(document).ready(function () {
-		$('#selectAll').click(function(event) {
+        /**
+         * select/unselect all
+         */ 
+        $('#selectAll').click(function(event) {
             if ($(this).is(':checked')) {
                 $('.selectRow').attr('checked', 'checked');
             } else {
@@ -40,8 +43,8 @@
         </p>
 
         <div id="tablePageContainer"
-		     tal:content="structure view/render_table">
-        		Table
+             tal:content="structure view/render_table">
+                Table
         </div>
 
     </tal:main-macro>
