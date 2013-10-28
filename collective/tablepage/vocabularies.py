@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from zope.i18n import translate
-from zope.interface import implements
 try:
     from zope.schema.interfaces import IVocabularyFactory
 except ImportError:
     from zope.app.schema.vocabulary import IVocabularyFactory
 
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.component import getAdapters
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
+from zope.component import getAdapters
+from zope.i18n import translate
+from zope.interface import implements
+from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 
 class ColumnTypesVocabulary(object):

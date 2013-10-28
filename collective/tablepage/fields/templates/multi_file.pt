@@ -12,28 +12,27 @@
 
 	<div class="field subField fileField"
 	     tal:condition="view/can_add_file"
-		 tal:define="data options/data;
-		             ldata python:len(data);">
-		<label tal:attributes="for string:${view/configuration/id}_${ldata}" i18n:translate="">Upload a new document</label>
+		 tal:define="data options/data;">
+		<label tal:attributes="for string:${view/configuration/id}_0" i18n:translate="">Upload a new document</label>
 		<div class="formHelp" i18n:translate="help_new_file">
 			Provide a new document. A new File content will be created.
 		</div>
-		<label tal:attributes="for string:title_${view/configuration/id}_${ldata}"
+		<label tal:attributes="for string:title_${view/configuration/id}_0"
 		       i18n:domain="plone" i18n:translate="">Title</label> <br/>
 		<input type="text" id="" name="" value=""
-		       tal:attributes="id string:title_${view/configuration/id}_${ldata};
-			                   name string:title_${view/configuration/id}_${ldata};" /> <br/>
-		<label tal:attributes="for string:description_${view/configuration/id}_${ldata}"
+		       tal:attributes="id string:title_${view/configuration/id}_0;
+			                   name string:title_${view/configuration/id}_0;" /> <br/>
+		<label tal:attributes="for string:description_${view/configuration/id}_0"
 		       i18n:domain="plone" i18n:translate="">Description</label>
-		<textarea id="" name="" tal:attributes="id string:description_${view/configuration/id}_${ldata};
-			                                    name string:description_${view/configuration/id}_${ldata};"></textarea>
-		<label tal:attributes="for string:${view/configuration/id}_${ldata}"
+		<textarea id="" name="" tal:attributes="id string:description_${view/configuration/id}_0;
+			                                    name string:description_${view/configuration/id}_0;"></textarea>
+		<label tal:attributes="for string:${view/configuration/id}_0"
 		       i18n:translate="">File</label> <br/>
 		<input type="file" id="" name="" value=""
-		       tal:attributes="id string:${view/configuration/id}_${ldata};
-			                   name string:${view/configuration/id}_${ldata};" />
+		       tal:attributes="id string:${view/configuration/id}_0;
+			                   name string:${view/configuration/id}_0;" />
 	</div>
-	<input type="button" id="newFile" value="Add another" />
+	<input type="button" id="newFile" value="Add another" i18n:attributes="value"/>
 
 	<div class="field subField">
 		<label tal:attributes="for string:existing_${view/configuration/id};"

@@ -19,15 +19,15 @@ msgstr ""
 msgid "${count} rows deleted"
 msgstr "${count} righe eliminate"
 
-#: ./content/tablepage.py:252
+#: ./content/tablepage.py:250
 msgid "... always display"
 msgstr "... mostra sempre"
 
-#: ./content/tablepage.py:250
+#: ./content/tablepage.py:248
 msgid "... only on page view"
 msgstr "... solo nella vista della pagina"
 
-#: ./content/tablepage.py:251
+#: ./content/tablepage.py:249
 msgid "... only when editing table"
 msgstr "... solo in modifica della tabella"
 
@@ -38,11 +38,15 @@ msgstr "Una pagina con una tabella modificabile"
 msgid "Add a new content type, that contains an editable table"
 msgstr "Aggiunge un nuovo tipo di contenuto, che contiene una tabella modificabile"
 
+#: ./fields/templates/multi_file.pt:35
+msgid "Add another"
+msgstr "Aggiungi un altro"
+
 #: ./browser/templates/view-table.pt:36
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
 
-#: ./content/tablepage.py:126
+#: ./content/tablepage.py:124
 msgid "Attachment storage"
 msgstr "Contenitore allegati"
 
@@ -50,23 +54,23 @@ msgstr "Contenitore allegati"
 msgid "Back to table editing"
 msgstr "Torna alla modifica della tabella"
 
-#: ./content/tablepage.py:92
+#: ./content/tablepage.py:90
 msgid "CSS classes"
 msgstr "Classi CSS"
 
-#: ./content/tablepage.py:61
+#: ./content/tablepage.py:59
 msgid "Column description"
 msgstr "Descrizione colonna"
 
-#: ./content/tablepage.py:59
+#: ./content/tablepage.py:57
 msgid "Column id"
 msgstr "Id colonna"
 
-#: ./content/tablepage.py:60
+#: ./content/tablepage.py:58
 msgid "Column label"
 msgstr "Etichetta colonna"
 
-#: ./content/tablepage.py:54
+#: ./content/tablepage.py:52
 msgid "Columns"
 msgstr "Colonne"
 
@@ -86,21 +90,22 @@ msgstr "Scarica come CSV"
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
-#: ./browser/templates/edit-record.pt:16
+#: ./browser/templates/edit-record.pt:59
 #: ./browser/templates/view-table.pt:91
 msgid "Edit row"
 msgstr "Modifica riga"
 
-#: ./browser/templates/tablepage-edit.pt:34
+#: ./browser/templates/tablepage-edit.pt:37
 msgid "Edit table data"
 msgstr "Modifica i dati della tabella"
 
 #: ./browser/templates/upload-csv.pt:34
-#: ./fields/templates/file.pt:25
+#: ./fields/templates/file.pt:26
+#: ./fields/templates/multi_file.pt:29
 msgid "File"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:21
+#: ./browser/templates/edit-record.pt:64
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
 
@@ -116,7 +121,7 @@ msgstr "Muovi riga giù"
 msgid "Move row up"
 msgstr "Muovi riga su"
 
-#: ./browser/templates/edit-record.pt:12
+#: ./browser/templates/edit-record.pt:55
 msgid "New row"
 msgstr "Nuova riga"
 
@@ -128,7 +133,7 @@ msgstr "Nessuna riga"
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
 
-#: ./browser/templates/edit-record.pt:28
+#: ./browser/templates/edit-record.pt:71
 msgid "Provide data for the row"
 msgstr "Fornisci i dati della riga"
 
@@ -168,37 +173,41 @@ msgstr "Riga mossa"
 msgid "Select"
 msgstr "Selezione"
 
-#: ./fields/templates/file.pt:32
+#: ./fields/templates/file.pt:33
 msgid "Select an existing document"
 msgstr "Seleziona un documento esistente"
+
+#: ./fields/templates/multi_file.pt:38
+msgid "Select existing documents"
+msgstr "Seleziona documenti esistenti"
 
 #: ./browser/templates/view-table.pt:22
 msgid "Select/unselect all"
 msgstr "Seleziona/deseleziona tutti"
 
-#: ./content/tablepage.py:143
+#: ./content/tablepage.py:141
 msgid "Show download link for data"
 msgstr "Mostra link per scaricati i dati"
 
-#: ./content/tablepage.py:156
+#: ./content/tablepage.py:154
 msgid "Show headers"
 msgstr "Mostra intestazioni"
 
-#: ./content/tablepage.py:157
+#: ./content/tablepage.py:155
 msgid "Show table headers when..."
 msgstr "Mostra le intestazioni della tabella quando..."
 
 msgid "String"
 msgstr "Stringa"
 
-#: ./content/tablepage.py:78
+#: ./content/tablepage.py:76
 msgid "Table caption"
 msgstr "Didascalia tabella"
 
 msgid "Text"
 msgstr "Testo"
 
-#: ./content/tablepage.py:62
+#: ./content/tablepage.py:60
 msgid "Type of data"
 msgstr "Tipo di dato"
 
@@ -206,7 +215,8 @@ msgstr "Tipo di dato"
 msgid "Upload"
 msgstr "Carica"
 
-#: ./fields/templates/file.pt:12
+#: ./fields/templates/file.pt:13
+#: ./fields/templates/multi_file.pt:16
 msgid "Upload a new document"
 msgstr "Carica un nuovo documento"
 
@@ -222,12 +232,12 @@ msgstr "Carica dati con CSV"
 msgid "Upload..."
 msgstr "Carica..."
 
-#: ./content/tablepage.py:66
+#: ./content/tablepage.py:64
 msgid "Vocabulary for the column"
 msgstr "Vocabolario della colonna"
 
 #. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
-#: ./content/tablepage.py:127
+#: ./content/tablepage.py:125
 msgid "attachmentStorage_help"
 msgstr ""
 "Seleziona la cartella dove gli utenti potranno caricare allegati per le colonne di tipo simil-allegato (se ve ne sono).\n"
@@ -245,19 +255,19 @@ msgid "csv_upload_help"
 msgstr "Il CSV DEVE contenere una riga di intestazione. Le intestazioni devono essere uguali agli id usati nella configurazione (i valori attualmente possibili sono: ${cols})."
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:38
+#: ./browser/templates/tablepage-edit.pt:41
 msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:98
+#: ./fields/file.py:124
 msgid "duplicate_file_error"
 msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
 "Il caricamento dell'allegato è stato annullato."
 
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:144
+#: ./content/tablepage.py:142
 msgid "help_download_enabled"
 msgstr "Mostra un link per scaricare i dati contenuti nella tabella in formato CSV"
 
@@ -267,57 +277,64 @@ msgid "help_look_for_duplicate"
 msgstr "Prima di aggiungere una riga, controlla se esiste già una riga con ESATTAMENTE gli stessi dati. In questo caso: saltala."
 
 #. Default: "Provide a new document. A new File content will be created."
-#: ./fields/templates/file.pt:13
+#: ./fields/templates/file.pt:14
+#: ./fields/templates/multi_file.pt:17
 msgid "help_new_file"
 msgstr "Fornisci un nuovo documento. Verrà creato un nuovo contenuto File."
 
 #. Default: "Definition of rows inside the table"
-#: ./content/tablepage.py:55
+#: ./content/tablepage.py:53
 msgid "help_pageColumns"
 msgstr "Definizione delle righe dentro alla tabella"
 
 #. Default: "You can select an existing File content from folder ${storage}"
-#: ./fields/templates/file.pt:36
+#: ./fields/templates/file.pt:37
 msgid "help_select_file"
 msgstr "Puoi selezionare un File esistente dalla cartella ${storage}"
 
+#. Default: "You can also select existing File contents from folder ${storage}"
+#: ./fields/templates/multi_file.pt:42
+msgid "help_select_multiple_files"
+msgstr "Puoi anche selezionare file esistenti dalla cartella ${storage}"
+
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:79
+#: ./content/tablepage.py:77
 msgid "help_table_caption"
 msgstr "Sommario opzionale dei contenuti della tabella"
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:117
+#: ./content/tablepage.py:115
 msgid "label_text_after"
 msgstr "Testo dopo la tabella"
 
 #. Default: "Text before the table"
-#: ./content/tablepage.py:43
+#: ./content/tablepage.py:41
 msgid "label_text_before"
 msgstr "Testo prima della tabella"
 
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
-#: ./fields/templates/file.pt:53
+#: ./fields/templates/file.pt:54
+#: ./fields/templates/multi_file.pt:60
 msgid "no_attachment_storage_access"
 msgstr "Sembra che tu non abbia i permessi per accedere al repositori dei file. Non puoi caricare nessun file dalla cartella configurata."
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:217
+#: ./content/tablepage.py:215
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:223
+#: ./content/tablepage.py:221
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:227
+#: ./content/tablepage.py:225
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 
 #. Default: "One item on every row. Used only when the type is \"Select\""
-#: ./content/tablepage.py:67
+#: ./content/tablepage.py:65
 msgid "vocabulary_column_description"
 msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 

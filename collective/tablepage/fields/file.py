@@ -84,19 +84,19 @@ class MultipleFilesField(FileField):
     view_template = ViewPageTemplateFile('templates/multi_file_view.pt')
 
     def render_edit(self, data):
-        self.data = data or []
+        self.data = data and data.splitlines() or []
         return self.edit_template(data=self.data)
 
     def render_view(self, data):
-        self.data = data or []
+        self.data = data or ''
         results = []
-        for uuid in self.data:
+        for uuid in self.data.splitlines():
             obj_info = self._get_obj_info(uuid)
             if obj_info:
                 results.append(obj_info)
         if results:
             return self.view_template(files=results)
-        return results or ''
+        return ''
 
 
 class FileDataRetriever(object):
@@ -130,11 +130,11 @@ class FileDataRetriever(object):
             folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
                                  title=title, description=description)
             new_doc = folder[newId]
-            new_doc.edit(file=file)
             # force rename (processForm will not work with files)
             new_doc._renameAfterCreation()
             # this will trigger proper lifecycle events
             new_doc.processForm()
+            new_doc.edit(file=file)
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
             return {name: request.get("existing_%s" % name)}
@@ -170,7 +170,7 @@ class MultipleFilesDataRetriever(object):
         # first of all we need also to check for existings selected files
         for existing_selection in request.get("existing_%s" % name, []):
             results.append(existing_selection)
-        cnt = len(request.get("existing_%s" % name, []))
+        cnt = 0
         while True:
             if request.get("%s_%s" % (name, cnt)) and request.get("%s_%s" % (name, cnt)).filename:
                 title = request.get('title_%s_%s' % (name, cnt))
@@ -190,24 +190,22 @@ class MultipleFilesDataRetriever(object):
                 folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
                                      title=title, description=description)
                 new_doc = folder[newId]
-                new_doc.edit(file=file)
                 # force rename (processForm will not work with files)
                 new_doc._renameAfterCreation()
                 # this will trigger proper lifecycle events
                 new_doc.processForm()
+                new_doc.edit(file=file)
                 results.append(new_doc.UID())
             else:
                 break
-        return {name: results}
+        return {name: '\n'.join(results)}
 
     def data_for_display(self, data):
         """Get proper URL to the resource mapped by an uuid"""
         rcatalog = getToolByName(self.context, 'reference_catalog')
         results = []
-        for uuid in data:
+        for uuid in data.splitlines():
             obj = rcatalog.lookupObject(uuid)
             if obj:
                 results.append(obj.absolute_url())
-            else:
-                results.append('')
         return results

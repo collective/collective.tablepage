@@ -1,12 +1,15 @@
 Changelog
 =========
 
-0.3.1 (unreleased)
+0.4.0 (unreleased)
 ------------------
 
 - Do not display selection checkbox if I cant delete a row
   [keul]
 - Raise lifecycle events properly when creating files
+  [keul]
+- New field type: "Files", for uploading a set of files to
+  be rendered in the same cell
   [keul]
 
 0.3 (2013-10-18)
