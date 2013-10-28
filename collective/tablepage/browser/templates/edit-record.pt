@@ -53,11 +53,11 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="python:request.get('row-index') is None"> 
+		    tal:condition="python:request.get('row-index') is None or request.get('addRow')"> 
             New row
         </h1>
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="python:request.get('row-index') is not None"> 
+		    tal:condition="python:request.get('row-index') is not None and not request.get('addRow')"> 
             Edit row
         </h1>
 
@@ -79,6 +79,8 @@
                 <input type="hidden" name="row-index:int" value=""
 				       tal:condition="python:request.get('row-index') is not None"
 					   tal:attributes="value request/row-index" />
+                <input type="hidden" name="addRow" value="1"
+                       tal:condition="python:request.get('addRow')" />
                 <input type="hidden" name="form.submitted" value="1" />
                 <input class="context" type="submit" name="save" value="Save" i18n:domain="plone" i18n:attributes="value" />
                 <input class="context noUnloadProtection" type="submit" name="cancel" value="Cancel"

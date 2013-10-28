@@ -62,11 +62,28 @@ class EditRecordView(BrowserView):
             request.response.redirect("%s/edit-table" % self.context.absolute_url())
             return
         elif form.get('row-index') is not None:
+            row_index = form.get('row-index')
+            # if this is a label row, you want to add something at the end of the section
+            if self.storage[row_index].get('__label__') or row_index==0:
+                row_index = self._last_index_in_section(row_index)
             # load an existing row
-            if not self.check_manager_or_mine_record(form.get('row-index')):
+            elif not self.check_manager_or_mine_record(row_index):
                 raise Unauthorized("You can't modify that record")
-            self.data = self.storage[form.get('row-index')]
+            else:
+                self.data = self.storage[row_index]
         return self.index()
+
+    def _last_index_in_section(self, row_index):
+        """Find the last row in that section"""
+        storage = self.storage
+        storage_size = len(storage)
+        if row_index==storage_size-1:
+            return -1
+        for x in range(row_index+1, storage_size):
+            data = storage[x]
+            if data.get('__label__'):
+                return x
+        return storage_size
 
     def fields(self):
         """Display all fields for this content"""
@@ -101,6 +118,9 @@ class EditRecordView(BrowserView):
         context = self.context
         storage = self.storage
         configuration = self.configuration
+        row_index = form.get('row-index', -1)
+        if row_index>-1:
+            row_index = self._last_index_in_section(row_index)
 
         to_be_saved = {}
         for conf in configuration:
@@ -118,7 +138,7 @@ class EditRecordView(BrowserView):
         if to_be_saved:
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
             _ = getToolByName(context, 'translation_service').utranslate
-            if form.get('row-index') is not None:
+            if form.get('row-index') is not None and not form.get('addRow'):
                 index = form.get('row-index')
                 if not self.check_manager_or_mine_record(index):
                     raise Unauthorized("You can't modify that record")
@@ -128,7 +148,7 @@ class EditRecordView(BrowserView):
                                       context=context))
             else:
                 to_be_saved['__creator__'] = member.getId()
-                storage.add(to_be_saved)
+                storage.add(to_be_saved, row_index)
                 self._addNewVersion(_(msgid="Row added",
                                       domain="collective.tablepage",
                                       context=context))
@@ -159,7 +179,7 @@ class DeleteRecordView(EditRecordView):
                 indexes = [indexes,]
             for c, index in enumerate(indexes):
                 if not sm.checkPermission(config.MANAGE_TABLE, context) \
-                            and member.getId()!=storage[index].get('__creator__'):
+                            and member.getId()!=storage[index-c].get('__creator__'):
                         raise Unauthorized("You can't delete that record")
                 del storage[index-c]
 

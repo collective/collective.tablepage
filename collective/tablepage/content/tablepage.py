@@ -25,7 +25,7 @@ from collective.datagridcolumns.TextAreaColumn import TextAreaColumn
 
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import ITablePage
-from collective.tablepage.config import PROJECTNAME
+from collective.tablepage import config
 
 from Products.TinyMCE.interfaces.utility import ITinyMCE
 
@@ -221,7 +221,7 @@ class TablePage(base.ATCTContent):
                     return _('pagecolumn_validation_error_id_format',
                              default=u'Invalid value: "${col_name}". "Column Id" must not contains special characters',
                              mapping={'col_name': id})
-                if id=='__creator__':
+                if id in config.RESERVED_IDS:
                     return _('pagecolumn_validation_error_id_invalid',
                              default=u'A reserved value has been used for "id"')
 
@@ -250,4 +250,4 @@ class TablePage(base.ATCTContent):
             ('always', _("... always display"))),
         )
 
-atapi.registerType(TablePage, PROJECTNAME)
+atapi.registerType(TablePage, config.PROJECTNAME)

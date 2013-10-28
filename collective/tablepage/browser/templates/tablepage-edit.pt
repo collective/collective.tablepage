@@ -22,6 +22,23 @@
                 $('.selectRow').removeAttr('checked');
             }
         });
+        
+        if ($('.tablePageSubHeader').length>0) {
+            // Transform the global Add link to a "add to first section" button or remove it if not needed
+            if ($('.tablePage tbody tr:first td:first').is('.tablePageSubHeader')) {
+                $('#mainAddCommand').remove();
+            } else {
+                $('#mainAddCommand').appendTo('th.rowCommands');
+                $('#mainAddCommand').attr('href', $('#mainAddCommand').attr('href') + '?row-index:int=0&addRow=1');
+            }
+        }
+
+        $('#massDelete').click(function(event) {
+            event.preventDefault();
+            if ($('.selectRow:checked').length>0) {
+                $('#tableForm').submit();
+            }
+        });
     });
 })(jQuery);
 //-->

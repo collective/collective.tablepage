@@ -56,6 +56,9 @@ class TableViewView(BrowserView):
             adapters[col_type] = getMultiAdapter((self.context, self.request),
                                                  IColumnField, name=col_type)
         for record in storage:
+            if record.get('__label__'):
+                rows.append(record.get('__label__'))
+                continue
             row = []
             for conf in self.context.getPageColumns():
                 field = adapters[conf['type']]
@@ -71,11 +74,19 @@ class TableViewView(BrowserView):
     @memoize
     def member(self):
         return getMultiAdapter((self.context, self.request), name=u'plone_portal_state').member()
-        
+
     def check_tablemanager_permission(self):
         sm = getSecurityManager()
         return sm.checkPermission(config.MANAGE_TABLE, self.context)
 
+    def check_labeling_permission(self):
+        sm = getSecurityManager()
+        return sm.checkPermission(config.MANAGE_LABEL, self.context)
+
     def mine_row(self, index):
         storage = IDataStorage(self.context)
-        return storage[index]['__creator__']==self.member.getId()
+        return storage[index].get('__creator__')==self.member.getId()
+
+    def is_label(self, index):
+        storage = IDataStorage(self.context)
+        return '__label__' in  storage[index].keys()

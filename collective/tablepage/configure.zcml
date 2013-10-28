@@ -23,5 +23,21 @@
       description="Add a new content type, that contains an editable table"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  
+
+  <genericsetup:registerProfile
+      name="to1100"
+      title="Migrate to 1100"
+      directory="profiles/to_1100"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.4"
+        description="Migrate collective.tablepage to 0.4"
+        source="1000"
+        destination="1100"
+        handler=".setuphandlers.migrateTo04"
+        sortkey="1"
+        profile="collective.tablepage:default"
+    />
+
 </configure>

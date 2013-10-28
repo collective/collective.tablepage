@@ -31,8 +31,9 @@ table.tablePage .command img {
 	text-align: right;
 }
 
-.tablePage th.rowCommands {
-	min-width: 3em;
+.tablePage th.rowCommands,
+.tablePage td.rowCommands {
+	min-width: 6em;
 }
 
 table.tablePage tbody tr.noResults {
@@ -42,6 +43,13 @@ table.tablePage tbody tr.noResults {
 .tablePage caption {
 	font-weight: bold;
 	font-size: 110%;
+}
+
+table.tablePage .tablePageSubHeader {
+	background-color: transparent;
+	padding-top:1em;
+	font-weight: bold;
+	text-align: center 	
 }
 
 /*

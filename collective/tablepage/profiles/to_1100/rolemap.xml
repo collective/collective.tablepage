@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="collective.tablepage: Manage Label" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Editor" />
+    </permission>
+  </permissions>
+</rolemap>

@@ -10,6 +10,7 @@
        tal:define="portal_url view/portal_url;
                    headers view/headers;
                    has_tablemanager_permission view/check_tablemanager_permission;
+				   can_add_label view/check_labeling_permission;
                    cssClasses python:' '.join(context.getCssClasses());"
        tal:attributes="class python: cssClasses and cssClasses + ' tablePage' or 'tablePage'"
        tal:condition="python: view.edit_mode or len(rows)>0">
@@ -33,17 +34,24 @@
     <tfoot class="visualNoPrint" tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
         <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+2">
             <tal:canedit condition="python: view.edit_mode and context.getPageColumns()">
-                <a class="command" href="" title="Add new row"
+                <a class="command" id="mainAddCommand" href="" title="Add new row"
                    i18n:attributes="title"
                    tal:attributes="href string:${context/absolute_url}/@@edit-record">
                     <img alt="Add new row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
                 </a>
-                <a class="command" href="" title="Delete selected rows"
+                <a class="command" href="" title="Add new label above"
+				   tal:condition="can_add_label"
                    i18n:attributes="title"
-                   href=""
-                   onclick="$('#tableForm').submit();return false;">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-label">
+                    <img alt="Add new label above that row" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
+                </a>
+                <a id="massDelete" class="command" href="" title="Delete selected rows"
+                   i18n:attributes="title"
+                   href="">
                     <img alt="Delete rows" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/remove.png" />
@@ -75,26 +83,59 @@
     <tbody>
         <tal:rows repeat="row rows">
         <tr tal:define="even repeat/row/even;
-                        row_index repeat/row/index;"
+                        row_index repeat/row/index;
+						is_data_row python:not view.is_label(row_index)"
             tal:attributes="class python:even and 'odd' or 'even'">
-            <td tal:condition="python:view.edit_mode">
+            <td tal:condition="python:view.edit_mode and is_data_row">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
                        tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
                        tal:attributes="value repeat/row/index" />
             </td>
-            <td tal:repeat="cell row">
+            <td tal:condition="is_data_row"
+			    tal:repeat="cell row">
                 <span tal:replace="structure cell" />
             </td>
+			<td tal:condition="not:is_data_row"
+			    scope="col" class="tablePageSubHeader" colspan=""
+				tal:attributes="colspan python:len(headers) + (view.edit_mode and 1 or 0)"
+				tal:content="row">
+				aaa
+			</td>
             <td class="rowCommands"
                 tal:condition="view/edit_mode">
+                <a class="command" href="" title="Add new row after this section"
+				   tal:condition="not:is_data_row"
+                   i18n:attributes="title"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}&addRow=1">
+                    <img alt="Add new row after this section" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
                 <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
                     <a class="command" href="" title="Edit row"
+					   tal:condition="is_data_row"
                        i18n:attributes="title"
                        tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
                         <img alt="Edit row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
                     </a>
+                    <a class="command" href="" title="Edit label"
+					   tal:condition="not:is_data_row"					
+                       i18n:attributes="title"
+                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}">
+                        <img alt="Edit label" src=""
+                             i18n:attributes="alt"
+                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
+                    </a>
+	                <a class="command" href="" title="Add new label above"
+					   tal:condition="can_add_label"
+	                   i18n:attributes="title"
+	                   tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}&addLabel=1">
+	                    <img alt="Add new label above that row" src=""
+	                         i18n:attributes="alt"
+	                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
+	                </a>
                     <a class="command" href="" title="Remove row"
                        i18n:attributes="title"
                        tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">

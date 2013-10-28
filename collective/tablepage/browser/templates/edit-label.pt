@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="collective.tablepage">
+
+<body>
+
+<metal:main fill-slot="main">
+    <tal:main-macro metal:define-macro="main">
+        <h1 class="documentFirstHeading" i18n:translate=""
+            tal:condition="python:request.get('row-index') is None or request.get('addLabel')"> 
+            New label
+        </h1>
+        <h1 class="documentFirstHeading" i18n:translate=""
+            tal:condition="python:request.get('row-index') is not None and not request.get('addLabel')">
+            Edit label
+        </h1>
+
+        <p class="documentDescription" i18n:translate="label_form_help">
+            Provide a descriptive scope for that table section
+        </p>
+
+        <form id="editLabel" class="enableUnloadProtection" method="post" enctype="multipart/form-data" action=""
+              tal:attributes="action string:${view/context/absolute_url}/@@${view/__name__}">
+            <fieldset>
+                <legend i18n:translate="">Provide label</legend>
+
+                <div class="field">
+                    <label for="label" i18n:translate="">Label</label>
+                    <span class="fieldRequired"
+                         title="Required"
+                         i18n:domain="plone"
+                         i18n:translate="label_required"
+                         i18n:attributes="title title_required;">
+                       (Required)
+                    </span><br />
+                    <input type="text" name="label" value=""
+                           tal:attributes="value view/data"/>
+                </div>
+            
+                <input type="hidden" name="row-index:int" value=""
+                       tal:condition="python:request.get('row-index') is not None"
+                       tal:attributes="value request/row-index" />
+                <input type="hidden" name="addLabel" value="1"
+                       tal:condition="python:request.get('addLabel')" />
+                <input type="hidden" name="form.submitted" value="1" />
+                <input class="context" type="submit" name="save" value="Save" i18n:domain="plone" i18n:attributes="value" />
+                <input class="context noUnloadProtection" type="submit" name="cancel" value="Cancel"
+                       i18n:domain="plone"  i18n:attributes="value" />
+            </fieldset>
+        </form>
+
+    </tal:main-macro>
+</metal:main>
+
+</body>
+</html>
+

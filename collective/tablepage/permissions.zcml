@@ -15,6 +15,12 @@
       title="collective.tablepage: Manage Table"
      />
 
+  <!-- permission for managing labels -->
+  <permission
+      id="collective.tablepage.ManageLabel"
+      title="collective.tablepage: Manage Label"
+     />
+
   <!-- can perform massive CSV load -->
   <permission
       id="collective.tablepage.UploadCSV"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-28 10:53+0000\n"
+"POT-Creation-Date: 2013-10-28 16:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: collective.tablepage\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:171
+#: ./browser/view.py:191
 msgid "${count} rows deleted"
 msgstr ""
 
@@ -42,8 +42,20 @@ msgstr ""
 msgid "Add another"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:36
+#: ./browser/templates/view-table.pt:44
+msgid "Add new label above"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:48
+msgid "Add new label above that row"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:37
 msgid "Add new row"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:106
+msgid "Add new row after this section"
 msgstr ""
 
 #: ./content/tablepage.py:124
@@ -79,28 +91,33 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:47
+#: ./browser/templates/view-table.pt:55
 msgid "Delete rows"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:43
+#: ./browser/templates/view-table.pt:52
 msgid "Delete selected rows"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:67
+#: ./browser/templates/view-table.pt:75
 msgid "Download as CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:60
+#: ./browser/templates/view-table.pt:68
 msgid "Download data in CSV format"
 msgstr ""
 
+#: ./browser/templates/edit-label.pt:17
+#: ./browser/templates/view-table.pt:123
+msgid "Edit label"
+msgstr ""
+
 #: ./browser/templates/edit-record.pt:59
-#: ./browser/templates/view-table.pt:91
+#: ./browser/templates/view-table.pt:115
 msgid "Edit row"
 msgstr ""
 
-#: ./browser/templates/tablepage-edit.pt:37
+#: ./browser/templates/tablepage-edit.pt:54
 msgid "Edit table data"
 msgstr ""
 
@@ -114,23 +131,49 @@ msgstr ""
 msgid "Fill data of this table's row"
 msgstr ""
 
+#: ./browser/templates/edit-label.pt:32
+msgid "Label"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ./browser/label.py:55
+msgid "Label added"
+msgstr ""
+
+#. Default: "collective.tablepage"
+#: ./browser/label.py:62
+msgid "Label changed"
+msgstr ""
+
+#: ./browser/label.py:85
+msgid "Label has been saved"
+msgstr ""
+
+#: ./browser/label.py:81
+msgid "Label is required"
+msgstr ""
+
 #: ./browser/templates/upload-csv.pt:39
 msgid "Look for duplicated record"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:115
+#: ./browser/templates/view-table.pt:156
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:107
+#: ./browser/templates/view-table.pt:148
 msgid "Move row up"
+msgstr ""
+
+#: ./browser/templates/edit-label.pt:13
+msgid "New label"
 msgstr ""
 
 #: ./browser/templates/edit-record.pt:55
 msgid "New row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:128
+#: ./browser/templates/view-table.pt:169
 msgid "No rows"
 msgstr ""
 
@@ -142,27 +185,31 @@ msgstr ""
 msgid "Provide data for the row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:98
+#: ./browser/templates/edit-label.pt:29
+msgid "Provide label"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:139
 msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:132
+#: ./browser/view.py:152
 msgid "Row added"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:126
+#: ./browser/view.py:146
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:167
+#: ./browser/view.py:187
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:196
+#: ./browser/view.py:216
 msgid "Row has been moved"
 msgstr ""
 
@@ -171,7 +218,7 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:200
+#: ./browser/view.py:220
 msgid "Row moved"
 msgstr ""
 
@@ -186,7 +233,7 @@ msgstr ""
 msgid "Select existing documents"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:22
+#: ./browser/templates/view-table.pt:23
 msgid "Select/unselect all"
 msgstr ""
 
@@ -230,7 +277,7 @@ msgstr ""
 msgid "Upload data from CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:51
+#: ./browser/templates/view-table.pt:59
 msgid "Upload data with CSV"
 msgstr ""
 
@@ -258,7 +305,7 @@ msgid "csv_upload_help"
 msgstr ""
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:41
+#: ./browser/templates/tablepage-edit.pt:58
 msgid "description_edit_table_view"
 msgstr ""
 
@@ -301,6 +348,11 @@ msgstr ""
 #. Default: "Optional summary of table contents"
 #: ./content/tablepage.py:77
 msgid "help_table_caption"
+msgstr ""
+
+#. Default: "Provide a descriptive scope for that table section"
+#: ./browser/templates/edit-label.pt:22
+msgid "label_form_help"
 msgstr ""
 
 #. Default: "Text after the table"

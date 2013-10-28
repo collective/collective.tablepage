@@ -11,6 +11,8 @@ Changelog
 - New field type: "Files", for uploading a set of files to
   be rendered in the same cell
   [keul]
+- Labels inside the table are now supported
+  [keul]
 
 0.3 (2013-10-18)
 ----------------

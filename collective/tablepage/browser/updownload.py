@@ -119,6 +119,8 @@ class DownloadDataView(BrowserView):
         writer.writerow([h['display_header'] for h in columns])
         for data in storage:
             row = []
+            if data.get('__label__'):
+                continue
             for header in columns:
                 adapter = header['adapter']
                 col_val = adapter.data_for_display(data.get(header['header_code']))
