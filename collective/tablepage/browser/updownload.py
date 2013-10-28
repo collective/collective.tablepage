@@ -121,7 +121,11 @@ class DownloadDataView(BrowserView):
             row = []
             for header in columns:
                 adapter = header['adapter']
-                row.append(adapter.data_for_display(data.get(header['header_code'])))
+                col_val = adapter.data_for_display(data.get(header['header_code']))
+                if not isinstance(col_val, basestring):
+                    # a sequence, probably
+                    col_val = '\n'.join(col_val)
+                row.append(col_val)
             writer.writerow(row)
         response = self.request.response
         response.setHeader('Content-Type','text/csv')
