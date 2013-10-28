@@ -23,8 +23,10 @@
             }
         });
         
+		/**
+		 * Transform the global Add link to a "add to first section" button or remove it if not needed
+		 */ 
         if ($('.tablePageSubHeader').length>0) {
-            // Transform the global Add link to a "add to first section" button or remove it if not needed
             if ($('.tablePage tbody tr:first td:first').is('.tablePageSubHeader')) {
                 $('#mainAddCommand').remove();
             } else {
@@ -33,6 +35,9 @@
             }
         }
 
+		/**
+		 * "Delete selected items" command
+		 */ 
         $('#massDelete').click(function(event) {
             event.preventDefault();
             if ($('.selectRow:checked').length>0) {

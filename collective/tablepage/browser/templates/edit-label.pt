@@ -37,8 +37,8 @@
                          i18n:attributes="title title_required;">
                        (Required)
                     </span><br />
-                    <input type="text" name="label" value=""
-                           tal:attributes="value view/data"/>
+                    <input type="text" name="label" value="" size="30"
+                           tal:attributes="value view/data" />
                 </div>
             
                 <input type="hidden" name="row-index:int" value=""
