@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from zope.i18n import translate
 from zope.interface import implements
 try:
     from zope.schema.interfaces import IVocabularyFactory
@@ -18,9 +19,11 @@ class ColumnTypesVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        #elements = ['String', 'Text', 'Select', 'File']
+        request = context.REQUEST
         adapters = getAdapters((context, context.REQUEST), IColumnField)
         elements = [a[0] for a in adapters]
+        elements.sort(cmp=lambda x,y: cmp(translate(_(x), context=request),
+                                          translate(_(y), context=request)))
         terms = [SimpleTerm(value=e, token=e, title=_(e)) for e in elements]
         return SimpleVocabulary(terms)
 
