@@ -90,13 +90,13 @@ class MultipleFilesField(FileField):
     def render_view(self, data):
         self.data = data or []
         results = []
-        for uuid in data:
+        for uuid in self.data:
             obj_info = self._get_obj_info(uuid)
             if obj_info:
                 results.append(obj_info)
         if results:
             return self.view_template(files=results)
-        return results
+        return results or ''
 
 
 class FileDataRetriever(object):
