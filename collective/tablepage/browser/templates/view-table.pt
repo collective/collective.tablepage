@@ -34,13 +34,6 @@
     <tfoot class="visualNoPrint" tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
         <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+2">
             <tal:canedit condition="python: view.edit_mode and context.getPageColumns()">
-                <a class="command" id="mainAddCommand" href="" title="Add new row"
-                   i18n:attributes="title"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
-                    <img alt="Add new row" src=""
-                         i18n:attributes="alt"
-                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
-                </a>
                 <a class="command" href="" title="Add new label above"
 				   tal:condition="can_add_label"
                    i18n:attributes="title"
@@ -84,6 +77,7 @@
         <tal:rows repeat="row rows">
         <tr tal:define="even repeat/row/even;
                         row_index repeat/row/index;
+						next_is_label python:view.next_is_label(row_index);
 						is_data_row python:not view.is_label(row_index)"
             tal:attributes="class python:even and 'odd' or 'even'">
             <td tal:condition="python:view.edit_mode and is_data_row">
@@ -99,15 +93,23 @@
 			    scope="col" class="tablePageSubHeader" colspan=""
 				tal:attributes="colspan python:len(headers) + (view.edit_mode and 1 or 0)"
 				tal:content="row">
-				aaa
+				Section header
 			</td>
             <td class="rowCommands"
                 tal:condition="view/edit_mode">
-                <a class="command" href="" title="Add new row after this section"
-				   tal:condition="not:is_data_row"
+                <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
+				   tal:condition="python: next_is_label and repeat['row'].end"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                    <img alt="Add new row below" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
+                <a class="command" href="" title="Add new row below this"
+                   i18n:attributes="title"
+				   tal:condition="python: next_is_label and not repeat['row'].end"
                    tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}&addRow=1">
-                    <img alt="Add new row after this section" src=""
+                    <img alt="Add new row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
                 </a>
@@ -166,10 +168,21 @@
         </tr>
         </tal:rows>
         <tr class="noResults" tal:condition="not: rows">
-            <td tal:attributes="colspan python:len(headers)+1"
+            <td tal:attributes="colspan python:len(headers) - (view.edit_mode and 1 or 0)"
                 i18n:translate="">
                 No rows
             </td>
+			<td class="rowCommands"
+			    tal:condition="python: view.edit_mode and context.getPageColumns()">
+            <a class="command" href="" title="Add new row"
+               i18n:attributes="title"
+               tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                <img alt="Add new row" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+            </a>
+
+			</td>
         </tr>
     </tbody>
 </table>

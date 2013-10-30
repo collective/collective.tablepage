@@ -12,7 +12,7 @@ from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
 
 class SecurityTestCase(unittest.TestCase):
-    
+
     layer = TABLE_PAGE_INTEGRATION_TESTING
     
     def setUp(self):
@@ -116,3 +116,53 @@ class SecurityTestCase(unittest.TestCase):
         view.request.form['row-index'] = 0
         view()
         self.assertEqual(len(storage), 0)
+
+
+class LabelSecurityTestCase(unittest.TestCase):
+
+    layer = TABLE_PAGE_INTEGRATION_TESTING
+    
+    def setUp(self):
+        portal = self.layer['portal']
+        wtool = portal.portal_workflow
+        login(portal, 'user1')
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(textBefore='<p>Lorem Ipsum</p>',
+                pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': ''}])
+        login(portal, TEST_USER_NAME)
+        wtool.doActionFor(tp, 'publish')
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user1', 'col_a': 'foo'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
+        storage.add({'__label__': 'A label'})
+        storage.add({'__creator__': 'user1', 'col_a': 'baz'})
+
+    def test_add_after_label(self):
+        """user2 can add data after the label"""
+        portal = self.layer['portal']
+        tp = portal.table_page
+        login(portal, 'user2')
+        view = tp.restrictedTraverse('@@edit-record')
+        view.request.form['row-index'] = 1
+        view.request.form['addRow'] = '1'
+        view.request.form['form.submitted'] = '1'
+        view.request.form['col_a'] = 'Added by me!'
+        view()
+        storage = IDataStorage(tp)
+        self.assertEqual(storage[2].get('col_a'), 'Added by me!')
+
+    def test_add_after_label_2(self):
+        """trying to cheat URL will not work"""
+        portal = self.layer['portal']
+        tp = portal.table_page
+        login(portal, 'user2')
+        view = tp.restrictedTraverse('@@edit-record')
+        view.request.form['row-index'] = 0
+        view.request.form['addRow'] = '1'
+        view.request.form['form.submitted'] = '1'
+        view.request.form['col_a'] = 'Added by me!'
+        view()
+        storage = IDataStorage(tp)
+        self.assertEqual(storage[2].get('col_a'), 'Added by me!')

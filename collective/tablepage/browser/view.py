@@ -51,6 +51,7 @@ class EditRecordView(BrowserView):
     def __call__(self, *args, **kwargs):
         request = self.request
         form = request.form
+        row_index = form.get('row-index')
         if form.get('cancel'):
             request.response.redirect("%s/edit-table" % self.context.absolute_url())
             return
@@ -61,13 +62,12 @@ class EditRecordView(BrowserView):
             putils.addPortalMessage(_('Row has been saved'))
             request.response.redirect("%s/edit-table" % self.context.absolute_url())
             return
-        elif form.get('row-index') is not None:
-            row_index = form.get('row-index')
-            # if this is a label row, you want to add something at the end of the section
-            if self.storage[row_index].get('__label__') or row_index==0:
-                row_index = self._last_index_in_section(row_index)
+        elif form.get('row-index') is not None and form.get('addRow'):
+            # if this is the last row in the section, so you want to add something below it
+            row_index = self._last_index_in_section(row_index)
+        elif row_index is not None:
             # load an existing row
-            elif not self.check_manager_or_mine_record(row_index):
+            if not self.check_manager_or_mine_record(row_index):
                 raise Unauthorized("You can't modify that record")
             else:
                 self.data = self.storage[row_index]

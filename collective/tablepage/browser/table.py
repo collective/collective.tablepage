@@ -20,10 +20,15 @@ class TableViewView(BrowserView):
         self.edit_mode = False
 
     def __call__(self):
-        storage = IDataStorage(self.context)
+        storage = self.storage
         if not self.edit_mode and len(storage)==0:
             return ""
         return self.index()
+
+    @property
+    @memoize
+    def storage(self):
+        return IDataStorage(self.context)
 
     def showHeaders(self):
         """Logic for display table headers"""
@@ -47,7 +52,7 @@ class TableViewView(BrowserView):
         return results
 
     def rows(self):
-        storage = IDataStorage(self.context)
+        storage = self.storage
         rows = []
         adapters = {}
         # let's cache adapters
@@ -84,9 +89,20 @@ class TableViewView(BrowserView):
         return sm.checkPermission(config.MANAGE_LABEL, self.context)
 
     def mine_row(self, index):
-        storage = IDataStorage(self.context)
+        storage = self.storage
         return storage[index].get('__creator__')==self.member.getId()
 
     def is_label(self, index):
-        storage = IDataStorage(self.context)
+        storage = self.storage
         return '__label__' in  storage[index].keys()
+
+    def next_is_label(self, row_index):
+        """True if next row is a label (or end of rows)""" 
+        storage = self.storage
+        storage_size = len(storage)
+        next_index = row_index + 1
+        if next_index>=storage_size:
+            return True
+        if self.is_label(next_index):
+            return True
+        return False
