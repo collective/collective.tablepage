@@ -20,6 +20,12 @@ msgstr ""
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
+msgid "Multiple tables"
+msgstr ""
+
+msgid "Show stored data in multiple tables"
+msgstr ""
+
 # FIELD - start
 
 msgid "String"
@@ -33,6 +39,10 @@ msgstr ""
 
 msgid "File"
 msgstr ""
+
+msgid "Files"
+msgstr ""
+
 
 # FIELD - end
 

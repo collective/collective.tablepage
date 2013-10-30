@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="collective.tablepage">
 
   <include package="plone.app.contentmenu" />
@@ -75,5 +76,20 @@
 	 permission="collective.tablepage.ManageLabel"
 	 />
 
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="multiple-tables-view"
+	 class=".multiple_tables.MultipleTablesView"
+	 template="templates/multiple-tables.pt"
+	 permission="zope2.View"
+	 />
+  <browser:menuItem
+     for="..interfaces.ITablePage"
+     menu="plone_displayviews"
+     title="Multiple tables"
+     action="@@multiple-tables-view"
+     description="Show stored data in multiple tables"
+	 i18n:attributes="title; description"
+     />
 
 </configure>

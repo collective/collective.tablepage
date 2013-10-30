@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object name="TablePage">
+  <property name="view_methods" purge="False">
+	<element value="multiple-tables-view" />
+  </property>
+</object>

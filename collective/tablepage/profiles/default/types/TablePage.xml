@@ -16,6 +16,7 @@
   <property name="default_view">document_view</property>
   <property name="view_methods">
     <element value="document_view" />
+	<element value="multiple-tables-view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />
