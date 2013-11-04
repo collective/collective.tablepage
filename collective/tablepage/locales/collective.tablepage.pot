@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-30 16:26+0000\n"
+"POT-Creation-Date: 2013-11-04 15:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,30 +35,38 @@ msgstr ""
 msgid "A page with an editable table"
 msgstr ""
 
+#: ./fields/templates/multi_file.pt:117
+msgid "Add"
+msgstr ""
+
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:35
+#: ./fields/templates/multi_file.pt:119
+msgid "Add above"
+msgstr ""
+
+#: ./fields/templates/multi_file.pt:36
 msgid "Add another"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:37
+#: ./browser/templates/view-table.pt:36
 msgid "Add new label above"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:41
+#: ./browser/templates/view-table.pt:40
 msgid "Add new label above that row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:112
+#: ./browser/templates/view-table.pt:111
 msgid "Add new row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:104
+#: ./browser/templates/view-table.pt:103
 msgid "Add new row below"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:100
+#: ./browser/templates/view-table.pt:99
 msgid "Add new row below this"
 msgstr ""
 
@@ -95,29 +103,31 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:48
+#: ./browser/templates/view-table.pt:47
 msgid "Delete rows"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:45
+#: ./browser/templates/view-table.pt:44
 msgid "Delete selected rows"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:68
+#: ./browser/templates/multiple-tables.pt:79
+#: ./browser/templates/view-table.pt:67
 msgid "Download as CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:61
+#: ./browser/templates/multiple-tables.pt:73
+#: ./browser/templates/view-table.pt:60
 msgid "Download data in CSV format"
 msgstr ""
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:125
+#: ./browser/templates/view-table.pt:124
 msgid "Edit label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:59
-#: ./browser/templates/view-table.pt:117
+#: ./browser/templates/edit-record.pt:124
+#: ./browser/templates/view-table.pt:116
 msgid "Edit row"
 msgstr ""
 
@@ -127,14 +137,14 @@ msgstr ""
 
 #: ./browser/templates/upload-csv.pt:34
 #: ./fields/templates/file.pt:26
-#: ./fields/templates/multi_file.pt:29
+#: ./fields/templates/multi_file.pt:30
 msgid "File"
 msgstr ""
 
 msgid "Files"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:64
+#: ./browser/templates/edit-record.pt:129
 msgid "Fill data of this table's row"
 msgstr ""
 
@@ -164,11 +174,19 @@ msgstr ""
 msgid "Look for duplicated record"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:158
+#: ./fields/templates/multi_file.pt:57
+msgid "Move after"
+msgstr ""
+
+#: ./fields/templates/multi_file.pt:52
+msgid "Move before"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:157
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:150
+#: ./browser/templates/view-table.pt:149
 msgid "Move row up"
 msgstr ""
 
@@ -179,11 +197,11 @@ msgstr ""
 msgid "New label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:55
+#: ./browser/templates/edit-record.pt:120
 msgid "New row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:171
+#: ./browser/templates/view-table.pt:170
 msgid "No rows"
 msgstr ""
 
@@ -191,7 +209,7 @@ msgstr ""
 msgid "Page with Table"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:71
+#: ./browser/templates/edit-record.pt:136
 msgid "Provide data for the row"
 msgstr ""
 
@@ -199,7 +217,11 @@ msgstr ""
 msgid "Provide label"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:141
+#: ./fields/templates/multi_file.pt:62
+msgid "Remove"
+msgstr ""
+
+#: ./browser/templates/view-table.pt:140
 msgid "Remove row"
 msgstr ""
 
@@ -239,11 +261,11 @@ msgstr ""
 msgid "Select an existing document"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:38
+#: ./fields/templates/multi_file.pt:39
 msgid "Select existing documents"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:23
+#: ./browser/templates/view-table.pt:22
 msgid "Select/unselect all"
 msgstr ""
 
@@ -282,7 +304,7 @@ msgid "Upload"
 msgstr ""
 
 #: ./fields/templates/file.pt:13
-#: ./fields/templates/multi_file.pt:16
+#: ./fields/templates/multi_file.pt:17
 msgid "Upload a new document"
 msgstr ""
 
@@ -290,7 +312,7 @@ msgstr ""
 msgid "Upload data from CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:52
+#: ./browser/templates/view-table.pt:51
 msgid "Upload data with CSV"
 msgstr ""
 
@@ -323,7 +345,7 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:124
+#: ./fields/file.py:139
 msgid "duplicate_file_error"
 msgstr ""
 
@@ -339,7 +361,7 @@ msgstr ""
 
 #. Default: "Provide a new document. A new File content will be created."
 #: ./fields/templates/file.pt:14
-#: ./fields/templates/multi_file.pt:17
+#: ./fields/templates/multi_file.pt:18
 msgid "help_new_file"
 msgstr ""
 
@@ -354,8 +376,18 @@ msgid "help_select_file"
 msgstr ""
 
 #. Default: "You can also select existing File contents from folder ${storage}"
-#: ./fields/templates/multi_file.pt:42
+#: ./fields/templates/multi_file.pt:43
 msgid "help_select_multiple_files"
+msgstr ""
+
+#. Default: "Current selection"
+#: ./fields/templates/multi_file.pt:47
+msgid "help_select_multiple_files_current_selection"
+msgstr ""
+
+#. Default: "Available files"
+#: ./fields/templates/multi_file.pt:101
+msgid "help_select_multiple_files_possibile_selection"
 msgstr ""
 
 #. Default: "Optional summary of table contents"
@@ -380,7 +412,7 @@ msgstr ""
 
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:54
-#: ./fields/templates/multi_file.pt:60
+#: ./fields/templates/multi_file.pt:132
 msgid "no_attachment_storage_access"
 msgstr ""
 

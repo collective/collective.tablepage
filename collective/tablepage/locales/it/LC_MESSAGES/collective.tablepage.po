@@ -35,30 +35,38 @@ msgstr "... solo in modifica della tabella"
 msgid "A page with an editable table"
 msgstr "Una pagina con una tabella modificabile"
 
+#: ./fields/templates/multi_file.pt:117
+msgid "Add"
+msgstr "Aggiungi"
+
 msgid "Add a new content type, that contains an editable table"
 msgstr "Aggiunge un nuovo tipo di contenuto, che contiene una tabella modificabile"
 
-#: ./fields/templates/multi_file.pt:35
+#: ./fields/templates/multi_file.pt:119
+msgid "Add above"
+msgstr "Aggiungi sopra"
+
+#: ./fields/templates/multi_file.pt:36
 msgid "Add another"
 msgstr "Aggiungi un altro"
 
-#: ./browser/templates/view-table.pt:37
+#: ./browser/templates/view-table.pt:36
 msgid "Add new label above"
 msgstr "Aggiungi nuova etichetta sopra"
 
-#: ./browser/templates/view-table.pt:41
+#: ./browser/templates/view-table.pt:40
 msgid "Add new label above that row"
 msgstr "Aggiungi una nuova etichetta sopra questa riga"
 
-#: ./browser/templates/view-table.pt:112
+#: ./browser/templates/view-table.pt:111
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
 
-#: ./browser/templates/view-table.pt:104
+#: ./browser/templates/view-table.pt:103
 msgid "Add new row below"
 msgstr "Aggiunga nuova riga sotto"
 
-#: ./browser/templates/view-table.pt:100
+#: ./browser/templates/view-table.pt:99
 msgid "Add new row below this"
 msgstr "Aggiungi una nuova riga sotto questa"
 
@@ -90,29 +98,31 @@ msgstr "Etichetta colonna"
 msgid "Columns"
 msgstr "Colonne"
 
-#: ./browser/templates/view-table.pt:48
+#: ./browser/templates/view-table.pt:47
 msgid "Delete rows"
 msgstr "Elimina righe"
 
-#: ./browser/templates/view-table.pt:45
+#: ./browser/templates/view-table.pt:44
 msgid "Delete selected rows"
 msgstr "Elimina le righe selezionate"
 
-#: ./browser/templates/view-table.pt:68
+#: ./browser/templates/multiple-tables.pt:79
+#: ./browser/templates/view-table.pt:67
 msgid "Download as CSV"
 msgstr "Scarica come CSV"
 
-#: ./browser/templates/view-table.pt:61
+#: ./browser/templates/multiple-tables.pt:73
+#: ./browser/templates/view-table.pt:60
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:125
+#: ./browser/templates/view-table.pt:124
 msgid "Edit label"
 msgstr "Modifica etichetta"
 
-#: ./browser/templates/edit-record.pt:59
-#: ./browser/templates/view-table.pt:117
+#: ./browser/templates/edit-record.pt:124
+#: ./browser/templates/view-table.pt:116
 msgid "Edit row"
 msgstr "Modifica riga"
 
@@ -122,14 +132,14 @@ msgstr "Modifica i dati della tabella"
 
 #: ./browser/templates/upload-csv.pt:34
 #: ./fields/templates/file.pt:26
-#: ./fields/templates/multi_file.pt:29
+#: ./fields/templates/multi_file.pt:30
 msgid "File"
 msgstr ""
 
 msgid "Files"
 msgstr "Più file"
 
-#: ./browser/templates/edit-record.pt:64
+#: ./browser/templates/edit-record.pt:129
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
 
@@ -159,11 +169,19 @@ msgstr "L'etichetta è richiesta"
 msgid "Look for duplicated record"
 msgstr "Cerca record duplicati"
 
-#: ./browser/templates/view-table.pt:158
+#: ./fields/templates/multi_file.pt:57
+msgid "Move after"
+msgstr "Muovi dopo"
+
+#: ./fields/templates/multi_file.pt:52
+msgid "Move before"
+msgstr "Muovi prima"
+
+#: ./browser/templates/view-table.pt:157
 msgid "Move row down"
 msgstr "Muovi riga giù"
 
-#: ./browser/templates/view-table.pt:150
+#: ./browser/templates/view-table.pt:149
 msgid "Move row up"
 msgstr "Muovi riga su"
 
@@ -174,11 +192,11 @@ msgstr "Tabelle multiple"
 msgid "New label"
 msgstr "Nuova etichetta"
 
-#: ./browser/templates/edit-record.pt:55
+#: ./browser/templates/edit-record.pt:120
 msgid "New row"
 msgstr "Nuova riga"
 
-#: ./browser/templates/view-table.pt:171
+#: ./browser/templates/view-table.pt:170
 msgid "No rows"
 msgstr "Nessuna riga"
 
@@ -186,7 +204,7 @@ msgstr "Nessuna riga"
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
 
-#: ./browser/templates/edit-record.pt:71
+#: ./browser/templates/edit-record.pt:136
 msgid "Provide data for the row"
 msgstr "Fornisci i dati della riga"
 
@@ -194,7 +212,11 @@ msgstr "Fornisci i dati della riga"
 msgid "Provide label"
 msgstr "Fornisci un'etichetta"
 
-#: ./browser/templates/view-table.pt:141
+#: ./fields/templates/multi_file.pt:62
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: ./browser/templates/view-table.pt:140
 msgid "Remove row"
 msgstr "Elimina riga"
 
@@ -234,11 +256,11 @@ msgstr "Selezione"
 msgid "Select an existing document"
 msgstr "Seleziona un documento esistente"
 
-#: ./fields/templates/multi_file.pt:38
+#: ./fields/templates/multi_file.pt:39
 msgid "Select existing documents"
 msgstr "Seleziona documenti esistenti"
 
-#: ./browser/templates/view-table.pt:23
+#: ./browser/templates/view-table.pt:22
 msgid "Select/unselect all"
 msgstr "Seleziona/deseleziona tutti"
 
@@ -276,7 +298,7 @@ msgid "Upload"
 msgstr "Carica"
 
 #: ./fields/templates/file.pt:13
-#: ./fields/templates/multi_file.pt:16
+#: ./fields/templates/multi_file.pt:17
 msgid "Upload a new document"
 msgstr "Carica un nuovo documento"
 
@@ -284,7 +306,7 @@ msgstr "Carica un nuovo documento"
 msgid "Upload data from CSV"
 msgstr "Carica dati da CSV"
 
-#: ./browser/templates/view-table.pt:52
+#: ./browser/templates/view-table.pt:51
 msgid "Upload data with CSV"
 msgstr "Carica dati con CSV"
 
@@ -320,7 +342,7 @@ msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:124
+#: ./fields/file.py:139
 msgid "duplicate_file_error"
 msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
@@ -338,7 +360,7 @@ msgstr "Prima di aggiungere una riga, controlla se esiste già una riga con ESAT
 
 #. Default: "Provide a new document. A new File content will be created."
 #: ./fields/templates/file.pt:14
-#: ./fields/templates/multi_file.pt:17
+#: ./fields/templates/multi_file.pt:18
 msgid "help_new_file"
 msgstr "Fornisci un nuovo documento. Verrà creato un nuovo contenuto File."
 
@@ -353,9 +375,19 @@ msgid "help_select_file"
 msgstr "Puoi selezionare un File esistente dalla cartella ${storage}"
 
 #. Default: "You can also select existing File contents from folder ${storage}"
-#: ./fields/templates/multi_file.pt:42
+#: ./fields/templates/multi_file.pt:43
 msgid "help_select_multiple_files"
 msgstr "Puoi anche selezionare file esistenti dalla cartella ${storage}"
+
+#. Default: "Current selection"
+#: ./fields/templates/multi_file.pt:47
+msgid "help_select_multiple_files_current_selection"
+msgstr "Selezione corrente"
+
+#. Default: "Available files"
+#: ./fields/templates/multi_file.pt:101
+msgid "help_select_multiple_files_possibile_selection"
+msgstr "File disponibili"
 
 #. Default: "Optional summary of table contents"
 #: ./content/tablepage.py:77
@@ -379,7 +411,7 @@ msgstr "Testo prima della tabella"
 
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:54
-#: ./fields/templates/multi_file.pt:60
+#: ./fields/templates/multi_file.pt:132
 msgid "no_attachment_storage_access"
 msgstr "Sembra che tu non abbia i permessi per accedere al repositori dei file. Non puoi caricare nessun file dalla cartella configurata."
 

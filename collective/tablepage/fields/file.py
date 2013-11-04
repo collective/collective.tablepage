@@ -66,8 +66,8 @@ class FileField(BaseField):
         files_in_storage = catalog(portal_type='File',
                                    path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
                                          'depth': 1,
-                                         'order_by': 'getObjPositionInParent',
-        })
+                                         },
+                                   order_by = 'getObjPositionInParent')
         if self.data:
             # we must handle the special case where the storage has been changed and
             # when editing we haven't the old file still there
@@ -98,6 +98,21 @@ class MultipleFilesField(FileField):
             return self.view_template(files=results)
         return ''
 
+    def attachments(self, filterUIDs=[]):
+        if not filterUIDs:
+            return FileField.attachments(self)
+        catalog = getToolByName(self.context, 'portal_catalog')
+        files_in_storage = []
+        for uid in filterUIDs:
+            file_in_storage = catalog(portal_type='File',
+                                      path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
+                                            'depth': 1,
+                                            },
+                                      UID = uid,
+                                      order_by = 'getObjPositionInParent')
+            if file_in_storage:
+                files_in_storage.append(file_in_storage[0])
+        return files_in_storage
 
 class FileDataRetriever(object):
     """

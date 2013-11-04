@@ -38,7 +38,6 @@
                              cssClasses python:' '.join(context.getCssClasses());
 							 rows view/rows;"
 			     tal:attributes="class python: cssClasses and cssClasses + ' multiTablePage' or 'multiTablePage'">
-				
 		    <tal:tables tal:condition="python:len(rows)>0">
 
         		<h2 tal:condition="context/getTableCaption"
@@ -46,150 +45,45 @@
 				
 				<tal:rows tal:repeat="row rows">
 
-				<h3 class="multiTablePageRowHeader"
-				     tal:condition="python:view.is_label(row)"
-					 tal:content="python:view.is_label(row)">
-					Section Foo
-				</h3>
-				
-				<table class="multiTablePageRowData listing"
-				       tal:condition="python:not view.is_label(row)">
-				
-					<tal:sub-table-rows repeat="data row">
-					<tr tal:define="col_index repeat/data/index">
-						<th scope="row" class="nosort"
-						    tal:define="header python:view.getHeader(col_index)">
-						    	<span tal:replace="header/label" />
-								<div class="discreet" tal:content="header/description">This is for...</div>
-						    </th>
-						<td class="nosort" tal:content="structure data">aaa</td>
-					</tr>
-					</tal:sub-table-rows>
-				
-				</table>
+					<h3 class="multiTablePageRowHeader"
+					     tal:condition="python:view.is_label(row)"
+						 tal:content="python:view.is_label(row)">
+						Section Foo
+					</h3>
+					
+					<table class="multiTablePageRowData listing"
+					       tal:condition="python:not view.is_label(row)">
+					
+						<tal:sub-table-rows repeat="data row">
+						<tr tal:define="col_index repeat/data/index">
+							<th scope="row" class="nosort"
+							    tal:define="header python:view.getHeader(col_index)">
+							    	<span tal:replace="header/label" />
+									<div class="discreet" tal:content="header/description">This is for...</div>
+							    </th>
+							<td class="nosort" tal:content="structure data">aaa</td>
+						</tr>
+						</tal:sub-table-rows>
+					
+					</table>
 				
 				</tal:rows>
 
-			</tal:tables>
-				
-			</div>
-
-<!--table class="listing tablePage"
-
-    <tbody>
-        <tal:rows repeat="row rows">
-        <tr tal:define="even repeat/row/even;
-                        row_index repeat/row/index;
-						next_is_label python:view.next_is_label(row_index);
-						is_data_row python:not view.is_label(row_index)"
-            tal:attributes="class python:even and 'odd' or 'even'">
-            <td tal:condition="python:view.edit_mode and is_data_row">
-                <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
-                       tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
-                       tal:attributes="value repeat/row/index" />
-            </td>
-            <td tal:condition="is_data_row"
-			    tal:repeat="cell row">
-                <span tal:replace="structure cell" />
-            </td>
-			<td tal:condition="not:is_data_row"
-			    scope="col" class="tablePageSubHeader" colspan=""
-				tal:attributes="colspan python:len(headers) + (view.edit_mode and 1 or 0)"
-				tal:content="row">
-				Section header
-			</td>
-            <td class="rowCommands"
-                tal:condition="view/edit_mode">
-                <a class="command" href="" title="Add new row below this"
-                   i18n:attributes="title"
-				   tal:condition="python: next_is_label and repeat['row'].end"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
-                    <img alt="Add new row below" src=""
-                         i18n:attributes="alt"
-                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
-                </a>
-                <a class="command" href="" title="Add new row below this"
-                   i18n:attributes="title"
-				   tal:condition="python: next_is_label and not repeat['row'].end"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}&addRow=1">
-                    <img alt="Add new row" src=""
-                         i18n:attributes="alt"
-                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
-                </a>
-                <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
-                    <a class="command" href="" title="Edit row"
-					   tal:condition="is_data_row"
-                       i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
-                        <img alt="Edit row" src=""
-                             i18n:attributes="alt"
-                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
-                    </a>
-                    <a class="command" href="" title="Edit label"
-					   tal:condition="not:is_data_row"					
-                       i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}">
-                        <img alt="Edit label" src=""
-                             i18n:attributes="alt"
-                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
-                    </a>
-	                <a class="command" href="" title="Add new label above"
-					   tal:condition="can_add_label"
+	            <tal:download_enabled tal:condition="python:rows and context.getDownloadEnabled()">
+	                <a class="command" href="" title="Download data in CSV format"
 	                   i18n:attributes="title"
-	                   tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}&addLabel=1">
-	                    <img alt="Add new label above that row" src=""
-	                         i18n:attributes="alt"
-	                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
-	                </a>
-                    <a class="command" href="" title="Remove row"
-                       i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">
-                        <img alt="Remove row" src=""
-                             i18n:attributes="alt"
-                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />
-                    </a>
-                </tal:mine-or-editor>
-                <tal:manager-or-mine condition="has_tablemanager_permission">
-                    <a class="command" href="" title="Move row up"
-                       i18n:attributes="title"
-                       tal:condition="not:repeat/row/start"
-                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up">
-                        <img alt="Move row up" src=""
-                             i18n:attributes="alt"
-                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png" />
-                    </a>
-                    <a class="command" href="" title="Move row down"
-                       i18n:attributes="title"
-                       tal:condition="not:repeat/row/end"
-                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down">
-                        <img alt="Move row down" src=""
-                             i18n:attributes="alt"
-                             tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png" />
-                    </a>
-                </tal:manager-or-mine>
-            </td>
-        </tr>
-        </tal:rows>
-        <tr class="noResults" tal:condition="not: rows">
-            <td tal:attributes="colspan python:len(headers) - (view.edit_mode and 1 or 0)"
-                i18n:translate="">
-                No rows
-            </td>
-			<td class="rowCommands"
-			    tal:condition="python: view.edit_mode and context.getPageColumns()">
-            <a class="command" href="" title="Add new row"
-               i18n:attributes="title"
-               tal:attributes="href string:${context/absolute_url}/@@edit-record">
-                <img alt="Add new row" src=""
-                     i18n:attributes="alt"
-                     tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
-            </a>
+	                   tal:attributes="href string:${context/absolute_url}/@@download-table">
+	                    <img alt="Download data in CSV format" src=""
+	                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
+	                         i18n:attributes="alt"/>
+	                    <span class="discreet"
+	                          tal:condition="not:view/edit_mode"
+	                          i18n:translate="">Download as CSV</span>
+	                </a>            
+	            </tal:download_enabled>
 
-			</td>
-        </tr>
-    </tbody>
-</table-->
-
+			</tal:tables>
+			</div>
 
         </metal:body>
 

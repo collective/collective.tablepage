@@ -58,3 +58,30 @@ table.tablePage .tablePageSubHeader {
 	border-top: 1px solid;
 }
 */
+
+.multiTablePageRowData {
+	width: 95%;
+}
+
+.multiTablePageRowData th {
+	width: 30%;
+}
+
+.savedFiles li,
+.availableFiles li {
+	clear: right;
+}
+.commandSelectedFile {
+	margin: 2px 5px 2px 0px;
+	float: right;
+}
+
+a.commandSelectedFile,
+#content a.commandSelectedFile,
+a.commandSelectedFile,
+a.commandSelectedFile,
+a.commandSelectedFile,
+a.commandSelectedFile {
+	text-decoration: none;
+	border-bottom: none;
+}
