@@ -2,7 +2,7 @@
 """
 
 PROJECTNAME = 'collective.tablepage'
-RESERVED_IDS = ('__creator__', '__label__')
+RESERVED_IDS = ('__creator__', '__label__', 'id')
 
 ADD_PERMISSIONS = {
     'TablePage': 'collective.tablepage: Add TablePage',

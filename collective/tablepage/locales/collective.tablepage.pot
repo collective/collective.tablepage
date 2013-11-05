@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-04 15:48+0000\n"
+"POT-Creation-Date: 2013-11-05 10:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,14 +35,14 @@ msgstr ""
 msgid "A page with an editable table"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:117
+#: ./fields/templates/multi_file.pt:115
 msgid "Add"
 msgstr ""
 
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:119
+#: ./fields/templates/multi_file.pt:117
 msgid "Add above"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:139
+#: ./fields/file.py:141
 msgid "duplicate_file_error"
 msgstr ""
 
@@ -385,8 +385,8 @@ msgstr ""
 msgid "help_select_multiple_files_current_selection"
 msgstr ""
 
-#. Default: "Available files"
-#: ./fields/templates/multi_file.pt:101
+#. Default: "Other available files"
+#: ./fields/templates/multi_file.pt:100
 msgid "help_select_multiple_files_possibile_selection"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgstr ""
 
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:54
-#: ./fields/templates/multi_file.pt:132
+#: ./fields/templates/multi_file.pt:130
 msgid "no_attachment_storage_access"
 msgstr ""
 

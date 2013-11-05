@@ -84,7 +84,7 @@
 				row.prev().find('a.moveDown').remove();
 			}
 			row.remove();
-			$('.availableFiles li[data-uid=' + row.data('uid') + ']').show();
+			$('.availableFiles li[data-uid=' + row.attr('data-uid') + ']').show();
 
 		});
 		$('a.addRow').click(function(event) {
@@ -92,17 +92,17 @@
 			var row = $(this).parents('li.storageFile');
 			row.hide();
 			var activeFiles = $('.savedFiles');
-			var newRow = $('<li class="storageFile"></li>');
+			var newRow = $('<li class="storageFile"><\/li>');
 			newRow.attr('data-uid', row.data('uid'));
 			var newInput = row.find('input').clone();
 			newRow.append(newInput);
 			newInput.attr('name', 'existing_files:list');
 			newRow.append(row.find('a:first').clone());
 			if ($('li', activeFiles).length>0) {
-				newRow.append($('#buttonModels').find('a:first').clone(true));
-				$('li:last', activeFiles).prepend($('#buttonModels').find('a:eq(1)').clone(true));
+				newRow.append($('#buttonModels').find('a.moveUp').clone(true));
+				$('li:last', activeFiles).prepend($('#buttonModels').find('a.moveDown').clone(true));
 			}
-			newRow.append($('#buttonModels').find('a:eq(2)').clone(true));
+			newRow.append($('#buttonModels').find('a.removeRow').clone(true));
 			activeFiles.append(newRow);
 		});
 

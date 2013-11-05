@@ -167,7 +167,7 @@
         </tr>
         </tal:rows>
         <tr class="noResults" tal:condition="not: rows">
-            <td tal:attributes="colspan python:len(headers) - (view.edit_mode and 1 or 0)"
+            <td tal:attributes="colspan python:len(headers)"
                 i18n:translate="">
                 No rows
             </td>

@@ -46,7 +46,7 @@
 
 		<strong i18n:translate="help_select_multiple_files_current_selection">
 			Current selection
-		</strong>
+		</strong> <br/>
 
 		<div style="display:none" id="buttonModels">
             <a href="" title="Move before" class="commandSelectedFile moveUp"
@@ -67,8 +67,7 @@
 		</div>
 
 		<ol class="savedFiles"
-		    tal:define="files python:view.attachments(filterUIDs=options.get('data'))"
-		    tal:condition="files">
+		    tal:define="files python:view.attachments(filterUIDs=options.get('data') or None)">
         <tal:selected tal:repeat="file files">
         <li class="storageFile" tal:attributes="data-uid file/UID">
             <input type="hidden" name=""
@@ -99,8 +98,8 @@
 		</ol>
 
 		<strong i18n:translate="help_select_multiple_files_possibile_selection">
-			Available files
-		</strong>
+			Other available files
+		</strong> <br/>
 
 		<ul class="availableFiles"
 		    tal:define="files python:view.attachments()"

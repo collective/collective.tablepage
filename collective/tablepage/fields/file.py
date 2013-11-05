@@ -99,6 +99,8 @@ class MultipleFilesField(FileField):
         return ''
 
     def attachments(self, filterUIDs=[]):
+        if filterUIDs is None:
+            return []
         if not filterUIDs:
             return FileField.attachments(self)
         catalog = getToolByName(self.context, 'portal_catalog')

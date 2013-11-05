@@ -35,9 +35,7 @@
 
 			<div tal:define="portal_url view/portal_url;
                              headers view/headers;
-                             cssClasses python:' '.join(context.getCssClasses());
-							 rows view/rows;"
-			     tal:attributes="class python: cssClasses and cssClasses + ' multiTablePage' or 'multiTablePage'">
+							 rows view/rows;">
 		    <tal:tables tal:condition="python:len(rows)>0">
 
         		<h2 tal:condition="context/getTableCaption"
@@ -51,7 +49,8 @@
 						Section Foo
 					</h3>
 					
-					<table class="multiTablePageRowData listing"
+					<table class="multiTablePageRowData"
+					       tal:attributes="class python:'multiTablePageRowData ' + ' '.join(context.getCssClasses())"
 					       tal:condition="python:not view.is_label(row)">
 					
 						<tal:sub-table-rows repeat="data row">
