@@ -13,6 +13,8 @@ Changelog
   [keul]
 - Labels inside the table are now supported
   [keul]
+- New view for displaying data on multiple tables
+  [keul]
 
 0.3 (2013-10-18)
 ----------------
