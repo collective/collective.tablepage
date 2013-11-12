@@ -1,0 +1,112 @@
+<tal:linkfield
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="collective.tablepage">
+
+<script type="text/javascript">
+<!--
+
+    (function($) {
+        if (!window.referenceBrowserLoaded) {
+            $(document).ready(function() {
+
+                /**
+                 * 
+                 */
+                $('#editRow').submit(function() {
+                    
+                });
+
+                /**
+                 * Remove selected reference
+                 */
+                $('.removeReference').click(function(event) {
+                    event.preventDefault();
+                    $(this).parents('.subField').find('.internalLinkField').val('');
+                });
+            
+            });
+        
+        }
+    })(jQuery);
+
+    if (!window.referencebrowser_openBrowser && !window.referenceBrowserLoaded) {
+        var sc = document.createElement('script');
+        sc.src = portal_url + '/referencebrowser.js';
+        sc.async = true;
+        document.body.appendChild(sc);
+        // Plone 4 does not use this
+        if (!window.referenceBrowserLoaded) {
+            window.referenceBrowserLoaded = true;
+        }
+    }
+
+//-->
+</script>
+
+<label tal:attributes="for view/configuration/id"
+       tal:content="view/configuration/label">A good field</label>
+<div class="formHelp" tal:content="view/configuration/description">
+    Help filling me
+</div>
+
+<div class="field subField">
+    <label tal:attributes="for string:external_${view/configuration/id}"
+           i18n:translate="">URL</label>
+	<div class="formHelp" i18n:translate="help_external_link">
+		Provide a link to a know resource. This will be ignored if you use the \"Internal link\" below 
+	</div>
+    <input type="url" size="50" placeholder="http://"
+           tal:attributes="id string:external_${view/configuration/id};
+                           name string:external_${view/configuration/id};
+                           value options/external_url|nothing;" />
+</div>
+<div class="field subField"
+     tal:define="startup_directory view/getStartupDirectory;
+                 helper python:context.restrictedTraverse('refbrowserhelper', nothing);
+                 at_url helper/getAtURL|nothing;
+                 ref_document view/getReferencedDocument">
+    <label tal:attributes="for string:command_internal_${view/configuration/id}"
+           i18n:translate="">Internal link</label>
+	<div class="formHelp" i18n:translate="help_internal_link">
+		As an alternative to the \"URL\" above you can provide a link to an internal document. This will override
+		any absolute URL you put above.  
+	</div>
+
+    <div id="atrb_link_internal" class="overlay overlay-ajax"
+         tal:attributes="id string:atrb_internal_${view/configuration/id}"><div class="close"><span>Close</span></div>
+        <div class="pb-ajax">
+            <div class="overlaycontent" style="font-size: 125%"></div>
+        </div>
+    </div>
+
+    <input type="text" id="ref_browser_link_internal_label"
+           class="internalLinkField"
+           size="60"
+           readonly="readonly"
+           name="link_internal_label"
+           value=""
+           tal:attributes="value ref_document/title_or_id|nothing;
+                           name string:internal_${view/configuration/id}_label;
+                           id string:ref_browser_internal_${view/configuration/id}_label;" />
+    <input type="hidden" name="link_internal" id="ref_browser_link_internal"
+           class="internalLinkField"
+           tal:attributes="value ref_document/UID|nothing;
+                           id string:ref_browser_internal_${view/configuration/id};
+                           name string:internal_${view/configuration/id};" />
+    <input type="button" class="searchButton addreference" value="Add..." rel="#atrb_link_internal"
+           tal:attributes="id string:command_internal_${view/configuration/id};
+                              rel string:#atrb_internal_${view/configuration/id};
+                           onclickxxx python:'javascript:referencebrowser_openBrowser(\'' + context.absolute_url() + '\',\'link_internal\', \'' + '/'.join(context.getPhysicalPath()) +  '\', \'link_internal\')';
+                           src string:${startup_directory}/refbrowser_popup?fieldName=internal_${view/configuration/id}&amp;fieldRealName=link_internal&amp;at_url=${at_url};"
+           i18n:domain="plone" i18n:attributes="value label_add;" />
+    <a class="removeReference" title="Delete selection" href="" i18n:attributes="title">
+           <img alt="Delete selection"
+             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/remove.png"
+             i18n:attributes="alt" />
+    </a>
+
+</div>
+
+
+</tal:linkfield>

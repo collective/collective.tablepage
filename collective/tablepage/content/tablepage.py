@@ -29,6 +29,12 @@ from collective.tablepage import config
 
 from Products.TinyMCE.interfaces.utility import ITinyMCE
 
+try:
+    from archetypes.referencebrowserwidget import ReferenceBrowserWidget
+except ImportError:
+    from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+
+
 TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
 
     atapi.TextField('textBefore',
@@ -156,6 +162,15 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
             ),
     ),
 
+    # FOO FIELD!!!! Only needed to being able to use the ATReferenceBrowserWidget... :(
+    atapi.StringField('link_internal',
+            widget=ReferenceBrowserWidget(
+                    label=u"Internal link dump field",
+                    visible={'view': 'invisible', 'edit': 'invisible'},
+                    force_close_on_insert=True,
+                    startup_directory_method="this_directory",
+            ),
+    ),
 
 ))
 

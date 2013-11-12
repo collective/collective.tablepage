@@ -48,7 +48,11 @@ Right now you can choose from:
     Still a simple line of thext, but user must choose it from a vocabulary you will define (in the proper column
     of the configuration).
 ``File``
-    A link to a file in the site. See below
+    A link to a file in the site. See below.
+``Files``
+    Same as ``File`` above, but for multiple files.
+``Link``
+    A link to an URL, or an internal site document.
 
 Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
 Also: there's **no validation**!
@@ -60,15 +64,15 @@ You can add as many columns as you want; users that will fill your table won't b
 Filling the table
 -----------------
 
-Configuration is not changing anything on your layour, but users with *Contributor* role on this document will see a
+Configuration is not changing anything in your layour, but users with *Contributor* role on this document will see a
 new tab: "**Edit table**".
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png/image_large
    :alt: Page with Table view 
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png
 
-When accessing the "*Edit table data*" view users will be able to add new rows to the table and edit their own rows.
-The data form given to the user is generated using the configuration options that the document creator defined before.
+When accessing the "*Edit table data*" view, users will be able to add new rows to the table and edit their own rows.
+The form given to the user is generated using the configuration options that the document creator defined before.
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-03.png/image_large
    :alt: Add new row in the table 
@@ -76,20 +80,34 @@ The data form given to the user is generated using the configuration options tha
 
 Some note:
 
-* Every added row is put at the end of the table
+* Every added row is put at the end of the table or at the end of table section (see below)
 * Every Contributor is able to edit or delete his own rows
-* Users with "*Editor*" roles is able to edit or delete all rows
-* Users with "*Editor*" roles is able change row order
+* Users with "*Editor*" roles are able to edit or delete all rows
+* Users with "*Editor*" roles are able change row order
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-04.png/image_large
    :alt: Table editing
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-04.png
 
-When switching back to main document view, the generated table is part of the document body text.
+When switching back to main document view the generated table is part of the document body text.
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-05.png/image_large
    :alt: Page with Table view
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-05.png
+
+Table labels and sections
+-------------------------
+
+.. image:: https://raw.github.com/RedTurtle/collective.tablepage/b4d92e346ce9ae6cbd9de053eeee158088b85b67/collective/tablepage/browser/images/labeling.png
+   :alt: New label icon
+   :align: left
+
+Users with power of configuring the table can also add a special type or row: **Label**. Apart the UI changes,
+labels break the table in groups of logical rows: every group start at the position of the label at end at
+the next label (or at the end of the table).
+
+If one or more labels are used, contributors will be able to add new rows at the end of the section instead
+of adding only at the end of the table.
 
 Download and Upload data
 ------------------------
@@ -98,13 +116,13 @@ Download and Upload data
   (activate the "*Show download link for data*" from "*Settings*")
 * Contributors can populate the table uploading a CSV file
 
-Column of type "File"
----------------------
+Column of type "File" and "Files"
+---------------------------------
 
-Column of type "File" are the most complex.
+Columns of type file(s) are the most complex.
 
-When adding or editing a row the user is able to upload a new file, creating a new Plone File content, or selecting
-an existing file from the site.
+When adding or editing a row the user is able to upload new files, creating a new Plone File content, or selecting
+existing files from the site.
 
 In both cases permissions matters: the user must have permisson of adding new file in the storage folder or see it.
 The storage folder is configured by the document creator.

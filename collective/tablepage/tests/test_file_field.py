@@ -14,7 +14,7 @@ from plone.app.testing import logout
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
-class FileFileldTestCase(unittest.TestCase):
+class FileFieldTestCase(unittest.TestCase):
     
     layer = TABLE_PAGE_INTEGRATION_TESTING
     
@@ -139,7 +139,7 @@ class FileFileldTestCase(unittest.TestCase):
         self.assertEqual(storage[0]['att'], storage[1]['att'])
         
 
-class MultipleFileFileldTestCase(unittest.TestCase):
+class MultipleFileFieldTestCase(unittest.TestCase):
     
     layer = TABLE_PAGE_INTEGRATION_TESTING
     

@@ -28,16 +28,6 @@ class FileField(BaseField):
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
 
-    def _get_obj_info(self, uuid):
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
-        if obj:
-            return dict(title=obj.Title() or obj.getId(),
-                        url=obj.absolute_url(),
-                        description=obj.Description(),
-                        icon=obj.getIcon(relative_to_portal=1))
-        return None
-
     def render_view(self, data):
         self.data = data or ''
         uuid = data

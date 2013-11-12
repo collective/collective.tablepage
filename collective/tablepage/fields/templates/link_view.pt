@@ -1,0 +1,12 @@
+<a tal:condition="options/external_url|nothing"
+   tal:attributes="href options/external_url"
+   tal:content="options/external_url">http://plone.org/</a>
+<a tal:condition="options/url|nothing"
+   rel="external"
+   tal:attributes="href options/url;
+                   title options/description;">
+	<img src="" alt="" 
+	     tal:define="portal_url context/@@plone_portal_state/portal_url"
+		 tal:attributes="src string:${portal_url}/${options/icon}" />
+	<span tal:replace="options/title" />
+</a>

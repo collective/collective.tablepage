@@ -15,6 +15,9 @@ Changelog
   [keul]
 - New view for displaying data on multiple tables
   [keul]
+- New field type: "Link", for inserting an URL or an internal
+  reference
+  [keul]
 
 0.3 (2013-10-18)
 ----------------

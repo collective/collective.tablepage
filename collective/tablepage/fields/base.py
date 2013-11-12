@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from collective.tablepage.interfaces import IColumnDataRetriever
+
 
 class BaseField(object):
     """Generic helper class for all fields"""
@@ -23,7 +25,18 @@ class BaseField(object):
 
     def render_view(self, data):
         self.data = data or ''
-        return self.view_template(data=data)
+        return self.view_template(data=self.data)
+
+    def _get_obj_info(self, uuid):
+        # for fields that need to refer to other contents
+        rcatalog = getToolByName(self.context, 'reference_catalog')
+        obj = rcatalog.lookupObject(uuid)
+        if obj:
+            return dict(title=obj.Title() or obj.getId(),
+                        url=obj.absolute_url(),
+                        description=obj.Description(),
+                        icon=obj.getIcon(relative_to_portal=1))
+        return None
 
 
 class BaseFieldDataRetriever(object):
