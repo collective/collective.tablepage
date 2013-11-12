@@ -11,6 +11,7 @@ from plone.app.testing import logout
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
+
 class LinkFieldTestCase(unittest.TestCase):
 
     layer = TABLE_PAGE_INTEGRATION_TESTING
@@ -20,7 +21,7 @@ class LinkFieldTestCase(unittest.TestCase):
         wtool = portal.portal_workflow
         login(portal, TEST_USER_NAME)
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
-        portal.invokeFactory(type_name='Document', id='document', title="A document to reference")
+        portal.invokeFactory(type_name='Document', id='document', title="A d\xc3\xb2cument to reference")
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': ''}])
@@ -34,7 +35,7 @@ class LinkFieldTestCase(unittest.TestCase):
         storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
         request.form['row-index'] = 0
         view = getMultiAdapter((tp, request), name=u'edit-record')
-        self.assertTrue('value="%s"' % portal.document.Title() in view())
+        self.assertTrue('value="%s"' % portal.document.Title().decode('utf-8') in view())
 
     def test_url_edit(self):
         portal = self.layer['portal']
@@ -55,7 +56,7 @@ class LinkFieldTestCase(unittest.TestCase):
         request.form['row-index'] = 0
         view = getMultiAdapter((tp, request), name=u'edit-record')
         self.assertTrue('foo bar baz' not in view())
-        self.assertTrue('value="%s"' % portal.document.Title() not in view())
+        self.assertTrue('value="%s"' % portal.document.Title().decode('utf-8') not in view())
 
     def test_url_save(self):
         portal = self.layer['portal']

@@ -85,12 +85,12 @@
            readonly="readonly"
            name="link_internal_label"
            value=""
-           tal:attributes="value ref_document/title_or_id|nothing;
+           tal:attributes="value ref_document/title|nothing;
                            name string:internal_${view/configuration/id}_label;
                            id string:ref_browser_internal_${view/configuration/id}_label;" />
     <input type="hidden" name="link_internal" id="ref_browser_link_internal"
            class="internalLinkField"
-           tal:attributes="value ref_document/UID|nothing;
+           tal:attributes="value ref_document/uuid|nothing;
                            id string:ref_browser_internal_${view/configuration/id};
                            name string:internal_${view/configuration/id};" />
     <input type="button" class="searchButton addreference" value="Add..." rel="#atrb_link_internal"

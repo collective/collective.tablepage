@@ -72,7 +72,7 @@ class LinkField(BaseField):
         if uuid:
             rcatalog = getToolByName(self.context, 'reference_catalog')
             obj = rcatalog.lookupObject(uuid)
-            return obj
+            return obj and {'title': obj.Title().decode('utf-8'), 'uuid':  obj.UID()} or None
 
 
 class LinkDataRetriever(object):

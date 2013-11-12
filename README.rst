@@ -52,7 +52,7 @@ Right now you can choose from:
 ``Files``
     Same as ``File`` above, but for multiple files.
 ``Link``
-    A link to an URL, or an internal site document.
+    A link to an URL, or an internal site document. It use Plone reference browser native widget.
 
 Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
 Also: there's **no validation**!
@@ -80,7 +80,7 @@ The form given to the user is generated using the configuration options that the
 
 Some note:
 
-* Every added row is put at the end of the table or at the end of table section (see below)
+* Every added row is put at the end of the table or at the end of section (see below)
 * Every Contributor is able to edit or delete his own rows
 * Users with "*Editor*" roles are able to edit or delete all rows
 * Users with "*Editor*" roles are able change row order
