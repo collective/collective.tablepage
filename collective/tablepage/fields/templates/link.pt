@@ -30,12 +30,11 @@
         }
     })(jQuery);
 
-    if (!window.referencebrowser_openBrowser && !window.referenceBrowserLoaded) {
+    if (!window.referenceBrowserLoaded) {
         var sc = document.createElement('script');
         sc.src = portal_url + '/referencebrowser.js';
         sc.async = true;
         document.body.appendChild(sc);
-        // Plone 4 does not use this
         if (!window.referenceBrowserLoaded) {
             window.referenceBrowserLoaded = true;
         }
@@ -97,8 +96,8 @@
     <input type="button" class="searchButton addreference" value="Add..." rel="#atrb_link_internal"
            tal:attributes="id string:command_internal_${view/configuration/id};
                               rel string:#atrb_internal_${view/configuration/id};
-                           onclickxxx python:'javascript:referencebrowser_openBrowser(\'' + context.absolute_url() + '\',\'link_internal\', \'' + '/'.join(context.getPhysicalPath()) +  '\', \'link_internal\')';
-                           src string:${startup_directory}/refbrowser_popup?fieldName=internal_${view/configuration/id}&amp;fieldRealName=link_internal&amp;at_url=${at_url};"
+                              onclick python:view.PLONE3 and 'javascript:referencebrowser_openBrowser(\'' + startup_directory + '\',\'ref_browser_internal_' + view.configuration['id'] + '\', \'' + '/'.join(context.getPhysicalPath()) +  '\', \'link_internal\')' or None;
+                              src string:${startup_directory}/refbrowser_popup?fieldName=internal_${view/configuration/id}&amp;fieldRealName=link_internal&amp;at_url=${at_url};"
            i18n:domain="plone" i18n:attributes="value label_add;" />
     <a class="removeReference" title="Delete selection" href="" i18n:attributes="title">
            <img alt="Delete selection"
@@ -107,6 +106,5 @@
     </a>
 
 </div>
-
 
 </tal:linkfield>

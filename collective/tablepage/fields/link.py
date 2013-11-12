@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# A LOT of mess can be removed from this field as soon as we will drop Plone 3.3 compatibility
+# I hope to live long enough to see that day
+
+import sys
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.interfaces import IColumnDataRetriever
@@ -14,6 +18,12 @@ except ImportError:
     from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
 
 
+if sys.version_info < (2, 6):
+    PLONE3 = True
+else:
+    PLONE3 = False
+
+
 def is_url(data):
     data = data.lower()
     return data.startswith('http://') or data.startswith('/') or data.startswith('../') \
@@ -22,6 +32,10 @@ def is_url(data):
 
 class LinkField(BaseField):
     implements(IColumnField)
+
+    def __init__(self, context, request):
+        BaseField.__init__(self, context, request)
+        self.PLONE3 = PLONE3
 
     edit_template = ViewPageTemplateFile('templates/link.pt')
     view_template = ViewPageTemplateFile('templates/link_view.pt')
@@ -55,9 +69,10 @@ class LinkField(BaseField):
 
     def getReferencedDocument(self):
         uuid = self.data
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
-        return obj
+        if uuid:
+            rcatalog = getToolByName(self.context, 'reference_catalog')
+            obj = rcatalog.lookupObject(uuid)
+            return obj
 
 
 class LinkDataRetriever(object):
