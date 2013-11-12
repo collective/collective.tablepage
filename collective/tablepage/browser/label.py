@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from AccessControl import Unauthorized
 from AccessControl import getSecurityManager
 from plone.memoize.view import memoize
 from collective.tablepage import config
@@ -45,7 +46,6 @@ class EditLabelView(BrowserView):
     def _save(self):
         form = self.request.form
         context = self.context
-        configuration = self.configuration
         label = form.get('label')
         _ = getToolByName(context, 'translation_service').utranslate
         if form.get('row-index') is not None and form.get('addLabel'):

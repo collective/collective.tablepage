@@ -8,7 +8,6 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 
 from collective.tablepage.interfaces import IDataStorage
-from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
 class LabelTestCase(unittest.TestCase):
@@ -32,7 +31,6 @@ class LabelTestCase(unittest.TestCase):
     def test_create_new_label_form(self):
         request = self.layer['request']
         portal = self.layer['portal']
-        form = request.form
         tp = portal.table_page
         view = getMultiAdapter((tp, request), name=u'edit-label')
         self.assertTrue('New label' in view())

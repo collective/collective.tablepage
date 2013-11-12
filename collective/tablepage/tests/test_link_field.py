@@ -6,7 +6,6 @@ from zope.component import getMultiAdapter
 
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
-from plone.app.testing import logout
 
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING

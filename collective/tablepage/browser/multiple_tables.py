@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from zope.component import getMultiAdapter
-from plone.memoize.view import memoize
-from Products.Five.browser import BrowserView
 from collective.tablepage.browser.table import TableViewView
+
 
 class MultipleTablesView(TableViewView):
     """View with multiple tables"""
