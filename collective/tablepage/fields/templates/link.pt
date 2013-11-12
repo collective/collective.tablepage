@@ -11,13 +11,6 @@
             $(document).ready(function() {
 
                 /**
-                 * 
-                 */
-                $('#editRow').submit(function() {
-                    
-                });
-
-                /**
                  * Remove selected reference
                  */
                 $('.removeReference').click(function(event) {
