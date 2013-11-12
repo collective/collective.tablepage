@@ -52,9 +52,9 @@
 <div class="field subField">
     <label tal:attributes="for string:external_${view/configuration/id}"
            i18n:translate="">URL</label>
-	<div class="formHelp" i18n:translate="help_external_link">
-		Provide a link to a know resource. This will be ignored if you use the \"Internal link\" below 
-	</div>
+    <div class="formHelp" i18n:translate="help_external_link">
+        Provide a link to a know resource. This will be ignored if you use the \"Internal link\" below 
+    </div>
     <input type="url" size="50" placeholder="http://"
            tal:attributes="id string:external_${view/configuration/id};
                            name string:external_${view/configuration/id};
@@ -67,13 +67,15 @@
                  ref_document view/getReferencedDocument">
     <label tal:attributes="for string:command_internal_${view/configuration/id}"
            i18n:translate="">Internal link</label>
-	<div class="formHelp" i18n:translate="help_internal_link">
-		As an alternative to the \"URL\" above you can provide a link to an internal document. This will override
-		any absolute URL you put above.  
-	</div>
+    <div class="formHelp" i18n:translate="help_internal_link">
+        As an alternative to the \"URL\" above you can provide a link to an internal document. This will override
+        any absolute URL you put above.  
+    </div>
 
     <div id="atrb_link_internal" class="overlay overlay-ajax"
-         tal:attributes="id string:atrb_internal_${view/configuration/id}"><div class="close"><span>Close</span></div>
+         tal:attributes="id string:atrb_internal_${view/configuration/id};
+		                 class python:view.PLONE3 and 'hiddenStructure' or 'overlay overlay-ajax';">
+          <div class="close"><span>Close</span></div>
         <div class="pb-ajax">
             <div class="overlaycontent" style="font-size: 125%"></div>
         </div>
