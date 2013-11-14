@@ -2,6 +2,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
+from zope.component import getMultiAdapter
 from collective.tablepage.interfaces import IColumnDataRetriever
 
 
@@ -52,6 +53,12 @@ class BaseFieldDataRetriever(object):
             return {name: request.get(name)}
         return None
 
-    def data_for_display(self, data):
+    def data_for_display(self, data, backend=False):
         """Default implementation... just return data""" 
         return data
+
+    def data_to_storage(self, data):
+        """Default implementation... just return data (stripped)"""
+        return data and data.strip() or None
+
+

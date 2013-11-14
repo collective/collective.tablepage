@@ -49,6 +49,10 @@ class IColumnDataRetriever(Interface):
     def get_from_request(name, request):
         """Read data from the request and return a {id: value} dict, or None"""
 
-    def data_for_display(data):
-        """Transform data, to be displayed outside Plone"""
-        
+    def data_for_display(data, backend=False):
+        """Transform data, to be displayed outside Plone
+        @backend specify that data is for backend purpose
+        """
+
+    def data_to_storage(self, data):
+        """Validate data that will be saved to storage"""

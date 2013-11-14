@@ -29,6 +29,16 @@ class UploadDataView(BrowserView):
         self.request = request
         request.set('disable_border', True)
 
+    def _getRetrieverAdapter(self, col_type):
+           
+        try:
+            retriever = getAdapter(self.context,
+                                   IColumnDataRetriever,
+                                   name=col_type)
+        except ComponentLookupError:
+            retriever = IColumnDataRetriever(self.context)
+        return retriever
+
     def __call__(self):
         request = self.request
         context = self.context
@@ -39,7 +49,11 @@ class UploadDataView(BrowserView):
             storage = IDataStorage(context)
             member = getMultiAdapter((context, request), name=u'plone_portal_state').member()
             reader = csv.reader(file)
-            valid_headers = [c['id'] for c in self.context.getPageColumns()]
+
+            configuration = self.context.getPageColumns()
+            valid_headers = [c['id'] for c in configuration]
+            valid_retrievers = [self._getRetrieverAdapter(c['type']) for c in configuration]
+ 
             headers = []
             first = True
             putils = getToolByName(context, 'plone_utils')
@@ -52,7 +66,7 @@ class UploadDataView(BrowserView):
                     continue
                 tobe_saved = {}
                 for header, hindex in headers:
-                    tobe_saved[header] = row[hindex]
+                    tobe_saved[header] = valid_retrievers[hindex].data_to_storage(row[hindex])
                 if tobe_saved:
                     if check_duplicate and self._checkDuplicateRow(tobe_saved, storage):
                         putils.addPortalMessage(_('warn_duplicate',
@@ -103,7 +117,7 @@ class DownloadDataView(BrowserView):
         columns = []
         for conf in self.context.getPageColumns():
             column = {}
-            column['display_header'] = for_editor and conf.get('id') or conf.get('label') or conf.get('id')
+            column['display_header'] = for_editor and conf.get('id') or (conf.get('label') or conf.get('id'))
             column['header_code'] = conf.get('id')
             try:
                 retriever = getAdapter(self.context,
@@ -123,11 +137,11 @@ class DownloadDataView(BrowserView):
                 continue
             for header in columns:
                 adapter = header['adapter']
-                col_val = adapter.data_for_display(data.get(header['header_code']))
+                col_val = adapter.data_for_display(data.get(header['header_code']), backend=for_editor)
                 if not isinstance(col_val, basestring):
                     # a sequence, probably
                     col_val = '\n'.join(col_val)
-                row.append(col_val)
+                row.append(col_val.strip())
             writer.writerow(row)
         response = self.request.response
         response.setHeader('Content-Type','text/csv')

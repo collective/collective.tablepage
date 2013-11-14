@@ -12,6 +12,11 @@ from zope.component import getMultiAdapter
 from zope.interface import implements
 
 try:
+    from plone.uuid.interfaces import IUUID
+except ImportError:
+    IUUID = None
+
+try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 except ImportError:
     # Plone < 4.1
@@ -28,6 +33,33 @@ def is_url(data):
     data = data.lower()
     return data.startswith('http://') or data.startswith('/') or data.startswith('../') \
             or data.startswith('https://') or data.startswith('ftp://')
+
+def get_uuid(obj):
+    # BBB: can be removed when we get rid of Plone 3.3 compatibility
+    if IUUID is not None:
+        return IUUID(obj)
+    return obj.UID() # AT only
+
+
+class LinkedObjectFinder(object):
+    """Service class with some methods useful for getting referenced objects"""
+
+    def get_referenced_object_from_path(self, path):
+        """If you call on /folder/content1 you'll get uuid of content1 inside the folder"""
+        portal_state = getMultiAdapter((self.context, self.context.REQUEST), name=u'plone_portal_state')
+        portal = portal_state.portal()
+        if path.startswith('/'):
+            path = path[1:]
+        obj = portal.restrictedTraverse(path, None)
+        if obj and path:
+            return get_uuid(obj)
+
+    def get_referenced_object_from_URL(self, URL):
+        """If you call on http://myhost/plone/content1 you'll get uuid of content1"""
+        portal_state = getMultiAdapter((self.context, self.context.REQUEST), name=u'plone_portal_state')
+        if URL.startswith(portal_state.portal_url()):
+            path = URL.replace(portal_state.portal_url(), '')
+            return self.get_referenced_object_from_path(path)
 
 
 class LinkField(BaseField):
@@ -58,7 +90,7 @@ class LinkField(BaseField):
             uuid = self.data
             obj_info = self._get_obj_info(uuid)
             return self.view_template(**obj_info)
-        return self.view_template(data=uuid)
+        return self.view_template(data=self.data)
 
     def render_edit(self, data):
         data = data or ''
@@ -75,7 +107,7 @@ class LinkField(BaseField):
             return obj and {'title': obj.Title().decode('utf-8'), 'uuid':  obj.UID()} or None
 
 
-class LinkDataRetriever(object):
+class LinkDataRetriever(LinkedObjectFinder):
     """Get data from the request, that can be a uid to an element"""
 
     implements(IColumnDataRetriever)
@@ -91,7 +123,7 @@ class LinkDataRetriever(object):
             return {name: request.get("external_%s" % name)}
         return None
 
-    def data_for_display(self, data):
+    def data_for_display(self, data, backend=False):
         """Get proper URL to the resource mapped by an uuid, or directly the URL"""
         if data:
             if is_url(data):
@@ -100,5 +132,20 @@ class LinkDataRetriever(object):
             rcatalog = getToolByName(self.context, 'reference_catalog')
             obj = rcatalog.lookupObject(uuid)
             if obj:
-                return obj.absolute_url()
+                return backend and get_uuid(obj) or obj.absolute_url()
         return ''
+
+    def data_to_storage(self, data):
+        """Check if data is a valid uuid or an URL/path to a content"""
+        if data:
+            uuid = self.data_for_display(data, backend=True) or None
+            if uuid and not is_url(uuid):
+                return uuid
+            portal_state = getMultiAdapter((self.context, self.context.REQUEST),
+                                           name=u'plone_portal_state')
+            portal_url = portal_state.portal_url()
+            if data.startswith(portal_url):
+                return self.get_referenced_object_from_URL(data)
+            # fallback: let try if this is a path
+            return self.get_referenced_object_from_path(data)
+

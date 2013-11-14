@@ -8,6 +8,7 @@ from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.base import BaseField
+from collective.tablepage.fields.link import LinkedObjectFinder
 from plone.memoize.instance import memoize
 from AccessControl import Unauthorized
 
@@ -106,7 +107,8 @@ class MultipleFilesField(FileField):
                 files_in_storage.append(file_in_storage[0])
         return files_in_storage
 
-class FileDataRetriever(object):
+
+class FileDataRetriever(LinkedObjectFinder):
     """
     The implementation of IColumnDataRetriever for file will:
      * save a new File content type in the folder
@@ -147,17 +149,31 @@ class FileDataRetriever(object):
             return {name: request.get("existing_%s" % name)}
         return None
 
-    def data_for_display(self, data):
+    def data_for_display(self, data, backend=False):
         """Get proper URL to the resource mapped by an uuid"""
         uuid = data
         rcatalog = getToolByName(self.context, 'reference_catalog')
         obj = rcatalog.lookupObject(uuid)
         if obj:
-            return obj.absolute_url()
+            return backend and obj.UID() or obj.absolute_url()
         return ''
 
+    def data_to_storage(self, data):
+        """Check if data is a valid uuid or an URL/path to a content"""
+        if data:
+            uuid = self.data_for_display(data, backend=True) or None
+            if uuid:
+                return uuid
+            portal_state = getMultiAdapter((self.context, self.context.REQUEST),
+                                           name=u'plone_portal_state')
+            portal_url = portal_state.portal_url()
+            if data.startswith(portal_url):
+                return self.get_referenced_object_from_URL(data)
+            # fallback: let try if this is a path
+            return self.get_referenced_object_from_path(data)
 
-class MultipleFilesDataRetriever(object):
+
+class MultipleFilesDataRetriever(LinkedObjectFinder):
     """
     The implementation of IColumnDataRetriever for multiple files will:
      * save a set of Files content type in the folder
@@ -207,12 +223,37 @@ class MultipleFilesDataRetriever(object):
                 break
         return {name: '\n'.join(results)}
 
-    def data_for_display(self, data):
+    def data_for_display(self, data, backend=False):
         """Get proper URL to the resource mapped by an uuid"""
         rcatalog = getToolByName(self.context, 'reference_catalog')
         results = []
         for uuid in data.splitlines():
             obj = rcatalog.lookupObject(uuid)
             if obj:
-                results.append(obj.absolute_url())
+                results.append(backend and obj.UID() or obj.absolute_url())
         return results
+
+    def data_to_storage(self, data):
+        """Check if data is a set of valid uuids or URL/path to a contents"""
+        if not data:
+            return None
+        results = []
+        portal_state = getMultiAdapter((self.context, self.context.REQUEST),
+                                       name=u'plone_portal_state')
+        portal_url = portal_state.portal_url()
+        for entry in data.splitlines():
+            uuid = self.data_for_display(entry, backend=True) or None
+            if uuid:
+                results.append(uuid[0])
+                continue
+            if entry.startswith(portal_url):
+                uuid = self.get_referenced_object_from_URL(entry)
+                if uuid:
+                    results.append(uuid)
+                    continue
+            # fallback: let try if this is a path
+            uuid = self.get_referenced_object_from_path(entry)
+            if uuid:
+                results.append(uuid)
+        if results:
+            return '\n'.join(results)

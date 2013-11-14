@@ -18,6 +18,13 @@ Changelog
 - New field type: "Link", for inserting an URL or an internal
   reference
   [keul]
+- CSV export done by backend get UUIDs when applicable
+  [keul]
+- CSV import now validate data: do not import every test you
+  read from the file  
+  [keul]
+- CSV import now transform URL/path to valid content uuids  
+  [keul]
 
 0.3 (2013-10-18)
 ----------------
