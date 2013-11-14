@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4 (unreleased)
+0.4 (2013-11-14)
 ----------------
 
 - Do not display selection checkbox if I cant delete a row
@@ -20,8 +20,8 @@ Changelog
   [keul]
 - CSV export done by backend get UUIDs when applicable
   [keul]
-- CSV import now validate data: do not import every test you
-  read from the file  
+- CSV import now validate data: do not import every text you
+  read from the file
   [keul]
 - CSV import now transform URL/path to valid content uuids  
   [keul]
