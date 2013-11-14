@@ -395,3 +395,16 @@ class CSVImportTestCase(unittest.TestCase):
         view()
         self.assertEqual(self.storage[0]['col_a'], portal.document1.UID())
         self.assertEqual(self.storage[1]['col_a'], portal.folder.document2.UID())
+
+    def test_link_field_URL(self):
+        portal = self.layer['portal']
+        tp = portal.table_page
+        request = self.layer['request']
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'Link', 'vocabulary': ''},])
+        file = self.file_with_data('col_a\n'
+                                   'http://plone.org/')
+        request.form['csv'] = file
+        view = getMultiAdapter((tp, request), name=u"upload-rows")
+        view()
+        self.assertEqual(self.storage[0]['col_a'], 'http://plone.org/')

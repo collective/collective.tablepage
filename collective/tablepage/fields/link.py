@@ -138,14 +138,17 @@ class LinkDataRetriever(LinkedObjectFinder):
     def data_to_storage(self, data):
         """Check if data is a valid uuid or an URL/path to a content"""
         if data:
-            uuid = self.data_for_display(data, backend=True) or None
-            if uuid and not is_url(uuid):
-                return uuid
+            url_format = is_url(data)
+            if not url_format:
+                uuid = self.data_for_display(data, backend=True) or None
+                if uuid:
+                    return uuid
             portal_state = getMultiAdapter((self.context, self.context.REQUEST),
                                            name=u'plone_portal_state')
             portal_url = portal_state.portal_url()
             if data.startswith(portal_url):
                 return self.get_referenced_object_from_URL(data)
-            # fallback: let try if this is a path
-            return self.get_referenced_object_from_path(data)
-
+            if not url_format:
+                # fallback: let try if this is a path
+                return self.get_referenced_object_from_path(data)
+            return data
