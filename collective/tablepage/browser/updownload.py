@@ -137,7 +137,7 @@ class DownloadDataView(BrowserView):
                 continue
             for header in columns:
                 adapter = header['adapter']
-                col_val = adapter.data_for_display(data.get(header['header_code']), backend=for_editor)
+                col_val = adapter.data_for_display(data.get(header['header_code']), backend=for_editor) or ''
                 if not isinstance(col_val, basestring):
                     # a sequence, probably
                     col_val = '\n'.join(col_val)

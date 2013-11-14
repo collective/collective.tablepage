@@ -112,9 +112,21 @@ of adding only at the end of the table.
 Download and Upload data
 ------------------------
 
-* You can optionally display a link for download the table content as a CSV
-  (activate the "*Show download link for data*" from "*Settings*")
-* Contributors can populate the table uploading a CSV file
+.. image:: https://raw.github.com/RedTurtle/collective.tablepage/36961df4ddfd49daa014375e8956db878780e726/collective/tablepage/browser/images/download_data.png
+   :alt: Download CSV icon
+   :align: left
+
+Data stored  in the table can be downloaded, and optionally you can display a download link also to page visitors
+(activate the "*Show download link for data*" inside "*Settings*").
+When the download icon is used in the "*Edit table*" view, downloaded data is compatible to the upload CSV feature
+described above (columns ids are used instead of titles, contents uids instead of URL to referenced contents, ...) 
+
+.. image:: https://raw.github.com/RedTurtle/collective.tablepage/36961df4ddfd49daa014375e8956db878780e726/collective/tablepage/browser/images/upload_data.png
+   :alt: Upload CSV icon
+   :align: left
+
+Contributors can also upload data using a CSV file. The file *must* provide a row with column ids defined in the
+configuration. Columns with unknow id are ignored.
 
 Column of type "File" and "Files"
 ---------------------------------
