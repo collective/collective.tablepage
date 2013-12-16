@@ -4,13 +4,13 @@ Changelog
 0.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Added uninstall profile
+  [keul]
 
 0.4 (2013-11-14)
 ----------------
 
-- Do not display selection checkbox if I cant delete a row
+- Do not display selection checkbox if I can't delete a row
   [keul]
 - Raise lifecycle events properly when creating files
   [keul]

@@ -15,12 +15,20 @@
   <include package=".fields" />
   <include package=".storage" />
   <include file="vocabularies.zcml" />
-  
+
   <genericsetup:registerProfile
       name="default"
       title="Page with Table"
       directory="profiles/default"
       description="Add a new content type, that contains an editable table"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.tablepage: uninstall"
+      directory="profiles/uninstall"
+      description="Uninstall collective.tablepage"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
