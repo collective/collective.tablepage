@@ -408,3 +408,31 @@ class CSVImportTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name=u"upload-rows")
         view()
         self.assertEqual(self.storage[0]['col_a'], 'http://plone.org/')
+
+    def test_checkDuplicateRow(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': ''},
+                              {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'String', 'vocabulary': ''},
+                              {'id': 'col_c', 'label': 'Col C', 'description': '',
+                              'type': 'String', 'vocabulary': ''},])
+        view = getMultiAdapter((tp, request), name=u"upload-rows")
+        self.storage.add({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': 'ccc'})
+        # totally new line does not match
+        self.assertEqual(view._checkDuplicateRow({'col_a': 'foo', 'col_b': 'foo', 'col_c': 'foo', },
+                                                 self.storage), False)
+        # only a single difference is enough for being a new row
+        self.assertEqual(view._checkDuplicateRow({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': 'foo', },
+                                                 self.storage), False)
+        # empty data is not ignored
+        self.assertEqual(view._checkDuplicateRow({'col_a': 'aaa', 'col_b': 'bbb', },
+                                                 self.storage), False)
+        # testing equal row
+        self.assertEqual(view._checkDuplicateRow({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': 'ccc', },
+                                                 self.storage), True)
+        self.storage.add({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': ''})
+        self.assertEqual(view._checkDuplicateRow({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': ''},
+                                                 self.storage), True)

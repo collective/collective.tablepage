@@ -94,11 +94,15 @@ class UploadDataView(BrowserView):
             maybeSaveVersion(context, comment=comment)
 
     def _checkDuplicateRow(self, new_line, storage):
-        """Iterate onto the storage, returns True if there's at least a row with the sae data of the new row"""
+        """Iterate onto the storage, returns True if there's at least a row with the same data of the new row"""
+        total_cols = len(self.context.getPageColumns())
         for row in storage:
+            found_entries = 0
             for k,v in new_line.items():
                 if row.get(k)==v:
-                    return True
+                    found_entries += 1
+            if found_entries==total_cols:
+                return True
         return False
 
     @property

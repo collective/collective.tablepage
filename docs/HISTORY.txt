@@ -6,6 +6,10 @@ Changelog
 
 - Added uninstall profile
   [keul]
+- Fixed bug in finding duplicate rows when importing from CSV
+  (close `#1`__) [keul]
+
+__ https://github.com/RedTurtle/collective.tablepage/issues/1
 
 0.4 (2013-11-14)
 ----------------
