@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4.1 (unreleased)
+0.4.1 (2014-01-03)
 ------------------
 
 - Added uninstall profile
