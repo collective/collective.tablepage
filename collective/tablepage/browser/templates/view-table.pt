@@ -12,21 +12,21 @@
                    has_tablemanager_permission view/check_tablemanager_permission;
 				   can_add_label view/check_labeling_permission;
                    cssClasses python:' '.join(context.getCssClasses());"
-       tal:attributes="class python: cssClasses and cssClasses + ' tablePage' or 'tablePage'"
+       tal:attributes="class python: cssClasses and cssClasses + ' tablePage nosort' or 'tablePage nosort'"
        tal:condition="python: view.edit_mode or len(rows)>0">
         <caption tal:condition="context/getTableCaption"
                  tal:content="context/getTableCaption">This table is for...</caption>
     <thead tal:condition="view/showHeaders">
         <tr>
-            <th class="nosort noData" tal:condition="python: view.edit_mode and rows">
+            <th class="noData" tal:condition="python: view.edit_mode and rows">
                 <input type="checkbox" id="selectAll" title="Select/unselect all"
                        i18n:attributes="title">
             </th>
-            <th tal:repeat="header headers" scope="col" class="nosort">
+            <th tal:repeat="header headers" scope="col">
                 <span tal:replace="header/label">Header 1</span>
                 <div class="discreet" tal:content="header/description">This is for...</div>
             </th>
-            <th class="nosort noData rowCommands" tal:condition="view/edit_mode">&nbsp;</th>
+            <th class="noData rowCommands" tal:condition="view/edit_mode">&nbsp;</th>
         </tr>
     </thead>
 
@@ -74,11 +74,10 @@
 
     <tbody>
         <tal:rows repeat="row rows">
-        <tr tal:define="even repeat/row/even;
-                        row_index repeat/row/index;
+        <tr tal:define="row_index repeat/row/index;
 						next_is_label python:view.next_is_label(row_index);
 						is_data_row python:not view.is_label(row_index)"
-            tal:attributes="class python:even and 'odd' or 'even'">
+            tal:attributes="class python:not is_data_row and 'tablePageSubHeader' or nothing">
             <td tal:condition="python:view.edit_mode and is_data_row">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
                        tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
@@ -89,7 +88,7 @@
                 <span tal:replace="structure cell" />
             </td>
 			<td tal:condition="not:is_data_row"
-			    scope="col" class="tablePageSubHeader" colspan=""
+			    scope="col" colspan=""
 				tal:attributes="colspan python:len(headers) + (view.edit_mode and 1 or 0)"
 				tal:content="row">
 				Section header

@@ -46,7 +46,7 @@ table.tablePage tbody tr.noResults {
 	font-size: 110%;
 }
 
-table.tablePage .tablePageSubHeader {
+table.tablePage .tablePageSubHeader td {
 	background-color: transparent;
 	padding-top:1em;
 	font-weight: bold;
