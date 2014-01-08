@@ -64,7 +64,7 @@ You can add as many columns as you want; users that will fill your table won't b
 Filling the table
 -----------------
 
-Configuration is not changing anything in your layour, but users with *Contributor* role on this document will see a
+Configuration is not changing anything in your layout, but users with *Contributor* role on this document will see a
 new tab: "**Edit table**".
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png/image_large
@@ -140,7 +140,29 @@ In both cases permissions matters: the user must have permisson of adding new fi
 The storage folder is configured by the document creator.
 
 When rendering the table, a link to download the file is displayed.
- 
+
+DataTables integration
+======================
+
+`DataTables`__ is a well-know jQuery plugin for getting advanced HTML table features using JavaScript.
+The easyient way on integrating it into Plone is by using `collective.js.datatables`__.
+
+__ http://datatables.net/
+__ http://plone.org/products/collective.js.datatables
+
+TablePage has a soft-dependency on DataTables; if the jQuery plugin is installed, the table view try to use it for
+getting some new features like:
+
+* filtering/searching data
+* sorting by columns
+* pagination/batching
+
+Limitations
+-----------
+
+DataTables is powerful, but it has some know limitations that arise when you use the *label feature*. In this case *sorting*
+and *batching* are disabled (so you only get the searching/filtering feature).
+
 Other products
 ==============
 
@@ -166,6 +188,7 @@ For Plone 3.3 you need some special configuration like:
 * A `custom branch of DataGridField`__ where we backported some new features from 1.8 branch
 * Available table styles are taken from TinyMCE configuration, so you must use it instead of Kupu
 * No versioning support is available
+* No friendly installable DataTables product is available for Plone 3, so you probably can't use it
 
 __ https://github.com/RedTurtle/Products.DataGridField/tree/1.6
 
