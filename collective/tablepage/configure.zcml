@@ -47,5 +47,14 @@
         sortkey="1"
         profile="collective.tablepage:default"
     />
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.5"
+        description="Migrate collective.tablepage to 0.5"
+        source="1100"
+        destination="1200"
+        handler=".setuphandlers.migrateTo05"
+        sortkey="2"
+        profile="collective.tablepage:default"
+    />
 
 </configure>

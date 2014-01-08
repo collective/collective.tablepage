@@ -3,13 +3,14 @@
 import os, sys
 from setuptools import setup, find_packages
 
-version = '0.4.2.dev0'
+version = '0.5'
 
 tests_require = ['plone.app.testing', ]
 
 install_requires = ['setuptools',
                     'Products.ATContentTypes',
                     'collective.datagridcolumns>=0.5.0',
+                    #'collective.js.datatables',
                     'Products.TinyMCE',
                     ]
 

@@ -32,7 +32,6 @@
 
         <metal:body define-macro="body">
 
-
 			<div tal:define="portal_url view/portal_url;
                              headers view/headers;
 							 rows view/rows;">

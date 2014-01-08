@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.4.2 (unreleased)
+0.5.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Soft dependency on jQuery DataTables
+  [keul]
 
 0.4.1 (2014-01-03)
 ------------------
