@@ -6,6 +6,9 @@ Changelog
 
 - Soft dependency on jQuery DataTables
   [keul]
+- Added a JavaScript command for expand/collapse all columns when editing
+  (this can help cases where you added a lot of columns)
+  [keul]
 
 0.4.1 (2014-01-03)
 ------------------

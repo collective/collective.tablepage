@@ -2,11 +2,31 @@
  * JavaScript integration for TablePage
  */
 (function($){
-	/*
-	 * Soft jQuery DataTables integration (in this way collective.js.datatable is not a strong requirement)
-	 */
-	if ($.fn.dataTable!=="undefined") {
-		$(document).ready(function() {
+	$(document).ready(function() {
+		
+		// expand/collapse table feature
+		var selectAllCommand = $('#selectAll');
+		if (selectAllCommand.length>0) {
+			var newCommand = $('<a href=""><img src="' + portal_url + '/++resource++collective.tablepage.images/fullscreenexpand_icon.png" alt="" /></a>');
+			newCommand.click(function(event) {
+				event.preventDefault();
+				if (!newCommand.data('expanded')) {
+					newCommand.data('expanded', true);
+					newCommand.find('img').attr('src', portal_url + '/++resource++collective.tablepage.images/fullscreencollapse_icon.png');
+				} else {
+					newCommand.data('expanded', false);
+					newCommand.find('img').attr('src', portal_url + '/++resource++collective.tablepage.images/fullscreenexpand_icon.png');
+				}
+				var $table = newCommand.closest('.tablePage');
+				$table.toggleClass('helpEdit');
+			});
+			selectAllCommand.after(newCommand);
+		}
+
+		/*
+		 * Soft jQuery DataTables integration (in this way collective.js.datatable is not a strong requirement)
+		 */		
+		if ($.fn.dataTable!=="undefined") {
 		    $('table.tablePage').each(function() {
 				var columns = $('thead th', this),
 				    noDataCols = [],
@@ -53,6 +73,8 @@
 				}
 				
 			});
-		});
-	}
+		}
+
+	});
+		
 })(jQuery);
