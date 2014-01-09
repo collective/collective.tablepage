@@ -85,3 +85,14 @@ a.commandSelectedFile {
 	text-decoration: none;
 	border-bottom: none;
 }
+
+/* Help for large tables */
+table.helpEdit thead th {
+	min-width: 10em !important;
+}
+table.helpEdit thead th.noData {
+	min-width: 0 !important;
+}
+table.helpEdit {
+	width: auto !important;
+}
