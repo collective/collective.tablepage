@@ -6,8 +6,19 @@ Changelog
 
 - Soft dependency on jQuery DataTables
   [keul]
-- Added a JavaScript command for expand/collapse all columns when editing
-  (this can help cases where you added a lot of columns)
+- Added a JavaScript command for expand/collapse available view when editing
+  (this can help in cases where you added a lot of columns)
+  [keul]
+- Fixed critical error in the "Files" column; when selecting existing file
+  the column id was ignored
+  [keul]
+- Added new feature: registering validators
+  [keul]
+- Added validator for required field
+  [keul]
+- New field type: "Email", for inserting an text in e-mail format
+  [keul]
+- New field type: "Numeric", for inserting an text in numerical format
   [keul]
 
 0.4.1 (2014-01-03)

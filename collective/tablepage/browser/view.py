@@ -3,14 +3,17 @@
 from AccessControl import Unauthorized
 from zope.component import getMultiAdapter
 from zope.component import getAdapter
+from zope.component import getAdapters
 from zope.component.interfaces import ComponentLookupError
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import PloneMessageFactory as pmf
 from Products.Five.browser import BrowserView
 from plone.memoize.view import memoize
 from collective.tablepage import config
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import IColumnDataRetriever
+from collective.tablepage.interfaces import IFieldValidator
 from collective.tablepage import tablepageMessageFactory as _
 from AccessControl import getSecurityManager
 
@@ -47,6 +50,7 @@ class EditRecordView(BrowserView):
         request.set('disable_border', True)
         self.configuration = self.context.getPageColumns()
         self.data = {}
+        self.errors = {}
 
     def __call__(self, *args, **kwargs):
         request = self.request
@@ -59,6 +63,10 @@ class EditRecordView(BrowserView):
             # saving
             putils = getToolByName(self.context, 'plone_utils')
             self._save()
+            if self.errors:
+                del form['form.submitted']
+                self.data.update(**form)
+                return self.index()
             putils.addPortalMessage(_('Row has been saved'))
             request.response.redirect("%s/edit-table" % self.context.absolute_url())
             return
@@ -122,19 +130,41 @@ class EditRecordView(BrowserView):
         if row_index>-1:
             row_index = self._last_index_in_section(row_index)
 
-        to_be_saved = {}
+        # Run validations
         for conf in configuration:
             id = conf['id']
             col_type = conf['type']
-            try:
-                retriever = getAdapter(context,
-                                       IColumnDataRetriever,
-                                       name=col_type)
-            except ComponentLookupError:
-                retriever = IColumnDataRetriever(context)
-            data = retriever.get_from_request(id, form)
-            if data:
-                to_be_saved.update(**data)
+            field = getMultiAdapter((context, self.request),
+                                    IColumnField, name=col_type)
+
+            validators = getAdapters((field, ),
+                                     IFieldValidator)
+            for name, validator in validators:
+                msg = validator.validate(conf)
+                if msg:
+                    self.errors[id] = msg
+                    break
+
+        to_be_saved = {}
+        if not self.errors:
+            # As some IColumnDataRetriever adapter do some stuff, we read data only if no error has been get
+            for conf in configuration:
+                id = conf['id']
+                col_type = conf['type']
+                try:
+                    retriever = getAdapter(context,
+                                           IColumnDataRetriever,
+                                           name=col_type)
+                except ComponentLookupError:
+                    retriever = IColumnDataRetriever(context)
+                data = retriever.get_from_request(id, form)
+                if data:
+                    to_be_saved.update(**data)
+        else:
+            putils = getToolByName(context, 'plone_utils')
+            putils.addPortalMessage(pmf(u'Please correct the indicated errors.'), type="error")
+            return
+        
         if to_be_saved:
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
             _ = getToolByName(context, 'translation_service').utranslate

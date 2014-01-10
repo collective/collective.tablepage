@@ -23,7 +23,7 @@ class SecurityTestCase(unittest.TestCase):
         tp = portal.table_page
         tp.edit(textBefore='<p>Lorem Ipsum</p>',
                 pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''}])
+                              'type': 'String', 'vocabulary': '', 'options': []}])
         login(portal, TEST_USER_NAME)
         wtool.doActionFor(tp, 'publish')
 
@@ -130,7 +130,7 @@ class LabelSecurityTestCase(unittest.TestCase):
         tp = portal.table_page
         tp.edit(textBefore='<p>Lorem Ipsum</p>',
                 pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''}])
+                              'type': 'String', 'vocabulary': '', 'options': []}])
         login(portal, TEST_USER_NAME)
         wtool.doActionFor(tp, 'publish')
         storage = IDataStorage(tp)

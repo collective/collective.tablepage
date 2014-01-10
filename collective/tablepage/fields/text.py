@@ -3,6 +3,8 @@
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.fields.interfaces import ITextColumnField
+from collective.tablepage.fields.interfaces import ITextAreaColumnField
 from collective.tablepage.fields.base import BaseField
 
 try:
@@ -13,14 +15,14 @@ except ImportError:
 
 
 class TextField(BaseField):
-    implements(IColumnField)
+    implements(ITextColumnField)
 
     edit_template = ViewPageTemplateFile('templates/string.pt')
     view_template = ViewPageTemplateFile('templates/string_view.pt')
 
 
 class TextAreaField(BaseField):
-    implements(IColumnField)
+    implements(ITextAreaColumnField)
 
     edit_template = ViewPageTemplateFile('templates/textarea.pt')
     view_template = ViewPageTemplateFile('templates/textarea_view.pt')

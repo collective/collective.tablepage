@@ -67,7 +67,8 @@ class TableViewView(BrowserView):
             row = []
             for conf in self.context.getPageColumns():
                 field = adapters[conf['type']]
-                row.append(field.render_view(record.get(conf['id'])))
+                row.append({'content': field.render_view(record.get(conf['id'])),
+                            'classes': 'coltype-%s' % col_type})
             rows.append(row)
         return rows
 

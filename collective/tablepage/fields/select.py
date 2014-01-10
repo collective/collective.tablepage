@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from zope.interface import implements
-from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.fields.interfaces import ISelectColumnField
 from collective.tablepage.fields.base import BaseField
 
 try:
@@ -12,7 +12,7 @@ except ImportError:
 
 
 class SelectField(BaseField):
-    implements(IColumnField)
+    implements(ISelectColumnField)
 
     edit_template = ViewPageTemplateFile('templates/select.pt')
     view_template = ViewPageTemplateFile('templates/string_view.pt')
@@ -20,4 +20,3 @@ class SelectField(BaseField):
     def vocabulary(self):
         raw_vocabulary = self.configuration['vocabulary']
         return raw_vocabulary.rstrip().splitlines()
-

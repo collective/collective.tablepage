@@ -33,7 +33,7 @@ table.tablePage .command img {
 
 .tablePage th.rowCommands,
 .tablePage td.rowCommands {
-	min-width: 150px;
+	min-width: 140px;
 	text-align: right;
 }
 
@@ -51,6 +51,10 @@ table.tablePage .tablePageSubHeader td {
 	padding-top:1em;
 	font-weight: bold;
 	text-align: center 	
+}
+
+.tablePage td.coltype-Numeric {
+	text-align: right;
 }
 
 /*
@@ -78,15 +82,27 @@ table.tablePage .tablePageSubHeader td {
 
 a.commandSelectedFile,
 #content a.commandSelectedFile,
-a.commandSelectedFile,
-a.commandSelectedFile,
-a.commandSelectedFile,
+dl.portalMessage a.commandSelectedFile
 a.commandSelectedFile {
 	text-decoration: none;
 	border-bottom: none;
 }
 
+/* redo sorting (from DataTables) as the messy Plone CSS hide those icons */
+table.tablePage th.sorting { background: url('../../../++resource++jquery.datatables/media/images/sort_both.png') no-repeat center right; }
+table.tablePage th.sorting_asc { background: url('../../../++resource++jquery.datatables/media/images/sort_asc.png') no-repeat center right; }
+table.tablePage th.sorting_desc { background: url('../../../++resource++jquery.datatables/media/images/sort_desc.png') no-repeat center right; }
+table.tablePage th.sorting_asc_disabled { background: url('../../../++resource++jquery.datatables/media/images/sort_asc_disabled.png') no-repeat center right; }
+table.tablePage th.sorting_desc_disabled { background: url('../../../++resource++jquery.datatables/media/images/sort_desc_disabled.png') no-repeat center right; }
+
 /* Help for large tables */
+.controlWidth {
+	margin-left: 4px;
+}
+table.tablePage thead th.mainCommandCell {
+	min-width: 40px;
+}
+/*
 table.helpEdit thead th {
 	min-width: 10em !important;
 }
@@ -96,3 +112,4 @@ table.helpEdit thead th.noData {
 table.helpEdit {
 	width: auto !important;
 }
+*/

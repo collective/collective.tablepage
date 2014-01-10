@@ -18,7 +18,7 @@
                  tal:content="context/getTableCaption">This table is for...</caption>
     <thead tal:condition="view/showHeaders">
         <tr>
-            <th class="noData" tal:condition="python: view.edit_mode and rows">
+            <th class="noData mainCommandCell" tal:condition="python: view.edit_mode and rows">
                 <input type="checkbox" id="selectAll" title="Select/unselect all"
                        i18n:attributes="title">
             </th>
@@ -84,8 +84,9 @@
                        tal:attributes="value repeat/row/index" />
             </td>
             <td tal:condition="is_data_row"
-			    tal:repeat="cell row">
-                <span tal:replace="structure cell" />
+			    tal:repeat="cell row"
+				tal:attributes="class cell/classes">
+                <span tal:replace="structure cell/content" />
             </td>
 			<td tal:condition="not:is_data_row"
 			    scope="col" colspan=""

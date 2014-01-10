@@ -18,6 +18,7 @@ except ImportError:
     # No versioning support for Plone 3.3 version of CMFEditions
     VERSIONING_SUPPORT = False
 
+
 class EditLabelView(BrowserView):
 
     def __init__(self, context, request):

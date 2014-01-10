@@ -7,6 +7,11 @@
                      tal:define="portal_url context/@@plone_portal_state/portal_url;">
     <label tal:attributes="for view/configuration/id"
            tal:content="view/configuration/label">A good field</label>
+    <span class="fieldRequired" title="Required"
+          tal:condition="view/options/required|nothing"
+          i18n:domain="plone"
+          i18n:attributes="title title_required;"
+          i18n:translate="label_required">(Required)</span>
     <div class="formHelp" tal:content="view/configuration/description">
         Help filling me
     </div>
@@ -22,11 +27,14 @@
                i18n:domain="plone" i18n:translate="">Title</label> <br/>
         <input type="text" id="" name="" value=""
                tal:attributes="id string:title_${view/configuration/id}_0;
-                               name string:title_${view/configuration/id}_0;" /> <br/>
+                               name string:title_${view/configuration/id}_0;
+							   value python:request.get('title_' + view.configuration['id'] + '_0');" /> <br/>
         <label tal:attributes="for string:description_${view/configuration/id}_0"
                i18n:domain="plone" i18n:translate="">Description</label>
-        <textarea id="" name="" tal:attributes="id string:description_${view/configuration/id}_0;
-                                                name string:description_${view/configuration/id}_0;"></textarea>
+        <textarea id="" name=""
+		          tal:attributes="id string:description_${view/configuration/id}_0;
+                                  name string:description_${view/configuration/id}_0;"
+				  tal:content="python:request.get('description_' + view.configuration['id'] + '_0')"></textarea>
         <label tal:attributes="for string:${view/configuration/id}_0"
                i18n:translate="">File</label> <br/>
         <input type="file" id="" name="" value=""
@@ -44,83 +52,87 @@
                i18n:name="storage" tal:content="view/attachment_storage/Title" />
         </div>
 
-		<strong i18n:translate="help_select_multiple_files_current_selection">
-			Current selection
-		</strong> <br/>
+        <strong i18n:translate="help_select_multiple_files_current_selection">
+            Current selection
+        </strong> <br/>
 
-		<div style="display:none" id="buttonModels">
+        <div style="display:none" id="buttonModels">
             <a href="" title="Move before" class="commandSelectedFile moveUp"
-			   i18n:attributes="title">
-	            <img alt="Move before" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png"/></a>
+               i18n:attributes="title">
+                <img alt="Move before" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png"/></a>
             <a href="" title="Move after" class="commandSelectedFile moveDown"
-			   i18n:attributes="title">
-	            <img alt="Move after" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png"/></a>
+               i18n:attributes="title">
+                <img alt="Move after" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png"/></a>
             <a href="" title="Remove" class="commandSelectedFile removeRow"
-			   i18n:attributes="title">
-	            <img alt="Move after" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png"/></a>
-		</div>
+               i18n:attributes="title">
+                <img alt="Move after" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png"/></a>
+        </div>
 
-		<ol class="savedFiles"
-		    tal:define="files python:view.attachments(filterUIDs=options.get('data') or None)">
+        <ol class="savedFiles" data-fieldname=""
+            tal:define="field_id view/configuration/id;
+			            submitted_values python:request.get('existing_' + field_id, []);
+			            files python:view.attachments(filterUIDs=options.get('data') or None);"
+			tal:attributes="data-fieldname view/configuration/id;
+			                data-submitted-values python:','.join(submitted_values) or False;">
         <tal:selected tal:repeat="file files">
         <li class="storageFile" tal:attributes="data-uid file/UID">
             <input type="hidden" name=""
-                   tal:attributes="name string:existing_${view/configuration/id}:list;
+                   tal:attributes="name string:existing_${field_id}:list;
                                    value file/UID;" />
             <a tal:content="python:file.Title or file.id"
-			   tal:attributes="href string:${file/getURL}/view">Link to file</a>
+               tal:attributes="href string:${file/getURL}/view">Link to file</a>
 
             <a href="" title="Move before" class="commandSelectedFile moveUp"
-			   i18n:attributes="title"
-			   tal:condition="not:repeat/file/start">
-	            <img alt="Move before" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png"/></a>
+               i18n:attributes="title"
+               tal:condition="not:repeat/file/start">
+                <img alt="Move before" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png"/></a>
             <a href="" title="Move after" class="commandSelectedFile moveDown"
-			   i18n:attributes="title"
-			   tal:condition="not:repeat/file/end">
-	            <img alt="Move after" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png"/></a>
+               i18n:attributes="title"
+               tal:condition="not:repeat/file/end">
+                <img alt="Move after" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png"/></a>
             <a href="" title="Remove" class="commandSelectedFile removeRow"
-			   i18n:attributes="title">
-	            <img alt="Move after" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png"/></a>
-		</li>
+               i18n:attributes="title">
+                <img alt="Move after" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png"/></a>
+        </li>
         </tal:selected>
-		</ol>
+        </ol>
 
-		<strong i18n:translate="help_select_multiple_files_possibile_selection">
-			Other available files
-		</strong> <br/>
+        <strong i18n:translate="help_select_multiple_files_possibile_selection">
+            Other available files
+        </strong> <br/>
 
-		<ul class="availableFiles"
-		    tal:define="files python:view.attachments()"
-		    tal:condition="files">
+        <ul class="availableFiles"
+            tal:define="files python:view.attachments()"
+            tal:condition="files">
         <tal:available tal:repeat="file files">
-        <li class="storageFile"
-		     tal:attributes="style python:file.UID in options.get('data') and 'display:none' or nothing;
-			                 data-uid file/UID;">
-            <input type="hidden" name=""
-                   tal:attributes="name string:possibile_${view/configuration/id}:list;
-                                   value file/UID;" />
-            <a tal:content="python:file.Title or file.id"
-			   tal:attributes="href string:${file/getURL}/view">Link to file</a>
-            <a href="" title="Add" class="commandSelectedFile addRow"
-			   i18n:attributes="title">
-	            <img alt="Add above" src=""
-				     i18n:attributes="alt"
-	                 tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/add.png"/></a>
-		</li>
+            <li class="storageFile"
+                 tal:attributes="style python:file.UID in options.get('data') and 'display:none' or nothing;
+                                 data-uid file/UID;">
+                <input type="hidden" name=""
+                       tal:attributes="name string:possibile_${view/configuration/id}:list;
+                                       value file/UID;" />
+                <a tal:content="python:file.Title or file.id"
+                   tal:attributes="href string:${file/getURL}/view">Link to file</a>
+                <a href="" title="Add" class="commandSelectedFile addRow"
+                   i18n:attributes="title">
+                    <img alt="Add above" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/add.png"/></a>
+            </li>
         </tal:available>
-		</ul>
+        </ul>
 
     </div>
 </tal:can_see_storage>

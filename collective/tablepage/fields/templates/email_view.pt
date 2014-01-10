@@ -1,0 +1,3 @@
+<a href="" class="mail-link"
+   tal:attributes="href string:mailto:${options/data}"
+   tal:content="options/data">aaa@asdf.com</a>

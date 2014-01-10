@@ -41,7 +41,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
                               'type': 'String', 'vocabulary': ''},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
         self.assertEqual(csv, 'Col A,Col B')
@@ -54,9 +54,9 @@ class CSVExportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': 'foo', 'col_b': 'bar'})
         self.storage.add({'__label__': 'A label'})
         self.storage.add({'__creator__': 'user1', 'col_a': 'baz', 'col_b': 'qux'})
@@ -70,7 +70,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': 'foo bar'})
         self.storage.add({'__creator__': 'user1', 'col_a': ' baz  qux'})
         view = getMultiAdapter((tp, request), name=u"download-table")
@@ -83,7 +83,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Text', 'vocabulary': ''},])
+                              'type': 'Text', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': 'foo\n\nbar\t\t '})
         self.storage.add({'__creator__': 'user1', 'col_a': ' \nbaz \nqux'})
         view = getMultiAdapter((tp, request), name=u"download-table")
@@ -97,7 +97,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'File', 'vocabulary': ''},])
+                              'type': 'File', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': portal.file1.UID()})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
@@ -113,7 +113,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': "%s\n%s" % (portal.file1.UID(),
                                                                        portal.file2.UID(),)})
         view = getMultiAdapter((tp, request), name=u"download-table")
@@ -132,7 +132,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': "http://plone.org/"})
         self.storage.add({'__creator__': 'user1', 'col_a': "http://planet.plone.org/"})
         view = getMultiAdapter((tp, request), name=u"download-table")
@@ -146,7 +146,7 @@ class CSVExportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': portal.document1.UID()})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
@@ -185,9 +185,9 @@ class CSVImportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         file = self.file_with_data("col_a,col_b \n"
                                    "foo,  bar")
         request.form['csv'] = file
@@ -200,11 +200,11 @@ class CSVImportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_c', 'label': 'Col C', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         file = self.file_with_data("col_a,col_a1,col_b\n"
                                    "foo,bar,baz")
         request.form['csv'] = file
@@ -218,7 +218,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = self.layer['portal'].table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Text', 'vocabulary': ''},])
+                              'type': 'Text', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"  foo bar\n \nbaz\n"')
         request.form['csv'] = file
@@ -232,7 +232,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'File', 'vocabulary': ''},])
+                              'type': 'File', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n' + portal.file1.UID())
         request.form['csv'] = file
         view = getMultiAdapter((tp, request), name=u"upload-rows")
@@ -244,7 +244,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'File', 'vocabulary': ''},])
+                              'type': 'File', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\nzzzZZZzzzZZZzzz')
         request.form['csv'] = file
         view = getMultiAdapter((tp, request), name=u"upload-rows")
@@ -256,7 +256,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'File', 'vocabulary': ''},])
+                              'type': 'File', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '%s/file1\n'
                                    '%s/file3' % (portal.absolute_url(),
@@ -272,7 +272,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'File', 'vocabulary': ''},])
+                              'type': 'File', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    'file1\n'
                                    '/folder/file3')
@@ -288,7 +288,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"%s\n%s"' % (portal.file1.UID(),
                                                  portal.file2.UID(),))
@@ -303,7 +303,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"zzzZZZzzzZZZzzz\nbbbbbbb"')
         request.form['csv'] = file
@@ -316,7 +316,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"%s\n\nbbbbbbb\n%s"' % (portal.file1.UID(),
                                                           portal.file2.UID(),))
@@ -331,7 +331,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"%s\n%s"' % (portal.file1.absolute_url(),
                                                  portal.file2.absolute_url(),))
@@ -346,7 +346,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Files', 'vocabulary': ''},])
+                              'type': 'Files', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '"file1\n/file2"')
         request.form['csv'] = file
@@ -361,7 +361,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n%s' % portal.document1.UID())
         request.form['csv'] = file
         view = getMultiAdapter((tp, request), name=u"upload-rows")
@@ -373,7 +373,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\nzzzZZZzzzZZZzzz')
         request.form['csv'] = file
         view = getMultiAdapter((tp, request), name=u"upload-rows")
@@ -385,7 +385,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    '%s\n'
                                    '%s' % (portal.document1.absolute_url(),
@@ -401,7 +401,7 @@ class CSVImportTestCase(unittest.TestCase):
         tp = portal.table_page
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'Link', 'vocabulary': ''},])
+                              'type': 'Link', 'vocabulary': '', 'options': []},])
         file = self.file_with_data('col_a\n'
                                    'http://plone.org/')
         request.form['csv'] = file
@@ -414,11 +414,11 @@ class CSVImportTestCase(unittest.TestCase):
         request = self.layer['request']
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
-                              'type': 'String', 'vocabulary': ''},
+                              'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_c', 'label': 'Col C', 'description': '',
-                              'type': 'String', 'vocabulary': ''},])
+                              'type': 'String', 'vocabulary': '', 'options': []},])
         view = getMultiAdapter((tp, request), name=u"upload-rows")
         self.storage.add({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': 'ccc'})
         # totally new line does not match

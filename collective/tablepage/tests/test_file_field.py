@@ -28,7 +28,7 @@ class FileFieldTestCase(unittest.TestCase):
         tp = portal.table_page
         tp.edit(textBefore='<p>Lorem Ipsum</p>',
                 pageColumns=[{'id': 'att', 'label': 'Attachment', 'description': '',
-                              'type': 'File', 'vocabulary': ''}],
+                              'type': 'File', 'vocabulary': '', 'options': []}],
                 attachmentStorage=portal.folder.UID())
         wtool.doActionFor(tp, 'publish')
 
@@ -154,7 +154,7 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         tp = portal.table_page
         tp.edit(textBefore='<p>Lorem Ipsum</p>',
                 pageColumns=[{'id': 'att', 'label': 'Attachments', 'description': '',
-                              'type': 'Files', 'vocabulary': ''}],
+                              'type': 'Files', 'vocabulary': '', 'options': []}],
                 attachmentStorage=portal.folder.UID())
         wtool.doActionFor(tp, 'publish')
 

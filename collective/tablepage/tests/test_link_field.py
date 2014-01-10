@@ -23,7 +23,7 @@ class LinkFieldTestCase(unittest.TestCase):
         portal.invokeFactory(type_name='Document', id='document', title="A d\xc3\xb2cument to reference")
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
-                              'type': 'Link', 'vocabulary': ''}])
+                              'type': 'Link', 'vocabulary': '', 'options': []}])
         wtool.doActionFor(tp, 'publish')
 
     def test_reference_document_edit(self):

@@ -20,7 +20,7 @@ class LabelTestCase(unittest.TestCase):
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
-                              'type': 'String', 'vocabulary': ''}])
+                              'type': 'String', 'vocabulary': '', 'options': []}])
         storage = IDataStorage(tp)
         storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1'})
         storage.add({'__label__': 'A label'})

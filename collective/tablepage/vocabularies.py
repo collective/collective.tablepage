@@ -27,4 +27,20 @@ class ColumnTypesVocabulary(object):
         terms = [SimpleTerm(value=e, token=e, title=_(e)) for e in elements]
         return SimpleVocabulary(terms)
 
+
+class RowOptionsVocabulary(object):
+    """Vocabulary factory for column types
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        request = context.REQUEST
+        terms = [
+                 SimpleTerm(value='required', token='required', title=_('row_options_required',
+                                                                        default=u'Required')),
+                 ]
+        return SimpleVocabulary(terms)
+
+
 columnTypesVocabularyFactory = ColumnTypesVocabulary()
+rowOptionsVocabularyFactory = RowOptionsVocabulary()

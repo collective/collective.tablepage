@@ -54,5 +54,16 @@ class IColumnDataRetriever(Interface):
         @backend specify that data is for backend purpose
         """
 
-    def data_to_storage(self, data):
-        """Validate data that will be saved to storage"""
+    def data_to_storage(data):
+        """Sanitize data that will be saved to storage"""
+    
+
+class IFieldValidator(Interface):
+    """A validator for the submitted data"""
+    
+    def validate(configuration):
+        """Validate input data
+        @param configuration TablePage configuration        
+        @return the error message (if any) or None
+        """
+

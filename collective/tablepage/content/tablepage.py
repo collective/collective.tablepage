@@ -20,6 +20,7 @@ from Products.DataGridField.Column import Column
 
 from collective.datagridcolumns.SelectColumn import SelectColumn
 from collective.datagridcolumns.TextAreaColumn import TextAreaColumn
+from collective.datagridcolumns.MultiSelectColumn import MultiSelectColumn
 
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import ITablePage
@@ -51,7 +52,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
     DataGridField('pageColumns',
         required=True,
         storage=atapi.AnnotationStorage(),
-        columns=("id", "label", "description", "type", "vocabulary", ),
+        columns=("id", "label", "description", "type", "vocabulary", "options"),
         widget=DataGridWidget(
             label=_(u"Columns"),
             description=_('help_pageColumns',
@@ -69,6 +70,10 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                                                col_description=_("vocabulary_column_description",
                                                                    default=u"One item on every row. "
                                                                            u"Used only when the type is \"Select\"")),
+                 'options' : MultiSelectColumn(_(u"Additional features"),
+                                               col_description=_("options_column_description",
+                                                                   default=u"Other options you can activate on the column"),
+                                               vocabulary_factory="collective.tablepage.vocabulary.row_options"),
             },
         ),
     ),

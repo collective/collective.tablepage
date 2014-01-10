@@ -8,7 +8,7 @@
 <div class="formHelp" tal:content="view/configuration/description">
     Help filling me
 </div>
-<input type="text" id="" name="" value=""
+<input type="email" id="" name="" value="" size="50"
        tal:attributes="id view/configuration/id;
                        name view/configuration/id;
                        value options/data|nothing" />

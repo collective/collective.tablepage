@@ -8,6 +8,8 @@ from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.base import BaseField
+from collective.tablepage.fields.interfaces import IFileColumnField
+from collective.tablepage.fields.interfaces import IMultiFileColumnField
 from collective.tablepage.fields.link import LinkedObjectFinder
 from plone.memoize.instance import memoize
 from AccessControl import Unauthorized
@@ -24,7 +26,7 @@ TYPE_TO_CREATE = 'File'
 
 
 class FileField(BaseField):
-    implements(IColumnField)
+    implements(IFileColumnField)
 
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
@@ -69,7 +71,7 @@ class FileField(BaseField):
 
 
 class MultipleFilesField(FileField):
-    implements(IColumnField)
+    implements(IMultiFileColumnField)
 
     edit_template = ViewPageTemplateFile('templates/multi_file.pt')
     view_template = ViewPageTemplateFile('templates/multi_file_view.pt')

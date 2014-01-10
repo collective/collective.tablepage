@@ -13,6 +13,7 @@
   <include package=".browser" />
   <include package=".content" />
   <include package=".fields" />
+  <include package=".validators" />
   <include package=".storage" />
   <include file="vocabularies.zcml" />
 

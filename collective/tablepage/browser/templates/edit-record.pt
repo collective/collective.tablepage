@@ -16,96 +16,114 @@
          * add new file
          */
 
-		var fieldInc = 1;
-		var patt = /_\d+$/;
-		function incAttribute(elem, name) {
-			var attr = elem.attr(name);
-			var oldVal = parseInt(patt.exec(attr)[0].substr(1, attr.length-1), 10);
-			elem.attr(name, attr.replace( patt, '_' + (oldVal + fieldInc) ));
-		}
-		
-		// Save the new field model for later
-		var subFieldFile = $('.fileField').clone();
+        var fieldInc = 1;
+        var patt = /_\d+$/;
+        function incAttribute(elem, name) {
+            var attr = elem.attr(name);
+            var oldVal = parseInt(patt.exec(attr)[0].substr(1, attr.length-1), 10);
+            elem.attr(name, attr.replace( patt, '_' + (oldVal + fieldInc) ));
+        }
+        
+        // Save the new field model for later
+        var subFieldFile = $('.fileField').clone();
         $('#newFile').click(function(event) {
-			event.preventDefault();
-			var newFileField = subFieldFile.clone().hide();
+            event.preventDefault();
+            var newFileField = subFieldFile.clone().hide();
             $('.fileField:last').after(newFileField);
-			newFileField.find(':input').each(function() {
-				incAttribute($(this), 'id');
-				incAttribute($(this), 'name');
-			});
-			newFileField.find('label').each(function() {
-				incAttribute($(this), 'for');
-			});
-			newFileField.slideDown('fast');
-			newFileField.find(':input:first').focus();
-			fieldInc++;
+            newFileField.find(':input').each(function() {
+                incAttribute($(this), 'id');
+                incAttribute($(this), 'name');
+            });
+            newFileField.find('label').each(function() {
+                incAttribute($(this), 'for');
+            });
+            newFileField.slideDown('fast');
+            newFileField.find(':input:first').focus();
+            fieldInc++;
         });
 
 
-		/**
-		 * Sorting multiple files
-		 */
+        /**
+         * Sorting multiple files
+         */
 
-		function moveRow($element, direction) {
-			var $myParent = $element.parents('li.storageFile');
-			var $siblingParent = null;
-			if (direction==='up') {
-				$siblingParent = $myParent.prev();
-				$myParent.insertBefore($siblingParent);
-			} else if (direction==='down') {
-				$siblingParent = $myParent.next();			
-				$myParent.insertAfter($siblingParent);
-			}
-			// Now switching buttons (I can't use "detach" until Plone 3.3 is supported)
-			var myButtons = $myParent.find('.commandSelectedFile').clone(true);
-			$myParent.find('.commandSelectedFile').remove();
-			$siblingParent.find('.commandSelectedFile').appendTo($myParent);
-			$siblingParent.append(myButtons);
-		}
+        function moveRow($element, direction) {
+            var $myParent = $element.parents('li.storageFile');
+            var $siblingParent = null;
+            if (direction==='up') {
+                $siblingParent = $myParent.prev();
+                $myParent.insertBefore($siblingParent);
+            } else if (direction==='down') {
+                $siblingParent = $myParent.next();            
+                $myParent.insertAfter($siblingParent);
+            }
+            // Now switching buttons (I can't use "detach" until Plone 3.3 is supported)
+            var myButtons = $myParent.find('.commandSelectedFile').clone(true);
+            $myParent.find('.commandSelectedFile').remove();
+            $siblingParent.find('.commandSelectedFile').appendTo($myParent);
+            $siblingParent.append(myButtons);
+        }
 
-		$('a.moveUp').click(function(event) {
-			event.preventDefault();
-			moveRow($(this), 'up');
-		});
-		$('a.moveDown').click(function(event) {
-			event.preventDefault();
-			moveRow($(this), 'down');
-		});
-		$('a.removeRow').click(function(event) {
-			event.preventDefault()
-			var row = $(this).parents('li.storageFile');
-			
-			// if is the first or last row, some buttons must be changed
-			if (row.prevAll('li').length==0) {
-				row.next().find('a.moveUp').remove();
-			}
-			if (row.nextAll('li').length==0) {
-				row.prev().find('a.moveDown').remove();
-			}
-			row.remove();
-			$('.availableFiles li[data-uid=' + row.attr('data-uid') + ']').show();
+        $('a.moveUp').click(function(event) {
+            event.preventDefault();
+            moveRow($(this), 'up');
+        });
+        $('a.moveDown').click(function(event) {
+            event.preventDefault();
+            moveRow($(this), 'down');
+        });
+        $('a.removeRow').click(function(event) {
+            event.preventDefault()
+            var row = $(this).parents('li.storageFile');
+            
+            // if is the first or last row, some buttons must be changed
+            if (row.prevAll('li').length==0) {
+                row.next().find('a.moveUp').remove();
+            }
+            if (row.nextAll('li').length==0) {
+                row.prev().find('a.moveDown').remove();
+            }
+            row.remove();
+            $('.availableFiles li[data-uid=' + row.attr('data-uid') + ']').show();
 
-		});
-		$('a.addRow').click(function(event) {
-			event.preventDefault();
-			var row = $(this).parents('li.storageFile');
-			row.hide();
-			var activeFiles = $('.savedFiles');
-			var newRow = $('<li class="storageFile"><\/li>');
-			newRow.attr('data-uid', row.data('uid'));
-			var newInput = row.find('input').clone();
-			newRow.append(newInput);
-			newInput.attr('name', 'existing_files:list');
-			newRow.append(row.find('a:first').clone());
-			if ($('li', activeFiles).length>0) {
-				newRow.append($('#buttonModels').find('a.moveUp').clone(true));
-				$('li:last', activeFiles).prepend($('#buttonModels').find('a.moveDown').clone(true));
-			}
-			newRow.append($('#buttonModels').find('a.removeRow').clone(true));
-			activeFiles.append(newRow);
-		});
-
+        });
+        $('a.addRow').click(function(event) {
+            event.preventDefault();
+            var row = $(this).parents('li.storageFile');
+            row.hide();
+            var activeFiles = $(this).parents('.subField').find('.savedFiles');
+            var fieldId = activeFiles.attr('data-fieldname');
+            var newRow = $('<li class="storageFile"><\/li>');
+            newRow.attr('data-uid', row.data('uid'));
+            var newInput = row.find('input').clone();
+            newRow.append(newInput);
+            newInput.attr('name', 'existing_' + fieldId + ':list');
+            newRow.append(row.find('a:first').clone());
+            if ($('li', activeFiles).length>0) {
+                newRow.append($('#buttonModels').find('a.moveUp').clone(true));
+                $('li:last', activeFiles).prepend($('#buttonModels').find('a.moveDown').clone(true));
+            }
+            newRow.append($('#buttonModels').find('a.removeRow').clone(true));
+            activeFiles.append(newRow);
+        });
+        
+        /*
+         * Multiple file upload and validation error is a nighmare. We have the uuid in the request
+         * and also stored in the "data-submitted-values" HTML 5 attribute, but we need to "click"
+         * on add commands to select those values.
+         */
+         
+        $('.savedFiles[data-submitted-values]').each(function() {
+            var $this = $(this),
+                container = $this.parents('.subField');
+                
+                uuids = $this.attr('data-submitted-values').split(','),
+                selectable = container.find('.availableFiles');
+            for (var i=0;i<uuids.length;i++) {
+                $('.storageFile input[value=' + uuids[i] + ']', selectable).nextAll('.commandSelectedFile').click();
+            }
+        });
+         
     });
 })(jQuery);
 //-->
@@ -118,11 +136,11 @@
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main">
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="python:request.get('row-index') is None or request.get('addRow')"> 
+            tal:condition="python:request.get('row-index') is None or request.get('addRow')"> 
             New row
         </h1>
         <h1 class="documentFirstHeading" i18n:translate=""
-		    tal:condition="python:request.get('row-index') is not None and not request.get('addRow')"> 
+            tal:condition="python:request.get('row-index') is not None and not request.get('addRow')"> 
             Edit row
         </h1>
 
@@ -135,21 +153,26 @@
             <fieldset>
                 <legend i18n:translate="">Provide data for the row</legend>
             
-                <div class="field tablePageField" tal:repeat="field view/fields">
+                <div class="field tablePageField"
+                     tal:attributes="class python:field.configuration['id'] in view.errors.keys() and 'field tablePageField error' or default"
+                     tal:repeat="field view/fields">
+                     <div class="fieldErrorBox"
+                          tal:condition="python:view.errors.get(field.configuration['id'])"
+                          tal:content="python:view.errors.get(field.configuration['id'])">Error message</div>
                     <tal:field define="value python:view.data.get(field.configuration['id'])"
-					           replace="structure python:field.render_edit(value)">
-					</tal:field>
+                               replace="structure python:field.render_edit(value)">
+                    </tal:field>
                 </div>
 
                 <input type="hidden" name="row-index:int" value=""
-				       tal:condition="python:request.get('row-index') is not None"
-					   tal:attributes="value request/row-index" />
+                       tal:condition="python:request.get('row-index') is not None"
+                       tal:attributes="value request/row-index" />
                 <input type="hidden" name="addRow" value="1"
                        tal:condition="python:request.get('addRow')" />
                 <input type="hidden" name="form.submitted" value="1" />
                 <input class="context" type="submit" name="save" value="Save" i18n:domain="plone" i18n:attributes="value" />
                 <input class="context noUnloadProtection" type="submit" name="cancel" value="Cancel"
-				       i18n:domain="plone"  i18n:attributes="value" />
+                       i18n:domain="plone"  i18n:attributes="value" />
             </fieldset>
         </form>
 

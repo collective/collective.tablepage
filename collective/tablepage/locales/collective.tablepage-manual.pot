@@ -28,13 +28,10 @@ msgstr ""
 
 # FIELD - start
 
-msgid "String"
+msgid "Email"
 msgstr ""
 
-msgid "Text"
-msgstr ""
-
-msgid "Select"
+msgid "Link"
 msgstr ""
 
 msgid "File"
@@ -43,7 +40,16 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-msgid "Link"
+msgid "Numeric"
+msgstr ""
+
+msgid "String"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Text"
 msgstr ""
 
 # FIELD - end

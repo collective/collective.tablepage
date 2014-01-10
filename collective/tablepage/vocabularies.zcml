@@ -8,4 +8,9 @@
     component=".vocabularies.columnTypesVocabularyFactory"
     />
 
+  <utility
+    name="collective.tablepage.vocabulary.row_options"
+    component=".vocabularies.rowOptionsVocabularyFactory"
+    />
+
 </configure>

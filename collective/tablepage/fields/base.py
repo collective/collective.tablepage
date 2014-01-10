@@ -21,7 +21,9 @@ class BaseField(object):
 
     def render_edit(self, data):
         data = data or ''
-        self.data = data.decode('utf-8')
+        if isinstance(data, basestring):
+            # on validation error we can get a FileUpload instance
+            self.data = data.decode('utf-8')
         return self.edit_template(data=self.data)
 
     def render_view(self, data):
@@ -38,6 +40,14 @@ class BaseField(object):
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1))
         return None
+
+    @property
+    def options(self):
+        """Read configuration options as dict"""
+        options = {}
+        for o in self.configuration.get('options'):
+            options[o] = True
+        return options
 
 
 class BaseFieldDataRetriever(object):
@@ -60,5 +70,3 @@ class BaseFieldDataRetriever(object):
     def data_to_storage(self, data):
         """Default implementation... just return data (stripped)"""
         return data and data.strip() or None
-
-

@@ -7,7 +7,7 @@ import sys
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.interfaces import IColumnDataRetriever
-from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.fields.interfaces import ILinkColumnField
 from zope.component import getMultiAdapter
 from zope.interface import implements
 
@@ -63,7 +63,7 @@ class LinkedObjectFinder(object):
 
 
 class LinkField(BaseField):
-    implements(IColumnField)
+    implements(ILinkColumnField)
 
     def __init__(self, context, request):
         BaseField.__init__(self, context, request)
