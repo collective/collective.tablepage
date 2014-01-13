@@ -28,7 +28,7 @@
             <fieldset>
                 <legend i18n:translate="">Provide label</legend>
 
-                <div class="field">
+                <div class="field editTableLabel">
                     <label for="label" i18n:translate="">Label</label>
                     <span class="fieldRequired"
                          title="Required"

@@ -10,9 +10,8 @@
        tal:define="portal_url view/portal_url;
                    headers view/headers;
                    has_tablemanager_permission view/check_tablemanager_permission;
-				   can_add_label view/check_labeling_permission;
-                   cssClasses python:' '.join(context.getCssClasses());"
-       tal:attributes="class python: cssClasses and cssClasses + ' tablePage nosort' or 'tablePage nosort'"
+				   can_add_label view/check_labeling_permission;"
+       tal:attributes="class view/css_classes"
        tal:condition="python: view.edit_mode or len(rows)>0">
         <caption tal:condition="context/getTableCaption"
                  tal:content="context/getTableCaption">This table is for...</caption>
@@ -22,7 +21,8 @@
                 <input type="checkbox" id="selectAll" title="Select/unselect all"
                        i18n:attributes="title">
             </th>
-            <th tal:repeat="header headers" scope="col">
+            <th tal:repeat="header headers" scope="col"
+			    tal:attributes="class header/classes">
                 <span tal:replace="header/label">Header 1</span>
                 <div class="discreet" tal:content="header/description">This is for...</div>
             </th>
@@ -78,7 +78,7 @@
 						next_is_label python:view.next_is_label(row_index);
 						is_data_row python:not view.is_label(row_index)"
             tal:attributes="class python:not is_data_row and 'tablePageSubHeader' or nothing">
-            <td tal:condition="python:view.edit_mode and is_data_row">
+            <td tal:condition="python:view.edit_mode and is_data_row" class="selectionCell">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
                        tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
                        tal:attributes="value repeat/row/index" />

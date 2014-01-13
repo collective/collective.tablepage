@@ -48,6 +48,7 @@ class TableViewView(BrowserView):
                 continue
             results.append(dict(label=tablepageMessageFactory(d['label'].decode('utf-8')),
                                 description=tablepageMessageFactory(d.get('description', '').decode('utf-8')),
+                                classes='coltype-%s' % d['type'],
                                 ))
         return results
 
@@ -107,3 +108,11 @@ class TableViewView(BrowserView):
         if self.is_label(next_index):
             return True
         return False
+
+    def css_classes(self):
+        table_classes = ['tablePage',  'nosort' ]
+        table_classes.extend(self.context.getCssClasses())
+        if self.edit_mode:
+            table_classes.append('editing')
+        return ' '.join(table_classes)
+        

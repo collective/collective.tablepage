@@ -58,6 +58,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
             description=_('help_pageColumns',
                           default=u"Definition of rows inside the table"),
             visible={'view': 'invisible', 'edit': 'visible'},
+            helper_js= ('datagridwidget.js', 'datagridwidget_patches.js', 'datagridmultiselect.js'),
             columns={
                  'id' : Column(_(u"Column id"), required=True),
                  'label' : Column(_(u"Column label"), required=True),

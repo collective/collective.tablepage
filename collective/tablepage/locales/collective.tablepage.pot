@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-10 13:20+0000\n"
+"POT-Creation-Date: 2014-01-13 08:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,15 @@ msgstr ""
 msgid "${count} rows deleted"
 msgstr ""
 
-#: ./content/tablepage.py:268
+#: ./content/tablepage.py:269
 msgid "... always display"
 msgstr ""
 
-#: ./content/tablepage.py:266
+#: ./content/tablepage.py:267
 msgid "... only on page view"
 msgstr ""
 
-#: ./content/tablepage.py:267
+#: ./content/tablepage.py:268
 msgid "... only when editing table"
 msgstr ""
 
@@ -35,14 +35,14 @@ msgstr ""
 msgid "A page with an editable table"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:127
+#: ./fields/templates/multi_file.pt:128
 msgid "Add"
 msgstr ""
 
 msgid "Add a new content type, that contains an editable table"
 msgstr ""
 
-#: ./fields/templates/multi_file.pt:129
+#: ./fields/templates/multi_file.pt:130
 msgid "Add above"
 msgstr ""
 
@@ -58,23 +58,23 @@ msgstr ""
 msgid "Add new label above that row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:110
+#: ./browser/templates/view-table.pt:111
 msgid "Add new row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:102
+#: ./browser/templates/view-table.pt:103
 msgid "Add new row below"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:98
+#: ./browser/templates/view-table.pt:99
 msgid "Add new row below this"
 msgstr ""
 
-#: ./content/tablepage.py:73
+#: ./content/tablepage.py:74
 msgid "Additional features"
 msgstr ""
 
-#: ./content/tablepage.py:133
+#: ./content/tablepage.py:134
 msgid "Attachment storage"
 msgstr ""
 
@@ -82,24 +82,24 @@ msgstr ""
 msgid "Back to table editing"
 msgstr ""
 
-#: ./content/tablepage.py:99
+#: ./content/tablepage.py:100
 msgid "CSS classes"
 msgstr ""
 
-#: ./content/tablepage.py:100
+#: ./content/tablepage.py:101
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
 msgstr ""
 
-#: ./content/tablepage.py:64
+#: ./content/tablepage.py:65
 msgid "Column description"
 msgstr ""
 
-#: ./content/tablepage.py:62
+#: ./content/tablepage.py:63
 msgid "Column id"
 msgstr ""
 
-#: ./content/tablepage.py:63
+#: ./content/tablepage.py:64
 msgid "Column label"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Delete selected rows"
 msgstr ""
 
-#: ./fields/templates/link.pt:107
+#: ./fields/templates/link.pt:112
 msgid "Delete selection"
 msgstr ""
 
@@ -130,12 +130,12 @@ msgid "Download data in CSV format"
 msgstr ""
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:123
+#: ./browser/templates/view-table.pt:124
 msgid "Edit label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:125
-#: ./browser/templates/view-table.pt:115
+#: ./browser/templates/edit-record.pt:142
+#: ./browser/templates/view-table.pt:116
 msgid "Edit row"
 msgstr ""
 
@@ -156,11 +156,11 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:130
+#: ./browser/templates/edit-record.pt:147
 msgid "Fill data of this table's row"
 msgstr ""
 
-#: ./fields/templates/link.pt:67
+#: ./fields/templates/link.pt:72
 msgid "Internal link"
 msgstr ""
 
@@ -201,11 +201,11 @@ msgstr ""
 msgid "Move before"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:156
+#: ./browser/templates/view-table.pt:157
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:148
+#: ./browser/templates/view-table.pt:149
 msgid "Move row up"
 msgstr ""
 
@@ -216,11 +216,11 @@ msgstr ""
 msgid "New label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:121
+#: ./browser/templates/edit-record.pt:138
 msgid "New row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:169
+#: ./browser/templates/view-table.pt:170
 msgid "No rows"
 msgstr ""
 
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Page with Table"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:137
+#: ./browser/templates/edit-record.pt:154
 msgid "Provide data for the row"
 msgstr ""
 
@@ -243,7 +243,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:139
+#: ./browser/templates/view-table.pt:140
 msgid "Remove row"
 msgstr ""
 
@@ -287,40 +287,40 @@ msgstr ""
 msgid "Select existing documents"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:22
+#: ./browser/templates/view-table.pt:21
 msgid "Select/unselect all"
 msgstr ""
 
-#: ./content/tablepage.py:150
+#: ./content/tablepage.py:151
 msgid "Show download link for data"
 msgstr ""
 
-#: ./content/tablepage.py:163
+#: ./content/tablepage.py:164
 msgid "Show headers"
 msgstr ""
 
 msgid "Show stored data in multiple tables"
 msgstr ""
 
-#: ./content/tablepage.py:164
+#: ./content/tablepage.py:165
 msgid "Show table headers when..."
 msgstr ""
 
 msgid "String"
 msgstr ""
 
-#: ./content/tablepage.py:85
+#: ./content/tablepage.py:86
 msgid "Table caption"
 msgstr ""
 
 msgid "Text"
 msgstr ""
 
-#: ./content/tablepage.py:65
+#: ./content/tablepage.py:66
 msgid "Type of data"
 msgstr ""
 
-#: ./fields/templates/link.pt:46
+#: ./fields/templates/link.pt:51
 msgid "URL"
 msgstr ""
 
@@ -345,12 +345,12 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
-#: ./content/tablepage.py:69
+#: ./content/tablepage.py:70
 msgid "Vocabulary for the column"
 msgstr ""
 
 #. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
-#: ./content/tablepage.py:134
+#: ./content/tablepage.py:135
 msgid "attachmentStorage_help"
 msgstr ""
 
@@ -385,24 +385,29 @@ msgid "error_field_not_number"
 msgstr ""
 
 #. Default: "The field \"$name\" is required"
-#: ./validators/base.py:19
+#: ./validators/base.py:20
 #: ./validators/file.py:21
 #: ./validators/link.py:21
 msgid "error_field_required"
 msgstr ""
 
+#. Default: "The value \"$value\" is already present in the column \"$name\""
+#: ./validators/base.py:41
+msgid "error_field_unique"
+msgstr ""
+
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:151
+#: ./content/tablepage.py:152
 msgid "help_download_enabled"
 msgstr ""
 
 #. Default: "Provide a link to a know resource. This will be ignored if you use the \\"Internal link\\" below"
-#: ./fields/templates/link.pt:53
+#: ./fields/templates/link.pt:58
 msgid "help_external_link"
 msgstr ""
 
 #. Default: "As an alternative to the \\"URL\\" above you can provide a link to an internal document. This will override any absolute URL you put above."
-#: ./fields/templates/link.pt:69
+#: ./fields/templates/link.pt:74
 msgid "help_internal_link"
 msgstr ""
 
@@ -438,12 +443,12 @@ msgid "help_select_multiple_files_current_selection"
 msgstr ""
 
 #. Default: "Other available files"
-#: ./fields/templates/multi_file.pt:111
+#: ./fields/templates/multi_file.pt:112
 msgid "help_select_multiple_files_possibile_selection"
 msgstr ""
 
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:86
+#: ./content/tablepage.py:87
 msgid "help_table_caption"
 msgstr ""
 
@@ -453,7 +458,7 @@ msgid "label_form_help"
 msgstr ""
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:124
+#: ./content/tablepage.py:125
 msgid "label_text_after"
 msgstr ""
 
@@ -464,27 +469,27 @@ msgstr ""
 
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:66
-#: ./fields/templates/multi_file.pt:142
+#: ./fields/templates/multi_file.pt:143
 msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Other options you can activate on the column"
-#: ./content/tablepage.py:74
+#: ./content/tablepage.py:75
 msgid "options_column_description"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:233
+#: ./content/tablepage.py:234
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:239
+#: ./content/tablepage.py:240
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:243
+#: ./content/tablepage.py:244
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
@@ -493,8 +498,13 @@ msgstr ""
 msgid "row_options_required"
 msgstr ""
 
+#. Default: "Unique"
+#: ./vocabularies.py:41
+msgid "row_options_unique"
+msgstr ""
+
 #. Default: "One item on every row. Used only when the type is \"Select\""
-#: ./content/tablepage.py:70
+#: ./content/tablepage.py:71
 msgid "vocabulary_column_description"
 msgstr ""
 

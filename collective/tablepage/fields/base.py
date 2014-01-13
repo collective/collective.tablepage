@@ -2,8 +2,10 @@
 
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
+from zope.component import getUtility
 from zope.component import getMultiAdapter
 from collective.tablepage.interfaces import IColumnDataRetriever
+from zope.schema.interfaces import IVocabularyFactory
 
 
 class BaseField(object):
@@ -44,9 +46,12 @@ class BaseField(object):
     @property
     def options(self):
         """Read configuration options as dict"""
+        factory = getUtility(IVocabularyFactory, 'collective.tablepage.vocabulary.row_options')
+        vocabulary = factory(self.context)
+
         options = {}
-        for o in self.configuration.get('options'):
-            options[o] = True
+        for term in vocabulary:
+            options[term.value] = term.value in self.configuration.get('options')
         return options
 
 

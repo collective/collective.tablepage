@@ -38,6 +38,11 @@
 
 <label tal:attributes="for view/configuration/id"
        tal:content="view/configuration/label">A good field</label>
+<span class="fieldRequired" title="Required"
+      tal:condition="view/options/required"
+      i18n:domain="plone"
+      i18n:attributes="title title_required;"
+      i18n:translate="label_required">(Required)</span>
 <div class="formHelp" tal:content="view/configuration/description">
     Help filling me
 </div>
@@ -54,7 +59,7 @@
         Provide a link to a know resource. This will be ignored if you use the \"Internal link\" below 
     </div>
     <input type="url" size="50" placeholder="http://"
-	       tal:define="fromreq python:request.get('external_' + view.configuration['id']);"
+           tal:define="fromreq python:request.get('external_' + view.configuration['id']);"
            tal:attributes="id string:external_${view/configuration/id};
                            name string:external_${view/configuration/id};
                            value python:fromreq or options.get('external_url') or nothing;" />
@@ -86,23 +91,23 @@
            readonly="readonly"
            name="link_internal_label"
            value=""
-		   tal:define="fromreq python:request.get('internal_' + view.configuration['id'] + '_label');
-		               ref_document_title ref_document/title|nothing;"
+           tal:define="fromreq python:request.get('internal_' + view.configuration['id'] + '_label');
+                       ref_document_title ref_document/title|nothing;"
            tal:attributes="value python: fromreq or ref_document_title or nothing;
                            name string:internal_${view/configuration/id}_label;
                            id string:ref_browser_internal_${view/configuration/id}_label;" />
     <input type="hidden" name="link_internal" id="ref_browser_link_internal"
            class="internalLinkField"
-		   tal:define="fromreq python:request.get('internal_' + view.configuration['id']);
-		               ref_document_uuid ref_document/uuid|nothing;"
+           tal:define="fromreq python:request.get('internal_' + view.configuration['id']);
+                       ref_document_uuid ref_document/uuid|nothing;"
            tal:attributes="value python:fromreq or ref_document_uuid or nothing;
                            id string:ref_browser_internal_${view/configuration/id};
                            name string:internal_${view/configuration/id};" />
     <input type="button" class="searchButton addreference" value="Add..." rel="#atrb_link_internal"
            tal:attributes="id string:command_internal_${view/configuration/id};
-                              rel string:#atrb_internal_${view/configuration/id};
-                              onclick python:view.PLONE3 and 'javascript:referencebrowser_openBrowser(\'' + startup_directory + '\',\'ref_browser_internal_' + view.configuration['id'] + '\', \'' + '/'.join(context.getPhysicalPath()) +  '\', \'link_internal\')' or None;
-                              src string:${startup_directory}/refbrowser_popup?fieldName=internal_${view/configuration/id}&amp;fieldRealName=link_internal&amp;at_url=${at_url};"
+                           rel string:#atrb_internal_${view/configuration/id};
+                           onclick python:view.PLONE3 and 'javascript:referencebrowser_openBrowser(\'' + startup_directory + '\',\'ref_browser_internal_' + view.configuration['id'] + '\', \'' + '/'.join(context.getPhysicalPath()) +  '\', \'link_internal\')' or None;
+                           src string:${startup_directory}/refbrowser_popup?fieldName=internal_${view/configuration/id}&amp;fieldRealName=link_internal&amp;at_url=${at_url};"
            i18n:domain="plone" i18n:attributes="value label_add;" />
     <a class="removeReference" title="Delete selection" href="" i18n:attributes="title">
            <img alt="Delete selection"

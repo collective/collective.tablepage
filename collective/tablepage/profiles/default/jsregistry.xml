@@ -6,4 +6,10 @@
                cookable="True"
                enabled="True"
                inline="False" />
+   <javascript id="++resource++collective.tablepage.resources/jquery.dataTables.rowGrouping.js"
+               cacheable="True"
+               compression="safe"
+               cookable="True"
+               enabled="True"
+               inline="False" />
 </object>

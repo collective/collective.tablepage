@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts">
-   <javascript id="++resource++collective.tablepage.resources/tablepage.js" />
+   <javascript id="++resource++collective.tablepage.resources/tablepage.js"
+                remove="True" />
+   <javascript id="++resource++collective.tablepage.resources/jquery.dataTables.rowGrouping.js"
+                remove="True" />
 </object>

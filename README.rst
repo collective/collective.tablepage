@@ -41,7 +41,7 @@ the *type* of data in the column.
 Right now you can choose from:
 
 ``String``
-    A simple line of text, the most common type.
+    A simple line of text, the most common and default.
 ``Text``
     A textarea, for saving more text and take care of carriage returns.
 ``Select``
@@ -53,9 +53,12 @@ Right now you can choose from:
     Same as ``File`` above, but for multiple files.
 ``Link``
     A link to an URL, or an internal site document. It use Plone reference browser native widget.
+``Email``
+    An e-mail address
+``Numeric``
+    A string in numeric format
 
 Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
-Also: there's **no validation**!
 
 __ http://plone.org/products/ploneformgen
 
@@ -157,11 +160,9 @@ getting some new features like:
 * sorting by columns
 * pagination/batching
 
-Limitations
------------
+Also, the `Row Grouping Add-on`__, plugin is also registered. This enhance the labels feature with a better user experience.
 
-DataTables is powerful, but it has some know limitations that arise when you use the *label feature*. In this case *sorting*
-and *batching* are disabled (so you only get the searching/filtering feature).
+__ http://jquery-datatables-row-grouping.googlecode.com/svn/trunk/index.html
 
 Other products
 ==============

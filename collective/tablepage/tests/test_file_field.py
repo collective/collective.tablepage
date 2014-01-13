@@ -14,6 +14,7 @@ from plone.app.testing import logout
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
+
 class FileFieldTestCase(unittest.TestCase):
     
     layer = TABLE_PAGE_INTEGRATION_TESTING
@@ -137,7 +138,37 @@ class FileFieldTestCase(unittest.TestCase):
         self.assertEqual(len(folder.objectIds()), 2)
         storage = IDataStorage(tp)
         self.assertEqual(storage[0]['att'], storage[1]['att'])
-        
+
+    def test_required(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        folder = portal.folder
+        configuration = tp.getPageColumns()
+        configuration[0]['options'] = ['required']
+        tp.setPageColumns(configuration)
+        # no file provided
+        request.form['form.submitted'] = "1"
+        view = getMultiAdapter((tp, request), name='edit-record')
+        self.assertTrue('The field "Attachment" is required' in view())
+        # existing file provided
+        request.form['form.submitted'] = "1"
+        request.form['existing_att'] = portal.folder.attachment.UID()
+        view = getMultiAdapter((tp, request), name='edit-record')
+        view()
+        self.assertEqual(request.response.status, 302)
+        # new file provided
+        del request.form['existing_att']
+        with open(__file__) as f:
+            file = StringIO(f.read())
+        filename = os.path.basename(__file__)
+        file.filename = filename
+        request.form['form.submitted'] = "1"
+        request.form['att'] = file
+        view = getMultiAdapter((tp, request), name='edit-record')
+        view()
+        self.assertEqual(request.response.status, 302)
+
 
 class MultipleFileFieldTestCase(unittest.TestCase):
     

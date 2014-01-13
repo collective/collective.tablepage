@@ -14,7 +14,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 
 class ColumnTypesVocabulary(object):
-    """Vocabulary factory for column types
+    """Types of columns vocabulary
     """
     implements(IVocabularyFactory)
 
@@ -29,7 +29,7 @@ class ColumnTypesVocabulary(object):
 
 
 class RowOptionsVocabulary(object):
-    """Vocabulary factory for column types
+    """Column's options vocavulary
     """
     implements(IVocabularyFactory)
 
@@ -38,6 +38,8 @@ class RowOptionsVocabulary(object):
         terms = [
                  SimpleTerm(value='required', token='required', title=_('row_options_required',
                                                                         default=u'Required')),
+                 SimpleTerm(value='unique', token='unique', title=_('row_options_unique',
+                                                                        default=u'Unique')),
                  ]
         return SimpleVocabulary(terms)
 

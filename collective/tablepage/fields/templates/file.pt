@@ -7,7 +7,7 @@
     <label tal:attributes="for view/configuration/id"
            tal:content="view/configuration/label">A good field</label>
     <span class="fieldRequired" title="Required"
-          tal:condition="view/options/required|nothing"
+          tal:condition="view/options/required"
           i18n:domain="plone"
           i18n:attributes="title title_required;"
           i18n:translate="label_required">(Required)</span>
