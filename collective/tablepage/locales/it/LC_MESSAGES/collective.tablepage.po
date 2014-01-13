@@ -377,7 +377,7 @@ msgstr ""
 #. Default: "The field \"$name\" is not a valid e-mail address"
 #: ./validators/email.py:22
 msgid "error_field_not_email"
-msgstr "Il campo \"$name\" not è in un formato e-mail valido"
+msgstr "Il campo \"$name\" non è in un formato e-mail valido"
 
 #. Default: "The value \"$value\" is not numeric"
 #: ./validators/number.py:23

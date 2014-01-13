@@ -21,4 +21,4 @@ class ValidatorIsNumeric(object):
                 return
             except ValueError:
                 return _('error_field_not_number', default='The value "$value" is not numeric',
-                         mapping={'value': data})
+                         mapping={'value': data.decode('utf-8')})

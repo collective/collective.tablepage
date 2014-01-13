@@ -18,7 +18,7 @@ class ValidatorRequired(object):
             return None
         if not self.field.request.form.get(configuration['id']):
             return _('error_field_required', default='The field "$name" is required',
-                     mapping={'name': configuration.get('label', configuration['id'])})
+                     mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})
 
 
 class ValidatorUnique(object):
@@ -39,5 +39,5 @@ class ValidatorUnique(object):
             for row in storage:
                 if row.get(col_id)==data:
                     return _('error_field_unique', default='The value "$value" is already present in the column \"$name\"',
-                             mapping={'name': configuration.get('label', col_id),
-                                      'value': data})
+                             mapping={'name': configuration.get('label', col_id).decode('utf-8'),
+                                      'value': data.decode('utf-8')})

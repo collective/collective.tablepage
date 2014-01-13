@@ -19,4 +19,4 @@ class ValidatorRequired(object):
         field_id = configuration['id']
         if not form.get("external_%s" % field_id) and not form.get('internal_%s' % field_id):
             return _('error_field_required', default='The field "$name" is required',
-                     mapping={'name': configuration.get('label', configuration['id'])})
+                     mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})

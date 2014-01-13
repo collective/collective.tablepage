@@ -19,7 +19,7 @@ class FileValidatorRequired(object):
         field_id = configuration['id']
         if not form.get(field_id) and not form.get('existing_%s' % field_id):
             return _('error_field_required', default='The field "$name" is required',
-                     mapping={'name': configuration.get('label', configuration['id'])})
+                     mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})
 
 
 class MultiFileValidatorRequired(object):
@@ -36,4 +36,4 @@ class MultiFileValidatorRequired(object):
         field_id = configuration['id']
         if not form.get("%s_0" % field_id) and not form.get('existing_%s' % field_id):
             return _('error_field_required', default='The field "$name" is required',
-                     mapping={'name': configuration.get('label', configuration['id'])})
+                     mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})

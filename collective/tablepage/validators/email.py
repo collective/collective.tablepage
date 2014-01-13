@@ -20,4 +20,4 @@ class ValidatorIsEmail(object):
             if ptool.validateEmailAddresses(data):
                 return
             return _('error_field_not_email', default='The field "$name" is not a valid e-mail address',
-                     mapping={'name': configuration.get('label', configuration['id'])})
+                     mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})

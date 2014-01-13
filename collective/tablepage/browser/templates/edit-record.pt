@@ -157,8 +157,9 @@
                      tal:attributes="class python:field.configuration['id'] in view.errors.keys() and 'field tablePageField error' or default"
                      tal:repeat="field view/fields">
                      <div class="fieldErrorBox"
-                          tal:condition="python:view.errors.get(field.configuration['id'])"
-                          tal:content="python:view.errors.get(field.configuration['id'])">Error message</div>
+                          tal:define="err_msg python:view.errors.get(field.configuration['id'])"
+                          tal:condition="err_msg"
+                          tal:content="err_msg">Error message</div>
                     <tal:field define="value python:view.data.get(field.configuration['id'])"
                                replace="structure python:field.render_edit(value)">
                     </tal:field>
