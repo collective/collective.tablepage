@@ -42,7 +42,10 @@ table.tablePage .command img {
 }
 
 .tablePage tfoot .rowCommands {
-	text-align: right;
+    text-align: right;
+}
+.dataTable tfoot .rowCommands {
+	text-align: left;
 }
 
 .tablePage th.rowCommands,
