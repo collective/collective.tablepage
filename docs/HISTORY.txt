@@ -4,7 +4,8 @@ Changelog
 0.5.0 (unreleased)
 ------------------
 
-- Soft dependency on jQuery DataTables plus "*Row Grouping Add-on*"
+- Soft dependency on jQuery DataTables plus "*Row Grouping Add-on*".
+  This add new features like live-search in table, batching and colum sorting.
   [keul]
 - Added a JavaScript command for expand/collapse available view when editing
   (this can help in cases where you added a lot of columns)

@@ -14,7 +14,7 @@ to editors power to modify it, but:
 * using TinyMCE commands for table is not so easy (users sometimes mess up your pre-defined layout)
 * you can't prohibit users to delete or change rows added from other users, or adding new column you don't want.
 
-If you need to beat those limits but you still simply need a Plone page, this is product is probably what you need.
+If you need to beat those limits but you still simply need a Plone page, this product is probably what you need.
 
 If you need to store a *huge* amount of data, you should probably look for other solutions.
 
@@ -41,7 +41,7 @@ the *type* of data in the column.
 Right now you can choose from:
 
 ``String``
-    A simple line of text, the most common and default.
+    A simple line of text, the most common (and default) type.
 ``Text``
     A textarea, for saving more text and take care of carriage returns.
 ``Select``
@@ -131,8 +131,8 @@ described above (columns ids are used instead of titles, contents uids instead o
 Contributors can also upload data using a CSV file. The file *must* provide a row with column ids defined in the
 configuration. Columns with unknow id are ignored.
 
-Column of type "File" and "Files"
----------------------------------
+Columns of type "File" and "Files"
+----------------------------------
 
 Columns of type file(s) are the most complex.
 
@@ -143,6 +143,14 @@ In both cases permissions matters: the user must have permisson of adding new fi
 The storage folder is configured by the document creator.
 
 When rendering the table, a link to download the file is displayed.
+
+Column of type "Link"
+---------------------
+
+The link column can be used to store absolute links (externals) of links to site's contents.
+In that case: it's automatically used the Plone native widget `archetypes.referencebrowserwidget`__
+
+__ https://github.com/plone/archetypes.referencebrowserwidget
 
 DataTables integration
 ======================
