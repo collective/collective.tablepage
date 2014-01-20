@@ -51,7 +51,7 @@ class BaseField(object):
 
         options = {}
         for term in vocabulary:
-            options[term.value] = term.value in self.configuration.get('options')
+            options[term.value] = term.value in self.configuration.get('options', [])
         return options
 
 

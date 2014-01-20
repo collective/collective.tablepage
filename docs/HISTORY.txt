@@ -4,8 +4,8 @@ Changelog
 0.5b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Fixed errore when editing old rows, created before version 0.5
+  [keul]
 
 0.5b1 (2014-01-13)
 ------------------
