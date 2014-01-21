@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="TablePage"
+   meta_type="Factory-based Type Information with dynamic views"
+   i18n:domain="collective.tablepage" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <action title="Edit table" action_id="edit_table" category="object" condition_expr=""
+    url_expr="string:${object_url}/edit-table" visible="True" i18n:domain="plone" i18n:attributes="title">
+    <permission value="collective.tablepage: Edit Table" />
+  </action>
+</object>

@@ -6,6 +6,9 @@ Changelog
 
 - Fixed errore when editing old rows, created before version 0.5
   [keul]
+- The import from CSV form can be used when no configuration has been given.
+  A basical configuration will be guessed by columns headers
+  [keul]
 
 0.5b1 (2014-01-13)
 ------------------

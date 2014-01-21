@@ -48,27 +48,27 @@
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/remove.png" />
                 </a>
-                <a class="command" href="" title="Upload data with CSV"
-                   i18n:attributes="title"
-                   tal:attributes="href string:${context/absolute_url}/@@upload-rows">
-                    <img alt="Upload data with CSV" src=""
-                         i18n:attributes="alt"
-                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
-                </a>
-            </tal:canedit>
-            <tal:download_enabled tal:condition="rows">
-                <a class="command" href="" title="Download data in CSV format"
-                   tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
-                   i18n:attributes="title"
-                   tal:attributes="href string:${context/absolute_url}/@@download-table${target_mode}">
-                    <img alt="Download data in CSV format" src=""
-                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
-                         i18n:attributes="alt"/>
-                    <span class="discreet"
-                          tal:condition="not:view/edit_mode"
-                          i18n:translate="">Download as CSV</span>
-                </a>            
-            </tal:download_enabled>
+			</tal:canedit>
+            <a class="command" href="" title="Upload data with CSV"
+               i18n:attributes="title"
+			   tal:condition="view/edit_mode"
+               tal:attributes="href string:${context/absolute_url}/@@upload-rows">
+                <img alt="Upload data with CSV" src=""
+                     i18n:attributes="alt"
+                     tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/upload_data.png" />
+            </a>
+            <a class="command" href="" title="Download data in CSV format"
+			   tal:condition="rows"
+               tal:define="target_mode python:view.edit_mode and '?target=editor' or ''"
+               i18n:attributes="title"
+               tal:attributes="href string:${context/absolute_url}/@@download-table${target_mode}">
+                <img alt="Download data in CSV format" src=""
+                     tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
+                     i18n:attributes="alt"/>
+                <span class="discreet"
+                      tal:condition="not:view/edit_mode"
+                      i18n:translate="">Download as CSV</span>
+            </a>            
         </td></tr>
     </tfoot>
 

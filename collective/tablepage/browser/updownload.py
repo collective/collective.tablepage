@@ -60,8 +60,22 @@ class UploadDataView(BrowserView):
             for line, row in enumerate(reader):
                 if first:
                     headers = [h.strip() for h in row if h.strip()]
-                    # CSV row is accessed by index
-                    headers = [(h, headers.index(h)) for h in headers if h in valid_headers]
+                    if configuration:
+                        # CSV row is accessed by index
+                        headers = [(h, headers.index(h)) for h in headers if h in valid_headers]
+                    else:
+                        # No configuration. Let's guess a configuration using CSV headers!
+                        self.context.setPageColumns([{'id' : h,
+                                                      'label' : h,
+                                                      'description' : '',
+                                                      'type' : 'String',
+                                                      'vocabulary' : '',
+                                                      'options' : [],
+                                                      } for h in headers])
+                        headers = [(h, headers.index(h)) for h in headers]
+                        configuration = self.context.getPageColumns()
+                        valid_retrievers = [self._getRetrieverAdapter(c['type']) for c in configuration]
+
                     first = False
                     continue
                 tobe_saved = {}

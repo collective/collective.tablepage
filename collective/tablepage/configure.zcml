@@ -16,6 +16,7 @@
   <include package=".validators" />
   <include package=".storage" />
   <include file="vocabularies.zcml" />
+  <include file="profiles.zcml" />
 
   <genericsetup:registerProfile
       name="default"
@@ -32,30 +33,5 @@
       description="Uninstall collective.tablepage"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-
-  <genericsetup:registerProfile
-      name="to1100"
-      title="Migrate to 1100"
-      directory="profiles/to_1100"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.4"
-        description="Migrate collective.tablepage to 0.4"
-        source="1000"
-        destination="1100"
-        handler=".setuphandlers.migrateTo04"
-        sortkey="1"
-        profile="collective.tablepage:default"
-    />
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.5"
-        description="Migrate collective.tablepage to 0.5"
-        source="1100"
-        destination="1200"
-        handler=".setuphandlers.migrateTo05"
-        sortkey="2"
-        profile="collective.tablepage:default"
-    />
 
 </configure>

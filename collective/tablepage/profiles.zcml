@@ -1,0 +1,48 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.tablepage">
+
+  <genericsetup:registerProfile
+      name="to1100"
+      title="Migrate to 1100"
+      directory="profiles/to_1100"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <genericsetup:registerProfile
+      name="to1210"
+      title="Migrate to 1210"
+      directory="profiles/to_1210"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.4"
+        description="Migrate collective.tablepage to 0.4"
+        source="1000"
+        destination="1100"
+        handler=".setuphandlers.migrateTo04"
+        sortkey="1"
+        profile="collective.tablepage:default"
+    />
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.5"
+        description="Migrate collective.tablepage to 0.5"
+        source="1100"
+        destination="1200"
+        handler=".setuphandlers.migrateTo05"
+        sortkey="2"
+        profile="collective.tablepage:default"
+    />
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.5b2"
+        description="Migrate collective.tablepage to 0.5b2"
+        source="1200"
+        destination="1210"
+        handler=".setuphandlers.migrateTo05b2"
+        sortkey="3"
+        profile="collective.tablepage:default"
+    />
+
+
+</configure>

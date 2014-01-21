@@ -21,9 +21,15 @@
             Back to table editing
         </a>
 
-        <p class="documentDescription" i18n:translate="csv_upload_help">
-            The CSV MUST contains an header row. Headers must be equals to ids used in the configuration
-			(current possible values are: <span i18n:name="cols" tal:replace="python: ', '.join(view.defined_cols)" />).  
+        <p class="documentDescription">
+            <span tal:omit-tag="" i18n:translate="csv_upload_help">The CSV MUST contains an header row.</span>
+			<span tal:omit-tag="" i18n:translate="csv_upload_headers_help" tal:condition="context/getPageColumns">
+				Headers must be equals to ids used in the configuration
+				(current possible values are: <span i18n:name="cols" tal:replace="python: ', '.join(view.defined_cols)" />).
+			</span>
+			<span tal:omit-tag="" i18n:translate="csv_upload_noheaders_help" tal:condition="not:context/getPageColumns">
+				As no columns configuration is currently available, a basic configuration will be guessed by the uploaded file.
+			</span>			
         </p>
 
         <form id="uploadData" method="post" enctype="multipart/form-data" action=""

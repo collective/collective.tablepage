@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-13 08:46+0000\n"
+"POT-Creation-Date: 2014-01-21 09:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,7 +120,7 @@ msgid "Delete selection"
 msgstr ""
 
 #: ./browser/templates/multiple-tables.pt:77
-#: ./browser/templates/view-table.pt:67
+#: ./browser/templates/view-table.pt:68
 msgid "Download as CSV"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:34
+#: ./browser/templates/upload-csv.pt:40
 #: ./fields/templates/file.pt:36
 #: ./fields/templates/multi_file.pt:38
 msgid "File"
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:39
+#: ./browser/templates/upload-csv.pt:45
 msgid "Look for duplicated record"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:45
+#: ./browser/templates/upload-csv.pt:51
 msgid "Upload"
 msgstr ""
 
@@ -337,11 +337,11 @@ msgstr ""
 msgid "Upload data from CSV"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:51
+#: ./browser/templates/view-table.pt:52
 msgid "Upload data with CSV"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:32
+#: ./browser/templates/upload-csv.pt:38
 msgid "Upload..."
 msgstr ""
 
@@ -355,13 +355,23 @@ msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:81
+#: ./browser/updownload.py:95
 msgid "count_rows_added"
 msgstr ""
 
-#. Default: "The CSV MUST contains an header row. Headers must be equals to ids used in the configuration (current possible values are: ${cols})."
-#: ./browser/templates/upload-csv.pt:26
+#. Default: "Headers must be equals to ids used in the configuration (current possible values are: ${cols})."
+#: ./browser/templates/upload-csv.pt:28
+msgid "csv_upload_headers_help"
+msgstr ""
+
+#. Default: "The CSV MUST contains an header row."
+#: ./browser/templates/upload-csv.pt:25
 msgid "csv_upload_help"
+msgstr ""
+
+#. Default: "As no columns configuration is currently available, a basic configuration will be guessed by the uploaded file."
+#: ./browser/templates/upload-csv.pt:30
+msgid "csv_upload_noheaders_help"
 msgstr ""
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
@@ -412,7 +422,7 @@ msgid "help_internal_link"
 msgstr ""
 
 #. Default: "Before adding a row, check if there's already a row with EXACTLY the same data. In that case: skip it."
-#: ./browser/templates/upload-csv.pt:40
+#: ./browser/templates/upload-csv.pt:46
 msgid "help_look_for_duplicate"
 msgstr ""
 
@@ -509,7 +519,7 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:72
+#: ./browser/updownload.py:86
 msgid "warn_duplicate"
 msgstr ""
 

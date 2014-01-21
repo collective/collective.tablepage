@@ -12,3 +12,8 @@ def migrateTo05(context):
     setup_tool = getToolByName(context, 'portal_setup')
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'jsregistry')
     logger.info("Migrated to 0.5")
+
+def migrateTo05b2(context):
+    setup_tool = getToolByName(context, 'portal_setup')
+    setup_tool.runAllImportStepsFromProfile('profile-collective.tablepage:to1210')
+    logger.info("Migrated to 0.5b2")
