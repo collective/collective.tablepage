@@ -385,6 +385,11 @@ msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
 "Il caricamento dell'allegato è stato annullato."
 
+#. Default: "The field \"$name\" does not fit any of the vocabulary values"
+#: ./validators/base.py:60
+msgid "error_enforce_vocabulary"
+msgstr "Il campo \"$name\" non rispetta nessuno dei valori del vocabolario"
+
 #. Default: "The field \"$name\" is not a valid e-mail address"
 #: ./validators/email.py:22
 msgid "error_field_not_email"
@@ -503,6 +508,11 @@ msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere ca
 #: ./content/tablepage.py:244
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
+
+#. Default: "Fulfil vocabulary"
+#: ./vocabularies.py:43
+msgid "row_options_enforceVocabulary"
+msgstr "Rispetta il vocabolario"
 
 #. Default: "Required"
 #: ./vocabularies.py:39

@@ -10,12 +10,19 @@
        factory=".base.ValidatorRequired"
        name="required"
        />
-   <!-- required field validator -->
+   <!-- unique field validator -->
    <adapter
        for="collective.tablepage.interfaces.IColumnField"
        provides="collective.tablepage.interfaces.IFieldValidator"
        factory=".base.ValidatorUnique"
        name="unique"
+       />
+   <!-- enforceVocabulary field validator -->
+   <adapter
+       for="collective.tablepage.interfaces.IColumnField"
+       provides="collective.tablepage.interfaces.IFieldValidator"
+       factory=".base.ValidatorEnforceVocabulary"
+       name="enforceVocabulary"
        />
 
    <!-- required link field validator -->

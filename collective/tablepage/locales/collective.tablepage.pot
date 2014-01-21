@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-21 09:09+0000\n"
+"POT-Creation-Date: 2014-01-21 17:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -384,6 +384,11 @@ msgstr ""
 msgid "duplicate_file_error"
 msgstr ""
 
+#. Default: "The field \"$name\" does not fit any of the vocabulary values"
+#: ./validators/base.py:60
+msgid "error_enforce_vocabulary"
+msgstr ""
+
 #. Default: "The field \"$name\" is not a valid e-mail address"
 #: ./validators/email.py:22
 msgid "error_field_not_email"
@@ -501,6 +506,11 @@ msgstr ""
 #. Default: "A reserved value has been used for \"id\""
 #: ./content/tablepage.py:244
 msgid "pagecolumn_validation_error_id_invalid"
+msgstr ""
+
+#. Default: "Fulfil vocabulary"
+#: ./vocabularies.py:43
+msgid "row_options_enforceVocabulary"
 msgstr ""
 
 #. Default: "Required"

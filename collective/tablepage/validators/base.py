@@ -41,3 +41,22 @@ class ValidatorUnique(object):
                     return _('error_field_unique', default='The value "$value" is already present in the column \"$name\"',
                              mapping={'name': configuration.get('label', col_id).decode('utf-8'),
                                       'value': data.decode('utf-8')})
+
+
+class ValidatorEnforceVocabulary(object):
+    """Validate that the data fit one of the vocabulary values"""
+    implements(IFieldValidator)
+
+    def __init__(self, field):
+        self.field = field
+
+    def validate(self, configuration):
+        if 'enforceVocabulary' not in configuration['options']:
+            return None
+        col_id = configuration['id']
+        vocabulary = configuration['vocabulary']
+        data = self.field.request.form.get(col_id)
+        if data and data not in vocabulary:
+            return _('error_enforce_vocabulary',
+                     default='The field "$name" does not fit any of the vocabulary values',
+                     mapping={'name': configuration.get('label', col_id).decode('utf-8')})
