@@ -13,6 +13,7 @@ msgstr ""
 "Language-Name: Italian\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
+"X-Is-Fallback-For: it-ch it-it\n"
 
 #. Default: "collective.tablepage"
 #: ./browser/view.py:221
