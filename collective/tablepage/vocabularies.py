@@ -40,8 +40,8 @@ class RowOptionsVocabulary(object):
                                                                         default=u'Required')),
                  SimpleTerm(value='unique', token='unique', title=_('row_options_unique',
                                                                         default=u'Unique')),
-                 SimpleTerm(value='enforceVocabulary', token='enforceVocabulary', title=_('row_options_enforceVocabulary',
-                                                                                          default=u'Fulfil vocabulary')),
+#                 SimpleTerm(value='enforceVocabulary', token='enforceVocabulary', title=_('row_options_enforceVocabulary',
+#                                                                                          default=u'Fulfil vocabulary')),
                  ]
         return SimpleVocabulary(terms)
 

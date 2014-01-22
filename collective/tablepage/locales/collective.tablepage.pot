@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-21 17:42+0000\n"
+"POT-Creation-Date: 2014-01-22 07:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -506,11 +506,6 @@ msgstr ""
 #. Default: "A reserved value has been used for \"id\""
 #: ./content/tablepage.py:244
 msgid "pagecolumn_validation_error_id_invalid"
-msgstr ""
-
-#. Default: "Fulfil vocabulary"
-#: ./vocabularies.py:43
-msgid "row_options_enforceVocabulary"
 msgstr ""
 
 #. Default: "Required"

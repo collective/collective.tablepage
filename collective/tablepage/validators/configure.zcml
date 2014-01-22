@@ -10,6 +10,7 @@
        factory=".base.ValidatorRequired"
        name="required"
        />
+
    <!-- unique field validator -->
    <adapter
        for="collective.tablepage.interfaces.IColumnField"
@@ -17,9 +18,11 @@
        factory=".base.ValidatorUnique"
        name="unique"
        />
+
    <!-- enforceVocabulary field validator -->
+   <!-- could be enabled for all fields, adding a new option -->
    <adapter
-       for="collective.tablepage.interfaces.IColumnField"
+       for="collective.tablepage.fields.interfaces.ISelectColumnField"
        provides="collective.tablepage.interfaces.IFieldValidator"
        factory=".base.ValidatorEnforceVocabulary"
        name="enforceVocabulary"

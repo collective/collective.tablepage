@@ -509,11 +509,6 @@ msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere ca
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 
-#. Default: "Fulfil vocabulary"
-#: ./vocabularies.py:43
-msgid "row_options_enforceVocabulary"
-msgstr "Rispetta il vocabolario"
-
 #. Default: "Required"
 #: ./vocabularies.py:39
 msgid "row_options_required"

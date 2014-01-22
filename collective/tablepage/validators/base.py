@@ -51,8 +51,8 @@ class ValidatorEnforceVocabulary(object):
         self.field = field
 
     def validate(self, configuration):
-        if 'enforceVocabulary' not in configuration['options']:
-            return None
+#        if 'enforceVocabulary' not in configuration['options']:
+#            return None
         col_id = configuration['id']
         vocabulary = configuration['vocabulary']
         data = self.field.request.form.get(col_id)

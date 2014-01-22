@@ -9,8 +9,7 @@ Changelog
 - The import from CSV form can be used when no configuration has been given.
   A basical configuration will be guessed by columns headers
   [keul]
-- New option and validator: enforce vocabulary value.
-  This probably makes sense only for select-type(s) colum, but can be applied to all
+- New validator for SelectColum: enforce vocabulary value
   [keul]
 
 0.5b1 (2014-01-13)
