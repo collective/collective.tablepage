@@ -15,6 +15,9 @@ class IEmailColumnField(ITextColumnField):
 class INumberColumnField(ITextColumnField):
     """A column field that handle only text in numeric format"""
 
+class IMonetaryColumnField(INumberColumnField):
+    """A column field that handle only text in numeric format, but for display monetary values"""
+
 class ISelectColumnField(ITextColumnField):
     """A column field that handle text"""
 

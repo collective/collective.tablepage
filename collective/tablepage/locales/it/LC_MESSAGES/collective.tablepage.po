@@ -189,6 +189,9 @@ msgstr "Collegamento"
 msgid "Look for duplicated record"
 msgstr "Cerca record duplicati"
 
+msgid "Monetary"
+msgstr "Monetario"
+
 #: ./fields/templates/multi_file.pt:65
 msgid "Move after"
 msgstr "Muovi dopo"
@@ -373,6 +376,11 @@ msgstr "Il CSV DEVE contenere una riga di intestazione."
 msgid "csv_upload_noheaders_help"
 msgstr "Dato che nessuna configurazione delle colonne è al momento disponibile, una configurazione di base verrà dedotta dal file caricato."
 
+#. Default: "."
+#: ./fields/number.py:64
+msgid "decimal_separator"
+msgstr ","
+
 #. Default: "Add, Edit or Delete rows in the main table of this content"
 #: ./browser/templates/tablepage-edit.pt:51
 msgid "description_edit_table_view"
@@ -483,6 +491,11 @@ msgstr "Testo dopo la tabella"
 msgid "label_text_before"
 msgstr "Testo prima della tabella"
 
+#. Default: "$"
+#: ./fields/number.py:67
+msgid "monetary_sign"
+msgstr "€"
+
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:66
 #: ./fields/templates/multi_file.pt:143
@@ -518,6 +531,11 @@ msgstr "Obbligatorio"
 #: ./vocabularies.py:41
 msgid "row_options_unique"
 msgstr "Unico"
+
+#. Default: ","
+#: ./fields/number.py:36
+msgid "thousand_separator"
+msgstr "."
 
 #. Default: "One item on every row. Used only when the type is \"Select\""
 #: ./content/tablepage.py:71

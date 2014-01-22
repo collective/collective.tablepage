@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-22 07:28+0000\n"
+"POT-Creation-Date: 2014-01-22 09:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,6 +193,9 @@ msgstr ""
 msgid "Look for duplicated record"
 msgstr ""
 
+msgid "Monetary"
+msgstr ""
+
 #: ./fields/templates/multi_file.pt:65
 msgid "Move after"
 msgstr ""
@@ -374,6 +377,11 @@ msgstr ""
 msgid "csv_upload_noheaders_help"
 msgstr ""
 
+#. Default: "."
+#: ./fields/number.py:64
+msgid "decimal_separator"
+msgstr ""
+
 #. Default: "Add, Edit or Delete rows in the main table of this content"
 #: ./browser/templates/tablepage-edit.pt:51
 msgid "description_edit_table_view"
@@ -482,6 +490,11 @@ msgstr ""
 msgid "label_text_before"
 msgstr ""
 
+#. Default: "$"
+#: ./fields/number.py:67
+msgid "monetary_sign"
+msgstr ""
+
 #. Default: "Seems you have no permission to access the file storage. You can't load any attachment from the configured folder."
 #: ./fields/templates/file.pt:66
 #: ./fields/templates/multi_file.pt:143
@@ -516,6 +529,11 @@ msgstr ""
 #. Default: "Unique"
 #: ./vocabularies.py:41
 msgid "row_options_unique"
+msgstr ""
+
+#. Default: ","
+#: ./fields/number.py:36
+msgid "thousand_separator"
 msgstr ""
 
 #. Default: "One item on every row. Used only when the type is \"Select\""

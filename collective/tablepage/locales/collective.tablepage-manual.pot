@@ -43,6 +43,9 @@ msgstr ""
 msgid "Numeric"
 msgstr ""
 
+msgid "Monetary"
+msgstr ""
+
 msgid "String"
 msgstr ""
 

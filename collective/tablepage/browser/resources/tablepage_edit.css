@@ -74,7 +74,8 @@ table.tablePage .tablePageSubHeader td {
 	text-align: center 	
 }
 
-.tablePage td.coltype-Numeric {
+.tablePage td.coltype-Numeric,
+.tablePage td.coltype-Monetary {
 	text-align: right;
 }
 

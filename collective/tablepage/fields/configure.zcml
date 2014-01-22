@@ -32,6 +32,13 @@
        factory=".number.NumberField"
        name="Numeric"
        />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".number.MonetaryField"
+       name="Monetary"
+       />
 
    <adapter
        for="collective.tablepage.interfaces.ITablePage

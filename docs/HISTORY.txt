@@ -11,6 +11,8 @@ Changelog
   [keul]
 - New validator for SelectColum: enforce vocabulary value
   [keul]
+- New column type: *Monetary*
+  [keul]
 
 0.5b1 (2014-01-13)
 ------------------
