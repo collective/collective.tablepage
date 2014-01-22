@@ -133,6 +133,8 @@ described above (columns ids are used instead of titles, contents uids instead o
 
 Contributors can also upload data using a CSV file. The file *must* provide a row with column ids defined in the
 configuration. Columns with unknow id are ignored.
+In the configuration has not already been defined, all CSV headers will be used to quickly init the configuration
+(but columns types will always be "String").
 
 Columns of type "File" and "Files"
 ----------------------------------
