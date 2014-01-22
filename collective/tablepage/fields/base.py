@@ -3,7 +3,6 @@
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.component import getUtility
-from zope.component import getMultiAdapter
 from collective.tablepage.interfaces import IColumnDataRetriever
 from zope.schema.interfaces import IVocabularyFactory
 

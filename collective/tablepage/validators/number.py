@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from collective.tablepage.interfaces import IFieldValidator
 from collective.tablepage import tablepageMessageFactory as _

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.i18n import translate
 from collective.tablepage.fields.interfaces import INumberColumnField

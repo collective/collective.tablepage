@@ -34,7 +34,6 @@ class RowOptionsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        request = context.REQUEST
         terms = [
                  SimpleTerm(value='required', token='required', title=_('row_options_required',
                                                                         default=u'Required')),

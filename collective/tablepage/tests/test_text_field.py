@@ -6,7 +6,6 @@ from zope.component import getMultiAdapter
 
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
-from plone.app.testing import logout
 
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
@@ -18,7 +17,6 @@ class TextFieldTestCase(unittest.TestCase):
     
     def setUp(self):
         portal = self.layer['portal']
-        wtool = portal.portal_workflow
         login(portal, TEST_USER_NAME)
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
         tp = portal.table_page

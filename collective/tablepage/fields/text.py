@@ -2,7 +2,6 @@
 
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
-from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.fields.interfaces import ITextColumnField
 from collective.tablepage.fields.interfaces import ITextAreaColumnField
 from collective.tablepage.fields.base import BaseField

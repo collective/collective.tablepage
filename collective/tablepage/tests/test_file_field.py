@@ -143,7 +143,6 @@ class FileFieldTestCase(unittest.TestCase):
         portal = self.layer['portal']
         request = self.layer['request']
         tp = portal.table_page
-        folder = portal.folder
         configuration = tp.getPageColumns()
         configuration[0]['options'] = ['required']
         tp.setPageColumns(configuration)

@@ -5,7 +5,6 @@ from zope.interface import implements
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage import tablepageMessageFactory as _
-from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.interfaces import IFileColumnField
