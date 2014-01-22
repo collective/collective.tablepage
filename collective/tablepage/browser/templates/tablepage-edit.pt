@@ -48,6 +48,8 @@
             Edit table data
         </h1>
 
+        <div tal:replace="structure provider:plone.abovecontentbody" />
+
         <p class="documentDescription"  i18n:translate="description_edit_table_view">
             Add, Edit or Delete rows in the main table of this content
         </p>
@@ -56,6 +58,8 @@
              tal:content="structure view/render_table">
                 Table
         </div>
+
+        <div tal:replace="structure provider:plone.belowcontentbody" />
 
     </tal:main-macro>
 </metal:main>

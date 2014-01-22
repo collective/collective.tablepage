@@ -64,7 +64,7 @@ class UploadDataView(BrowserView):
                         # CSV row is accessed by index
                         headers = [(h, headers.index(h)) for h in headers if h in valid_headers]
                     else:
-                        # No configuration. Let's guess a configuration using CSV headers!
+                        # No configuration. Let's guess a configuration using CSV headers
                         self.context.setPageColumns([{'id' : h,
                                                       'label' : h,
                                                       'description' : '',

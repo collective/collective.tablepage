@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from AccessControl import Unauthorized
-from zope.component import getMultiAdapter
-from zope.component import getAdapter
-from zope.component import getAdapters
-from zope.component.interfaces import ComponentLookupError
+from AccessControl import getSecurityManager
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as pmf
 from Products.Five.browser import BrowserView
-from plone.memoize.view import memoize
 from collective.tablepage import config
+from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IDataStorage
-from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IFieldValidator
-from collective.tablepage import tablepageMessageFactory as _
-from AccessControl import getSecurityManager
+from plone.memoize.view import memoize
+from zope.component import getAdapter
+from zope.component import getAdapters
+from zope.component import getMultiAdapter
+from zope.component.interfaces import ComponentLookupError
+from zope.interface import Interface
+from zope.interface import implements
 
 try:
     from Products.CMFEditions.utilities import isObjectChanged
@@ -27,8 +29,13 @@ except ImportError:
     VERSIONING_SUPPORT = False
 
 
+class ITableEditView(Interface):
+    """Marker interface for TableEditView"""
+
+
 class TableEditView(BrowserView):
     """Render the table for editing it"""
+    implements(ITableEditView)
 
     @memoize
     def portal_url(self):
