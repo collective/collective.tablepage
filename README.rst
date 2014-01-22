@@ -45,7 +45,7 @@ Right now you can choose from:
 ``Text``
     A textarea, for saving more text and take care of carriage returns.
 ``Select``
-    Still a simple line of thext, but user must choose it from a vocabulary you will define (in the proper column
+    Still a simple line of text, but user must choose it from a vocabulary you will define (in the proper column
     of the configuration).
 ``File``
     A link to a file in the site. See below.
@@ -57,6 +57,9 @@ Right now you can choose from:
     An e-mail address
 ``Numeric``
     A string in numeric format
+``Monetary``
+    A string in numeric format, but will be rendered as a monetary value, with locales settings
+
 
 Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
 
