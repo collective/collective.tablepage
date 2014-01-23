@@ -147,7 +147,7 @@ class DownloadDataView(BrowserView):
             columns.append(column)
         storage = IDataStorage(self.context)
         file = StringIO()
-        writer = csv.writer(file)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         writer.writerow([h['display_header'] for h in columns])
         for data in storage:
             row = []
