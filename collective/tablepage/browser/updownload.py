@@ -146,9 +146,14 @@ class DownloadDataView(BrowserView):
             column['adapter'] = retriever
             columns.append(column)
         storage = IDataStorage(self.context)
+
         file = StringIO()
-        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        csvparams = {'quoting' :csv.QUOTE_ALL,
+                     'delimiter': self.request.form.get('delimiter', ',')
+                     }
+        writer = csv.writer(file, **csvparams)
         writer.writerow([h['display_header'] for h in columns])
+
         for data in storage:
             row = []
             if data.get('__label__'):
