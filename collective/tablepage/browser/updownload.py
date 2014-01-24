@@ -57,7 +57,10 @@ class UploadDataView(BrowserView):
         file = request.form.get('csv')
         check_duplicate = request.form.get('look_for_duplicate')
         if file and file.filename:
-            dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
+            try:
+                dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
+            except csv.Error:
+                dialect = 'excel'
             file.seek(0)
             counter = 0
             storage = IDataStorage(context)
