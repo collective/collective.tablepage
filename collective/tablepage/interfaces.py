@@ -61,9 +61,10 @@ class IColumnDataRetriever(Interface):
 class IFieldValidator(Interface):
     """A validator for the submitted data"""
     
-    def validate(configuration):
+    def validate(configuration, data=None):
         """Validate input data
-        @param configuration TablePage configuration        
+        @param configuration TablePage configuration
+        @data data to be validated (commonly taken from the request)        
         @return the error message (if any) or None
         """
 

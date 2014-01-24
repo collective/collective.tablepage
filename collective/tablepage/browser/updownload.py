@@ -6,8 +6,12 @@ from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import IColumnDataRetriever
+from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.interfaces import IFieldValidator
 from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage import logger
 from zope.component import getAdapter
+from zope.component import getAdapters
 from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 
@@ -39,6 +43,13 @@ class UploadDataView(BrowserView):
             retriever = IColumnDataRetriever(self.context)
         return retriever
 
+    def _getRetrieveValidators(self, col_type):
+        field = getMultiAdapter((self.context, self.request),
+                                IColumnField, name=col_type)
+        validators = getAdapters((field, ),
+                                 IFieldValidator)
+        return [(x[0], x[1]) for x in validators]
+
     def __call__(self):
         request = self.request
         context = self.context
@@ -53,11 +64,13 @@ class UploadDataView(BrowserView):
             configuration = self.context.getPageColumns()
             valid_headers = [c['id'] for c in configuration]
             valid_retrievers = [self._getRetrieverAdapter(c['type']) for c in configuration]
+            validators = [self._getRetrieveValidators(c['type']) for c in configuration]
  
             headers = []
             first = True
             putils = getToolByName(context, 'plone_utils')
             for line, row in enumerate(reader):
+                logger.info("Importing line %04d" % line)
                 if first:
                     headers = [h.strip() for h in row if h.strip()]
                     if configuration:
@@ -75,13 +88,45 @@ class UploadDataView(BrowserView):
                         headers = [(h, headers.index(h)) for h in headers]
                         configuration = self.context.getPageColumns()
                         valid_retrievers = [self._getRetrieverAdapter(c['type']) for c in configuration]
-
+                        validators = [self._getRetrieveValidators(c['type']) for c in configuration]
                     first = False
                     continue
+
                 tobe_saved = {}
+                skip_row = False
+
                 for header, hindex in headers:
-                    tobe_saved[header] = valid_retrievers[hindex].data_to_storage(row[hindex])
-                if tobe_saved:
+                    skip_cell = False
+                    if request.form.get('validate'):
+                        required_field_validation_failed = False
+                        for vname, v in validators[hindex]:
+                            msg = v.validate(configuration[hindex], data=row[hindex])
+                            if msg:
+                                if vname==u'required':
+                                    putils.addPortalMessage(_('warn_invalid_row',
+                                                              default=u"Line $line can't be imported due to missing "
+                                                                      u"required data",
+                                                              mapping={'line': line+1}),
+                                                            type="warning")
+                                    required_field_validation_failed = True
+                                    break
+                                putils.addPortalMessage(_('warn_invalid_cell',
+                                                          default=u"Line $line, cell $cell: can't import data "
+                                                                  u"due to failed validator check",
+                                                          mapping={'line': line+1, 'cell': hindex}),
+                                                        type="warning")
+                                skip_cell = True
+                                break
+
+                        if required_field_validation_failed:
+                            skip_row = True
+                            break
+
+                    # do not spend time to save data if this will be discarded
+                    if not skip_row and not skip_cell:
+                        tobe_saved[header] = valid_retrievers[hindex].data_to_storage(row[hindex])
+
+                if not skip_row and tobe_saved:
                     if check_duplicate and self._checkDuplicateRow(tobe_saved, storage):
                         putils.addPortalMessage(_('warn_duplicate',
                                                   default=u"Line ${line_number} not added because duplicated "
@@ -97,7 +142,7 @@ class UploadDataView(BrowserView):
                     mapping={'count': counter})
             putils.addPortalMessage(msg)
             self._addNewVersion(msg)
-            return request.response.redirect('%s/edit-table' % context.absolute_url())
+            #return request.response.redirect('%s/edit-table' % context.absolute_url())
         return self.index()
 
     def _addNewVersion(self, comment=''):

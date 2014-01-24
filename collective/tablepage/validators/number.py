@@ -12,8 +12,8 @@ class ValidatorIsNumeric(object):
     def __init__(self, field):
         self.field = field
 
-    def validate(self, configuration):
-        data = self.field.request.form.get(configuration['id'], '')
+    def validate(self, configuration, data=None):
+        data = data or self.field.request.form.get(configuration['id'], '')
         if data:
             try:
                 float(data)

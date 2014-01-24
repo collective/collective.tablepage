@@ -13,10 +13,10 @@ class ValidatorRequired(object):
     def __init__(self, field):
         self.field = field
 
-    def validate(self, configuration):
+    def validate(self, configuration, data=None):
         if 'required' not in configuration['options']:
             return None
-        if not self.field.request.form.get(configuration['id']):
+        if not data and not self.field.request.form.get(configuration['id']):
             return _('error_field_required', default='The field "$name" is required',
                      mapping={'name': configuration.get('label', configuration['id']).decode('utf-8')})
 
@@ -28,11 +28,11 @@ class ValidatorUnique(object):
     def __init__(self, field):
         self.field = field
 
-    def validate(self, configuration):
+    def validate(self, configuration, data=None):
         if 'unique' not in configuration['options']:
             return None
         col_id = configuration['id']
-        data = self.field.request.form.get(col_id)
+        data = data or self.field.request.form.get(col_id)
         if data:
             context = self.field.context
             storage = IDataStorage(context)
@@ -50,12 +50,12 @@ class ValidatorEnforceVocabulary(object):
     def __init__(self, field):
         self.field = field
 
-    def validate(self, configuration):
+    def validate(self, configuration, data=None):
 #        if 'enforceVocabulary' not in configuration['options']:
 #            return None
         col_id = configuration['id']
         vocabulary = configuration['vocabulary']
-        data = self.field.request.form.get(col_id)
+        data = data or self.field.request.form.get(col_id)
         if data and data not in vocabulary:
             return _('error_enforce_vocabulary',
                      default='The field "$name" does not fit any of the vocabulary values',

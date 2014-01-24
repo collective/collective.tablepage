@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-22 09:48+0000\n"
+"POT-Creation-Date: 2014-01-24 07:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: collective.tablepage\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:221
+#: ./browser/view.py:228
 msgid "${count} rows deleted"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:45
+#: ./browser/templates/upload-csv.pt:53
 msgid "Look for duplicated record"
 msgstr ""
 
@@ -251,31 +251,31 @@ msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:182
+#: ./browser/view.py:189
 msgid "Row added"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:176
+#: ./browser/view.py:183
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:217
+#: ./browser/view.py:224
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:246
+#: ./browser/view.py:253
 msgid "Row has been moved"
 msgstr ""
 
-#: ./browser/view.py:70
+#: ./browser/view.py:77
 msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:250
+#: ./browser/view.py:257
 msgid "Row moved"
 msgstr ""
 
@@ -327,7 +327,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:51
+#: ./browser/templates/upload-csv.pt:59
 msgid "Upload"
 msgstr ""
 
@@ -348,6 +348,10 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
+#: ./browser/templates/upload-csv.pt:45
+msgid "Validate data"
+msgstr ""
+
 #: ./content/tablepage.py:70
 msgid "Vocabulary for the column"
 msgstr ""
@@ -358,7 +362,7 @@ msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:95
+#: ./browser/updownload.py:140
 msgid "count_rows_added"
 msgstr ""
 
@@ -378,17 +382,17 @@ msgid "csv_upload_noheaders_help"
 msgstr ""
 
 #. Default: "."
-#: ./fields/number.py:64
+#: ./fields/number.py:63
 msgid "decimal_separator"
 msgstr ""
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:51
+#: ./browser/templates/tablepage-edit.pt:53
 msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:135
+#: ./fields/file.py:134
 msgid "duplicate_file_error"
 msgstr ""
 
@@ -403,7 +407,7 @@ msgid "error_field_not_email"
 msgstr ""
 
 #. Default: "The value \"$value\" is not numeric"
-#: ./validators/number.py:23
+#: ./validators/number.py:22
 msgid "error_field_not_number"
 msgstr ""
 
@@ -435,7 +439,7 @@ msgid "help_internal_link"
 msgstr ""
 
 #. Default: "Before adding a row, check if there's already a row with EXACTLY the same data. In that case: skip it."
-#: ./browser/templates/upload-csv.pt:46
+#: ./browser/templates/upload-csv.pt:54
 msgid "help_look_for_duplicate"
 msgstr ""
 
@@ -475,6 +479,11 @@ msgstr ""
 msgid "help_table_caption"
 msgstr ""
 
+#. Default: "Run columns validation (if any) when importing: invalid data will be discarded while missing required fields will discard the whole line."
+#: ./browser/templates/upload-csv.pt:46
+msgid "help_validate"
+msgstr ""
+
 #. Default: "Provide a descriptive scope for that table section"
 #: ./browser/templates/edit-label.pt:22
 msgid "label_form_help"
@@ -491,7 +500,7 @@ msgid "label_text_before"
 msgstr ""
 
 #. Default: "$"
-#: ./fields/number.py:67
+#: ./fields/number.py:66
 msgid "monetary_sign"
 msgstr ""
 
@@ -522,17 +531,17 @@ msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
 #. Default: "Required"
-#: ./vocabularies.py:39
+#: ./vocabularies.py:38
 msgid "row_options_required"
 msgstr ""
 
 #. Default: "Unique"
-#: ./vocabularies.py:41
+#: ./vocabularies.py:40
 msgid "row_options_unique"
 msgstr ""
 
 #. Default: ","
-#: ./fields/number.py:36
+#: ./fields/number.py:35
 msgid "thousand_separator"
 msgstr ""
 
@@ -542,7 +551,17 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:86
+#: ./browser/updownload.py:131
 msgid "warn_duplicate"
+msgstr ""
+
+#. Default: "Line $line, cell $cell: can't import data due to failed validator check"
+#: ./browser/updownload.py:113
+msgid "warn_invalid_cell"
+msgstr ""
+
+#. Default: "Line $line can't be imported due to missing required data"
+#: ./browser/updownload.py:106
+msgid "warn_invalid_row"
 msgstr ""
 

@@ -16,6 +16,8 @@ Changelog
 - When exporting in CSV, always quote data. This prevent some fancy
   Excel/OpenOffice interpretation
   [keul]
+- Column validator can be executed also when importing from CSV
+  [keul]
 
 0.5b1 (2014-01-13)
 ------------------

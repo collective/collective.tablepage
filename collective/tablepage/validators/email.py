@@ -13,8 +13,8 @@ class ValidatorIsEmail(object):
     def __init__(self, field):
         self.field = field
 
-    def validate(self, configuration):
-        data = self.field.request.form.get(configuration['id'], '')
+    def validate(self, configuration, data=None):
+        data = data or self.field.request.form.get(configuration['id'], '')
         if data:
             ptool = getToolByName(self.field.context, 'plone_utils')
             if ptool.validateEmailAddresses(data):

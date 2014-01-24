@@ -16,7 +16,7 @@ msgstr ""
 "X-Is-Fallback-For: it-ch it-it\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:221
+#: ./browser/view.py:228
 msgid "${count} rows deleted"
 msgstr "${count} righe eliminate"
 
@@ -185,7 +185,7 @@ msgstr "L'etichetta è richiesta"
 msgid "Link"
 msgstr "Collegamento"
 
-#: ./browser/templates/upload-csv.pt:45
+#: ./browser/templates/upload-csv.pt:53
 msgid "Look for duplicated record"
 msgstr "Cerca record duplicati"
 
@@ -247,31 +247,31 @@ msgid "Remove row"
 msgstr "Elimina riga"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:182
+#: ./browser/view.py:189
 msgid "Row added"
 msgstr "Riga aggiunta"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:176
+#: ./browser/view.py:183
 msgid "Row changed"
 msgstr "Riga cambiata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:217
+#: ./browser/view.py:224
 msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:246
+#: ./browser/view.py:253
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
-#: ./browser/view.py:70
+#: ./browser/view.py:77
 msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:250
+#: ./browser/view.py:257
 msgid "Row moved"
 msgstr "Riga mossa"
 
@@ -323,7 +323,7 @@ msgstr "Tipo di dato"
 msgid "URL"
 msgstr ""
 
-#: ./browser/templates/upload-csv.pt:51
+#: ./browser/templates/upload-csv.pt:59
 msgid "Upload"
 msgstr "Carica"
 
@@ -344,6 +344,10 @@ msgstr "Carica dati con CSV"
 msgid "Upload..."
 msgstr "Carica..."
 
+#: ./browser/templates/upload-csv.pt:45
+msgid "Validate data"
+msgstr "Valida i dati"
+
 #: ./content/tablepage.py:70
 msgid "Vocabulary for the column"
 msgstr "Vocabolario della colonna"
@@ -357,7 +361,7 @@ msgstr ""
 "Se non fornita, sarà usata la cartella contenente questo documento."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:95
+#: ./browser/updownload.py:140
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -377,17 +381,17 @@ msgid "csv_upload_noheaders_help"
 msgstr "Dato che nessuna configurazione delle colonne è al momento disponibile, una configurazione di base verrà dedotta dal file caricato."
 
 #. Default: "."
-#: ./fields/number.py:64
+#: ./fields/number.py:63
 msgid "decimal_separator"
 msgstr ","
 
 #. Default: "Add, Edit or Delete rows in the main table of this content"
-#: ./browser/templates/tablepage-edit.pt:51
+#: ./browser/templates/tablepage-edit.pt:53
 msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:135
+#: ./fields/file.py:134
 msgid "duplicate_file_error"
 msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
@@ -404,7 +408,7 @@ msgid "error_field_not_email"
 msgstr "Il campo \"$name\" non è in un formato e-mail valido"
 
 #. Default: "The value \"$value\" is not numeric"
-#: ./validators/number.py:23
+#: ./validators/number.py:22
 msgid "error_field_not_number"
 msgstr "Il valore \"$value\" non è numerico"
 
@@ -436,7 +440,7 @@ msgid "help_internal_link"
 msgstr "In alternativa a \"URL\" qui sopra puoi fornire un link ad un documento interno. Questo sovrascriverà un qualunque URL assoluto usato."
 
 #. Default: "Before adding a row, check if there's already a row with EXACTLY the same data. In that case: skip it."
-#: ./browser/templates/upload-csv.pt:46
+#: ./browser/templates/upload-csv.pt:54
 msgid "help_look_for_duplicate"
 msgstr "Prima di aggiungere una riga, controlla se esiste già una riga con ESATTAMENTE gli stessi dati. In questo caso: saltala."
 
@@ -476,6 +480,11 @@ msgstr "Altri file disponibili"
 msgid "help_table_caption"
 msgstr "Sommario opzionale dei contenuti della tabella"
 
+#. Default: "Run columns validation (if any) when importing: invalid data will be discarded while missing required fields will discard the whole line."
+#: ./browser/templates/upload-csv.pt:46
+msgid "help_validate"
+msgstr "Esegui le validazioni delle colonne (se presenti) all'importazione: i dati invalidi saranno scartati mentre l'assenza di campi obbligatori farà scartare l'intero record."
+
 #. Default: "Provide a descriptive scope for that table section"
 #: ./browser/templates/edit-label.pt:22
 msgid "label_form_help"
@@ -492,7 +501,7 @@ msgid "label_text_before"
 msgstr "Testo prima della tabella"
 
 #. Default: "$"
-#: ./fields/number.py:67
+#: ./fields/number.py:66
 msgid "monetary_sign"
 msgstr "€"
 
@@ -523,17 +532,17 @@ msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 
 #. Default: "Required"
-#: ./vocabularies.py:39
+#: ./vocabularies.py:38
 msgid "row_options_required"
 msgstr "Obbligatorio"
 
 #. Default: "Unique"
-#: ./vocabularies.py:41
+#: ./vocabularies.py:40
 msgid "row_options_unique"
 msgstr "Unico"
 
 #. Default: ","
-#: ./fields/number.py:36
+#: ./fields/number.py:35
 msgid "thousand_separator"
 msgstr "."
 
@@ -543,7 +552,17 @@ msgid "vocabulary_column_description"
 msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:86
+#: ./browser/updownload.py:131
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
+
+#. Default: "Line $line, cell $cell: can't import data due to failed validator check"
+#: ./browser/updownload.py:113
+msgid "warn_invalid_cell"
+msgstr "Riga $line, cella $cell: non posso importare i dati per una controllo di validazione fallito"
+
+#. Default: "Line $line can't be imported due to missing required data"
+#: ./browser/updownload.py:106
+msgid "warn_invalid_row"
+msgstr "La riga $line non può essere importata perché mancano dati obbligatori"
 
