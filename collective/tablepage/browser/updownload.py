@@ -58,6 +58,7 @@ class UploadDataView(BrowserView):
         check_duplicate = request.form.get('look_for_duplicate')
         if file and file.filename:
             dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
+            file.seek(0)
             counter = 0
             storage = IDataStorage(context)
             member = getMultiAdapter((context, request), name=u'plone_portal_state').member()
