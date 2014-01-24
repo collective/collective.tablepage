@@ -44,11 +44,11 @@ class CSVExportTestCase(unittest.TestCase):
                               'type': 'String', 'vocabulary': '', 'options': []},])
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A,Col B')
+        self.assertEqual(csv, '"Col A","Col B"')
         request.form['target'] = 'editor'
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view, skipHeaders=True)
-        self.assertEqual(csv, 'col_a,col_b')
+        self.assertEqual(csv, '"col_a","col_b"')
 
     def test_labels_ignored(self):
         tp = self.layer['portal'].table_page
@@ -62,9 +62,9 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': 'baz', 'col_b': 'qux'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A,Col B\n'
-                              'foo,bar\n'
-                              'baz,qux')
+        self.assertEqual(csv, '"Col A","Col B"\n'
+                              '"foo","bar"\n'
+                              '"baz","qux"')
 
     def test_string_field(self):
         tp = self.layer['portal'].table_page
@@ -75,9 +75,9 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': ' baz  qux'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
-                              'foo bar\n'
-                              'baz  qux')
+        self.assertEqual(csv, '"Col A"\n'
+                              '"foo bar"\n'
+                              '"baz  qux"')
 
     def test_text_field(self):
         tp = self.layer['portal'].table_page
@@ -88,7 +88,7 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': ' \nbaz \nqux'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
+        self.assertEqual(csv, '"Col A"\n'
                               '"foo\n\nbar"\n'
                               '"baz \nqux"')
 
@@ -101,12 +101,12 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': portal.file1.UID()})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
-                              '%s/file1' % portal.absolute_url())
+        self.assertEqual(csv, '"Col A"\n'
+                              '"%s/file1"' % portal.absolute_url())
         request.form['target'] = 'editor'
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view, skipHeaders=True)
-        self.assertEqual(csv, 'col_a\n' + portal.file1.UID())
+        self.assertEqual(csv, '"col_a"\n"%s"' % portal.file1.UID())
 
     def test_multiple_file_field(self):
         portal = self.layer['portal']
@@ -118,13 +118,13 @@ class CSVExportTestCase(unittest.TestCase):
                                                                        portal.file2.UID(),)})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
+        self.assertEqual(csv, '"Col A"\n'
                               '"%s/file1\n'
                               '%s/file2"' % (portal.absolute_url(), portal.absolute_url()))
         request.form['target'] = 'editor'
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view, skipHeaders=True)
-        self.assertEqual(csv, 'col_a\n"%s\n%s"' % (portal.file1.UID(),
+        self.assertEqual(csv, '"col_a"\n"%s\n%s"' % (portal.file1.UID(),
                                                    portal.file2.UID(),))
 
     def test_link_field_simple_url(self):
@@ -137,9 +137,9 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': "http://planet.plone.org/"})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
-                              'http://plone.org/\n'
-                              'http://planet.plone.org/')
+        self.assertEqual(csv, '"Col A"\n'
+                              '"http://plone.org/"\n'
+                              '"http://planet.plone.org/"')
 
     def test_link_field_internal(self):
         portal = self.layer['portal']
@@ -150,12 +150,12 @@ class CSVExportTestCase(unittest.TestCase):
         self.storage.add({'__creator__': 'user1', 'col_a': portal.document1.UID()})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
-        self.assertEqual(csv, 'Col A\n'
-                              '%s/document1' % portal.absolute_url())
+        self.assertEqual(csv, '"Col A"\n'
+                              '"%s/document1"' % portal.absolute_url())
         request.form['target'] = 'editor'
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view, skipHeaders=True)
-        self.assertEqual(csv, 'col_a\n' + portal.document1.UID())
+        self.assertEqual(csv, '"col_a"\n"%s"' % portal.document1.UID())
 
 
 class CSVImportTestCase(unittest.TestCase):
