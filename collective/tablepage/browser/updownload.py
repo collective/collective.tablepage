@@ -51,15 +51,17 @@ class UploadDataView(BrowserView):
         return [(x[0], x[1]) for x in validators]
 
     def __call__(self):
+        # PLEASE refactorgin this mess
         request = self.request
         context = self.context
         file = request.form.get('csv')
         check_duplicate = request.form.get('look_for_duplicate')
         if file and file.filename:
+            dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
             counter = 0
             storage = IDataStorage(context)
             member = getMultiAdapter((context, request), name=u'plone_portal_state').member()
-            reader = csv.reader(file)
+            reader = csv.reader(file, dialect)
 
             configuration = self.context.getPageColumns()
             valid_headers = [c['id'] for c in configuration]
