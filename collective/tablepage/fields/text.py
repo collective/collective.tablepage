@@ -26,6 +26,10 @@ class TextAreaField(BaseField):
     edit_template = ViewPageTemplateFile('templates/textarea.pt')
     view_template = ViewPageTemplateFile('templates/textarea_view.pt')
 
+    def __init__(self, context, request):
+        BaseField.__init__(self, context, request)
+        self.rows = 5
+
     def renderText(self, text):
         context = self.context
         transformer = getToolByName(context, 'portal_transforms')

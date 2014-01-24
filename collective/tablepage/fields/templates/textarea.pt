@@ -10,5 +10,6 @@
 </div>
 <textarea id="" name=""
           tal:attributes="id view/configuration/id;
-          name view/configuration/id;"
+                          name view/configuration/id;
+                          rows view/rows"
           tal:content="options/data"></textarea>
