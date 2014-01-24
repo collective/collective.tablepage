@@ -51,8 +51,11 @@ class MonetaryField(NumberField):
                 return self.data
             
             parts = self.data.split('.')
-            i_data = parts[0]
-            i_data = self.intWithCommas(int(i_data))
+            try:
+                i_data = int(parts[0])
+            except ValueError:
+                return self.view_template(data='')
+            i_data = self.intWithCommas(i_data)
 
             if len(parts)>1:
                 dec_data = parts[1]
