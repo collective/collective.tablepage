@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5b2 (unreleased)
+0.5b2 (2014-01-29)
 ------------------
 
 - Fixed error when editing old rows, created before version 0.5
