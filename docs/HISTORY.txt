@@ -4,7 +4,7 @@ Changelog
 0.5b3 (unreleased)
 ------------------
 
-- Do not use the HTML 5 ``number`` type number anymore because
+- Do not use the HTML 5 ``number`` type anymore because
   of `Google Chrome stupidity`__
   [keul]
 
