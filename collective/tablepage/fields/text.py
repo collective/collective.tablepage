@@ -33,7 +33,6 @@ class TextAreaField(BaseField):
     def renderText(self, text):
         context = self.context
         transformer = getToolByName(context, 'portal_transforms')
-        data = transformer.convertTo('text/html', text,
-                                     context=context,
+        data = transformer.convertTo('text/html', text, context=context,
                                      mimetype='text/plain')
         return data.getData()

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-24 07:39+0000\n"
+"POT-Creation-Date: 2014-01-30 13:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -234,6 +234,10 @@ msgstr ""
 msgid "Page with Table"
 msgstr ""
 
+#: ./fields/templates/number.pt:16
+msgid "Please enter a number in a proper format, for example: 1234.56"
+msgstr ""
+
 #: ./browser/templates/edit-record.pt:154
 msgid "Provide data for the row"
 msgstr ""
@@ -362,7 +366,7 @@ msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:140
+#: ./browser/updownload.py:146
 msgid "count_rows_added"
 msgstr ""
 
@@ -382,7 +386,7 @@ msgid "csv_upload_noheaders_help"
 msgstr ""
 
 #. Default: "."
-#: ./fields/number.py:63
+#: ./fields/number.py:66
 msgid "decimal_separator"
 msgstr ""
 
@@ -500,7 +504,7 @@ msgid "label_text_before"
 msgstr ""
 
 #. Default: "$"
-#: ./fields/number.py:66
+#: ./fields/number.py:69
 msgid "monetary_sign"
 msgstr ""
 
@@ -551,17 +555,17 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:131
+#: ./browser/updownload.py:137
 msgid "warn_duplicate"
 msgstr ""
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:113
+#: ./browser/updownload.py:119
 msgid "warn_invalid_cell"
 msgstr ""
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:106
+#: ./browser/updownload.py:112
 msgid "warn_invalid_row"
 msgstr ""
 

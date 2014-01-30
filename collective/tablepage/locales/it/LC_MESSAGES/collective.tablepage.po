@@ -230,6 +230,10 @@ msgstr "Numerico"
 msgid "Page with Table"
 msgstr "Pagina con Tabella"
 
+#: ./fields/templates/number.pt:16
+msgid "Please enter a number in a proper format, for example: 1234.56"
+msgstr "Prego, inserisci un numero in un formato adatto, per esempio: 1234.56"
+
 #: ./browser/templates/edit-record.pt:154
 msgid "Provide data for the row"
 msgstr "Fornisci i dati della riga"
@@ -361,7 +365,7 @@ msgstr ""
 "Se non fornita, sarà usata la cartella contenente questo documento."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:140
+#: ./browser/updownload.py:146
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -381,7 +385,7 @@ msgid "csv_upload_noheaders_help"
 msgstr "Dato che nessuna configurazione delle colonne è al momento disponibile, una configurazione di base verrà dedotta dal file caricato."
 
 #. Default: "."
-#: ./fields/number.py:63
+#: ./fields/number.py:66
 msgid "decimal_separator"
 msgstr ","
 
@@ -501,7 +505,7 @@ msgid "label_text_before"
 msgstr "Testo prima della tabella"
 
 #. Default: "$"
-#: ./fields/number.py:66
+#: ./fields/number.py:69
 msgid "monetary_sign"
 msgstr "€"
 
@@ -552,17 +556,17 @@ msgid "vocabulary_column_description"
 msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:131
+#: ./browser/updownload.py:137
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:113
+#: ./browser/updownload.py:119
 msgid "warn_invalid_cell"
 msgstr "Riga $line, cella $cell: non posso importare i dati per una controllo di validazione fallito"
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:106
+#: ./browser/updownload.py:112
 msgid "warn_invalid_row"
 msgstr "La riga $line non può essere importata perché mancano dati obbligatori"
 

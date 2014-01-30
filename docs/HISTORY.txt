@@ -4,8 +4,11 @@ Changelog
 0.5b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not use the HTML 5 ``number`` type number anymore because
+  of `Google Chrome stupidity`__
+  [keul]
 
+__ http://code.google.com/p/chromium/issues/detail?id=78520
 
 0.5b2 (2014-01-29)
 ------------------
