@@ -102,3 +102,5 @@ class LinkFieldTestCase(unittest.TestCase):
         view()
         storage = IDataStorage(tp)
         self.assertEqual(storage[0]['link'], 'this is not an uid')
+        output = tp()
+        self.assertFalse('this is not an uid' in output)

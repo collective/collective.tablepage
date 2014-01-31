@@ -40,7 +40,7 @@ class BaseField(object):
                         url=obj.absolute_url(),
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1))
-        return None
+        return {}
 
     @property
     def options(self):
