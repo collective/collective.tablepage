@@ -6,6 +6,8 @@ Changelog
 
 - Fixed a bug that break link columns when the linked content is no more
   [keul]
+- Fixed error when validating old rows, created before version 0.5
+  [keul]
 
 0.5b3 (2014-01-31)
 ------------------

@@ -14,7 +14,7 @@ class ValidatorRequired(object):
         self.field = field
 
     def validate(self, configuration, data=None):
-        if 'required' not in configuration['options']:
+        if 'required' not in configuration.get('options', []):
             return None
         if not data and not self.field.request.form.get(configuration['id']):
             return _('error_field_required', default='The field "$name" is required',
@@ -29,7 +29,7 @@ class ValidatorUnique(object):
         self.field = field
 
     def validate(self, configuration, data=None):
-        if 'unique' not in configuration['options']:
+        if 'unique' not in configuration.get('options', []):
             return None
         col_id = configuration['id']
         data = data or self.field.request.form.get(col_id)
@@ -51,7 +51,7 @@ class ValidatorEnforceVocabulary(object):
         self.field = field
 
     def validate(self, configuration, data=None):
-#        if 'enforceVocabulary' not in configuration['options']:
+#        if 'enforceVocabulary' not in configuration.get('options', []):
 #            return None
         col_id = configuration['id']
         vocabulary = configuration['vocabulary']

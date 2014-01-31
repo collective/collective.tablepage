@@ -13,7 +13,7 @@ class FileValidatorRequired(object):
         self.field = field
 
     def validate(self, configuration, data=None):
-        if 'required' not in configuration['options']:
+        if 'required' not in configuration.get('options', []):
             return None
         form = self.field.request.form
         field_id = configuration['id']
@@ -30,7 +30,7 @@ class MultiFileValidatorRequired(object):
         self.field = field
 
     def validate(self, configuration, data=None):
-        if 'required' not in configuration['options']:
+        if 'required' not in configuration.get('options', []):
             return None
         form = self.field.request.form
         field_id = configuration['id']
