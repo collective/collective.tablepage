@@ -214,6 +214,26 @@ class CSVImportTestCase(unittest.TestCase):
         self.assertEqual(self.storage[0].get('col_a1'), None)
         self.assertEqual(self.storage[0].get('col_b'), 'baz')
 
+    def test_rowswith_few_cols_unknow_cols(self):
+        # Skipping line 2. Found 3 columns instead of 2
+        tp = self.layer['portal'].table_page
+        request = self.layer['request']
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                              {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                              {'id': 'col_c', 'label': 'Col C', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},])
+        file = self.file_with_data("col_a,col_b,col_c\n"
+                                   "foo,baz\n"
+                                   "lorem,ipsum,dolor")
+        request.form['csv'] = file
+        view = getMultiAdapter((tp, request), name=u"upload-rows")
+        output = view()
+        self.assertTrue('Skipping line 2. Found 2 columns instead of 3' in output)
+        self.assertEqual(len(self.storage), 1)
+        self.assertEqual(self.storage[0]['col_a'], 'lorem')
+
     def test_text_field(self):
         tp = self.layer['portal'].table_page
         request = self.layer['request']

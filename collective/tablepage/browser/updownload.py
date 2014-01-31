@@ -104,7 +104,7 @@ class UploadDataView(BrowserView):
                 tobe_saved = {}
                 skip_row = False
 
-                if len(row)!=len(headers):
+                if len(row)<len(headers):
                     putils.addPortalMessage(_('error_row_count_dont_match',
                                               default=u"Skipping line $line. Found $lrow columns instead of $lheaders",
                                               mapping={'line': line+1,
