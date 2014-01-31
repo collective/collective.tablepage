@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5b3 (unreleased)
+0.5b3 (2014-01-31)
 ------------------
 
 - Do not use the HTML 5 ``number`` type anymore because
