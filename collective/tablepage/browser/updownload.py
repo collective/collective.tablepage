@@ -59,6 +59,9 @@ class UploadDataView(BrowserView):
         if file and file.filename:
             try:
                 dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
+                if not dialect.delimiter:
+                    # some stupid Python 2.4 CSV bug may happens
+                    raise csv.Error
             except csv.Error:
                 dialect = 'excel'
             file.seek(0)
@@ -100,6 +103,16 @@ class UploadDataView(BrowserView):
 
                 tobe_saved = {}
                 skip_row = False
+
+                if len(row)!=len(headers):
+                    putils.addPortalMessage(_('error_row_count_dont_match',
+                                              default=u"Skipping line $line. Found $lrow columns instead of $lheaders",
+                                              mapping={'line': line+1,
+                                                       'lrow': len(row),
+                                                       'lheaders': len(headers)}),
+                                            type="error")
+                    continue
+
 
                 for header, hindex in headers:
                     skip_cell = False

@@ -365,7 +365,7 @@ msgstr ""
 "Se non fornita, sarà usata la cartella contenente questo documento."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:146
+#: ./browser/updownload.py:159
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -427,6 +427,11 @@ msgstr "Il campo \"$name\" è obbligatorio"
 #: ./validators/base.py:41
 msgid "error_field_unique"
 msgstr "Il valore \"$value\" è già presente nella colonna \"$name\""
+
+#. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
+#: ./browser/updownload.py:108
+msgid "error_row_count_dont_match"
+msgstr "Salto la riga $line. Trovate $lrow colonne invece di $lheaders"
 
 #. Default: "Display a download link for data inside the table in CSV format"
 #: ./content/tablepage.py:152
@@ -556,17 +561,17 @@ msgid "vocabulary_column_description"
 msgstr "Un elemento per riga. Usato solo quando il tipo è \"Selezione\""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:137
+#: ./browser/updownload.py:150
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:119
+#: ./browser/updownload.py:132
 msgid "warn_invalid_cell"
 msgstr "Riga $line, cella $cell: non posso importare i dati per una controllo di validazione fallito"
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:112
+#: ./browser/updownload.py:125
 msgid "warn_invalid_row"
 msgstr "La riga $line non può essere importata perché mancano dati obbligatori"
 

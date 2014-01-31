@@ -7,6 +7,11 @@ Changelog
 - Do not use the HTML 5 ``number`` type anymore because
   of `Google Chrome stupidity`__
   [keul]
+- Fixed a Python 2.4 bug in interpreting CSV format
+  [keul]
+- Do not fail the whole import procedure if a CSV row is missing
+  some columns
+  [keul] 
 
 __ http://code.google.com/p/chromium/issues/detail?id=78520
 

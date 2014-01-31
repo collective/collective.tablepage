@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-01-30 13:45+0000\n"
+"POT-Creation-Date: 2014-01-31 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -366,7 +366,7 @@ msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:146
+#: ./browser/updownload.py:159
 msgid "count_rows_added"
 msgstr ""
 
@@ -425,6 +425,11 @@ msgstr ""
 #. Default: "The value \"$value\" is already present in the column \"$name\""
 #: ./validators/base.py:41
 msgid "error_field_unique"
+msgstr ""
+
+#. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
+#: ./browser/updownload.py:108
+msgid "error_row_count_dont_match"
 msgstr ""
 
 #. Default: "Display a download link for data inside the table in CSV format"
@@ -555,17 +560,17 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:137
+#: ./browser/updownload.py:150
 msgid "warn_duplicate"
 msgstr ""
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:119
+#: ./browser/updownload.py:132
 msgid "warn_invalid_cell"
 msgstr ""
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:112
+#: ./browser/updownload.py:125
 msgid "warn_invalid_row"
 msgstr ""
 
