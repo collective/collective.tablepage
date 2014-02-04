@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5b4 (unreleased)
+0.5b4 (2014-02-04)
 ------------------
 
 - Fixed a bug that break link columns when the linked content is no more
