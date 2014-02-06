@@ -4,8 +4,8 @@ Changelog
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
+- The ``unique`` validator was preventing record update
+  [keul]
 
 0.5b4 (2014-02-04)
 ------------------

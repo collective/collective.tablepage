@@ -36,8 +36,8 @@ class ValidatorUnique(object):
         if data:
             context = self.field.context
             storage = IDataStorage(context)
-            for row in storage:
-                if row.get(col_id)==data:
+            for i, row in enumerate(storage):
+                if i!=self.field.request.form.get('row-index') and row.get(col_id)==data:
                     return _('error_field_unique', default='The value "$value" is already present in the column \"$name\"',
                              mapping={'name': configuration.get('label', col_id).decode('utf-8'),
                                       'value': data.decode('utf-8')})

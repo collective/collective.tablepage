@@ -63,3 +63,33 @@ class TextFieldTestCase(unittest.TestCase):
         view()
         self.assertTrue('The field "A text" is required' in view())
 
+    def test_unique(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        configuration = tp.getPageColumns()
+        configuration[0]['options'] = ['unique']
+        tp.setPageColumns(configuration)
+        self.storage.add({'__creator__': 'user1', 'the_text_data': 'foo bar baz'})
+        request.form['form.submitted'] = '1'
+        request.form['the_text_data'] = 'foo bar baz'
+        view = getMultiAdapter((tp, request), name='edit-record')
+        output = view()
+        self.assertTrue('The value "foo bar baz" is already present in the column "A text"' in output)
+
+    def test_unique_2(self):
+        """Prevent regression: when saving an existing record ignore the record itself""" 
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        configuration = tp.getPageColumns()
+        configuration[0]['options'] = ['unique']
+        tp.setPageColumns(configuration)
+        self.storage.add({'__creator__': 'user1', 'the_text_data': 'foo bar baz'})
+        request.form['form.submitted'] = '1'
+        request.form['row-index'] = 0
+        request.form['the_text_data'] = 'foo bar baz'
+        view = getMultiAdapter((tp, request), name='edit-record')
+        output = view() or ''
+        self.assertFalse('The value "foo bar baz" is already present in the column "A text"' in output)
+        self.assertEqual(len(self.storage), 1)
