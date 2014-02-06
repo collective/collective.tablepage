@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5 (unreleased)
+0.5 (2014-02-06)
 ----------------
 
 - The ``unique`` validator was preventing record update
