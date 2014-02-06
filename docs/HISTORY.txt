@@ -6,6 +6,9 @@ Changelog
 
 - The ``unique`` validator was preventing record update
   [keul]
+- Monetary column will pad the final zero in less that 2 decimal
+  are supplied (123.5 will be 123.50)
+  [keul]
 
 0.5b4 (2014-02-04)
 ------------------

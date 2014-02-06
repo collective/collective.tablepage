@@ -61,6 +61,8 @@ class MonetaryField(NumberField):
                 dec_data = parts[1]
             else:
                 dec_data = '00'
+            if len(dec_data)<2:
+                dec_data = dec_data + "0"
             dec_data = dec_data[0:2]
 
             decimal_separator = translate(_('decimal_separator',
