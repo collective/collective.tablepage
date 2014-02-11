@@ -8,6 +8,7 @@ from collective.tablepage.interfaces import IDataStorage
 
 STORAGE_KEY = "table_page_storage"
 
+
 class DataStorage(object):
     """Store data inside the Plone content
     Data are stored as primitive types in the content annotations structure
@@ -56,3 +57,9 @@ class DataStorage(object):
 
     def update(self, index, data):
         self._ann[index].update(data)
+
+    def nullify(self, index, key):
+        try:
+            del self._ann[index][key]
+        except KeyError:
+            pass

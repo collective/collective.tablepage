@@ -65,12 +65,13 @@ class LinkedObjectFinder(object):
 class LinkField(BaseField):
     implements(ILinkColumnField)
 
+    edit_template = ViewPageTemplateFile('templates/link.pt')
+    view_template = ViewPageTemplateFile('templates/link_view.pt')
+    cacheable = True
+
     def __init__(self, context, request):
         BaseField.__init__(self, context, request)
         self.PLONE3 = PLONE3
-
-    edit_template = ViewPageTemplateFile('templates/link.pt')
-    view_template = ViewPageTemplateFile('templates/link_view.pt')
 
     def portal_url(self):
         portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')

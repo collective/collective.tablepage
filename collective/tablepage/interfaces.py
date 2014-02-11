@@ -5,6 +5,7 @@ from zope.interface import Attribute
 #from Products.ATContentTypes.interface.interfaces import ITextContent
 from Products.ATContentTypes.interface.document import IATDocument
 
+
 class ITablePage(IATDocument):
     """A document with an editable table"""
 
@@ -13,6 +14,7 @@ class IColumnField(Interface):
     """An object able to render an widget for handling data from a column"""
     
     configuration = Attribute("""Columns configuration""")
+    cacheable = Attribute("""Flag for determining if the column render will be cached""")
 
     def render_edit(data):
         """Get the HTML field for editing"""
@@ -41,6 +43,9 @@ class IDataStorage(Interface):
 
     def update(index, data):
         """Update data stored at given row"""
+
+    def nullify(index, key):
+        """Delete a single row subitem"""
 
 
 class IColumnDataRetriever(Interface):

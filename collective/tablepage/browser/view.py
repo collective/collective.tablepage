@@ -180,6 +180,7 @@ class EditRecordView(BrowserView):
                 if not self.check_manager_or_mine_record(index):
                     raise Unauthorized("You can't modify that record")
                 storage.update(index, to_be_saved)
+                storage.nullify(index, '__cache__')
                 self._addNewVersion(_(msgid="Row changed",
                                       domain="collective.tablepage",
                                       context=context))

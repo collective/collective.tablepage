@@ -1,10 +1,13 @@
 Changelog
 =========
 
-0.5.1 (unreleased)
+0.6.0 (unreleased)
 ------------------
 
 - Multiple tables view was not properly display HTML
+  [keul]
+- Added caching for rendered columns. This will speed up
+  a little/lot table rendering
   [keul]
 
 0.5 (2014-02-06)
