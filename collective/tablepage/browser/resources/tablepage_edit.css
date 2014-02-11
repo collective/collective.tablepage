@@ -105,7 +105,8 @@ table.tablePage .tablePageSubHeader td {
 a.commandSelectedFile,
 #content a.commandSelectedFile,
 dl.portalMessage a.commandSelectedFile
-a.commandSelectedFile {
+a.commandSelectedFile,
+#content a.removeReference {
 	text-decoration: none;
 	border-bottom: none;
 }
