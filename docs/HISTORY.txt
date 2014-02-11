@@ -4,8 +4,8 @@ Changelog
 0.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Multiple tables view was not properly display HTML
+  [keul]
 
 0.5 (2014-02-06)
 ----------------

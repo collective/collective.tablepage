@@ -59,7 +59,9 @@
 							    	<span tal:replace="header/label" />
 									<div class="discreet" tal:content="header/description">This is for...</div>
 							    </th>
-							<td class="nosort" tal:content="structure data">aaa</td>
+							<td class=""
+							    tal:attributes="class data/classes"
+							    tal:content="structure data/content">aaa</td>
 						</tr>
 						</tal:sub-table-rows>
 					
