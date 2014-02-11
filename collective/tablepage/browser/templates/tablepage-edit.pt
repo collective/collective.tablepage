@@ -8,34 +8,8 @@
 
 <head>
 <metal:js fill-slot="javascript_head_slot">
-<script type="text/javascript">
-<!--
-(function ($) {
-    $(document).ready(function () {
-        /**
-         * select/unselect all
-         */ 
-        $('#selectAll').click(function(event) {
-            if ($(this).is(':checked')) {
-                $('.selectRow').attr('checked', 'checked');
-            } else {
-                $('.selectRow').removeAttr('checked');
-            }
-        });
-
-		/**
-		 * "Delete selected items" command
-		 */ 
-        $('#massDelete').click(function(event) {
-            event.preventDefault();
-            if ($('.selectRow:checked').length>0) {
-                $('#tableForm').submit();
-            }
-        });
-    });
-})(jQuery);
-//-->
-</script>
+<script type="text/javascript" src=""
+        tal:attributes="src string:$portal_url/++resource++collective.tablepage.resources/edit-table.js"></script>
 </metal:js>
 </head>
 

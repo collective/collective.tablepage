@@ -9,6 +9,8 @@ Changelog
 - Added caching for rendered columns. This will speed up
   a little/lot table rendering
   [keul]
+- Moved inline JavaScript to separate resource files
+  [keul]
 
 0.5 (2014-02-06)
 ----------------
