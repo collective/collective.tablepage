@@ -20,8 +20,7 @@
                 $table.toggleClass('helpEdit');
                 if (!newCommand.data('expanded')) {
                     newCommand.data('expanded', true);
-                    $('#portal-column-one').hide();
-                    $('#portal-column-two').hide();
+                    $('#portal-column-one,#portal-column-two,#portal-top,#portal-footer-wrapper').hide();
                     if (dataTable) {
                         //dataTable.fnSettings().sScrollXInner = $("#portal-columns").width()+"px";
                         $('.dataTables_wrapper').css('width', wWidth995+'px');
@@ -31,8 +30,7 @@
                     newCommand.find('img').attr('src', portal_url + '/++resource++collective.tablepage.images/fullscreencollapse_icon.png');
                 } else {
                     newCommand.data('expanded', false);
-                    $('#portal-column-one').show();
-                    $('#portal-column-two').show();
+                    $('#portal-column-one,#portal-column-two,#portal-top,#portal-footer-wrapper').show();
                     newCommand.find('img').attr('src', portal_url + '/++resource++collective.tablepage.images/fullscreenexpand_icon.png');
                     if (dataTable) {
                         //dataTable.fnSettings().sScrollXInner = "95%";

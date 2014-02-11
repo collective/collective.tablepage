@@ -11,6 +11,9 @@ Changelog
   [keul]
 - Moved inline JavaScript to separate resource files
   [keul]
+- Show/Hide command now act also on page header and footer
+  (Zen Mode!)
+  [keul]
 
 0.5 (2014-02-06)
 ----------------
