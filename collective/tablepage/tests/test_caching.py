@@ -48,7 +48,6 @@ class CachingTestCase(unittest.TestCase):
     def test_cache_miss_timestamp_expired(self):
         portal = self.layer['portal']
         request = self.layer['request']
-        tomorrow = DateTime() + 1
         self.storage.add({'__creator__': 'foo', 'the_text_data': 'foo bar baz',
                           '__cache__': {'the_text_data': {'data': 'In cache we believe',
                                                           'timestamp': 0}}})

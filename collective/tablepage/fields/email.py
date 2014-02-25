@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from collective.tablepage.fields.interfaces import IEmailColumnField
 from collective.tablepage.fields.text import TextField

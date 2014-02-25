@@ -400,7 +400,7 @@ class CSVImportTestCase(unittest.TestCase):
         view()
         self.assertEqual(self.storage[0]['col_a'], None)
 
-    def test_link_field_URL(self):
+    def test_link_field_internal_URL(self):
         portal = self.layer['portal']
         tp = portal.table_page
         request = self.layer['request']

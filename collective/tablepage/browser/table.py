@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from AccessControl import getSecurityManager
-from Acquisition import aq_inner
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from collective.tablepage import logger
