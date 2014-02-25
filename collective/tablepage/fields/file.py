@@ -29,7 +29,7 @@ class FileField(BaseField):
 
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
-    cacheable = True
+    cache_time = 60 * 60 # 2 hours
 
     def render_view(self, data):
         self.data = data or ''
@@ -75,7 +75,6 @@ class MultipleFilesField(FileField):
 
     edit_template = ViewPageTemplateFile('templates/multi_file.pt')
     view_template = ViewPageTemplateFile('templates/multi_file_view.pt')
-    cacheable = True
 
     def render_edit(self, data):
         self.data = data and data.splitlines() or []

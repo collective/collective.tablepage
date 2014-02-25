@@ -13,7 +13,8 @@ class BaseField(object):
     # not implemented; subclasses must change this
     edit_template = None
     view_template = None
-    cacheable = False
+    # By default we don't need cache
+    cache_time = 0
 
     def __init__(self, context, request):
         self.context = context

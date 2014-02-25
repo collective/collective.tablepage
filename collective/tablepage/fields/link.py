@@ -67,7 +67,7 @@ class LinkField(BaseField):
 
     edit_template = ViewPageTemplateFile('templates/link.pt')
     view_template = ViewPageTemplateFile('templates/link_view.pt')
-    cacheable = True
+    cache_time = 60 * 60 # 2 hours
 
     def __init__(self, context, request):
         BaseField.__init__(self, context, request)

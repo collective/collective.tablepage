@@ -25,8 +25,8 @@ class TextAreaField(BaseField):
 
     edit_template = ViewPageTemplateFile('templates/textarea.pt')
     view_template = ViewPageTemplateFile('templates/textarea_view.pt')
-    # we cache, so we can skip the portal_transform computation
-    cacheable = True
+    # we cache because we have portal_transforms but we can cache for a long time
+    cache_time =  60 * 60 * 12 # 12 hours
 
     def __init__(self, context, request):
         BaseField.__init__(self, context, request)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from AccessControl import getSecurityManager
+from Acquisition import aq_inner
 from DateTime import DateTime
 from Products.Five.browser import BrowserView
 from collective.tablepage import logger
@@ -73,14 +74,14 @@ class TableViewView(BrowserView):
                 field = adapters[conf['type']]
                 now = DateTime()
                 # Cache hit
-                if field.cacheable and record.get("__cache__", {}).get(conf['id']) and \
-                        now.millis() < record["__cache__"][conf['id']]['timestamp'] + config.CACHE_TIME * 1000:
+                if field.cache_time and record.get("__cache__", {}).get(conf['id']) and \
+                        now.millis() < record["__cache__"][conf['id']]['timestamp'] + field.cache_time * 1000:
                     output = record["__cache__"][conf['id']]['data']
                     logger.debug("Cache hit (%s)" % conf['id'])
                 # Cache miss
                 else:
                     output = field.render_view(record.get(conf['id']))
-                    if field.cacheable:
+                    if field.cache_time:
                         if not record.get("__cache__"):
                             record["__cache__"] = PersistentDict()
                         record["__cache__"][conf['id']] = PersistentDict()
