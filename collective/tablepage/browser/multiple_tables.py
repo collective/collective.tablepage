@@ -5,7 +5,10 @@ from collective.tablepage.browser.table import TableViewView
 
 class MultipleTablesView(TableViewView):
     """View with multiple tables"""
-    
+
+    def __call__(self):
+        return self.index()
+
     def is_label(self, row):
         return isinstance(row, basestring) and row or None
 

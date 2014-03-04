@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.7 (unreleased)
-----------------
+0.6.1 (unreleased)
+------------------
 
-- Nothing changed yet.
-
+- Multiple tables view was unreachable on emtpy tables
+  [keul]
 
 0.6 (2014-02-25)
 ----------------
