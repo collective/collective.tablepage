@@ -85,7 +85,7 @@ class EditLabelView(BrowserView):
             self._save()
             putils.addPortalMessage(_('Label has been saved'))
             return request.response.redirect("%s/edit-table" % self.context.absolute_url())
-        elif form.get('row-index') is not None:
+        elif form.get('row-index') is not None and not form.get('addLabel'):
             # load an existing row
             self.data = self.storage[form.get('row-index')].get('__label__', '')
         return self.index()
