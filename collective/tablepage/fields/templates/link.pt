@@ -36,7 +36,8 @@
 //-->
 </script>
 
-<label tal:attributes="for view/configuration/id"
+<label class="subFieldLabel"
+       tal:attributes="for view/configuration/id"
        tal:content="view/configuration/label">A good field</label>
 <span class="fieldRequired" title="Required"
       tal:condition="view/options/required"

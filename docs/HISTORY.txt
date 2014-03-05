@@ -8,6 +8,13 @@ Changelog
   [keul]
 - The jquery.dataTables.rowGrouping.js plugin is disabled by default
   [keul]
+- Multiple multi-files columns in the same table was not working
+  [keul]
+- Fixed minor JavaScript errors
+  [keul]
+- Styles fixes: main label column label is a little bigger that default
+  Plone labels
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

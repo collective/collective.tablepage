@@ -5,7 +5,7 @@
 (function ($) {
     $(document).ready(function () {
         /**
-         * add new file
+         * add new file in multiple file selection widget
          */
 
         var fieldInc = 1;
@@ -17,23 +17,26 @@
         }
         
         // Save the new field model for later
-        var subFieldFile = $('.fileField').clone();
-        $('#newFile').click(function(event) {
-            event.preventDefault();
-            var newFileField = subFieldFile.clone().hide();
-            $('.fileField:last').after(newFileField);
-            newFileField.find(':input').each(function() {
-                incAttribute($(this), 'id');
-                incAttribute($(this), 'name');
-            });
-            newFileField.find('label').each(function() {
-                incAttribute($(this), 'for');
-            });
-            newFileField.slideDown('fast');
-            newFileField.find(':input:first').focus();
-            fieldInc++;
-        });
+		$('.fieldFieldContainer').each(function () {
+			var mainContainer = $(this);
+	        var subFieldFile = $('.fileField', mainContainer).clone();
+	        $('.newFile', mainContainer).click(function(event) {
+	            event.preventDefault();
+	            var newFileField = subFieldFile.clone().hide();
+	            $('.fileField:last', mainContainer).after(newFileField);
+	            newFileField.find(':input').each(function() {
+	                incAttribute($(this), 'id');
+	                incAttribute($(this), 'name');
+	            });
+	            newFileField.find('label').each(function() {
+	                incAttribute($(this), 'for');
+	            });
+	            newFileField.slideDown('fast');
+	            newFileField.find(':input:first').focus();
+	            fieldInc++;
+	        });
 
+		})
 
         /**
          * Sorting multiple files
@@ -107,8 +110,7 @@
          
         $('.savedFiles[data-submitted-values]').each(function() {
             var $this = $(this),
-                container = $this.parents('.subField');
-                
+                container = $this.parents('.subField'),
                 uuids = $this.attr('data-submitted-values').split(','),
                 selectable = container.find('.availableFiles');
             for (var i=0;i<uuids.length;i++) {

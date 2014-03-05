@@ -9,6 +9,10 @@
 	margin-left: 1em;
 }
 
+.subFieldLabel {
+	font-size: 110%;
+}
+
 .rowCommands a,
 .tablePage .rowCommands a:hover,
 .rowCommands a:hover,

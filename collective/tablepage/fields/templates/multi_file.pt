@@ -1,11 +1,12 @@
-<tal:filefield
+<div class="fieldFieldContainer"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="collective.tablepage">
 
 <tal:can_see_storage tal:condition="python:view.attachment_storage is not None"
                      tal:define="portal_url context/@@plone_portal_state/portal_url;">
-    <label tal:attributes="for view/configuration/id"
+    <label class="subFieldLabel"
+	       tal:attributes="for string:${view/configuration/id}_0"
            tal:content="view/configuration/label">A good field</label>
     <span class="fieldRequired" title="Required"
           tal:condition="view/options/required"
@@ -41,7 +42,7 @@
                tal:attributes="id string:${view/configuration/id}_0;
                                name string:${view/configuration/id}_0;" />
     </div>
-    <input type="button" id="newFile" value="Add another" i18n:attributes="value"/>
+    <input type="button" class="newFile" value="Add another" i18n:attributes="value"/>
 
     <div class="field subField">
         <label tal:attributes="for string:existing_${view/configuration/id};"
@@ -146,4 +147,4 @@
     </dd>
 </dl>
 
-</tal:filefield>
+</div>
