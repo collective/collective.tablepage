@@ -6,6 +6,8 @@ Changelog
 
 - Multiple tables view was unreachable on emtpy tables
   [keul]
+- The jquery.dataTables.rowGrouping.js plugin is disabled by default
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

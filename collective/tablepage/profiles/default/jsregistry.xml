@@ -10,6 +10,6 @@
                cacheable="True"
                compression="safe"
                cookable="True"
-               enabled="True"
+               enabled="False"
                inline="False" />
 </object>

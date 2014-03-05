@@ -174,7 +174,9 @@ getting some new features like:
 * sorting by columns
 * pagination/batching
 
-Also, the `Row Grouping Add-on`__, plugin is also registered. This enhance the labels feature with a better user experience.
+Also, the `Row Grouping Add-on`__, plugin is also registered (but disabled by default! You must activate the
+``jquery.dataTables.rowGrouping.js`` resource in the portal_javascript tool).
+This enhance the labels feature with a better user experience.
 
 __ http://jquery-datatables-row-grouping.googlecode.com/svn/trunk/index.html
 
