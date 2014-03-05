@@ -17,6 +17,8 @@ Changelog
   [keul]
 - Prevent new label from load a wrong default text
   [keul]
+- Do not display empty icon in link column
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

@@ -5,7 +5,8 @@
    rel="external"
    tal:attributes="href options/url;
                    title options/description;">
-	<img src="" alt="" 
+	<img src="" alt=""
+	     tal:condition="options/icon"
 	     tal:define="portal_url context/@@plone_portal_state/portal_url"
 		 tal:attributes="src string:${portal_url}/${options/icon}" />
 	<span tal:replace="options/title" />
