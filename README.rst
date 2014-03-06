@@ -116,7 +116,7 @@ If one or more labels are used, contributors will be able to add new rows at the
 of adding only at the end of the table.
 
 In the table configuration there's a field named "*Criteria for adding new rows*".
-Changing this value from "*At the end*" (default) to "*At the beginning*") will change the adding method: new rows
+Changing this value from "*At the end*" (default) to "*At the beginning*" will change the adding method: new rows
 will be added at the beginning of every groups.
 
 Download and Upload data
