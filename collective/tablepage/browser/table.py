@@ -64,7 +64,8 @@ class TableViewView(BrowserView):
             col_type = conf['type']
             adapters[col_type] = getMultiAdapter((self.context, self.request),
                                                  IColumnField, name=col_type)
-        for record in storage:
+            adapters[col_type].configuration = conf
+        for index, record in enumerate(storage):
             if record.get('__label__'):
                 rows.append(record.get('__label__'))
                 continue
@@ -79,7 +80,7 @@ class TableViewView(BrowserView):
                     logger.debug("Cache hit (%s)" % conf['id'])
                 # Cache miss
                 else:
-                    output = field.render_view(record.get(conf['id']))
+                    output = field.render_view(record.get(conf['id']), index)
                     if field.cache_time:
                         if not record.get("__cache__"):
                             record["__cache__"] = PersistentDict()

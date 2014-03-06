@@ -19,8 +19,10 @@ class IColumnField(Interface):
     def render_edit(data):
         """Get the HTML field for editing"""
     
-    def render_view(data):
-        """Get the HTML field for final display"""
+    def render_view(data, index=None):
+        """Get the HTML field for final display
+        @index the row index of the data in the table
+        """
 
 
 class IDataStorage(Interface):

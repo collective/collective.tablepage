@@ -82,7 +82,7 @@ class LinkField(BaseField):
         storage = self.context.getAttachmentStorage() or self.context
         return storage.absolute_url()
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         if self.data:
             if is_url(self.data):

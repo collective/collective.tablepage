@@ -115,6 +115,9 @@ msgstr "Etichetta colonna"
 msgid "Columns"
 msgstr "Colonne"
 
+msgid "Computed"
+msgstr "Calcolato"
+
 #: ./content/tablepage.py:176
 msgid "Criteria for adding new rows"
 msgstr "Criterio di inserimento nuove righe"

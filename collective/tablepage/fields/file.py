@@ -31,7 +31,7 @@ class FileField(BaseField):
     view_template = ViewPageTemplateFile('templates/file_view.pt')
     cache_time = 60 * 60 # 2 hours
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         uuid = data
         obj_info = self._get_obj_info(uuid)
@@ -80,7 +80,7 @@ class MultipleFilesField(FileField):
         self.data = data and data.splitlines() or []
         return self.edit_template(data=self.data)
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         results = []
         for uuid in self.data.splitlines():
