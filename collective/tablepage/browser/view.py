@@ -56,49 +56,63 @@ class EditRecordView(BrowserView):
         self.request = request
         request.set('disable_border', True)
         self.configuration = self.context.getPageColumns()
+        self.row_index = None
         self.data = {}
         self.errors = {}
 
     def __call__(self, *args, **kwargs):
+        context = self.context
         request = self.request
         form = request.form
-        row_index = form.get('row-index')
+        self.row_index = form.get('row-index', None)
         if form.get('cancel'):
-            request.response.redirect("%s/edit-table" % self.context.absolute_url())
+            request.response.redirect("%s/edit-table" % context.absolute_url())
             return
         if form.get('form.submitted'):
             # saving
-            putils = getToolByName(self.context, 'plone_utils')
+            putils = getToolByName(context, 'plone_utils')
             self._save()
             if self.errors:
                 del form['form.submitted']
                 self.data.update(**form)
                 return self.index()
             putils.addPortalMessage(_('Row has been saved'))
-            request.response.redirect("%s/edit-table" % self.context.absolute_url())
+            request.response.redirect("%s/edit-table" % context.absolute_url())
             return
-        elif form.get('row-index') is not None and form.get('addRow'):
-            # if this is the last row in the section, so you want to add something below it
-            row_index = self._last_index_in_section(row_index)
-        elif row_index is not None:
+        elif self.row_index is not None and not form.get('addRow'):
             # load an existing row
-            if not self.check_manager_or_mine_record(row_index):
+            if not self.check_manager_or_mine_record(self.row_index):
                 raise Unauthorized("You can't modify that record")
             else:
-                self.data = self.storage[row_index]
+                self.data = self.storage[self.row_index]
         return self.index()
 
     def _last_index_in_section(self, row_index):
         """Find the last row in that section"""
         storage = self.storage
         storage_size = len(storage)
-        if row_index==storage_size-1:
-            return -1
-        for x in range(row_index+1, storage_size):
-            data = storage[x]
-            if data.get('__label__'):
+        if row_index==-1:
+            return storage_size
+        for x in range(row_index, storage_size):
+            if storage[x].get('__label__') and x==row_index:
+                # the label is also the last element in the section
+                return x+1
+            if storage[x].get('__label__'):
                 return x
         return storage_size
+
+    def _first_index_in_section(self, row_index):
+        """Find the first row in that section"""
+        storage = self.storage
+        if row_index<=0:
+            return storage[0].get('__label__') and 1 or 0
+        for x in range(row_index, 0, -1):
+            if storage[x].get('__label__') and x==row_index:
+                # the label is also the first element in the section
+                return x+1
+            if storage[x].get('__label__'):
+                return x+1
+        return 0
 
     def fields(self):
         """Display all fields for this content"""
@@ -129,14 +143,18 @@ class EditRecordView(BrowserView):
         return True
 
     def _save(self):
+        """Save a new row or update one"""
         form = self.request.form
         context = self.context
         storage = self.storage
         configuration = self.configuration
         row_index = form.get('row-index', -1)
-        if row_index>-1:
+        if context.getInsertType()=='prepend':
+            # this is the first row in the section, so you want to add something above it
+            row_index = self._first_index_in_section(row_index)
+        else:
+            # this is the last row in the section, so you want to add something below it (default)
             row_index = self._last_index_in_section(row_index)
-
         # Run validations
         for conf in configuration:
             id = conf['id']

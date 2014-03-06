@@ -166,6 +166,21 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
             ),
     ),
 
+    atapi.StringField('insertType',
+              searchable=False,
+              schemata="settings",
+              default="append",
+              vocabulary="insertTypeVocabulary",
+              enforceVocabulary=True,
+              widget=atapi.SelectionWidget(
+                        label=_(u'Criteria for adding new rows'),
+                        description=_('help_insertType',
+                                      default=u'Criteria of inserting new row.\n'
+                                              u'Choose if add row at the end of group (append) '
+                                              u'or before group (prepend).'),
+            ),
+    ),
+
     # FOO FIELD!!!! Only needed to being able to use the ATReferenceBrowserWidget... :(
     atapi.StringField('link_internal',
             widget=ReferenceBrowserWidget(
@@ -267,6 +282,13 @@ class TablePage(base.ATCTContent):
             (('view_only', _("... only on page view")),
             ('edit_only', _("... only when editing table")),
             ('always', _("... always display"))),
+        )
+
+    security.declarePublic('insertTypeVocabulary')
+    def insertTypeVocabulary(self):
+        return atapi.DisplayList(
+            (('append', _("At the end")),
+            ('prepend', _("At the beginning"))),
         )
 
 atapi.registerType(TablePage, config.PROJECTNAME)

@@ -76,12 +76,17 @@
         <tal:rows repeat="row rows">
         <tr tal:define="row_index repeat/row/index;
 						next_is_label python:view.next_is_label(row_index);
-						is_data_row python:not view.is_label(row_index)"
+						is_label python:view.is_label(row_index);
+						is_first_row_not_label python:not is_label and repeat['row'].start;
+						new_rows_at_top python:context.getInsertType()=='prepend';
+						new_rows_at_bottom python:not new_rows_at_top;
+						is_data_row python:not is_label;
+						"
             tal:attributes="class python:not is_data_row and 'tablePageSubHeader' or nothing">
             <td tal:condition="python:view.edit_mode and is_data_row" class="selectionCell">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
                        tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"
-                       tal:attributes="value repeat/row/index" />
+                       tal:attributes="value row_index" />
             </td>
             <td tal:condition="is_data_row"
 			    tal:repeat="cell row"
@@ -96,9 +101,10 @@
 			</td>
             <td class="rowCommands"
                 tal:condition="view/edit_mode">
+
                 <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
-				   tal:condition="python: next_is_label and repeat['row'].end"
+				   tal:condition="python: new_rows_at_bottom and next_is_label and repeat['row'].end"
                    tal:attributes="href string:${context/absolute_url}/@@edit-record">
                     <img alt="Add new row below" src=""
                          i18n:attributes="alt"
@@ -106,17 +112,34 @@
                 </a>
                 <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
-				   tal:condition="python: next_is_label and not repeat['row'].end"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}&addRow=1">
+				   tal:condition="python: new_rows_at_bottom and next_is_label and not repeat['row'].end"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1">
                     <img alt="Add new row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
                 </a>
+                <a class="command" href="" title="Add new row above this"
+                   i18n:attributes="title"
+				   tal:condition="python: new_rows_at_top and is_first_row_not_label"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                    <img alt="Add new row below" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
+                <a class="command" href="" title="Add new row below this"
+                   i18n:attributes="title"
+				   tal:condition="python: new_rows_at_top and is_label"
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1">
+                    <img alt="Add new row below" src=""
+                         i18n:attributes="alt"
+                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
+                </a>
+
                 <tal:mine-or-editor condition="python: has_tablemanager_permission or view.mine_row(row_index)">
                     <a class="command" href="" title="Edit row"
 					   tal:condition="is_data_row"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${repeat/row/index}">
+                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}">
                         <img alt="Edit row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
@@ -124,7 +147,7 @@
                     <a class="command" href="" title="Edit label"
 					   tal:condition="not:is_data_row"					
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}">
+                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}">
                         <img alt="Edit label" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
@@ -132,14 +155,14 @@
 	                <a class="command" href="" title="Add new label above"
 					   tal:condition="can_add_label"
 	                   i18n:attributes="title"
-	                   tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${repeat/row/index}&addLabel=1">
+	                   tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}&addLabel=1">
 	                    <img alt="Add new label above that row" src=""
 	                         i18n:attributes="alt"
 	                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
 	                </a>
                     <a class="command" href="" title="Remove row"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${repeat/row/index}">
+                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${row_index}">
                         <img alt="Remove row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />

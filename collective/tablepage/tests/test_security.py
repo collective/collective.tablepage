@@ -118,7 +118,7 @@ class SecurityTestCase(unittest.TestCase):
         self.assertEqual(len(storage), 0)
 
 
-class LabelSecurityTestCase(unittest.TestCase):
+class LabelAndGroupsSecurityTestCase(unittest.TestCase):
 
     layer = TABLE_PAGE_INTEGRATION_TESTING
     
@@ -134,29 +134,43 @@ class LabelSecurityTestCase(unittest.TestCase):
         login(portal, TEST_USER_NAME)
         wtool.doActionFor(tp, 'publish')
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo'})
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
-        storage.add({'__label__': 'A label'})
-        storage.add({'__creator__': 'user1', 'col_a': 'baz'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo'})  # 0
+        storage.add({'__creator__': 'user1', 'col_a': 'bar'})  # 1
+        storage.add({'__label__': 'A label'})                  # 2
+        storage.add({'__label__': 'B label'})                  # 3
+        storage.add({'__creator__': 'user1', 'col_a': 'baz'})  # 4
+        storage.add({'__creator__': 'user1', 'col_a': 'qux'})  # 5
 
-    def test_add_after_label(self):
-        """user2 can add data after the label"""
+    def test_add_end_of_group(self):
+        # user can add data at the end of every group
         portal = self.layer['portal']
         tp = portal.table_page
+        storage = IDataStorage(tp)
         login(portal, 'user2')
         view = tp.restrictedTraverse('@@edit-record')
-        view.request.form['row-index'] = 1
         view.request.form['addRow'] = '1'
         view.request.form['form.submitted'] = '1'
+        # add before first label
+        view.request.form['row-index'] = 1
         view.request.form['col_a'] = 'Added by me!'
         view()
-        storage = IDataStorage(tp)
         self.assertEqual(storage[2].get('col_a'), 'Added by me!')
+        # add on first label
+        view.request.form['row-index'] = 3
+        view.request.form['col_a'] = 'Another added by me!'
+        view()
+        self.assertEqual(storage[4].get('col_a'), 'Another added by me!')
+        # add at the end of document
+        del view.request.form['row-index'] 
+        view.request.form['col_a'] = 'Last added by me!'
+        view()
+        self.assertEqual(storage[-1].get('col_a'), 'Last added by me!')
 
-    def test_add_after_label_2(self):
-        """trying to cheat URL will not work"""
+    def test_add_end_of_group_cheat(self):
+        # trying to cheat URL will not work, elements will be always at end of group
         portal = self.layer['portal']
         tp = portal.table_page
+        storage = IDataStorage(tp)
         login(portal, 'user2')
         view = tp.restrictedTraverse('@@edit-record')
         view.request.form['row-index'] = 0
@@ -164,5 +178,74 @@ class LabelSecurityTestCase(unittest.TestCase):
         view.request.form['form.submitted'] = '1'
         view.request.form['col_a'] = 'Added by me!'
         view()
-        storage = IDataStorage(tp)
         self.assertEqual(storage[2].get('col_a'), 'Added by me!')
+        view.request.form['row-index'] = 5
+        view.request.form['col_a'] = 'Another added by me!'
+        view()
+        self.assertEqual(storage[-1].get('col_a'), 'Another added by me!')        
+
+    def test_add_begin_of_group(self):
+        # user can add data before the label or begin of group is insertType is 'prepend'
+        portal = self.layer['portal']
+        tp = portal.table_page
+        tp.setInsertType('prepend')
+        storage = IDataStorage(tp)
+        login(portal, 'user2')
+        view = tp.restrictedTraverse('@@edit-record')
+        view.request.form['addRow'] = '1'
+        view.request.form['form.submitted'] = '1'
+        # add at the beginning of document
+        view.request.form['col_a'] = 'Added by me!'
+        view()
+        self.assertEqual(storage[0].get('col_a'), 'Added by me!')
+        # add on first label ("prepend" value will not change naything here)
+        view.request.form['row-index'] = 3
+        view.request.form['col_a'] = 'Another added by me!'
+        view()
+        self.assertEqual(storage[4].get('col_a'), 'Another added by me!')
+        # add at the beginning of last group
+        view.request.form['row-index'] = 5
+        view.request.form['col_a'] = 'Last added by me!'
+        view()
+        self.assertEqual(storage[6].get('col_a'), 'Last added by me!')
+
+    def test_add_begin_of_group_2(self):
+        # When the first row is a label, always add after it
+        portal = self.layer['portal']
+        tp = portal.table_page
+        tp.setInsertType('prepend')
+        storage = IDataStorage(tp)
+        storage.add({'__label__': 'New label'}, 0)                  # 0
+        login(portal, 'user2')
+        view = tp.restrictedTraverse('@@edit-record')
+        view.request.form['addRow'] = '1'
+        view.request.form['form.submitted'] = '1'
+        view.request.form['row-index'] = 0
+        view.request.form['col_a'] = 'Added by me!'
+        view()
+        self.assertEqual(storage[1].get('col_a'), 'Added by me!')
+
+    def test_add_begin_of_group_cheat(self):
+        # trying to cheat URL will not work, elements will be always at beginning of group
+        portal = self.layer['portal']
+        tp = portal.table_page
+        tp.setInsertType('prepend')
+        storage = IDataStorage(tp)
+        login(portal, 'user2')
+        view = tp.restrictedTraverse('@@edit-record')
+        view.request.form['addRow'] = '1'
+        view.request.form['form.submitted'] = '1'
+        # add at the beginning of document
+        view.request.form['col_a'] = 'Added by me!'
+        view()
+        self.assertEqual(storage[0].get('col_a'), 'Added by me!')
+        # add on first label ("prepend" value will not change naything here)
+        view.request.form['row-index'] = 3
+        view.request.form['col_a'] = 'Another added by me!'
+        view()
+        self.assertEqual(storage[4].get('col_a'), 'Another added by me!')
+        # add at the beginning of last group
+        view.request.form['row-index'] = 5
+        view.request.form['col_a'] = 'Last added by me!'
+        view()
+        self.assertEqual(storage[6].get('col_a'), 'Last added by me!')

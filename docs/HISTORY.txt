@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.6.1 (unreleased)
-------------------
+0.7 (unreleased)
+----------------
 
 - Multiple tables view was unreachable on emtpy tables
   [keul]
@@ -18,6 +18,8 @@ Changelog
 - Prevent new label from load a wrong default text
   [keul]
 - Do not display empty icon in link column
+  [keul]
+- New "*insertType*" configuration (new row at the end or beginning of groups)
   [keul]
 
 0.6 (2014-02-25)
