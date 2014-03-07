@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from Products.CMFCore.utils import getToolByName
 from Products.PageTemplates import Expressions
 from collective.tablepage import logger
 from collective.tablepage.fields.base import BaseField
@@ -94,7 +93,7 @@ class ComputedField(BaseField, ComputedBase):
             except CompilerError:
                 logger.debug("Can't evaluate %s" % expression)
                 self.data = None
-            except Exception, inst:
+            except Exception:
                 logger.debug("Error evaluating %s or row %d" % (expression, index))
                 self.data = None
         return self.view_template(data=self.data)
@@ -123,7 +122,7 @@ class ComputedDataRetriever(ComputedBase):
             except CompilerError:
                 logger.debug("Can't evaluate %s" % expression)
                 data = None
-            except Exception, inst:
+            except Exception:
                 logger.debug("Error evaluating %s or row %d" % (expression, row_index))
                 data = None
         return data

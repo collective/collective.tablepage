@@ -18,7 +18,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def setUp(self):
         portal = self.layer['portal']
-        wtool = portal.portal_workflow
         login(portal, TEST_USER_NAME)
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
         portal.invokeFactory(type_name='Document', id='document', title="A document to reference")
@@ -47,7 +46,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def test_computed_simple_row_access(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
         storage.add({'simple_column': 'Lorem ipsum'})
@@ -58,7 +56,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def test_computed_general_tal_access(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
         storage.add({'simple_column': 'Lorem ipsum'})
@@ -69,7 +66,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def test_computed_file_access(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
         storage.add({'column_file': portal.file1.UID()})
@@ -80,7 +76,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def test_computed_multiple_files_access(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
         storage.add({'column_files': "%s\n%s" % (portal.file1.UID(), portal.file2.UID())})
@@ -91,7 +86,6 @@ class ComputedFieldTestCase(unittest.TestCase):
 
     def test_computed_link_access(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
         storage.add({'column_link': portal.document.UID()})
