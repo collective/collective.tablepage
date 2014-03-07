@@ -59,12 +59,14 @@ class TableViewView(BrowserView):
         storage = self.storage
         rows = []
         adapters = {}
+        
         # let's cache adapters
         for conf in self.context.getPageColumns():
             col_type = conf['type']
             adapters[col_type] = getMultiAdapter((self.context, self.request),
                                                  IColumnField, name=col_type)
             adapters[col_type].configuration = conf
+
         for index, record in enumerate(storage):
             if record.get('__label__'):
                 rows.append(record.get('__label__'))

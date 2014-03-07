@@ -63,13 +63,14 @@ class BaseFieldDataRetriever(object):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         if request.get(name) is not None:
             return {name: request.get(name)}
         return None
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Default implementation... just return data""" 
         return data
 

@@ -121,6 +121,7 @@ class FileDataRetriever(LinkedObjectFinder):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         if request.get(name) and request.get(name).filename:
@@ -151,7 +152,7 @@ class FileDataRetriever(LinkedObjectFinder):
             return {name: request.get("existing_%s" % name)}
         return None
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
         uuid = data
         rcatalog = getToolByName(self.context, 'reference_catalog')
@@ -186,6 +187,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         results = []
@@ -225,7 +227,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                 break
         return {name: '\n'.join(results)}
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
         rcatalog = getToolByName(self.context, 'reference_catalog')
         results = []

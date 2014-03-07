@@ -143,7 +143,11 @@ class UploadDataView(BrowserView):
 
                     # do not spend time to save data if this will be discarded
                     if not skip_row and not skip_cell:
-                        tobe_saved[header] = valid_retrievers[hindex].data_to_storage(row[hindex])
+                        try:
+                            tobe_saved[header] = valid_retrievers[hindex].data_to_storage(row[hindex])
+                        except NotImplementedError:
+                            # column is not implementing CSV data load
+                            continue
 
                 if not skip_row and tobe_saved:
                     if check_duplicate and self._checkDuplicateRow(tobe_saved, storage):
@@ -197,10 +201,12 @@ class DownloadDataView(BrowserView):
         target = self.request.form.get('target')
         for_editor = target == 'editor' or False
         columns = []
-        for conf in self.context.getPageColumns():
+        table_configuration = self.context.getPageColumns()
+        for conf in table_configuration:
             column = {}
             column['display_header'] = for_editor and conf.get('id') or (conf.get('label') or conf.get('id'))
             column['header_code'] = conf.get('id')
+            column['configuration'] = conf
             try:
                 retriever = getAdapter(self.context,
                                        IColumnDataRetriever,
@@ -218,13 +224,15 @@ class DownloadDataView(BrowserView):
         writer = csv.writer(file, **csvparams)
         writer.writerow([h['display_header'] for h in columns])
 
-        for data in storage:
+        for row_index, data in enumerate(storage):
             row = []
             if data.get('__label__'):
                 continue
             for header in columns:
                 adapter = header['adapter']
-                col_val = adapter.data_for_display(data.get(header['header_code']), backend=for_editor) or ''
+                adapter.configuration = header['configuration']
+                col_val = adapter.data_for_display(data.get(header['header_code']),
+                                                   backend=for_editor, row_index=row_index) or ''
                 if not isinstance(col_val, basestring):
                     # a sequence, probably
                     col_val = '\n'.join(col_val)
