@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-06 14:51+0000\n"
+"POT-Creation-Date: 2014-03-07 13:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Domain: collective.tablepage\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:247
+#: ./browser/view.py:250
 msgid "${count} rows deleted"
 msgstr ""
 
-#: ./content/tablepage.py:284
+#: ./content/tablepage.py:286
 msgid "... always display"
 msgstr ""
 
-#: ./content/tablepage.py:282
+#: ./content/tablepage.py:284
 msgid "... only on page view"
 msgstr ""
 
-#: ./content/tablepage.py:283
+#: ./content/tablepage.py:285
 msgid "... only when editing table"
 msgstr ""
 
@@ -74,19 +74,19 @@ msgstr ""
 msgid "Add new row below this"
 msgstr ""
 
-#: ./content/tablepage.py:74
+#: ./content/tablepage.py:76
 msgid "Additional features"
 msgstr ""
 
-#: ./content/tablepage.py:291
+#: ./content/tablepage.py:293
 msgid "At the beginning"
 msgstr ""
 
-#: ./content/tablepage.py:290
+#: ./content/tablepage.py:292
 msgid "At the end"
 msgstr ""
 
-#: ./content/tablepage.py:134
+#: ./content/tablepage.py:136
 msgid "Attachment storage"
 msgstr ""
 
@@ -94,13 +94,17 @@ msgstr ""
 msgid "Back to table editing"
 msgstr ""
 
-#: ./content/tablepage.py:100
+#: ./content/tablepage.py:102
 msgid "CSS classes"
 msgstr ""
 
-#: ./content/tablepage.py:101
+#: ./content/tablepage.py:103
 msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
+msgstr ""
+
+#: ./content/tablepage.py:70
+msgid "Column configuration"
 msgstr ""
 
 #: ./content/tablepage.py:65
@@ -122,7 +126,7 @@ msgstr ""
 msgid "Computed"
 msgstr ""
 
-#: ./content/tablepage.py:176
+#: ./content/tablepage.py:178
 msgid "Criteria for adding new rows"
 msgstr ""
 
@@ -274,22 +278,22 @@ msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:208
+#: ./browser/view.py:211
 msgid "Row added"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:202
+#: ./browser/view.py:205
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:243
+#: ./browser/view.py:246
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:272
+#: ./browser/view.py:275
 msgid "Row has been moved"
 msgstr ""
 
@@ -298,7 +302,7 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:276
+#: ./browser/view.py:279
 msgid "Row moved"
 msgstr ""
 
@@ -317,25 +321,25 @@ msgstr ""
 msgid "Select/unselect all"
 msgstr ""
 
-#: ./content/tablepage.py:151
+#: ./content/tablepage.py:153
 msgid "Show download link for data"
 msgstr ""
 
-#: ./content/tablepage.py:164
+#: ./content/tablepage.py:166
 msgid "Show headers"
 msgstr ""
 
 msgid "Show stored data in multiple tables"
 msgstr ""
 
-#: ./content/tablepage.py:165
+#: ./content/tablepage.py:167
 msgid "Show table headers when..."
 msgstr ""
 
 msgid "String"
 msgstr ""
 
-#: ./content/tablepage.py:86
+#: ./content/tablepage.py:88
 msgid "Table caption"
 msgstr ""
 
@@ -375,17 +379,13 @@ msgstr ""
 msgid "Validate data"
 msgstr ""
 
-#: ./content/tablepage.py:70
-msgid "Vocabulary for the column"
-msgstr ""
-
 #. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
-#: ./content/tablepage.py:135
+#: ./content/tablepage.py:137
 msgid "attachmentStorage_help"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:159
+#: ./browser/updownload.py:163
 msgid "count_rows_added"
 msgstr ""
 
@@ -415,7 +415,7 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:135
+#: ./fields/file.py:136
 msgid "duplicate_file_error"
 msgstr ""
 
@@ -452,7 +452,7 @@ msgid "error_row_count_dont_match"
 msgstr ""
 
 #. Default: "Display a download link for data inside the table in CSV format"
-#: ./content/tablepage.py:152
+#: ./content/tablepage.py:154
 msgid "help_download_enabled"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgid "help_external_link"
 msgstr ""
 
 #. Default: "Criteria of inserting new row.\nChoose if add row at the end of group (append) or before group (prepend)."
-#: ./content/tablepage.py:177
+#: ./content/tablepage.py:179
 msgid "help_insertType"
 msgstr ""
 
@@ -508,7 +508,7 @@ msgid "help_select_multiple_files_possibile_selection"
 msgstr ""
 
 #. Default: "Optional summary of table contents"
-#: ./content/tablepage.py:87
+#: ./content/tablepage.py:89
 msgid "help_table_caption"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgid "label_form_help"
 msgstr ""
 
 #. Default: "Text after the table"
-#: ./content/tablepage.py:125
+#: ./content/tablepage.py:127
 msgid "label_text_after"
 msgstr ""
 
@@ -544,22 +544,22 @@ msgid "no_attachment_storage_access"
 msgstr ""
 
 #. Default: "Other options you can activate on the column"
-#: ./content/tablepage.py:75
+#: ./content/tablepage.py:77
 msgid "options_column_description"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:249
+#: ./content/tablepage.py:251
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:255
+#: ./content/tablepage.py:257
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:259
+#: ./content/tablepage.py:261
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
@@ -578,13 +578,13 @@ msgstr ""
 msgid "thousand_separator"
 msgstr ""
 
-#. Default: "One item on every row. Used only when the type is \"Select\""
+#. Default: "Some columns types will need this.\nFor \"Select\" type: used for defining the vocabulary (one item on per row).\nFor \"Computed\" type: write there the TALES expression."
 #: ./content/tablepage.py:71
 msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:150
+#: ./browser/updownload.py:154
 msgid "warn_duplicate"
 msgstr ""
 
