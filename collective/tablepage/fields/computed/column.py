@@ -58,9 +58,12 @@ class ComputedBase(object):
     def eval_mappings(self, index):
         """Compute mappings for TAL evaluation"""
         storage = IDataStorage(self.context)
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        portal_state = getMultiAdapter((self.context, self.request),
+                                       name=u'plone_portal_state')
         current_row = self._get_row_data(storage[index])
         return {'row': current_row,
+                'rows': storage,
+                'index': index,
                 'portal': portal_state.portal(),
                 'context': self.context,
                 'request': self.request,

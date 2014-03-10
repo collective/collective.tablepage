@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from AccessControl import allow_class
 from persistent.list import PersistentList
 from persistent.dict import PersistentDict
 from zope.annotation.interfaces import IAnnotations
@@ -35,6 +36,10 @@ class DataStorage(object):
     def __getitem__(self, index):
         return self._ann[index]
 
+    def get(self, index):
+        """Safe getter for restrcited python. Return a primitive dict, not a persistent"""
+        return self._ann[index].__dict__['data'].copy()
+
     def __delitem__(self, index):
         del self._ann[index]
 
@@ -63,3 +68,5 @@ class DataStorage(object):
             del self._ann[index][key]
         except KeyError:
             pass
+
+allow_class(DataStorage)

@@ -174,6 +174,8 @@ When writing the TALES expression to be used in computed fields you can access g
     The current page with table
 ``portal``
     The Plone site root
+``index``
+    The index of the current row
 ``row``
     The current row. using this you can access data taken from other columns in the same row.
 

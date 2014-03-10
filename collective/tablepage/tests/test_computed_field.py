@@ -64,6 +64,32 @@ class ComputedFieldTestCase(unittest.TestCase):
         field = self._getField()
         self.assertEquals(field.render_view('foo', 0).strip(), 'Plone site')
 
+    def test_index_var_access(self):
+        portal = self.layer['portal']
+        tp = portal.table_page
+        storage = IDataStorage(tp)
+        storage.add({'simple_column': 'Lorem ipsum'})
+        configuration = tp.getPageColumns()
+        configuration[-1]['vocabulary'] = "python:index * 2"
+        field = self._getField()
+        self.assertEquals(field.render_view('foo', 0).strip(), '0')
+        storage.add({'simple_column': 'dolor sit amet'})
+        field = self._getField()
+        self.assertEquals(field.render_view('foo', 1).strip(), '2')
+
+    def test_rows_var_access(self):
+        portal = self.layer['portal']
+        tp = portal.table_page
+        storage = IDataStorage(tp)
+        storage.add({'simple_column': 'Lorem ipsum'})
+        configuration = tp.getPageColumns()
+        configuration[-1]['vocabulary'] = "python:rows.get(0)['simple_column']"
+        field = self._getField()
+        self.assertEquals(field.render_view('foo', 0).strip(), 'Lorem ipsum')
+        storage.add({'simple_column': 'dolor sit amet'})
+        field = self._getField()
+        self.assertEquals(field.render_view('foo', 1).strip(), 'Lorem ipsum')
+
     def test_computed_file_access(self):
         portal = self.layer['portal']
         tp = portal.table_page
