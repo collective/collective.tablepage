@@ -23,6 +23,11 @@ Changelog
   [keul]
 - New column type: "Computed"
   [keul]
+- Fixed a problem with link-like columns and cache. Do not return object absolute_url
+  because a backend URL could be cached. Instead use the *resolveuid* URL and run
+  table through portal_trasform when in view.
+  Drawback of the approach: when editing the table's URLs still use *resolveuid*
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

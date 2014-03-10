@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from DateTime import DateTime
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from collective.tablepage import logger
 from collective.tablepage import config
@@ -26,7 +28,40 @@ class TableViewView(BrowserView):
         storage = self.storage
         if not self.edit_mode and len(storage)==0:
             return ""
-        return self.index()
+        if self.edit_mode:
+            return self.index()
+        return self._transformed(self.index())
+
+    def _transformed(self, data, mt='text/x-html-safe'):
+        """
+        Use the safe_html transform to protect text output. This also
+        ensures that resolve UID links are transformed into real links.
+        """
+        orig = data
+        context = aq_inner(self.context)
+
+        if not isinstance(orig, unicode):
+            # Apply a potentially lossy transformation, and hope we stored
+            # utf-8 text. There were bugs in earlier versions of this portlet
+            # which stored text directly as sent by the browser, which could
+            # be any encoding in the world.
+            orig = unicode(orig, 'utf-8', 'ignore')
+            logger.warn("Static portlet at %s has stored non-unicode text. "
+                "Assuming utf-8 encoding." % context.absolute_url())
+
+        # Portal transforms needs encoded strings
+        orig = orig.encode('utf-8')
+
+        transformer = getToolByName(context, 'portal_transforms')
+        data = transformer.convertTo(mt, orig,
+                                     context=context, mimetype='text/html')
+        result = data.getData()
+        if result:
+            if isinstance(result, str):
+                return unicode(result, 'utf-8')
+            return result
+        return ''
+
 
     @property
     @memoize

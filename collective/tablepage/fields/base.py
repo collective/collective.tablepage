@@ -39,7 +39,7 @@ class BaseField(object):
         obj = rcatalog.lookupObject(uuid)
         if obj:
             return dict(title=obj.Title() or obj.getId(),
-                        url=obj.absolute_url(),
+                        url="resolveuid/%s" % uuid,
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1))
         return {}
