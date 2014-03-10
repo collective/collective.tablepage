@@ -29,3 +29,6 @@ class IFileColumnField(IColumnField):
 
 class IMultiFileColumnField(IColumnField):
     """A column field that handle set of files, to be uploaded or selected"""
+
+class IComputedColumnField(IColumnField):
+    """A column field that handle a TAL expression, for taking data from other columns value or site's documents"""

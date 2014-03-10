@@ -45,8 +45,8 @@ Right now you can choose from:
 ``Text``
     A textarea, for saving more text and take care of carriage returns.
 ``Select``
-    Still a simple line of text, but user must choose it from a vocabulary you will define (in the proper column
-    of the configuration).
+    Still a simple line of text, but user must choose it from a vocabulary you will define in the 
+    "*Column configuration*".
 ``File``
     A link to a file in the site. See below.
 ``Files``
@@ -54,12 +54,15 @@ Right now you can choose from:
 ``Link``
     A link to an URL, or an internal site document. It use Plone reference browser native widget.
 ``Email``
-    An e-mail address
+    An e-mail address.
 ``Numeric``
-    A string in numeric format
+    A string in numeric format.
 ``Monetary``
-    A string in numeric format, but will be rendered as a monetary value, with locales settings
-
+    A string in numeric format, but will be rendered as a monetary value, with locales settings.
+``Computed``
+    A column that will display a value based on a computed TAL espression you must put in the
+    "*Column configuration*". For this reason it will not be putted in the edit row form.
+    See below.
 
 Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
 
@@ -161,6 +164,31 @@ The link column can be used to store absolute links (externals) of links to site
 In that case: it's automatically used the Plone native widget `archetypes.referencebrowserwidget`__
 
 __ https://github.com/plone/archetypes.referencebrowserwidget
+
+Column of type "Computed"
+-------------------------
+
+When writing the TALES expression to be used in computed fields you can access general vars like:
+
+``context``
+    The current page with table
+``portal``
+    The Plone site root
+``index``
+    The index of the current row
+``row``
+    The current row. using this you can access data taken from other columns in the same row.
+
+The ``row`` var in the most powerful: based on the type of column you are referencing, you can read different data.    
+For example: accessing a *File*, *Files* and *Link* column, you can read information of the referenced object.
+
+Some examples::
+
+    row/file_column/title
+
+    python:row['files_column'][0].Title
+
+    row/link_column/absolute_url|row/link_column
 
 DataTables integration
 ======================

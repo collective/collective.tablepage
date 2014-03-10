@@ -19,8 +19,10 @@ class IColumnField(Interface):
     def render_edit(data):
         """Get the HTML field for editing"""
     
-    def render_view(data):
-        """Get the HTML field for final display"""
+    def render_view(data, index=None):
+        """Get the HTML field for final display
+        @index the row index of the data in the table
+        """
 
 
 class IDataStorage(Interface):
@@ -54,9 +56,10 @@ class IColumnDataRetriever(Interface):
     def get_from_request(name, request):
         """Read data from the request and return a {id: value} dict, or None"""
 
-    def data_for_display(data, backend=False):
+    def data_for_display(data, backend=False, row_index=None):
         """Transform data, to be displayed outside Plone
         @backend specify that data is for backend purpose
+        @row_index index of the row were extraction is taking place
         """
 
     def data_to_storage(data):

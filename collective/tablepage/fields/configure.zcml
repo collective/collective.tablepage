@@ -3,7 +3,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="collective.tablepage">
 
-   <!-- field widgets -->
+   <!-- columns widgets -->
    <adapter
        for="collective.tablepage.interfaces.ITablePage
 	        zope.publisher.interfaces.browser.IBrowserRequest"
@@ -72,6 +72,14 @@
        name="Link"
        />
 
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".computed.column.ComputedField"
+       name="Computed"
+       />
+
 
    <!-- data retrivers -->
    <adapter
@@ -99,5 +107,14 @@
        factory=".link.LinkDataRetriever"
 	   name="Link"
        />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".computed.column.ComputedDataRetriever"
+	   name="Computed"
+       />
+
+   <include package=".computed" />
 
 </configure>

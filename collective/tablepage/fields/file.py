@@ -31,7 +31,7 @@ class FileField(BaseField):
     view_template = ViewPageTemplateFile('templates/file_view.pt')
     cache_time = 60 * 60 # 2 hours
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         uuid = data
         obj_info = self._get_obj_info(uuid)
@@ -80,7 +80,7 @@ class MultipleFilesField(FileField):
         self.data = data and data.splitlines() or []
         return self.edit_template(data=self.data)
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         results = []
         for uuid in self.data.splitlines():
@@ -121,6 +121,7 @@ class FileDataRetriever(LinkedObjectFinder):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         if request.get(name) and request.get(name).filename:
@@ -151,7 +152,7 @@ class FileDataRetriever(LinkedObjectFinder):
             return {name: request.get("existing_%s" % name)}
         return None
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
         uuid = data
         rcatalog = getToolByName(self.context, 'reference_catalog')
@@ -186,6 +187,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         results = []
@@ -225,7 +227,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                 break
         return {name: '\n'.join(results)}
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
         rcatalog = getToolByName(self.context, 'reference_catalog')
         results = []

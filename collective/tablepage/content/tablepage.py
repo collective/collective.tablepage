@@ -67,10 +67,12 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                                        vocabulary_factory="collective.tablepage.vocabulary.column_types",
                                        required=True,
                                        default="String"),
-                 'vocabulary' : TextAreaColumn(_(u"Vocabulary for the column"),
+                 'vocabulary' : TextAreaColumn(_(u"Column configuration"),
                                                col_description=_("vocabulary_column_description",
-                                                                   default=u"One item on every row. "
-                                                                           u"Used only when the type is \"Select\"")),
+                                                                   default=u"Some columns types will need this.\n"
+                                                                           u"For \"Select\" type: used for defining the "
+                                                                           u"vocabulary (one item on per row).\n"
+                                                                           u"For \"Computed\" type: write there the TALES expression.")),
                  'options' : MultiSelectColumn(_(u"Additional features"),
                                                col_description=_("options_column_description",
                                                                    default=u"Other options you can activate on the column"),

@@ -8,7 +8,7 @@ from zope.schema.interfaces import IVocabularyFactory
 
 
 class BaseField(object):
-    """Generic helper class for all fields"""
+    """Generic class for all columns"""
 
     # not implemented; subclasses must change this
     edit_template = None
@@ -29,7 +29,7 @@ class BaseField(object):
             self.data = data.decode('utf-8')
         return self.edit_template(data=self.data)
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         return self.view_template(data=self.data)
 
@@ -63,13 +63,14 @@ class BaseFieldDataRetriever(object):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         if request.get(name) is not None:
             return {name: request.get(name)}
         return None
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Default implementation... just return data""" 
         return data
 

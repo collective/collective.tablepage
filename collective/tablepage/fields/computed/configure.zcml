@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.tablepage">
+
+   <utility
+       provides=".interfaces.IComputedColumnHandler"
+       factory=".handlers.BaseHandler"
+       />
+
+   <utility
+       provides=".interfaces.IComputedColumnHandler"
+       factory=".handlers.FileHandler"
+	   name="File"
+       />
+
+   <utility
+       provides=".interfaces.IComputedColumnHandler"
+       factory=".handlers.MultiFilesHandler"
+	   name="Files"
+       />
+
+   <utility
+       provides=".interfaces.IComputedColumnHandler"
+       factory=".handlers.LinkHandler"
+	   name="Link"
+       />
+
+</configure>

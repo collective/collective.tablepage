@@ -21,6 +21,8 @@ Changelog
   [keul]
 - New "*insertType*" configuration (new row at the end or beginning of groups)
   [keul]
+- New column type: "Computed"
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

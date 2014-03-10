@@ -82,7 +82,7 @@ class LinkField(BaseField):
         storage = self.context.getAttachmentStorage() or self.context
         return storage.absolute_url()
 
-    def render_view(self, data):
+    def render_view(self, data, index=None):
         self.data = data or ''
         if self.data:
             if is_url(self.data):
@@ -115,6 +115,7 @@ class LinkDataRetriever(LinkedObjectFinder):
 
     def __init__(self, context):
         self.context = context
+        self.configuration = None
 
     def get_from_request(self, name, request):
         # internal link take precedence
@@ -124,7 +125,7 @@ class LinkDataRetriever(LinkedObjectFinder):
             return {name: request.get("external_%s" % name)}
         return None
 
-    def data_for_display(self, data, backend=False):
+    def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid, or directly the URL"""
         if data:
             if is_url(data):

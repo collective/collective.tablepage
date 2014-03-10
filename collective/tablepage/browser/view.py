@@ -182,7 +182,10 @@ class EditRecordView(BrowserView):
                                            name=col_type)
                 except ComponentLookupError:
                     retriever = IColumnDataRetriever(context)
-                data = retriever.get_from_request(id, form)
+                try:
+                    data = retriever.get_from_request(id, form)
+                except NotImplementedError:
+                    data = None
                 if data:
                     to_be_saved.update(**data)
         else:
