@@ -7,6 +7,7 @@ from collective.tablepage.fields.computed.interfaces import IComputedColumnHandl
 from collective.tablepage.fields.interfaces import IComputedColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IDataStorage
+from plone.memoize import instance
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import getMultiAdapter
@@ -76,6 +77,24 @@ class ComputedField(BaseField, ComputedBase):
     # not displayed on edit
     edit_template = None
     view_template = ViewPageTemplateFile('../templates/string_view.pt')
+
+    @property
+    @instance.memoize
+    def cache_time(self):
+        """
+        The cache_time attribute here is computed.
+        Look at the column configuration, second line, for a "cache:X" value, then
+        cache use X as cache
+        """
+        conf = self.configuration.get('vocabulary') or ''
+        conf = conf.splitlines()
+        cache_time = [l for l in conf if l.startswith('cache:')]
+        if cache_time:
+            try:
+                return int(cache_time[0][6:])
+            except ValueError:
+                logger.warning('Invalid column cache value: %s' % cache_time[0][6:])
+        return 0
 
     def __init__(self, context, request):
         BaseField.__init__(self, context, request)
