@@ -20,15 +20,15 @@ msgstr ""
 msgid "${count} rows deleted"
 msgstr "${count} righe eliminate"
 
-#: ./content/tablepage.py:286
+#: ./content/tablepage.py:303
 msgid "... always display"
 msgstr "... mostra sempre"
 
-#: ./content/tablepage.py:284
+#: ./content/tablepage.py:301
 msgid "... only on page view"
 msgstr "... solo nella vista della pagina"
 
-#: ./content/tablepage.py:285
+#: ./content/tablepage.py:302
 msgid "... only when editing table"
 msgstr "... solo in modifica della tabella"
 
@@ -51,27 +51,27 @@ msgstr "Aggiungi sopra"
 msgid "Add another"
 msgstr "Aggiungi un altro"
 
-#: ./browser/templates/view-table.pt:36
+#: ./browser/templates/view-table.pt:42
 msgid "Add new label above"
 msgstr "Aggiungi nuova etichetta sopra"
 
-#: ./browser/templates/view-table.pt:40
+#: ./browser/templates/view-table.pt:46
 msgid "Add new label above that row"
 msgstr "Aggiungi una nuova etichetta sopra questa riga"
 
-#: ./browser/templates/view-table.pt:117
+#: ./browser/templates/view-table.pt:133
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
 
-#: ./browser/templates/view-table.pt:121
+#: ./browser/templates/view-table.pt:137
 msgid "Add new row above this"
 msgstr "Aggiunga nuova riga sopra"
 
-#: ./browser/templates/view-table.pt:109
+#: ./browser/templates/view-table.pt:125
 msgid "Add new row below"
 msgstr "Aggiunga nuova riga sotto"
 
-#: ./browser/templates/view-table.pt:105
+#: ./browser/templates/view-table.pt:121
 msgid "Add new row below this"
 msgstr "Aggiungi una nuova riga sotto questa"
 
@@ -79,11 +79,11 @@ msgstr "Aggiungi una nuova riga sotto questa"
 msgid "Additional features"
 msgstr "Funzionalità aggiuntive"
 
-#: ./content/tablepage.py:293
+#: ./content/tablepage.py:310
 msgid "At the beginning"
 msgstr "All'inizio"
 
-#: ./content/tablepage.py:292
+#: ./content/tablepage.py:309
 msgid "At the end"
 msgstr "Alla fine"
 
@@ -126,11 +126,11 @@ msgstr "Calcolato"
 msgid "Criteria for adding new rows"
 msgstr "Criterio di inserimento nuove righe"
 
-#: ./browser/templates/view-table.pt:47
+#: ./browser/templates/view-table.pt:53
 msgid "Delete rows"
 msgstr "Elimina righe"
 
-#: ./browser/templates/view-table.pt:44
+#: ./browser/templates/view-table.pt:50
 msgid "Delete selected rows"
 msgstr "Elimina le righe selezionate"
 
@@ -139,22 +139,22 @@ msgid "Delete selection"
 msgstr "Cancella selezione"
 
 #: ./browser/templates/multiple-tables.pt:79
-#: ./browser/templates/view-table.pt:68
+#: ./browser/templates/view-table.pt:74
 msgid "Download as CSV"
 msgstr "Scarica come CSV"
 
 #: ./browser/templates/multiple-tables.pt:73
-#: ./browser/templates/view-table.pt:60
+#: ./browser/templates/view-table.pt:66
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:147
+#: ./browser/templates/view-table.pt:163
 msgid "Edit label"
 msgstr "Modifica etichetta"
 
 #: ./browser/templates/edit-record.pt:24
-#: ./browser/templates/view-table.pt:139
+#: ./browser/templates/view-table.pt:155
 msgid "Edit row"
 msgstr "Modifica riga"
 
@@ -212,6 +212,10 @@ msgstr "Collegamento"
 msgid "Look for duplicated record"
 msgstr "Cerca record duplicati"
 
+#: ./content/tablepage.py:192
+msgid "Max number of rows"
+msgstr "Massimo numero di righe"
+
 msgid "Monetary"
 msgstr "Monetario"
 
@@ -223,11 +227,11 @@ msgstr "Muovi dopo"
 msgid "Move before"
 msgstr "Muovi prima"
 
-#: ./browser/templates/view-table.pt:180
+#: ./browser/templates/view-table.pt:196
 msgid "Move row down"
 msgstr "Muovi riga giù"
 
-#: ./browser/templates/view-table.pt:172
+#: ./browser/templates/view-table.pt:188
 msgid "Move row up"
 msgstr "Muovi riga su"
 
@@ -242,7 +246,7 @@ msgstr "Nuova etichetta"
 msgid "New row"
 msgstr "Nuova riga"
 
-#: ./browser/templates/view-table.pt:193
+#: ./browser/templates/view-table.pt:209
 msgid "No rows"
 msgstr "Nessuna riga"
 
@@ -269,7 +273,7 @@ msgstr "Fornisci un'etichetta"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: ./browser/templates/view-table.pt:163
+#: ./browser/templates/view-table.pt:179
 msgid "Remove row"
 msgstr "Elimina riga"
 
@@ -313,7 +317,7 @@ msgstr "Seleziona un documento esistente"
 msgid "Select existing documents"
 msgstr "Seleziona documenti esistenti"
 
-#: ./browser/templates/view-table.pt:21
+#: ./browser/templates/view-table.pt:27
 msgid "Select/unselect all"
 msgstr "Seleziona/deseleziona tutti"
 
@@ -363,7 +367,7 @@ msgstr "Carica un nuovo documento"
 msgid "Upload data from CSV"
 msgstr "Carica dati da CSV"
 
-#: ./browser/templates/view-table.pt:52
+#: ./browser/templates/view-table.pt:58
 msgid "Upload data with CSV"
 msgstr "Carica dati con CSV"
 
@@ -451,6 +455,14 @@ msgstr "Il valore \"$value\" è già presente nella colonna \"$name\""
 #: ./browser/updownload.py:108
 msgid "error_row_count_dont_match"
 msgstr "Salto la riga $line. Trovate $lrow colonne invece di $lheaders"
+
+#. Default: "Insert the maximum number of rows to be displayed in a single page.\nWhen this limit is reached a batching navigation section will be displayed.\nUse 0 to disable batching (NOT suggested on very large tables or extremly complex column types)."
+#: ./content/tablepage.py:193
+msgid "help_batchSize"
+msgstr ""
+"Inserire il massimo numero di righe da visualizzare per una singola pagina.\n"
+"Quando questo limite è raggiunto verrà mostrata una sezione per la navigazione della paginazione.\n"
+"Usa 0 per disabilitare la paginazione (NON consigliato per tabelle molto grandi o in presenza di colonne molto complesse)."
 
 #. Default: "Display a download link for data inside the table in CSV format"
 #: ./content/tablepage.py:154
@@ -552,17 +564,17 @@ msgid "options_column_description"
 msgstr "Altre opzioni che puoi attivare sulla colonna"
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:251
+#: ./content/tablepage.py:268
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:257
+#: ./content/tablepage.py:274
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:261
+#: ./content/tablepage.py:278
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 

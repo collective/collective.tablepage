@@ -14,6 +14,11 @@ from persistent.dict import PersistentDict
 from plone.memoize.view import memoize
 from zope.component import getMultiAdapter
 
+try:
+    from plone.batching import Batch
+except ImportError:
+    from Products.CMFPlone.PloneBatch import Batch
+
 
 class TableViewView(BrowserView):
     """Render only the table"""
@@ -23,6 +28,8 @@ class TableViewView(BrowserView):
         self.request = request
         self.datagrid = context.getField('pageColumns')
         self.edit_mode = False
+        self.last_page_label = {}
+        self.b_start = 0
 
     def __call__(self):
         storage = self.storage
@@ -90,24 +97,49 @@ class TableViewView(BrowserView):
                                 ))
         return results
 
-    def rows(self):
+    def _findLastPageLabel(self, b_start):
+        """
+        Given an index to start, find the first previous label in the same table.
+        Used. to replicate the label on new pages on batching
+        """
         storage = self.storage
+        for index in range(b_start, 0, -1):
+            if self.is_label(index):
+                return storage[index]['__label__']
+        return {}
+
+    def rows(self, batch=False, bsize=0, b_start=0):
+        storage = self.storage
+        context = self.context
+        request = self.request
+
         rows = []
         adapters = {}
-        
+
         # let's cache adapters
         for conf in self.context.getPageColumns():
             col_type = conf['type']
-            adapters[col_type] = getMultiAdapter((self.context, self.request),
+            adapters[col_type] = getMultiAdapter((context, request),
                                                  IColumnField, name=col_type)
             adapters[col_type].configuration = conf
 
-        for index, record in enumerate(storage):
+        self.last_page_label = self._findLastPageLabel(b_start)
+
+        index = b_start
+        for record in storage[b_start:]:
+
+            if batch and index >= b_start+bsize:
+                # Ok, in this way we display always bsize rows, not bsize rows of data
+                # But is enough for now
+                break
+            
             if record.get('__label__'):
                 rows.append(record.get('__label__'))
+                index += 1
                 continue
+
             row = []
-            for conf in self.context.getPageColumns():
+            for conf in context.getPageColumns():
                 field = adapters[conf['type']]
                 now = DateTime()
                 # Cache hit
@@ -128,7 +160,27 @@ class TableViewView(BrowserView):
                 row.append({'content': output,
                             'classes': 'coltype-%s' % col_type})
             rows.append(row)
+            index += 1
         return rows
+
+    def batch(self, batch=True, bsize=0, b_start=0):
+        request = self.request
+        self.b_start = b_start or request.form.get('b_start') or 0
+        bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
+        batch = batch and bsize>0 
+
+        if not batch:
+            return self.rows()
+
+        rows = self.rows(batch, bsize, self.b_start)        
+        # replicating foo elements to reach total size
+        storage_size = len(self.storage)
+        rows = [None] * self.b_start + rows + [None] * (storage_size - self.b_start - bsize)
+        return Batch(rows, bsize, start=self.b_start, end=self.b_start+bsize,
+                     orphan=int(bsize/10), overlap=0, pagerange=7)
+
+    def batching_enabled(self):
+        return self.context.getBatchSize() > 0 
 
     @memoize
     def portal_url(self):
