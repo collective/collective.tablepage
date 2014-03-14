@@ -38,36 +38,6 @@ The most important field is "**Columns**", where you can define the column struc
 For every column you can define some information like header's content and other description, but you must also define
 the *type* of data in the column.
 
-Right now you can choose from:
-
-``String``
-    A simple line of text, the most common (and default) type.
-``Text``
-    A textarea, for saving more text and take care of carriage returns.
-``Select``
-    Still a simple line of text, but user must choose it from a vocabulary you will define in the 
-    "*Column configuration*".
-``File``
-    A link to a file in the site. See below.
-``Files``
-    Same as ``File`` above, but for multiple files.
-``Link``
-    A link to an URL, or an internal site document. It use Plone reference browser native widget.
-``Email``
-    An e-mail address.
-``Numeric``
-    A string in numeric format.
-``Monetary``
-    A string in numeric format, but will be rendered as a monetary value, with locales settings.
-``Computed``
-    A column that will display a value based on a computed TAL espression you must put in the
-    "*Column configuration*". For this reason it will not be putted in the edit row form.
-    See below.
-
-Adding new type of column is not hard, but remember to stay simple: we don't want to rewrite `PloneFormGen`__ from scratch!
-
-__ http://plone.org/products/ploneformgen
-
 You can add as many columns as you want; users that will fill your table won't be able to change what you have defined.
 
 Filling the table
@@ -147,6 +117,49 @@ If the configuration has not already been defined, all CSV headers will be used 
 Columns
 =======
 
+Table Page is distributed with a know set of columns. Right now you can choose from those types:
+
+``String``
+    A simple line of text, the most common (and default) type.
+``Text``
+    A textarea, for saving more text and take care of carriage returns. Cached for 12 hours.
+``Select``
+    Still a simple line of text, but user must choose it from a vocabulary you will define in the 
+    "*Column configuration*".
+``File``
+    A link to a file in the site. Cached for 1 hour. See below.
+``Files``
+    Same as ``File`` above, but for multiple files.
+``Link``
+    A link to an URL, or an internal site document. It use Plone reference browser native widget.
+    Cached for 1 hour. See below.
+``Email``
+    An e-mail address.
+``Numeric``
+    A string in numeric format.
+``Monetary``
+    A string in numeric format, but will be rendered as a monetary value, with locales settings.
+``Computed``
+    A column that will display a value based on a computed TAL espression you must put in the
+    "*Column configuration*". For this reason it will not be putted in the edit row form.
+    Not cached by default but can be configured. 
+    See below.
+
+Adding new type of column is not hard (for a Plone developer), but remember to stay simple: we don't want
+to rewrite `PloneFormGen`__ from scratch!
+
+__ http://plone.org/products/ploneformgen
+
+Column cache
+------------
+
+Some of the columns above enable a **persistent cache**. This can be needed for large tables, where a lot of those
+columns can slow down the page.
+
+Cache is automatically invalidated when the column is modified, however is possible that invalid data is still shown
+in the table. For example: you create a link to a file, so displaying it's title, but meanwhile an editor changed
+the title of the file.
+
 Columns of type "File" and "Files"
 ----------------------------------
 
@@ -154,7 +167,6 @@ Columns of type file(s) are the most complex.
 
 When adding or editing a row the user is able to upload new files, creating a new Plone File content, or selecting
 existing files from the site.
-
 In both cases permissions matters: the user must have permisson of adding new file in the storage folder or see it.
 The storage folder is configured by the document creator.
 
@@ -189,9 +201,31 @@ Some examples::
 
     row/file_column/title
 
+(show the title of the *file_column* column in the same row)
+
+::
+
     python:row['files_column'][0].Title
 
+(show the title of the first file in the *files_column* column in the same row)
+
+::
+
     row/link_column/absolute_url|row/link_column
+
+(show the link of the *link_column* even it's an internal link or an absolute ones)
+
+Even if this column normally don't implements any cache, you can specify a custom cache by defining an additional
+configuration line in the "*Column configuration*" field.
+
+Just write something like...
+
+::
+
+    your/tal/espression
+    cache:3600
+
+...to cache column's result for an hour.
 
 DataTables integration
 ======================
