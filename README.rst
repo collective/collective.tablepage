@@ -144,6 +144,9 @@ configuration. Columns with an unknow id will be ignored.
 If the configuration has not already been defined, all CSV headers will be used to quickly init the configuration
 (but columns types will always be "String").
 
+Columns
+=======
+
 Columns of type "File" and "Files"
 ----------------------------------
 
