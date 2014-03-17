@@ -115,6 +115,10 @@ class TableViewView(BrowserView):
 
         rows = []
         adapters = {}
+        # check if b_start is out on index
+        if b_start>len(storage):
+            b_start = 0
+        b_start
 
         # let's cache adapters
         for conf in self.context.getPageColumns():
@@ -165,7 +169,11 @@ class TableViewView(BrowserView):
 
     def batch(self, batch=True, bsize=0, b_start=0):
         request = self.request
+        storage_size = len(self.storage)
         self.b_start = b_start or request.form.get('b_start') or 0
+        # check if b_start_ make sense
+        if self.b_start > storage_size:
+            self.b_start = 0
         bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
         batch = batch and bsize>0 
 
@@ -174,7 +182,6 @@ class TableViewView(BrowserView):
 
         rows = self.rows(batch, bsize, self.b_start)        
         # replicating foo elements to reach total size
-        storage_size = len(self.storage)
         rows = [None] * self.b_start + rows + [None] * (storage_size - self.b_start - bsize)
         return Batch(rows, bsize, start=self.b_start, end=self.b_start+bsize,
                      orphan=int(bsize/10), overlap=0, pagerange=7)
