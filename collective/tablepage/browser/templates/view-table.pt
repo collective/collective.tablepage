@@ -4,9 +4,16 @@
       method="post"
       tal:define="rows view/batch;
                   batch rows;
-                  template_id view/template_id;"
+                  template_id view/template_id;
+				  b_start request/b_start|nothing;
+				  main_b_start_param python:b_start and '?b_start:int=%d' % b_start or '';
+				  b_start_param python:b_start and '&b_start:int=%d' % b_start or '';"
       tal:attributes="action string:${context/absolute_url}/@@delete-record">
 
+<input type="hidden" name="b_start:int" value=""
+       tal:condition="b_start"
+       tal:attributes="value b_start" />
+	
 <tal:batching condition="view/batching_enabled"> 
     <div metal:use-macro="context/batch_macros/macros/navigation" />
 </tal:batching>
@@ -43,7 +50,7 @@
                 <a class="command" href="" title="Add new label above"
                    tal:condition="can_add_label"
                    i18n:attributes="title"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-label">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-label${main_b_start_param}">
                     <img alt="Add new label above that row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
@@ -122,7 +129,7 @@
                 <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
                    tal:condition="python: new_rows_at_bottom and next_is_label and repeat['row'].end"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record${main_b_start_param}">
                     <img alt="Add new row below" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
@@ -130,7 +137,7 @@
                 <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
                    tal:condition="python: new_rows_at_bottom and next_is_label and not repeat['row'].end"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1${b_start_param}">
                     <img alt="Add new row" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
@@ -138,7 +145,7 @@
                 <a class="command" href="" title="Add new row above this"
                    i18n:attributes="title"
                    tal:condition="python: new_rows_at_top and is_first_row_not_label"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record${main_b_start_param}">
                     <img alt="Add new row below" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
@@ -146,7 +153,7 @@
                 <a class="command" href="" title="Add new row below this"
                    i18n:attributes="title"
                    tal:condition="python: new_rows_at_top and is_label"
-                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1">
+                   tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}&addRow=1${b_start_param}">
                     <img alt="Add new row below" src=""
                          i18n:attributes="alt"
                          tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
@@ -156,7 +163,7 @@
                     <a class="command" href="" title="Edit row"
                        tal:condition="is_data_row"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}">
+                       tal:attributes="href string:${context/absolute_url}/@@edit-record?row-index:int=${row_index}${b_start_param}">
                         <img alt="Edit row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
@@ -164,7 +171,7 @@
                     <a class="command" href="" title="Edit label"
                        tal:condition="not:is_data_row"                    
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}">
+                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}${b_start_param}">
                         <img alt="Edit label" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/edit.png" />
@@ -172,14 +179,14 @@
                     <a class="command" href="" title="Add new label above"
                        tal:condition="can_add_label"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}&addLabel=1">
+                       tal:attributes="href string:${context/absolute_url}/@@edit-label?row-index:int=${row_index}&addLabel=1${b_start_param}">
                         <img alt="Add new label above that row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/labeling.png" />
                     </a>
                     <a class="command" href="" title="Remove row"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${row_index}">
+                       tal:attributes="href string:${context/absolute_url}/@@delete-record?row-index:int=${row_index}${b_start_param}">
                         <img alt="Remove row" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/remove.png" />
@@ -189,7 +196,7 @@
                     <a class="command" href="" title="Move row up"
                        i18n:attributes="title"
                        tal:condition="not:repeat/row/start"
-                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up">
+                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=up${b_start_param}">
                         <img alt="Move row up" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_up.png" />
@@ -197,7 +204,7 @@
                     <a class="command" href="" title="Move row down"
                        i18n:attributes="title"
                        tal:condition="not:repeat/row/end"
-                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down">
+                       tal:attributes="href string:${context/absolute_url}/@@move-record?row-index:int=${row_index}&amp;direction=down${b_start_param}">
                         <img alt="Move row down" src=""
                              i18n:attributes="alt"
                              tal:attributes="src string:${portal_url}/++resource++collective.tablepage.images/move_down.png" />
@@ -215,7 +222,7 @@
                 tal:condition="python: view.edit_mode and context.getPageColumns()">
             <a class="command" href="" title="Add new row"
                i18n:attributes="title"
-               tal:attributes="href string:${context/absolute_url}/@@edit-record">
+               tal:attributes="href string:${context/absolute_url}/@@edit-record${main_b_start_param}">
                 <img alt="Add new row" src=""
                      i18n:attributes="alt"
                      tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/add.png" />
