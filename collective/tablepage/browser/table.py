@@ -237,5 +237,5 @@ class TableViewView(BrowserView):
         # On Plone 4.3/plone.batching is ok
         if self.edit_mode:
             return 'edit-table'
-        return None
+        return ''
 
