@@ -224,4 +224,11 @@ class TableViewView(BrowserView):
         if self.edit_mode:
             table_classes.append('editing')
         return ' '.join(table_classes)
-        
+
+    def template_id(self):
+        # Used due to bugged Plone 3.3 integration with batch
+        # On Plone 4.3/plone.batching is ok
+        if self.edit_mode:
+            return 'edit-table'
+        return None
+
