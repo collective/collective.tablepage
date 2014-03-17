@@ -72,19 +72,24 @@ class EditLabelView(BrowserView):
     def __call__(self, *args, **kwargs):
         request = self.request
         form = request.form
-        putils = getToolByName(self.context, 'plone_utils')
+        context = self.context
+        putils = getToolByName(context, 'plone_utils')
+        b_start = form.get('b_start', None)
         if not self.check_labeling_permission():
             raise Unauthorized("You can't modify the label")
         if form.get('cancel'):
-            return request.response.redirect("%s/edit-table" % self.context.absolute_url())
+            return request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                                  b_start and '?b_start:int=%d' % b_start or ''))
         if form.get('form.submitted'):
             if not form.get('label'):
                 putils.addPortalMessage(_('Label is required'), type="error")
-                return request.response.redirect("%s/edit-label" % self.context.absolute_url())
+                return request.response.redirect("%s/edit-label%s" % (context.absolute_url(),
+                                                                      b_start and '?b_start:int=%d' % b_start or ''))
             # saving
             self._save()
             putils.addPortalMessage(_('Label has been saved'))
-            return request.response.redirect("%s/edit-table" % self.context.absolute_url())
+            return request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                                  b_start and '?b_start:int=%d' % b_start or ''))
         elif form.get('row-index') is not None and not form.get('addLabel'):
             # load an existing row
             self.data = self.storage[form.get('row-index')].get('__label__', '')

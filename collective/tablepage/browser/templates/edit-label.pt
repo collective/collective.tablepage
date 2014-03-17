@@ -26,6 +26,11 @@
         <form id="editLabel" class="enableUnloadProtection" method="post" enctype="multipart/form-data" action=""
               tal:attributes="action string:${view/context/absolute_url}/@@${view/__name__}">
             <fieldset>
+
+            <input type="hidden" name="b_start:int" value=""
+                   tal:condition="request/b_start|nothing"
+                   tal:attributes="value request/b_start" />
+
                 <legend i18n:translate="">Provide label</legend>
 
                 <div class="field editTableLabel">

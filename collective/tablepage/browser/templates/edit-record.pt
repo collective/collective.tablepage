@@ -32,6 +32,11 @@
 
         <form id="editRow" class="enableUnloadProtection" method="post" enctype="multipart/form-data" action=""
               tal:attributes="action string:${view/context/absolute_url}/@@${view/__name__}">
+
+            <input type="hidden" name="b_start:int" value=""
+                   tal:condition="request/b_start|nothing"
+                   tal:attributes="value request/b_start" />
+
             <fieldset>
                 <legend i18n:translate="">Provide data for the row</legend>
             

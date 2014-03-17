@@ -108,6 +108,7 @@ class ComputedField(BaseField, ComputedBase):
         self.data = None
         expression = self.configuration.get('vocabulary')
         if expression:
+            expression = expression.splitlines()[0]
             talEngine = Expressions.getEngine()
             compiledExpr = talEngine.compile(expression)
             try:

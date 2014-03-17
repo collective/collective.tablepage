@@ -28,6 +28,8 @@ Changelog
   table through portal_trasform when in view.
   Drawback of the approach: when editing the table's URLs still use *resolveuid*
   [keul]
+- Added batching/pagination
+  [keul]
 
 0.6 (2014-02-25)
 ----------------

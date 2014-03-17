@@ -183,6 +183,23 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
             ),
     ),
 
+    atapi.IntegerField('batchSize',
+              searchable=False,
+              schemata="settings",
+              default=100,
+              required=True,
+              widget=atapi.IntegerWidget(
+                        label=_(u'Max number of rows'),
+                        description=_('help_batchSize',
+                                      default=u'Insert the maximum number of rows to be displayed '
+                                              u'in a single page.\n'
+                                              u'When this limit is reached a batching navigation section '
+                                              u'will be displayed.\n'
+                                              u'Use 0 to disable batching (NOT suggested on very large tables or '
+                                              u'extremly complex column types).'),
+              ),
+    ),
+
     # FOO FIELD!!!! Only needed to being able to use the ATReferenceBrowserWidget... :(
     atapi.StringField('link_internal',
             widget=ReferenceBrowserWidget(

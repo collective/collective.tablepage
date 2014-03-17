@@ -107,8 +107,9 @@
 
                 // Init the DataTables
                 if ($table.find('tr.noResults').length===0) {
-                    var hasLabels = allLabelRows.length>0;
-                    var wHeidht = $(window).height();
+                    var hasLabels = allLabelRows.length>0,
+                        wHeidht = $(window).height()
+					    batchingEnabled = !!$table.attr('data-batching-enabled');
                     
                     dataTable = $table.dataTable({
                         oLanguage: {sUrl: portal_url + '/@@collective.js.datatables.translation'},
@@ -116,17 +117,18 @@
                         aaSorting: [],
                         bSort: true,
                         bLengthChange: hasLabels ? false : true,
-                        bPaginate: hasLabels ? false : true,
+                        bPaginate: hasLabels || batchingEnabled ? false : true,
                         asStripClasses: null,
                         sScrollX: innerW+"px",
                         // sScrollXInner: "95%",
                         sScrollY: wHeidht990 + "px",
                         bScrollCollapse: true,
                         bAutoWidth: false,
+						bInfo: batchingEnabled ? false : true,
                         aoColumnDefs: [
                               { 'bSortable': false, 'aTargets': noDataCols }
                            ],
-                        iDisplayLength: 50,
+                        iDisplayLength: 100,
                         fnInitComplete: function() {
                             if ($labels.length > 0) {
                                 dataTable.rowGrouping();

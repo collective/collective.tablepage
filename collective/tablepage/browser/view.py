@@ -65,8 +65,10 @@ class EditRecordView(BrowserView):
         request = self.request
         form = request.form
         self.row_index = form.get('row-index', None)
+        b_start = form.get('b_start', None)
         if form.get('cancel'):
-            request.response.redirect("%s/edit-table" % context.absolute_url())
+            request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                           b_start and '?b_start:int=%d' % b_start or ''))
             return
         if form.get('form.submitted'):
             # saving
@@ -77,7 +79,8 @@ class EditRecordView(BrowserView):
                 self.data.update(**form)
                 return self.index()
             putils.addPortalMessage(_('Row has been saved'))
-            request.response.redirect("%s/edit-table" % context.absolute_url())
+            request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                           b_start and '?b_start:int=%d' % b_start or ''))
             return
         elif self.row_index is not None and not form.get('addRow'):
             # load an existing row
@@ -225,9 +228,12 @@ class DeleteRecordView(EditRecordView):
     
     def __call__(self):
         context = self.context
+        request = self.request
         indexes = self.request.form.get('row-index')
+        b_start = request.form.get('b_start', None)
+
         if indexes is not None:
-            member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
+            member = getMultiAdapter((context, request), name=u'plone_portal_state').member()
             putils = getToolByName(context, 'plone_utils')
             _ = getToolByName(context, 'translation_service').utranslate
             sm = getSecurityManager()
@@ -255,28 +261,34 @@ class DeleteRecordView(EditRecordView):
             # if the table is changed, the content is changed 
             self._addNewVersion(msg)
 
-        self.request.response.redirect("%s/edit-table" % context.absolute_url())
+        request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                       b_start and '?b_start:int=%d' % b_start or ''))
 
 
 class MoveRecordView(EditRecordView):
     """Move a row on the table"""
 
     def __call__(self):
-        index = self.request.form.get('row-index')
-        direction = self.request.form.get('direction')
+        form = self.request.form
+        context = self.context
+        index = form.get('row-index')
+        direction = form.get('direction')
+        b_start = form.get('b_start', None)
+
         if index is not None and direction in ('up', 'down'):
             direction = direction=='up' and -1 or 1
             storage = self.storage
             row = storage[index]
             del storage[index]
             storage.add(row, index+direction)
-            putils = getToolByName(self.context, 'plone_utils')
-            _ = getToolByName(self.context, 'translation_service').utranslate
+            putils = getToolByName(context, 'plone_utils')
+            _ = getToolByName(context, 'translation_service').utranslate
             putils.addPortalMessage(_(msgid='Row has been moved',
                                       domain="collective.tablepage",
-                                      context=self.context))
+                                      context=context))
             # if the table is changed, the content is changed
             self._addNewVersion(_(msgid="Row moved",
                                   domain="collective.tablepage",
-                                  context=self.context))
-        self.request.response.redirect("%s/edit-table" % self.context.absolute_url())
+                                  context=context))
+        self.request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
+                                                            b_start and '?b_start:int=%d' % b_start or ''))
