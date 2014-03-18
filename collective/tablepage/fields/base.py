@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from zope.component import getUtility
 from collective.tablepage.interfaces import IColumnDataRetriever
 from zope.schema.interfaces import IVocabularyFactory
+
+if sys.version_info < (2, 6):
+    PLONE3 = True
+else:
+    PLONE3 = False
 
 
 class BaseField(object):
@@ -38,8 +44,13 @@ class BaseField(object):
         rcatalog = getToolByName(self.context, 'reference_catalog')
         obj = rcatalog.lookupObject(uuid)
         if obj:
+            # BBB: final slash below is important for Plone 3.3 compatibility
+            # remove this mess when finally we drop Plone 3.3 support
+            RESOLVE_UID_STR = "resolveuid/%s"
+            if PLONE3:
+                RESOLVE_UID_STR += '/'
             return dict(title=obj.Title() or obj.getId(),
-                        url="resolveuid/%s" % uuid,
+                        url=RESOLVE_UID_STR % uuid,
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1))
         return {}

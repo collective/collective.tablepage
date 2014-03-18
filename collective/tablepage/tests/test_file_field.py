@@ -182,6 +182,7 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         portal.folder.invokeFactory(type_name='File', id='attachment1', title="An attachment")
         portal.folder.invokeFactory(type_name='File', id='attachment2', title="Another attachment")
         tp = portal.table_page
+        self.tp = tp
         tp.edit(textBefore='<p>Lorem Ipsum</p>',
                 pageColumns=[{'id': 'att', 'label': 'Attachments', 'description': '',
                               'type': 'Files', 'vocabulary': '', 'options': []}],
@@ -240,7 +241,7 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         self.assertTrue('Another attachment' in tp())
 
     def test_files(self):
-        """Can generato more than one attachent in the same request"""
+        """Can generate more than one attachent in the same request"""
         portal = self.layer['portal']
         request = self.layer['request']
         tp = portal.table_page
@@ -262,4 +263,16 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         view()
         self.assertTrue('a-python-file' in folder.objectIds())
         self.assertTrue('another-python-file' in folder.objectIds())
+
+    def test_frontend_url(self):
+        """We will have resolveuid URL in backend, but real URL on table view"""
+        tp = self.tp
+        request = self.layer['request']
+        portal = self.layer['portal']
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user0', 'att': portal.folder.attachment1.UID()})
+        view = getMultiAdapter((tp, request), name='tablepage-edit')
+        self.assertTrue('href="resolveuid/%s/at_download/file"' % \
+                                    portal.folder.attachment1.UID() in view())
+        self.assertTrue('href="http://nohost/plone/folder/attachment1/at_download/file"' in tp())
 
