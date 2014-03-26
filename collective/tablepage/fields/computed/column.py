@@ -138,6 +138,7 @@ class ComputedDataRetriever(ComputedBase):
             raise NotImplementedError("ComputedColumn will not output anything for backend mode")
         expression = self.configuration.get('vocabulary')
         if expression:
+            expression = expression.splitlines()[0]
             talEngine = Expressions.getEngine()
             compiledExpr = talEngine.compile(expression)
             try:

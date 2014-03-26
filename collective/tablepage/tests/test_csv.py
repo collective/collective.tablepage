@@ -157,6 +157,25 @@ class CSVExportTestCase(unittest.TestCase):
         csv = get_csv_content(view, skipHeaders=True)
         self.assertEqual(csv, '"col_a"\n"%s"' % portal.document1.UID())
 
+    def test_computed_field(self):
+        tp = self.layer['portal'].table_page
+        request = self.layer['request']
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                             {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'Computed', 'vocabulary': 'row/col_a\ncache:1', 'options': []},
+                              ])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'lorem ipsum'})
+        view = getMultiAdapter((tp, request), name=u"download-table")
+        csv = get_csv_content(view)
+        self.assertEqual(csv, '"Col A","Col B"\n'
+                              '"lorem ipsum","lorem ipsum"')
+        request.form['target']='editor'
+        view = getMultiAdapter((tp, request), name=u"download-table")
+        csv = get_csv_content(view, skipHeaders=True)
+        self.assertEqual(csv, '"col_a","col_b"\n'
+                              '"lorem ipsum",""')
+
 
 class CSVImportTestCase(unittest.TestCase):
 
@@ -456,3 +475,19 @@ class CSVImportTestCase(unittest.TestCase):
         self.storage.add({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': ''})
         self.assertEqual(view._checkDuplicateRow({'col_a': 'aaa', 'col_b': 'bbb', 'col_c': ''},
                                                  self.storage), True)
+
+    def test_computed_field(self):
+        tp = self.layer['portal'].table_page
+        request = self.layer['request']
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                             {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'Computed', 'vocabulary': 'row/col_a\ncache:1', 'options': []},
+                              ])
+        file = self.file_with_data('col_a,col_b\n'
+                                   '"foo bar","not used"')
+        request.form['csv'] = file
+        view = getMultiAdapter((tp, request), name=u"upload-rows")
+        view()
+        self.assertEqual(self.storage[0]['col_a'], 'foo bar')
+        self.assertEqual(self.storage[0].get('col_b'), None)

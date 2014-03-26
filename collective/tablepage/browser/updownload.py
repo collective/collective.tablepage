@@ -231,8 +231,13 @@ class DownloadDataView(BrowserView):
             for header in columns:
                 adapter = header['adapter']
                 adapter.configuration = header['configuration']
-                col_val = adapter.data_for_display(data.get(header['header_code']),
-                                                   backend=for_editor, row_index=row_index) or ''
+                try:
+                    col_val = adapter.data_for_display(data.get(header['header_code']),
+                                                       backend=for_editor, row_index=row_index) or ''
+                except NotImplementedError:
+                    # Column will not export anything
+                    row.append('')
+                    continue
                 if not isinstance(col_val, basestring):
                     # a sequence, probably
                     col_val = '\n'.join(col_val)

@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.8 (unreleased)
-----------------
+0.7.1 (unreleased)
+------------------
 
-- Nothing changed yet.
-
+- Fixed a bug that break CSV export when computed columns are used
+  [keul]
 
 0.7 (2014-03-19)
 ----------------
