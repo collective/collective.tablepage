@@ -69,7 +69,6 @@ class TableViewView(BrowserView):
             return result
         return ''
 
-
     @property
     @memoize
     def storage(self):
