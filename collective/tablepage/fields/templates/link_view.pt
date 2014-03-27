@@ -4,10 +4,17 @@
 <a tal:condition="options/url|nothing"
    rel="external"
    tal:attributes="href options/url;
-                   title options/description;">
-	<img src="" alt=""
-	     tal:condition="options/icon"
-	     tal:define="portal_url context/@@plone_portal_state/portal_url"
-		 tal:attributes="src string:${portal_url}/${options/icon}" />
-	<span tal:replace="options/title" />
+                   title string:${options/description};">
+    <tal:textlink condition="not:options/main_icon">
+        <img src="" alt=""
+             tal:condition="options/icon"
+             tal:define="portal_url context/@@plone_portal_state/portal_url"
+             tal:attributes="src string:${portal_url}/${options/icon}" />
+        <span tal:replace="options/title" />
+    </tal:textlink>
+    <tal:iconlink condition="options/main_icon">
+        <img src="" alt=""
+             tal:attributes="alt string:${options/title};
+                             src options/main_icon;" />
+    </tal:iconlink>
 </a>

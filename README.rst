@@ -180,6 +180,14 @@ In that case: it's automatically used the Plone native widget `archetypes.refere
 
 __ https://github.com/plone/archetypes.referencebrowserwidget
 
+When used for internal reference the rendered HTML is a link to the Plone content. In that case you can change
+how the link itself is displayed by adding some rows in the "*Column configuration*" section:
+
+``title:something``
+    The link text will be always "something"
+``icon:url-or-relative-path-to-image``
+    The link will not contain any text, but an image will be displayed
+
 Column of type "Computed"
 -------------------------
 

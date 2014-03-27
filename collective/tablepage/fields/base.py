@@ -39,20 +39,37 @@ class BaseField(object):
         self.data = data or ''
         return self.view_template(data=self.data)
 
+    def _getCustomPreferences(self):
+        """Override some preferences when displaying the linkable content
+        @title will override the linked content title
+        @icon an URL or relative path to an icon resource. When present, this will be used inside the link
+        to be downloaded (not text will be shown) 
+        """
+        prefs = {}
+        conf = self.configuration.get('vocabulary') or ''
+        for c in conf.splitlines():
+            if c.startswith('title:'):
+                prefs['title'] = c[6:]
+            elif c.startswith('icon:'):
+                prefs['icon'] = c[5:]
+        return prefs
+
     def _get_obj_info(self, uuid):
         # for fields that need to refer to other contents
         rcatalog = getToolByName(self.context, 'reference_catalog')
         obj = rcatalog.lookupObject(uuid)
         if obj:
+            custom_prefs = self._getCustomPreferences()
             # BBB: final slash below is important for Plone 3.3 compatibility
             # remove this mess when finally we drop Plone 3.3 support
             RESOLVE_UID_STR = "resolveuid/%s"
             if PLONE3:
                 RESOLVE_UID_STR += '/'
-            return dict(title=obj.Title() or obj.getId(),
+            return dict(title=custom_prefs.get('title') or obj.Title() or obj.getId(),
                         url=RESOLVE_UID_STR % uuid,
                         description=obj.Description(),
-                        icon=obj.getIcon(relative_to_portal=1))
+                        icon=obj.getIcon(relative_to_portal=1),
+                        main_icon=custom_prefs.get('icon'))
         return {}
 
     @property

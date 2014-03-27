@@ -6,6 +6,8 @@ Changelog
 
 - Fixed a bug that break CSV export when computed columns are used
   [keul]
+- Added minimal Link colums diplay prefs (a fixed link text or icon)
+  [keul]
 
 0.7 (2014-03-19)
 ----------------

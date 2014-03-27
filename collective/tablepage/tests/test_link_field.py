@@ -20,7 +20,8 @@ class LinkFieldTestCase(unittest.TestCase):
         wtool = portal.portal_workflow
         login(portal, TEST_USER_NAME)
         portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
-        portal.invokeFactory(type_name='Document', id='document', title="A d\xc3\xb2cument to reference")
+        portal.invokeFactory(type_name='Document', id='document', title="A d\xc3\xb2cument to reference",
+                             description="Hello docum\xc3\xa8nt!")
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': '', 'options': []}])
@@ -104,3 +105,25 @@ class LinkFieldTestCase(unittest.TestCase):
         self.assertEqual(storage[0]['link'], 'this is not an uid')
         output = tp()
         self.assertFalse('this is not an uid' in output)
+
+    def test_template_override_text(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
+                              'type': 'Link', 'vocabulary': 'title:Lorèm ipsum', 'options': []}])
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
+        output = tp()
+        self.assertTrue(u'Lor\xe8m ipsum' in output)
+
+    def test_template_override_icon(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
+                              'type': 'Link', 'vocabulary': 'icon:src-to-an-icon', 'options': []}])
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
+        output = tp()
+        self.assertTrue(u'<img src="src-to-an-icon" alt="A d\xf2cument to reference" />' in output)
