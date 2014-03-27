@@ -124,7 +124,6 @@ class TableViewView(BrowserView):
             col_type = conf['type']
             adapters[col_type] = getMultiAdapter((context, request),
                                                  IColumnField, name=col_type)
-            adapters[col_type].configuration = conf
 
         self.last_page_label = self._findLastPageLabel(b_start)
 
@@ -144,6 +143,7 @@ class TableViewView(BrowserView):
             row = []
             for conf in context.getPageColumns():
                 field = adapters[conf['type']]
+                field.configuration = conf
                 now = DateTime()
                 # Cache hit
                 if field.cache_time and record.get("__cache__", {}).get(conf['id']) and \
