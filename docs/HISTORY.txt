@@ -16,6 +16,9 @@ Changelog
 - Enable DataTables only if we have some rows to show. This fix viasual
   issues with some layotus
   [keul]
+- Link column: put the ``external`` value for ``rel`` for external links and not
+  for internal ones
+  [keul]
 
 0.7 (2014-03-19)
 ----------------
