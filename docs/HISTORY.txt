@@ -13,6 +13,9 @@ Changelog
 - Fixed appearence of "No rows" section on Plone that are not using
   ``plone.batching``
   [keul]
+- Enable DataTables only if we have some rows to show. This fix viasual
+  issues with some layotus
+  [keul]
 
 0.7 (2014-03-19)
 ----------------

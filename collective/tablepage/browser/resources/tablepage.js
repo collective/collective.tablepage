@@ -105,8 +105,8 @@
                     }
                 });
 
-                // Init the DataTables
-                if ($table.find('tr.noResults').length===0) {
+                // Init the DataTables, but only if we have some rows
+                if ($table.find('tr.noResults').length===0 && $table.find('tbody tr').length>3) {
                     var hasLabels = allLabelRows.length>0,
                         wHeidht = $(window).height()
 					    batchingEnabled = !!$table.attr('data-batching-enabled');
