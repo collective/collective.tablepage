@@ -74,6 +74,10 @@ class TableViewView(BrowserView):
     def storage(self):
         return IDataStorage(self.context)
 
+    @property
+    def is_empty(self):
+        return len(self.storage)==0
+
     def showHeaders(self):
         """Logic for display table headers"""
         show_headers_options = self.context.getShowHeaders()

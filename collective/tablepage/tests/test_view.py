@@ -51,4 +51,13 @@ class ViewTestCase(unittest.TestCase):
         except UnicodeDecodeError:
             self.fail("getText() raised UnicodeDecodeError unexpectedly!")
 
-        
+    def test_emtpy_table(self):
+        """Prevent regression om Plone 4.2 and below: empty table should display proper message""" 
+        portal = self.layer['portal']
+        request = self.layer['request']
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
+                              'type': 'String', 'vocabulary': '', 'options': []}])
+        view = getMultiAdapter((tp, request), name='tablepage-edit')
+        self.assertTrue('No rows' in view())

@@ -10,6 +10,9 @@ Changelog
   [keul]
 - Fixed wrong column configuration cache
   [keul]
+- Fixed appearence of "No rows" section on Plone that are not using
+  ``plone.batching``
+  [keul]
 
 0.7 (2014-03-19)
 ----------------

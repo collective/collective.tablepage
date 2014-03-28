@@ -4,16 +4,17 @@
       method="post"
       tal:define="rows view/batch;
                   batch rows;
+                  is_empty view/is_empty;
                   template_id view/template_id;
-				  b_start request/b_start|nothing;
-				  main_b_start_param python:b_start and '?b_start:int=%d' % b_start or '';
-				  b_start_param python:b_start and '&b_start:int=%d' % b_start or '';"
+                  b_start request/b_start|nothing;
+                  main_b_start_param python:b_start and '?b_start:int=%d' % b_start or '';
+                  b_start_param python:b_start and '&b_start:int=%d' % b_start or '';"
       tal:attributes="action string:${context/absolute_url}/@@delete-record">
 
 <input type="hidden" name="b_start:int" value=""
        tal:condition="b_start"
        tal:attributes="value b_start" />
-	
+
 <tal:batching condition="view/batching_enabled"> 
     <div metal:use-macro="context/batch_macros/macros/navigation" />
 </tal:batching>
@@ -26,12 +27,12 @@
                    can_add_label view/check_labeling_permission;"
        tal:attributes="class view/css_classes;
                        data-batching-enabled python:view.batching_enabled() and 'true' or nothing;"
-       tal:condition="python: view.edit_mode or len(rows)>0">
+       tal:condition="python: view.edit_mode or not is_empty">
         <caption tal:condition="context/getTableCaption"
                  tal:content="context/getTableCaption">This table is for...</caption>
     <thead tal:condition="view/showHeaders">
         <tr>
-            <th class="noData mainCommandCell" tal:condition="python: view.edit_mode and rows">
+            <th class="noData mainCommandCell" tal:condition="python: view.edit_mode and not is_empty">
                 <input type="checkbox" id="selectAll" title="Select/unselect all"
                        i18n:attributes="title">
             </th>
@@ -213,7 +214,7 @@
             </td>
         </tr>
         </tal:rows>
-        <tr class="noResults" tal:condition="not: rows">
+        <tr class="noResults" tal:condition="is_empty">
             <td tal:attributes="colspan python:len(headers)"
                 i18n:translate="">
                 No rows
