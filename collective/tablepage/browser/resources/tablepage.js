@@ -51,7 +51,8 @@
                 var columns = null,
                     noDataCols = [],
                     $table = $(this),
-                    allLabelRows = [];
+                    allLabelRows = [],
+					minRows = 4;
                 
                 $table.css('width', innerW+'px');
 
@@ -60,7 +61,7 @@
                  * So we use the DataTables Row Grouping Add-on 
                  */
                 var $labels = $('tr.tablePageSubHeader', $table);
-                if ($.fn.rowGrouping && $labels.length>0) {
+                if ($.fn.rowGrouping && $labels.length>0 && $table.find('tobdy tr').length>=minRows) {
                     // add a new, first position, column
                     $('thead tr', $table).prepend($('<th class="noData labelColumn"></th>'));
                     
@@ -106,7 +107,7 @@
                 });
 
                 // Init the DataTables, but only if we have some rows
-                if ($table.find('tr.noResults').length===0 && $table.find('tbody tr').length>3) {
+                if ($table.find('tr.noResults').length===0 && $table.find('tbody tr').length>=minRows) {
                     var hasLabels = allLabelRows.length>0,
                         wHeidht = $(window).height()
 					    batchingEnabled = !!$table.attr('data-batching-enabled');
