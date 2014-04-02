@@ -34,10 +34,14 @@ class DataStorage(object):
         return "<DataStorage [%s]>" % str(", ".join(["<%s>" % d.items() for d in self._ann]))
 
     def __getitem__(self, index):
+        if isinstance(index, basestring):
+            for row in self._ann:
+                if row.get('__uuid__') == index:
+                    return row
         return self._ann[index]
 
     def get(self, index):
-        """Safe getter for restrcited python. Return a primitive dict, not a persistent"""
+        """Safe getter for restricted python. Return a primitive dict, not a persistent"""
         return self._ann[index].__dict__['data'].copy()
 
     def __delitem__(self, index):

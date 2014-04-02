@@ -1,7 +1,23 @@
 # -*- coding: utf-8 -*-
 
 from collective.tablepage import logger
+from collective.tablepage import config
+from collective.tablepage.catalog import manage_addTablePageCatalog
 from Products.CMFCore.utils import getToolByName
+
+def createCatalog(portal):
+    if not hasattr(portal, config.CATALOG_ID):
+        manage_addTablePageCatalog(portal)
+        logger.info('Added the catalog')
+    else:
+        logger.info('Catalog found. Skipping...')
+
+def setupVarious(context):
+    if context.readDataFile('collective.tablepage_various.txt') is None:
+        return
+
+    portal = context.getSite()
+    createCatalog(portal)
 
 def migrateTo04(context):
     setup_tool = getToolByName(context, 'portal_setup')

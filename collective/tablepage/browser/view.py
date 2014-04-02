@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from AccessControl import Unauthorized
 from AccessControl import getSecurityManager
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as pmf
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from collective.tablepage import config
 from collective.tablepage import tablepageMessageFactory as _
@@ -152,6 +153,7 @@ class EditRecordView(BrowserView):
         storage = self.storage
         configuration = self.configuration
         row_index = form.get('row-index', -1)
+        tp_catalog = getToolByName(context, config.CATALOG_ID)
         if context.getInsertType()=='prepend':
             # this is the first row in the section, so you want to add something above it
             row_index = self._first_index_in_section(row_index)
@@ -200,20 +202,25 @@ class EditRecordView(BrowserView):
             member = getMultiAdapter((context, self.request), name=u'plone_portal_state').member()
             _ = getToolByName(context, 'translation_service').utranslate
             if form.get('row-index') is not None and not form.get('addRow'):
+                # Edit row
                 index = form.get('row-index')
                 if not self.check_manager_or_mine_record(index):
                     raise Unauthorized("You can't modify that record")
+                to_be_saved['__uuid__'] = storage[index]['__uuid__']
                 storage.update(index, to_be_saved)
                 storage.nullify(index, '__cache__')
                 self._addNewVersion(_(msgid="Row changed",
                                       domain="collective.tablepage",
                                       context=context))
             else:
+                # Add row
                 to_be_saved['__creator__'] = member.getId()
+                to_be_saved['__uuid__'] = str(uuid.uuid4())
                 storage.add(to_be_saved, row_index)
                 self._addNewVersion(_(msgid="Row added",
                                       domain="collective.tablepage",
                                       context=context))
+            tp_catalog.index_row(context, to_be_saved)
 
     def _addNewVersion(self, comment=''):
         """Content must be updated, so the history machinery will save a new version"""

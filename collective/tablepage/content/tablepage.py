@@ -21,9 +21,10 @@ from Products.DataGridField.Column import Column
 from collective.datagridcolumns.SelectColumn import SelectColumn
 from collective.datagridcolumns.TextAreaColumn import TextAreaColumn
 from collective.datagridcolumns.MultiSelectColumn import MultiSelectColumn
-
+from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import ITablePage
+from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage import config
 
 from Products.TinyMCE.interfaces.utility import ITinyMCE
@@ -309,5 +310,12 @@ class TablePage(base.ATCTContent):
             (('append', _("At the end")),
             ('prepend', _("At the beginning"))),
         )
+
+#    def __bobo_traverse__(self, REQUEST, name):
+#        storage = IDataStorage(self)
+#        traversed = storage[name]
+#        if not traversed:
+#            return super(TablePage, self).__bobo_traverse__(REQUEST, name)
+#        return traversed
 
 atapi.registerType(TablePage, config.PROJECTNAME)

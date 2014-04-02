@@ -18,6 +18,7 @@ if sys.version_info < (2, 6):
     # A RedTurtle branch (see https://github.com/RedTurtle/Products.DataGridField/tree/1.6)
     # Sorry for this but we want to make live easy to our Plone 3 customers!
     install_requires.append('Products.DataGridField>1.6.3')
+    install_requires.append('uuid')
 else:
     install_requires.append('Products.DataGridField>=1.9.0') 
 

@@ -16,7 +16,6 @@
   <include package=".validators" />
   <include package=".storage" />
   <include file="vocabularies.zcml" />
-  <include file="profiles.zcml" />
 
   <genericsetup:registerProfile
       name="default"
@@ -26,6 +25,13 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:importStep
+      name="collective.tablepage.various"
+      title="collective.tablepage: miscellaneous import steps"
+      description="Various import steps that are not handled by GS import/export handlers."
+      handler="collective.tablepage.setuphandlers.setupVarious">
+  </genericsetup:importStep>
+
   <genericsetup:registerProfile
       name="uninstall"
       title="collective.tablepage: uninstall"
@@ -33,5 +39,7 @@
       description="Uninstall collective.tablepage"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+
+  <include file="profiles.zcml" />
 
 </configure>
