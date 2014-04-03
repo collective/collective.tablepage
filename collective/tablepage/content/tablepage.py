@@ -311,11 +311,11 @@ class TablePage(base.ATCTContent):
             ('prepend', _("At the beginning"))),
         )
 
-#    def __bobo_traverse__(self, REQUEST, name):
-#        storage = IDataStorage(self)
-#        traversed = storage[name]
-#        if not traversed:
-#            return super(TablePage, self).__bobo_traverse__(REQUEST, name)
-#        return traversed
+    def __bobo_traverse__(self, REQUEST, name):
+        """Allows transparent access to rows"""
+        if name.startswith('row-'):
+            storage = IDataStorage(self)
+            return storage[name[4:]]
+        return super(TablePage, self).__bobo_traverse__(REQUEST, name)
 
 atapi.registerType(TablePage, config.PROJECTNAME)

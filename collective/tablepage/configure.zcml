@@ -17,6 +17,8 @@
   <include package=".storage" />
   <include file="vocabularies.zcml" />
 
+  <adapter factory=".catalog.getObjPositionInParent" name="getObjPositionInParent" />
+
   <genericsetup:registerProfile
       name="default"
       title="Page with Table"

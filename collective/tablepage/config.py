@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 PROJECTNAME = 'collective.tablepage'
-RESERVED_IDS = ('__creator__', '__label__', '__cache__', 'id', '__uuuid__')
+RESERVED_IDS = ('__creator__', '__label__', '__cache__', 'id', '__uuid__', 'getObjPositionInParent')
 
 ADD_PERMISSIONS = {
     'TablePage': 'collective.tablepage: Add TablePage',

@@ -85,7 +85,7 @@ class TextFieldTestCase(unittest.TestCase):
         configuration = tp.getPageColumns()
         configuration[0]['options'] = ['unique']
         tp.setPageColumns(configuration)
-        self.storage.add({'__creator__': 'user1', 'the_text_data': 'foo bar baz'})
+        self.storage.add({'__creator__': 'user1', 'the_text_data': 'foo bar baz', '__uuid__': 'aaa-bbb'})
         request.form['form.submitted'] = '1'
         request.form['row-index'] = 0
         request.form['the_text_data'] = 'foo bar baz'

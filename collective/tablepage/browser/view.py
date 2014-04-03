@@ -220,7 +220,7 @@ class EditRecordView(BrowserView):
                 self._addNewVersion(_(msgid="Row added",
                                       domain="collective.tablepage",
                                       context=context))
-            tp_catalog.index_row(context, to_be_saved)
+            tp_catalog.catalog_row(context, to_be_saved)
 
     def _addNewVersion(self, comment=''):
         """Content must be updated, so the history machinery will save a new version"""
@@ -231,13 +231,14 @@ class EditRecordView(BrowserView):
 
 
 class DeleteRecordView(EditRecordView):
-    """Delete a row on the table"""
+    """Delete rows from the table"""
     
     def __call__(self):
         context = self.context
         request = self.request
         indexes = self.request.form.get('row-index')
         b_start = request.form.get('b_start', None)
+        tp_catalog = getToolByName(context, config.CATALOG_ID)
 
         if indexes is not None:
             member = getMultiAdapter((context, request), name=u'plone_portal_state').member()
@@ -253,6 +254,7 @@ class DeleteRecordView(EditRecordView):
                 if not sm.checkPermission(config.MANAGE_TABLE, context) \
                             and member.getId()!=storage[index-c].get('__creator__'):
                         raise Unauthorized("You can't delete that record")
+                tp_catalog.uncatalog_row(context, storage[index-c].get('__uuid__'))
                 del storage[index-c]
 
             if len(indexes)==1:
