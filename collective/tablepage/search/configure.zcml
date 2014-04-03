@@ -1,0 +1,40 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.tablepage">
+
+   <!-- search support -->
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides=".interfaces.ISearchableColumn"
+       factory=".text.TextSearch"
+       name="String"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides=".interfaces.ISearchableColumn"
+       factory=".text.TextSearch"
+       name="Text"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides=".interfaces.ISearchableColumn"
+       factory=".text.TextSearch"
+       name="Email"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides=".interfaces.ISearchableColumn"
+       factory=".select.SelectSearch"
+       name="Select"
+       />
+
+</configure>

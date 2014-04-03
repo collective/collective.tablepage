@@ -13,4 +13,14 @@
     component=".vocabularies.rowOptionsVocabularyFactory"
     />
 
+  <utility
+    name="collective.tablepage.vocabulary.searchable_columns"
+    component=".vocabularies.searchableColumnsVocabularyFactory"
+    />
+
+  <utility
+    name="collective.tablepage.vocabulary.search_additional_options"
+    component=".vocabularies.searchAdditionalOptionsVocabularyFactory"
+    />
+
 </configure>

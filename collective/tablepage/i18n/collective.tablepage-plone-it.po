@@ -17,3 +17,6 @@ msgstr ""
 msgid "Edit table"
 msgstr "Modifica tabella"
 
+msgid "label_schema_search"
+msgstr "Ricerca"
+

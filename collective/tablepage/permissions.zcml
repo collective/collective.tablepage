@@ -27,4 +27,16 @@
       title="collective.tablepage: Upload CSV"
      />
 
+  <!-- can manage search in tables -->
+  <permission
+      id="collective.tablepage.accessSearchConfiguration"
+      title="collective.tablepage: Access Search Configuration"
+     />
+
+  <!-- can see search in tables -->
+  <permission
+      id="collective.tablepage.showSearch"
+      title="collective.tablepage: Show Search"
+     />
+
 </configure>

@@ -44,5 +44,15 @@
         profile="collective.tablepage:default"
     />
 
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.8"
+        description="Migrate collective.tablepage to 0.8"
+        source="*"
+        destination="1300"
+        handler=".setuphandlers.migrateTo08"
+        sortkey="4"
+        profile="collective.tablepage:default"
+    />
+
 
 </configure>

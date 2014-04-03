@@ -6,6 +6,7 @@ RESERVED_IDS = ('__creator__', '__label__', '__cache__', 'id', '__uuid__', 'getO
 ADD_PERMISSIONS = {
     'TablePage': 'collective.tablepage: Add TablePage',
 }
+MANAGE_SEARCH_PERMISSION = "collective.tablepage: Access Search Configuration"
 
 MANAGE_TABLE = "collective.tablepage: Manage Table"
 MANAGE_LABEL = "collective.tablepage: Manage Label"

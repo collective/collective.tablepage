@@ -15,6 +15,7 @@
   <include package=".fields" />
   <include package=".validators" />
   <include package=".storage" />
+  <include package=".search" />
   <include file="vocabularies.zcml" />
 
   <adapter factory=".catalog.getObjPositionInParent" name="getObjPositionInParent" />

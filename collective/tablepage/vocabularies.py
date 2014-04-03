@@ -7,6 +7,8 @@ except ImportError:
 
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.search.interfaces import ISearchableColumn
+from zope.component import getAdapters
 from zope.component import getAdapters
 from zope.i18n import translate
 from zope.interface import implements
@@ -44,6 +46,35 @@ class RowOptionsVocabulary(object):
                  ]
         return SimpleVocabulary(terms)
 
+class SearchableColumnsVocabulary(object):
+    """All searchable columns inside a table page
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        configuration = context.getPageColumns()
+        adaptables = [x[0] for x in getAdapters((context, context.REQUEST), ISearchableColumn)]
+        terms = []
+        for conf in configuration:
+            if conf['type'] in adaptables:
+                terms.append(SimpleTerm(value=conf['id'], token=conf['id'], title=conf['label']))
+        return SimpleVocabulary(terms)
+
+
+class SearchAdditionalOptionsVocabulary(object):
+    """Additional search options
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        terms = [SimpleTerm(value='SearchableText', token='SearchableText',
+                            title=_(u'Use in full text search')),
+
+                 ]
+        return SimpleVocabulary(terms)
+
 
 columnTypesVocabularyFactory = ColumnTypesVocabulary()
 rowOptionsVocabularyFactory = RowOptionsVocabulary()
+searchableColumnsVocabularyFactory = SearchableColumnsVocabulary()
+searchAdditionalOptionsVocabularyFactory = SearchAdditionalOptionsVocabulary()

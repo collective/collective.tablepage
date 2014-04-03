@@ -28,5 +28,15 @@
       <role name="Contributor" />
       <role name="Editor" />
     </permission>
+    <permission name="collective.tablepage: Access Search Configuration" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Editor" />
+    </permission>
+    <permission name="collective.tablepage: Show Search" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator" />
+      <role name="Anonymous" />
+    </permission>
   </permissions>
 </rolemap>

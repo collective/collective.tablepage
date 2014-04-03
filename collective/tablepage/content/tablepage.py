@@ -211,6 +211,48 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
             ),
     ),
 
+    DataGridField('searchConfig',
+        required=False,
+        storage=atapi.AnnotationStorage(),
+        schemata="search",
+        columns=("id", "label", "description", "additionalConfiguration"),
+        write_permission=config.MANAGE_SEARCH_PERMISSION,
+        widget=DataGridWidget(
+            label=_(u"Search configuration"),
+            description=_('help_searchConfig',
+                          default=u"Provide configuration for the search in table.\n"
+                                  u"Please note that this section will not load live data from the \"Columns\" field. "
+                                  u"If you changed something in the columns configuration during this edit attempt you MUST "
+                                  u"save first and came back here again."),
+            visible={'view': 'invisible', 'edit': 'visible'},
+            columns={
+                 'id' : SelectColumn(_(u"Column"),
+                                     col_description=_('help_searchConfig_id',
+                                                       default=u"The column on which you want to activate the search.\n"
+                                                               u"Order matters."),
+                                     vocabulary_factory="collective.tablepage.vocabulary.searchable_columns",
+                                     required=True,
+                                     default=""),
+                 'label' : Column(_(u"Column label"),
+                                  col_description=_('help_searchConfig_label',
+                                                    default=u"The label to be used in the search form. "
+                                                            u"Default is the column original label."),
+                                  required=False),
+                 'description' : TextAreaColumn(_(u"Column description"),
+                                                col_description=_('help_searchConfig_description',
+                                                                  default=u"A description to be used search form. "
+                                                                          u"Default is the column original description."),),
+                 'additionalConfiguration' : MultiSelectColumn(_(u"Additional features"),
+                                                               col_description=_("search_additional_configuration",
+                                                                                 default=u"Other options you can activate "
+                                                                                         u"on the search"),
+                                              vocabulary_factory="collective.tablepage.vocabulary.search_additional_options"),
+            },
+            condition="object/getPageColumns",
+        ),
+    ),
+
+
 ))
 
 
@@ -255,6 +297,23 @@ class TablePage(base.ATCTContent):
             portal_transforms = getToolByName(self, 'portal_transforms')
             return str(portal_transforms.convertToData(mimetype, text))
         return text
+
+    security.declarePrivate('validate_searchConfig')
+    def validate_searchConfig(self, value):
+        """Need to check table page ids"""
+        ids = []
+        columns_ids = [c.get('id') for c in self.getPageColumns()]
+        for record in value:
+            # do not validate the hidden empty row
+            if record.get('orderindex_').isdigit():
+                id = record.get('id', '')
+                try:
+                    ids.index(id)
+                    return _('searchconfig_validation_error_duplicated_id',
+                             default=u'The column "${col_name}" has already been used',
+                             mapping={'col_name': id})
+                except ValueError:
+                        ids.append(id)
 
     security.declarePrivate('validate_pageColumns')
     def validate_pageColumns(self, value):
