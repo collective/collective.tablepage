@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-03 15:53+0000\n"
+"POT-Creation-Date: 2014-04-07 14:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,15 @@ msgstr ""
 msgid "${count} rows deleted"
 msgstr ""
 
-#: ./content/tablepage.py:360
+#: ./content/tablepage.py:362
 msgid "... always display"
 msgstr ""
 
-#: ./content/tablepage.py:358
+#: ./content/tablepage.py:360
 msgid "... only on page view"
 msgstr ""
 
-#: ./content/tablepage.py:359
+#: ./content/tablepage.py:361
 msgid "... only when editing table"
 msgstr ""
 
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Additional features"
 msgstr ""
 
-#: ./content/tablepage.py:367
+#: ./content/tablepage.py:369
 msgid "At the beginning"
 msgstr ""
 
-#: ./content/tablepage.py:366
+#: ./content/tablepage.py:368
 msgid "At the end"
 msgstr ""
 
@@ -103,7 +103,7 @@ msgid "CSS classes to be applied to the table.
 This list is taken from available TinyMCE style for tables."
 msgstr ""
 
-#: ./content/tablepage.py:228
+#: ./content/tablepage.py:229
 msgid "Column"
 msgstr ""
 
@@ -185,6 +185,10 @@ msgstr ""
 
 #: ./browser/templates/edit-record.pt:29
 msgid "Fill data of this table's row"
+msgstr ""
+
+#: ./search/templates/search.pt:19
+msgid "Filter results"
 msgstr ""
 
 #: ./fields/templates/link.pt:73
@@ -314,7 +318,11 @@ msgstr ""
 msgid "Row moved"
 msgstr ""
 
-#: ./content/tablepage.py:220
+#: ./search/templates/search.pt:6
+msgid "Seach in table"
+msgstr ""
+
+#: ./content/tablepage.py:221
 msgid "Search configuration"
 msgstr ""
 
@@ -387,7 +395,7 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
-#: ./vocabularies.py:71
+#: ./vocabularies.py:72
 msgid "Use in full text search"
 msgstr ""
 
@@ -398,6 +406,11 @@ msgstr ""
 #. Default: "Select the folder where users will be able to store attachments for attachment-like columns (if any).\nUsers must be able to add new contents on that folder; if not, they will be only able to select existings items.\nIf not provided, the folder containing this document will be used."
 #: ./content/tablepage.py:138
 msgid "attachmentStorage_help"
+msgstr ""
+
+#. Default: "There are columns ($cols) defined as searchable but no indexes with same has been found in the tablepage_catalog tool.\nSearch form will use them."
+#: ./events.py:22
+msgid "bad_configured_search_cols"
 msgstr ""
 
 #. Default: "${count} rows added"
@@ -508,23 +521,23 @@ msgstr ""
 msgid "help_pageColumns"
 msgstr ""
 
-#. Default: "Provide configuration for the search in table.\nPlease note that this section will not load live data from the \"Columns\" field. If you changed something in the columns configuration during this action you must save first and go back here again."
-#: ./content/tablepage.py:221
+#. Default: "Provide configuration for the search in table.\nPlease note that this section will not load live data from the \"Columns\" field. If you changed something in the columns configuration during this edit attempt you MUST save first and came back here again."
+#: ./content/tablepage.py:222
 msgid "help_searchConfig"
 msgstr ""
 
-#. Default: "A description to be used search form. Default is the column original description."
-#: ./content/tablepage.py:240
+#. Default: "A description to be used in search form"
+#: ./content/tablepage.py:242
 msgid "help_searchConfig_description"
 msgstr ""
 
-#. Default: "The column on which you want to activate the search. Order matters."
-#: ./content/tablepage.py:229
+#. Default: "The column on which you want to activate the search.\nOrder matters."
+#: ./content/tablepage.py:230
 msgid "help_searchConfig_id"
 msgstr ""
 
 #. Default: "The label to be used in the search form. Default is the column original label."
-#: ./content/tablepage.py:235
+#: ./content/tablepage.py:237
 msgid "help_searchConfig_label"
 msgstr ""
 
@@ -590,37 +603,37 @@ msgid "options_column_description"
 msgstr ""
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:325
+#: ./content/tablepage.py:327
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr ""
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:331
+#: ./content/tablepage.py:333
 msgid "pagecolumn_validation_error_id_format"
 msgstr ""
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:335
+#: ./content/tablepage.py:337
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
 #. Default: "Required"
-#: ./vocabularies.py:40
+#: ./vocabularies.py:41
 msgid "row_options_required"
 msgstr ""
 
 #. Default: "Unique"
-#: ./vocabularies.py:42
+#: ./vocabularies.py:43
 msgid "row_options_unique"
 msgstr ""
 
 #. Default: "Other options you can activate on the search"
-#: ./content/tablepage.py:244
+#: ./content/tablepage.py:245
 msgid "search_additional_configuration"
 msgstr ""
 
 #. Default: "The column \"${col_name}\" has already been used"
-#: ./content/tablepage.py:309
+#: ./content/tablepage.py:311
 msgid "searchconfig_validation_error_duplicated_id"
 msgstr ""
 

@@ -1,0 +1,20 @@
+/**
+ * Default style for search form
+ */
+
+.searchField {
+	clear: none;
+}
+
+.evenSearchField {
+	float: left;
+	clear: left;
+	max-width: 50%;
+}
+
+
+.oddSearchField {
+	max-width: 50%;
+	float: right;
+	clear: right; 
+}

@@ -1,0 +1,16 @@
+<tal:field define="fieldName options/id">
+	<label for=""
+	       tal:attributes="for string:search_${options/id}"
+		   tal:content="options/label">Search label</label><br tal:omit-tag="options/description" />
+	<div class="formHelp"
+	     tal:content="options/description">Help filling me</div>
+	<select name="" id="" multiple="multiple"
+	        tal:attributes="id string:search_${fieldName};
+	                        name string:${fieldName}:list;">
+		<option value=""
+		        tal:repeat="val view/index_values"
+				tal:content="val"
+		        tal:attributes="value val;
+				                selected python:val in request.get(fieldName, []) and 'selected' or nothing">Value</option>
+	</select>
+</tal:field>

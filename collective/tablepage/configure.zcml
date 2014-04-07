@@ -20,6 +20,13 @@
 
   <adapter factory=".catalog.getObjPositionInParent" name="getObjPositionInParent" />
 
+
+<subscriber
+    for=".interfaces.ITablePage
+         Products.Archetypes.interfaces.IObjectEditedEvent"
+    handler=".events.checkSearchConfig"
+    />
+
   <genericsetup:registerProfile
       name="default"
       title="Page with Table"

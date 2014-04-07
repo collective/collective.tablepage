@@ -240,8 +240,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
                                   required=False),
                  'description' : TextAreaColumn(_(u"Column description"),
                                                 col_description=_('help_searchConfig_description',
-                                                                  default=u"A description to be used search form. "
-                                                                          u"Default is the column original description."),),
+                                                                  default=u"A description to be used in search form"),),
                  'additionalConfiguration' : MultiSelectColumn(_(u"Additional features"),
                                                                col_description=_("search_additional_configuration",
                                                                                  default=u"Other options you can activate "

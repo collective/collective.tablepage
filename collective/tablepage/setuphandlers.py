@@ -37,6 +37,7 @@ def migrateTo05b2(context):
 def migrateTo08(context):
     setup_tool = getToolByName(context, 'portal_setup')
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'rolemap')
+    setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'cssregistry')
     createCatalog(context)
     logger.info("Now indexing all rows inside Table Page contents")
     context.tablepage_catalog.clearFindAndRebuild()

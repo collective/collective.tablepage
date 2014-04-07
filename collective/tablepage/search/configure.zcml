@@ -1,40 +1,39 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="collective.tablepage">
 
+   <browser:viewlet
+       name="collective.tablepage.search"
+       manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+       class=".search_table.SearchTableViewlet"
+       template="templates/search.pt"
+       permission="collective.tablepage.showSearch"
+	   view="plone.app.layout.globals.interfaces.IViewView"
+       />
+
    <!-- search support -->
 
-   <adapter
-       for="collective.tablepage.interfaces.ITablePage
-	        zope.publisher.interfaces.browser.IBrowserRequest"
-       provides=".interfaces.ISearchableColumn"
-       factory=".text.TextSearch"
-       name="String"
-       />
-
-   <adapter
-       for="collective.tablepage.interfaces.ITablePage
-	        zope.publisher.interfaces.browser.IBrowserRequest"
-       provides=".interfaces.ISearchableColumn"
-       factory=".text.TextSearch"
-       name="Text"
-       />
-
-   <adapter
-       for="collective.tablepage.interfaces.ITablePage
-	        zope.publisher.interfaces.browser.IBrowserRequest"
-       provides=".interfaces.ISearchableColumn"
-       factory=".text.TextSearch"
-       name="Email"
-       />
-
-   <adapter
-       for="collective.tablepage.interfaces.ITablePage
-	        zope.publisher.interfaces.browser.IBrowserRequest"
-       provides=".interfaces.ISearchableColumn"
-       factory=".select.SelectSearch"
-       name="Select"
-       />
+   <utility
+      name="String"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
+      name="Text"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
+      name="Email"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
+      name="Select"
+      factory=".select.SelectSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
 
 </configure>

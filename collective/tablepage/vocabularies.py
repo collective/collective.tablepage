@@ -10,6 +10,7 @@ from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.search.interfaces import ISearchableColumn
 from zope.component import getAdapters
 from zope.component import getAdapters
+from zope.component import getUtilitiesFor
 from zope.i18n import translate
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -53,7 +54,7 @@ class SearchableColumnsVocabulary(object):
 
     def __call__(self, context):
         configuration = context.getPageColumns()
-        adaptables = [x[0] for x in getAdapters((context, context.REQUEST), ISearchableColumn)]
+        adaptables = [x[0] for x in getUtilitiesFor(ISearchableColumn)]
         terms = []
         for conf in configuration:
             if conf['type'] in adaptables:

@@ -20,15 +20,15 @@ msgstr ""
 msgid "${count} rows deleted"
 msgstr "${count} righe eliminate"
 
-#: ./content/tablepage.py:360
+#: ./content/tablepage.py:362
 msgid "... always display"
 msgstr "... mostra sempre"
 
-#: ./content/tablepage.py:358
+#: ./content/tablepage.py:360
 msgid "... only on page view"
 msgstr "... solo nella vista della pagina"
 
-#: ./content/tablepage.py:359
+#: ./content/tablepage.py:361
 msgid "... only when editing table"
 msgstr "... solo in modifica della tabella"
 
@@ -79,11 +79,11 @@ msgstr "Aggiungi una nuova riga sotto questa"
 msgid "Additional features"
 msgstr "Funzionalità aggiuntive"
 
-#: ./content/tablepage.py:367
+#: ./content/tablepage.py:369
 msgid "At the beginning"
 msgstr "All'inizio"
 
-#: ./content/tablepage.py:366
+#: ./content/tablepage.py:368
 msgid "At the end"
 msgstr "Alla fine"
 
@@ -99,9 +99,9 @@ msgstr "Torna alla modifica della tabella"
 msgid "CSS classes"
 msgstr "Classi CSS"
 
-#: ./content/tablepage.py:228
+#: ./content/tablepage.py:229
 msgid "Column"
-msgstr ""
+msgstr "Colonna"
 
 #: ./content/tablepage.py:71
 msgid "Column configuration"
@@ -182,6 +182,10 @@ msgstr "Più file"
 #: ./browser/templates/edit-record.pt:29
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
+
+#: ./search/templates/search.pt:19
+msgid "Filter results"
+msgstr "Filtra risultati"
 
 #: ./fields/templates/link.pt:73
 msgid "Internal link"
@@ -310,9 +314,13 @@ msgstr "La riga è stata salvata"
 msgid "Row moved"
 msgstr "Riga mossa"
 
-#: ./content/tablepage.py:220
+#: ./search/templates/search.pt:6
+msgid "Seach in table"
+msgstr "Cerca nella tabella"
+
+#: ./content/tablepage.py:221
 msgid "Search configuration"
-msgstr ""
+msgstr "Configurazioni della ricerca"
 
 msgid "Select"
 msgstr "Selezione"
@@ -383,9 +391,9 @@ msgstr "Carica dati con CSV"
 msgid "Upload..."
 msgstr "Carica..."
 
-#: ./vocabularies.py:71
+#: ./vocabularies.py:72
 msgid "Use in full text search"
-msgstr ""
+msgstr "Usa nella ricerca full-text"
 
 #: ./browser/templates/upload-csv.pt:45
 msgid "Validate data"
@@ -398,6 +406,13 @@ msgstr ""
 "Seleziona la cartella dove gli utenti potranno caricare allegati per le colonne di tipo simil-allegato (se ve ne sono).\n"
 "Gli utenti devono avere i diritti di caricare contenuti in questa cartella; se no, saranno solo in grado di selezionare elementi già esistenti.\n"
 "Se non fornita, sarà usata la cartella contenente questo documento."
+
+#. Default: "There are columns ($cols) defined as searchable but no indexes with same has been found in the tablepage_catalog tool.\nSearch form will use them."
+#: ./events.py:22
+msgid "bad_configured_search_cols"
+msgstr ""
+"Ci sono colonne ($cols) definite come ricercabili ma nessun indice con lo stesso nome è stato trovato nel tool tablepage_catalog.\n"
+"Il form di ricerca non le utilizzerà."
 
 #. Default: "${count} rows added"
 #: ./browser/updownload.py:163
@@ -514,25 +529,30 @@ msgstr "Fornisci un nuovo documento. Verrà creato un nuovo contenuto File."
 msgid "help_pageColumns"
 msgstr "Definizione delle righe dentro alla tabella"
 
-#. Default: "Provide configuration for the search in table.\nPlease note that this section will not load live data from the \"Columns\" field. If you changed something in the columns configuration during this action you must save first and go back here again."
-#: ./content/tablepage.py:221
+#. Default: "Provide configuration for the search in table.\nPlease note that this section will not load live data from the \"Columns\" field. If you changed something in the columns configuration during this edit attempt you MUST save first and came back here again."
+#: ./content/tablepage.py:222
 msgid "help_searchConfig"
 msgstr ""
+"Fornisce le configurazioni per la ricerca nella tabella.\n"
+"Si prega di notare che questa sezione non caricherà i dati \"live\" dal campo \"Colonne\".\n"
+"Se è stato modificato qualcosa nelle configurazioni della colonna durante questa sessione di salvataggio DOVRETE salvare per poi tornare qui in seguito."
 
-#. Default: "A description to be used search form. Default is the column original description."
-#: ./content/tablepage.py:240
+#. Default: "A description to be used in search form"
+#: ./content/tablepage.py:242
 msgid "help_searchConfig_description"
-msgstr ""
+msgstr "Una descrizione da usare nel form di ricerca"
 
-#. Default: "The column on which you want to activate the search. Order matters."
-#: ./content/tablepage.py:229
+#. Default: "The column on which you want to activate the search.\nOrder matters."
+#: ./content/tablepage.py:230
 msgid "help_searchConfig_id"
 msgstr ""
+"La colonna su cui vuoi attivare la ricerca.\n"
+"L'ordine conta."
 
 #. Default: "The label to be used in the search form. Default is the column original label."
-#: ./content/tablepage.py:235
+#: ./content/tablepage.py:237
 msgid "help_searchConfig_label"
-msgstr ""
+msgstr "L'etichetta da usare nel form di ricerca. Il valore predefinito è preso dall'etichetta della colonna."
 
 #. Default: "You can select an existing File content from folder ${storage}"
 #: ./fields/templates/file.pt:48
@@ -596,39 +616,39 @@ msgid "options_column_description"
 msgstr "Altre opzioni che puoi attivare sulla colonna"
 
 #. Default: "Id \"${col_name}\" is duplicated"
-#: ./content/tablepage.py:325
+#: ./content/tablepage.py:327
 msgid "pagecolumn_validation_error_duplicated_id"
 msgstr "L'id \"${col_name}\" è duplicato"
 
 #. Default: "Invalid value: \"${col_name}\". \"Column Id\" must not contains special characters"
-#: ./content/tablepage.py:331
+#: ./content/tablepage.py:333
 msgid "pagecolumn_validation_error_id_format"
 msgstr "Valore non valido: \"${col_name}\". \"Id Colonna\" non deve contenere caratteri speciali"
 
 #. Default: "A reserved value has been used for \"id\""
-#: ./content/tablepage.py:335
+#: ./content/tablepage.py:337
 msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 
 #. Default: "Required"
-#: ./vocabularies.py:40
+#: ./vocabularies.py:41
 msgid "row_options_required"
 msgstr "Obbligatorio"
 
 #. Default: "Unique"
-#: ./vocabularies.py:42
+#: ./vocabularies.py:43
 msgid "row_options_unique"
 msgstr "Unico"
 
 #. Default: "Other options you can activate on the search"
-#: ./content/tablepage.py:244
+#: ./content/tablepage.py:245
 msgid "search_additional_configuration"
-msgstr ""
+msgstr "Altre opzioni che puoi attivare sulla ricerca"
 
 #. Default: "The column \"${col_name}\" has already been used"
-#: ./content/tablepage.py:309
+#: ./content/tablepage.py:311
 msgid "searchconfig_validation_error_duplicated_id"
-msgstr ""
+msgstr "La colonna \"${col_name}\" è già stata usata"
 
 #. Default: ","
 #: ./fields/number.py:35

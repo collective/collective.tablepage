@@ -2,7 +2,6 @@
 
 from zope.interface import Interface
 from zope.interface import Attribute
-#from Products.ATContentTypes.interface.interfaces import ITextContent
 from Products.ATContentTypes.interface.document import IATDocument
 
 
