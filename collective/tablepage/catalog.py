@@ -74,6 +74,7 @@ class TablePageCatalog(CatalogTool):
         return self(**kwargs)
 
     def catalog_row(self, context, row_data):
+        """Remove new row data to catalog"""
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
@@ -90,8 +91,20 @@ class TablePageCatalog(CatalogTool):
 
     security.declareProtected(manage_zcatalog_entries, 'uncatalog_row')
     def uncatalog_row(self, context, uid):
+        """Remove a row from the catalog"""
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), uid)
         self.uncatalog_object(path)
+
+    security.declareProtected(manage_zcatalog_entries, 'reindex_rows')
+    def reindex_rows(self, context, uids):
+        """Reindex one of more rows using uuid information"""
+        if isinstance(uids, basestring):
+            uids = [uids]
+        for uid in uids:
+            path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), uid)
+            data = IDataStorage(context).get(uid)
+            self.uncatalog_object(path)
+            self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
 
     security.declareProtected(search_zcatalog, 'resolve_path')
     def resolve_path(self, path):

@@ -117,3 +117,28 @@ class TablePageCatalogTestCase(unittest.TestCase):
         self.assertEqual(self.tp_catalog.searchTablePage(tp)[1]._unrestrictedGetObject()['col_a'],
                          'foo bar baz')
         
+    def test_catalog_reindex_rows(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        self.add_rows()
+        tp = portal.table_page1
+        storage = IDataStorage(tp)
+        portal = self.layer['portal']
+        data = {'__creator__': 'user1', 'col_a': 'Proin elementum', '__uuid__': 'ccc'}
+        storage.add(data)
+        self.tp_catalog.catalog_row(tp, data)
+        self.assertEqual(len(list(self.tp_catalog.searchTablePage(tp))), 3)
+        self.assertEqual(self.tp_catalog.searchTablePage(tp)[0]._unrestrictedGetObject()['col_a'],
+                         'Lorem ipsum')
+        self.assertEqual(self.tp_catalog.searchTablePage(tp)[1]._unrestrictedGetObject()['col_a'],
+                         'dolor sit amet')
+        self.assertEqual(self.tp_catalog.searchTablePage(tp)[2]._unrestrictedGetObject()['col_a'],
+                         'Proin elementum')
+        data = storage.get('bbb')
+        del storage['bbb']
+        storage.add(data, 2)
+        self.tp_catalog.reindex_rows(tp, ['bbb', 'ccc'])
+        self.assertEqual(self.tp_catalog.searchTablePage(tp)[1]._unrestrictedGetObject()['col_a'],
+                         'Proin elementum')
+        self.assertEqual(self.tp_catalog.searchTablePage(tp)[2]._unrestrictedGetObject()['col_a'],
+                         'dolor sit amet')

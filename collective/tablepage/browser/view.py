@@ -285,11 +285,13 @@ class MoveRecordView(EditRecordView):
         b_start = form.get('b_start', None)
 
         if index is not None and direction in ('up', 'down'):
+            tp_catalog = getToolByName(context, config.CATALOG_ID)
             direction = direction=='up' and -1 or 1
             storage = self.storage
             row = storage[index]
             del storage[index]
             storage.add(row, index+direction)
+            tp_catalog.reindex_rows(context, [row['__uuid__'], storage[index]['__uuid__']])
             putils = getToolByName(context, 'plone_utils')
             _ = getToolByName(context, 'translation_service').utranslate
             putils.addPortalMessage(_(msgid='Row has been moved',

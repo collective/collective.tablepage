@@ -42,9 +42,18 @@ class DataStorage(object):
 
     def get(self, index):
         """Safe getter for restricted python. Return a primitive dict, not a persistent"""
+        if isinstance(index, basestring):
+            for row in self._ann:
+                if row.get('__uuid__') == index:
+                    return row.__dict__['data'].copy()
         return self._ann[index].__dict__['data'].copy()
 
     def __delitem__(self, index):
+        if isinstance(index, basestring):
+            for pos, row in enumerate(self._ann):
+                if row.get('__uuid__') == index:
+                    del self._ann[pos]
+                    return
         del self._ann[index]
 
     def __len__(self):
