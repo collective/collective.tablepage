@@ -96,8 +96,8 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
-        storage.add({'__creator__': 'user1', 'col_a': 'some other futile data'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1', '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'some other futile data', '__uuid__': 'bbb'})
         login(portal, 'user3')
         view = tp.restrictedTraverse('@@move-record')
         view.request.form['row-index'] = 0
