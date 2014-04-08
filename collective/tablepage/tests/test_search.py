@@ -8,6 +8,7 @@ from plone.app.testing import login
 
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
+from collective.tablepage.catalog import args as index_args
 
 
 class TablePageCatalogTestCase(unittest.TestCase):
@@ -27,7 +28,8 @@ class TablePageCatalogTestCase(unittest.TestCase):
         self.tp_catalog = portal.tablepage_catalog
         self.storage = IDataStorage(portal.table_page)
         request.set('ACTUAL_URL', 'http://nohost/plone/table_page')
-
+        self.index_args = index_args(doc_attr='SearchableText', lexicon_id='pg_lexicon',
+                                     index_type='Okapi BM25 Rank')
 
     def test_search_form_not_shown1(self):
         portal = self.layer['portal']
@@ -71,3 +73,15 @@ class TablePageCatalogTestCase(unittest.TestCase):
         output = tp()
         self.assertTrue('<select name="col_a:list"' in output)
         self.assertTrue('<option value="Foo Bar Baz" selected="selected">' in output)
+
+    def test_search_form_postback2(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '', 'additionalConfiguration': []}])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
+        self.tp_catalog.addIndex('col_a', 'ZCTextIndex', self.index_args)
+        self.tp_catalog.clearFindAndRebuild()
+        request.form['col_a'] = 'Foo Bar Baz'
+        output = tp()
+        self.assertTrue('<input type="text" name="col_a" id="search_col_a" value="Foo Bar Baz" />' in output)
