@@ -32,6 +32,8 @@ class CatalogDictWrapper(object):
         for k,v in dict_obj.items():
             if k=='__creator__':
                 self.Creator = v
+            elif k=='__uuid__':
+                self.UID = v
             elif k.startswith('_'):
                 continue
             self.__setattr__(k, v)
@@ -205,6 +207,8 @@ def manage_addTablePageCatalog(self, REQUEST=None):
     cat.addColumn('getObjPositionInParent')
     # getObjPositionInParent 
     cat.addIndex('Creator', 'FieldIndex')
+    # UID
+    cat.addColumn('UID')
 
     if REQUEST is not None:
         return self.manage_main(self, REQUEST, update_menu=1)

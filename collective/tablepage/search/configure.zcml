@@ -7,13 +7,21 @@
    <browser:viewlet
        name="collective.tablepage.search"
        manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+	   for="..interfaces.ITablePage"
        class=".search_table.SearchTableViewlet"
        template="templates/search.pt"
        permission="collective.tablepage.showSearch"
 	   view="plone.app.layout.globals.interfaces.IViewView"
        />
-
-   <!-- search support -->
+   <!--browser:viewlet
+       name="collective.tablepage.search"
+       manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+	   for="..interfaces.ITablePage"
+       class=".search_table.SearchTableViewlet"
+       template="templates/search.pt"
+       permission="collective.tablepage.showSearch"
+	   view="collective.tablepage.browser.view.ITableEditView"
+       /-->
 
    <utility
       name="String"

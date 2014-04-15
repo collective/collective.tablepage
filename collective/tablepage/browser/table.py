@@ -30,6 +30,7 @@ class TableViewView(BrowserView):
         self.edit_mode = False
         self.last_page_label = {}
         self.b_start = 0
+        self.result_length = 0
 
     def __call__(self):
         storage = self.storage
@@ -53,7 +54,7 @@ class TableViewView(BrowserView):
             # which stored text directly as sent by the browser, which could
             # be any encoding in the world.
             orig = unicode(orig, 'utf-8', 'ignore')
-            logger.warn("Static portlet at %s has stored non-unicode text. "
+            logger.warn("Table at %s has stored non-unicode text. "
                 "Assuming utf-8 encoding." % context.absolute_url())
 
         # Portal transforms needs encoded strings
@@ -76,7 +77,7 @@ class TableViewView(BrowserView):
 
     @property
     def is_empty(self):
-        return len(self.storage)==0
+        return self.result_length==0
 
     def showHeaders(self):
         """Logic for display table headers"""
@@ -111,15 +112,21 @@ class TableViewView(BrowserView):
                 return storage[index]['__label__']
         return {}
 
-    def rows(self, batch=False, bsize=0, b_start=0):
-        storage = self.storage
+    def rows(self, batch=False, bsize=0, b_start=0, search=False):
         context = self.context
         request = self.request
+        tp_catalog = getToolByName(context, 'tablepage_catalog')
+        if not search:
+            storage = self.storage
+            self.result_length = len(storage)
+        else:
+            storage = tp_catalog.searchTablePage(context, **request.form)
+            self.result_length = getattr(storage, 'actual_result_count') or len(storage)
 
         rows = []
         adapters = {}
         # check if b_start is out on index
-        if b_start>len(storage):
+        if b_start>self.result_length:
             b_start = 0
         b_start
 
@@ -133,7 +140,8 @@ class TableViewView(BrowserView):
 
         index = b_start
         for record in storage[b_start:]:
-
+            if search:
+                record = self.storage[record.UID]
             if batch and index >= b_start+bsize:
                 # Ok, in this way we display always bsize rows, not bsize rows of data
                 # But is enough for now
@@ -172,20 +180,18 @@ class TableViewView(BrowserView):
 
     def batch(self, batch=True, bsize=0, b_start=0):
         request = self.request
-        storage_size = len(self.storage)
         self.b_start = b_start or request.form.get('b_start') or 0
-        # check if b_start_ make sense
-        if self.b_start > storage_size:
-            self.b_start = 0
+        perform_search = 'searchInTable' in request.form.keys()
+        
         bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
         batch = batch and bsize>0 
 
         if not batch:
-            return self.rows()
+            return self.rows(search=perform_search)
 
-        rows = self.rows(batch, bsize, self.b_start)        
+        rows = self.rows(batch=batch, bsize=bsize, b_start=self.b_start, search=perform_search)        
         # replicating foo elements to reach total size
-        rows = [None] * self.b_start + rows + [None] * (storage_size - self.b_start - bsize)
+        rows = [None] * self.b_start + rows + [None] * (self.result_length - self.b_start - bsize)
         return Batch(rows, bsize, start=self.b_start, end=self.b_start+bsize,
                      orphan=int(bsize/10), overlap=0, pagerange=7)
 
