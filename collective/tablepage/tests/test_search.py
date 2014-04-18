@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from zope.component import getMultiAdapter
-
-from plone.app.testing import TEST_USER_NAME
-from plone.app.testing import login
-
+from collective.tablepage.catalog import args as index_args
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
-from collective.tablepage.catalog import args as index_args
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import login
+from pyquery import PyQuery
+from zope.component import getMultiAdapter
 
 
 class TablePageCatalogTestCase(unittest.TestCase):
@@ -85,3 +84,37 @@ class TablePageCatalogTestCase(unittest.TestCase):
         request.form['col_a'] = 'Foo Bar Baz'
         output = tp()
         self.assertTrue('<input type="text" name="col_a" id="search_col_a" value="Foo Bar Baz" />' in output)
+
+    def test_search_simple_filter(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '', 'additionalConfiguration': []}])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Qux Tux', '__uuid__': 'bbb'})
+        self.tp_catalog.addIndex('col_a', 'FieldIndex')
+        self.tp_catalog.clearFindAndRebuild()
+        request.form['col_a'] = 'Foo Bar Baz'
+        request.form['searchInTable'] = '1'
+        pq = PyQuery(tp())
+        table = pq('table.tablePage').text()
+        self.assertTrue('Foo Bar Baz' in table)
+        self.assertFalse('Qux Tux' in table)
+
+    def test_search_text_filter(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '', 'additionalConfiguration': []}])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Qux Bar Tux', '__uuid__': 'bbb'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'XXX YYY', '__uuid__': 'ccc'})
+        self.tp_catalog.addIndex('col_a', 'ZCTextIndex', self.index_args)
+        self.tp_catalog.clearFindAndRebuild()
+        request.form['col_a'] = 'Bar'
+        request.form['searchInTable'] = '1'
+        pq = PyQuery(tp())
+        table = pq('table.tablePage').text()
+        self.assertTrue('Foo Bar Baz' in table)
+        self.assertTrue('Qux Bar Tux' in table)
+        self.assertFalse('XXX YYY' in table)

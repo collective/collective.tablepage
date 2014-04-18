@@ -20,7 +20,7 @@
     <permission name="collective.tablepage: Manage Label" acquire="False">
       <role name="Manager" />
       <role name="Site Administrator" />
-      <role name="Editor" />
+      <!--role name="Editor" /-->
     </permission>
     <permission name="collective.tablepage: Upload CSV" acquire="False">
       <role name="Manager" />

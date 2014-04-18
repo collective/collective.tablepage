@@ -189,7 +189,7 @@ def manage_addTablePageCatalog(self, REQUEST=None):
         'pg_lexicon',
         elements=[
             args(group='Case Normalizer', name='Case Normalizer'),
-            args(group='Stop Words', name=" Don't remove stop words"),
+            args(group='Stop Words', name="Don't remove stop words"),
             args(group='Word Splitter', name="Unicode Whitespace splitter"),
         ]
         )
