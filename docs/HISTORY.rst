@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.1 (unreleased)
+0.8a1 (unreleased)
 ------------------
 
 - Fixed a bug that break CSV export when computed columns are used
@@ -18,6 +18,8 @@ Changelog
   [keul]
 - Link column: put the ``external`` value for ``rel`` for external links and not
   for internal ones
+  [keul]
+- Added search features
   [keul]
 
 0.7 (2014-03-19)
