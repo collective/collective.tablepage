@@ -32,9 +32,9 @@ def _uuid_all(context):
         storage = IDataStorage(obj)
         for row in storage:
             if not row.get('__uuid__'):
-                uuid = str(uuid.uuid4())
-                logger.info(uuid)
-                row['__uuid__'] = uuid
+                new_uid = str(uuid.uuid4())
+                logger.info(new_uid)
+                row['__uuid__'] = new_uid
         logger.info("Done for %s" % brain.getPath())
     logger.info("uuid generation done")
 
