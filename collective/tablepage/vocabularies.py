@@ -47,6 +47,7 @@ class RowOptionsVocabulary(object):
                  ]
         return SimpleVocabulary(terms)
 
+
 class SearchableColumnsVocabulary(object):
     """All searchable columns inside a table page
     """
@@ -55,7 +56,7 @@ class SearchableColumnsVocabulary(object):
     def __call__(self, context):
         configuration = context.getPageColumns()
         adaptables = [x[0] for x in getUtilitiesFor(ISearchableColumn)]
-        terms = []
+        terms = [SimpleTerm(value='SearchableText', token='SearchableText', title=_(u'Search in text'))]
         for conf in configuration:
             if conf['type'] in adaptables:
                 terms.append(SimpleTerm(value=conf['id'], token=conf['id'], title=conf['label']))

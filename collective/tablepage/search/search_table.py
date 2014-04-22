@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from Products.CMFCore.utils import getToolByName
+from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage.search.interfaces import ISearchableColumn
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.component import getUtilitiesFor
-from collective.tablepage.search.interfaces import ISearchableColumn
 
 
 class SearchTableViewlet(ViewletBase):
@@ -11,7 +12,7 @@ class SearchTableViewlet(ViewletBase):
 
     @property
     def view_name(self):
-        # remove this unglyness when Plone 3 will be removed and we ere able to
+        # remove this uglyness when Plone 3 will be removed and we ere able to
         # define our basic view for tablepage
         if self.view.__name__=='plone':
             return ''
@@ -48,15 +49,18 @@ class SearchTableViewlet(ViewletBase):
         fields = []
         for conf in context.getSearchConfig():
             field_id = conf['id']
-            field_type = tableConf[field_id]['type']
+            if field_id=='SearchableText':
+                field_type = 'Text'
+            else:
+                field_type = tableConf[field_id]['type']
             if field_type not in utilities.keys() or field_id not in catalog_keys.keys():
                 continue
             field = utilities[field_type]
             field.id = field_id
-            field.configuration = tableConf[field_id]
+            field.configuration = tableConf.get(field_id) or {}
             field.context = context
             field.request = self.request
-            field.label = conf.get('label') or tableConf[field_id]['label']
-            field.description = conf.get('description') or tableConf[field_id]['description']
+            field.label = conf.get('label') or field.configuration.get('label') or _(u'Search in text')
+            field.description = conf.get('description') or field.configuration.get('description') or ''
             fields.append(field.render(meta_type=catalog_keys[field_id].meta_type))
         return fields

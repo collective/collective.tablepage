@@ -115,11 +115,11 @@ class TableViewView(BrowserView):
     def rows(self, batch=False, bsize=0, b_start=0, search=False):
         context = self.context
         request = self.request
-        tp_catalog = getToolByName(context, 'tablepage_catalog')
         if not search:
             storage = self.storage
             self.result_length = len(storage)
         else:
+            tp_catalog = getToolByName(context, 'tablepage_catalog')
             storage = tp_catalog.searchTablePage(context, **request.form)
             self.result_length = getattr(storage, 'actual_result_count') or len(storage)
 

@@ -13,6 +13,7 @@ from Products.ZCatalog.ZCatalog import ZCatalog
 from plone.indexer import indexer
 from plone.indexer.wrapper import IIndexableObjectWrapper
 from plone.indexer.wrapper import IndexableObjectWrapper
+from plone.memoize.instance import memoize
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import ITablePage
 from collective.tablepage import config
@@ -41,12 +42,35 @@ class CatalogDictWrapper(object):
     def getPhysicalPath(self):
         return self._path.split('/')
 
-    def getObjPositionInParent(self):
+    @memoize
+    def _getRow(self):
         storage = IDataStorage(self._content)
         for index, row in enumerate(storage):
             if row.get('__uuid__')==self._uuid:
-                return index+1
+                return index, row
+
+    def getObjPositionInParent(self):
+        row = self._getRow()
+        if row:
+            index, data = row
+            return index+1
         return 0
+
+    def SearchableText(self):
+        """Get searchable text from all column marked as searchable"""
+        row = self._getRow()
+        if not row:
+            return ''
+        searchable = ''
+        content = self._content
+        conf = content.getPageColumns()
+        search_conf = content.getSearchConfig()
+        index, data = row
+        columns = [c['id'] for c in conf]
+        for c in search_conf:
+            if c['id'] in columns and 'SearchableText' in c['additionalConfiguration']:
+                searchable += data.get(c['id'], '') + ' '
+        return searchable
 
 
 @indexer(ICatalogDictWrapper)
@@ -189,7 +213,7 @@ def manage_addTablePageCatalog(self, REQUEST=None):
         'pg_lexicon',
         elements=[
             args(group='Case Normalizer', name='Case Normalizer'),
-            args(group='Stop Words', name="Don't remove stop words"),
+            args(group='Stop Words', name=" Don't remove stop words"),
             args(group='Word Splitter', name="Unicode Whitespace splitter"),
         ]
         )

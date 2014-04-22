@@ -183,7 +183,7 @@ msgstr "Più file"
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
 
-#: ./search/templates/search.pt:19
+#: ./search/templates/search.pt:21
 msgid "Filter results"
 msgstr "Filtra risultati"
 
@@ -301,7 +301,7 @@ msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:295
+#: ./browser/view.py:297
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
@@ -310,17 +310,22 @@ msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:299
+#: ./browser/view.py:301
 msgid "Row moved"
 msgstr "Riga mossa"
 
-#: ./search/templates/search.pt:6
+#: ./search/templates/search.pt:8
 msgid "Seach in table"
 msgstr "Cerca nella tabella"
 
 #: ./content/tablepage.py:221
 msgid "Search configuration"
 msgstr "Configurazioni della ricerca"
+
+#: ./search/search_table.py:63
+#: ./vocabularies.py:59
+msgid "Search in text"
+msgstr "Cerca nel testo"
 
 msgid "Select"
 msgstr "Selezione"
@@ -391,7 +396,7 @@ msgstr "Carica dati con CSV"
 msgid "Upload..."
 msgstr "Carica..."
 
-#: ./vocabularies.py:72
+#: ./vocabularies.py:73
 msgid "Use in full text search"
 msgstr "Usa nella ricerca full-text"
 

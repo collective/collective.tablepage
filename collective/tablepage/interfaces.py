@@ -13,7 +13,7 @@ class IColumnField(Interface):
     """An object able to render an widget for handling data from a column"""
     
     configuration = Attribute("""Columns configuration""")
-    cache_time = Attribute("""Integer value, in seconrds, for determining if and how the column render will be cached""")
+    cache_time = Attribute("""Integer value, in seconds, for determining if and how the column render will be cached""")
 
     def render_edit(data):
         """

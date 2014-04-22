@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-07 14:28+0000\n"
+"POT-Creation-Date: 2014-04-22 12:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Fill data of this table's row"
 msgstr ""
 
-#: ./search/templates/search.pt:19
+#: ./search/templates/search.pt:21
 msgid "Filter results"
 msgstr ""
 
@@ -305,7 +305,7 @@ msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:295
+#: ./browser/view.py:297
 msgid "Row has been moved"
 msgstr ""
 
@@ -314,16 +314,21 @@ msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:299
+#: ./browser/view.py:301
 msgid "Row moved"
 msgstr ""
 
-#: ./search/templates/search.pt:6
+#: ./search/templates/search.pt:8
 msgid "Seach in table"
 msgstr ""
 
 #: ./content/tablepage.py:221
 msgid "Search configuration"
+msgstr ""
+
+#: ./search/search_table.py:63
+#: ./vocabularies.py:59
+msgid "Search in text"
 msgstr ""
 
 msgid "Select"
@@ -395,7 +400,7 @@ msgstr ""
 msgid "Upload..."
 msgstr ""
 
-#: ./vocabularies.py:72
+#: ./vocabularies.py:73
 msgid "Use in full text search"
 msgstr ""
 
