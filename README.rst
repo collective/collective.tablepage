@@ -257,6 +257,45 @@ This enhance the labels feature with a better user experience.
 
 __ http://jquery-datatables-row-grouping.googlecode.com/svn/trunk/index.html
 
+Searching the table
+===================
+
+Apart the live search filter that came from DataTables integration (see above) you can rely also on advanced search features.
+This will give to your users a search form automatically generated looking at search configurations.
+
+The search feature is based on a ZMI tool: ``tablepage_catalog`` really similar to the same catalog used by
+Plone for it's search engine.
+While some UI configuration are possibile through Plone, a ZMI access to that tool is required.
+
+For every "searchable" column you have defined, you can create a field in the search form, customizing the label
+and the helper text. Plus, you can define one or more columns as searchable in full text search.
+
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-01.png/image_large
+   :alt: Configuring searches
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-01.png
+
+When you users will perform searches from the table view, only rows that match the search will be displayed.
+
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-02.png/image_large
+   :alt: Configuring searches
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-02.png
+
+The widget displayed in the form depends on the catalog index you user:
+
+* for a ``ZCTextIndex`` you will get a text input
+* for a ``FieldIndex`` you will get a selection on all possible values
+
+Names of the indexes must be equals to columns ids.
+
+Limitations
+-----------
+
+You have **a lot** of limitation:
+
+* **no label support** right now: do not use search feature if you have label (this will be fixed)
+* no other kind of indexes are supported right now
+* you have *one* catalog, so you must handle (or avoid) columns ids used in more that one page with table
+
 Other products
 ==============
 
