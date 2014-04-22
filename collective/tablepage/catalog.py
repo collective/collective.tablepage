@@ -67,7 +67,7 @@ class CatalogDictWrapper(object):
         search_conf = content.getSearchConfig()
         index, data = row
         columns = [c['id'] for c in conf]
-        for c in search_conf:
+        for c in [x for x in search_conf if x]: # in this way fix some migration issues
             if c['id'] in columns and 'SearchableText' in c['additionalConfiguration']:
                 searchable += data.get(c['id'], '') + ' '
         return searchable
