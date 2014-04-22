@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from collective.tablepage import logger
 from collective.tablepage import config
+from collective.tablepage.interfaces import ITablePage
+from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.catalog import manage_addTablePageCatalog
 from Products.CMFCore.utils import getToolByName
 
@@ -18,6 +21,22 @@ def setupVarious(context):
 
     portal = context.getSite()
     createCatalog(portal)
+
+def _uuid_all(context):
+    logger.info("Generating uuids info for old rows")
+    catalog = getToolByName(context, 'portal_catalog')
+    results = catalog(object_provides=ITablePage.__identifier__)
+    for brain in results:
+        logger.info("Checking %s" % brain.getPath())
+        obj = brain.getObject()
+        storage = IDataStorage(obj)
+        for row in storage:
+            if not row.get('__uuid__'):
+                uuid = str(uuid.uuid4())
+                logger.info(uuid)
+                row['__uuid__'] = uuid
+        logger.info("Done for %s" % brain.getPath())
+    logger.info("uuid generation done")
 
 def migrateTo04(context):
     setup_tool = getToolByName(context, 'portal_setup')
@@ -39,6 +58,7 @@ def migrateTo08(context):
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'rolemap')
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'cssregistry')
     createCatalog(context)
+    _uuid_all(context)
     logger.info("Now indexing all rows inside Table Page contents")
     context.tablepage_catalog.clearFindAndRebuild()
     logger.info("...done")
