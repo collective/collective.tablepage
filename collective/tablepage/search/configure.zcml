@@ -39,6 +39,11 @@
       provides="collective.tablepage.search.interfaces.ISearchableColumn"
       />
    <utility
+      name="Computed"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
       name="Select"
       factory=".select.SelectSearch"
       provides="collective.tablepage.search.interfaces.ISearchableColumn"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-22 12:47+0000\n"
+"POT-Creation-Date: 2014-04-24 14:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -326,7 +326,7 @@ msgstr ""
 msgid "Search configuration"
 msgstr ""
 
-#: ./search/search_table.py:63
+#: ./search/search_table.py:64
 #: ./vocabularies.py:59
 msgid "Search in text"
 msgstr ""
@@ -359,6 +359,10 @@ msgstr ""
 
 #: ./content/tablepage.py:168
 msgid "Show table headers when..."
+msgstr ""
+
+#: ./vocabularies.py:75
+msgid "Single value search"
 msgstr ""
 
 msgid "String"

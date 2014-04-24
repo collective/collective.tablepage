@@ -8,6 +8,7 @@ class ISearchableColumn(Interface):
 
     id = Attribute("""Id of the field""")
     configuration = Attribute("""configuration of the column in the table page""")
+    search_configuration = Attribute("""configuration of the search settings for the column""")
     context = Attribute("""Current context (tablepage)""")
     request = Attribute("""Current request""")
     label = Attribute("""Label to be displayed for the form""")

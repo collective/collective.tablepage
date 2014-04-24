@@ -112,6 +112,10 @@ class TableViewView(BrowserView):
                 return storage[index]['__label__']
         return {}
 
+    def _clean_query(self, d):
+        """Return a copy of the dict where empty values are omitted"""
+        return dict((k, v) for k, v in d.iteritems() if v)
+
     def rows(self, batch=False, bsize=0, b_start=0, search=False):
         context = self.context
         request = self.request
@@ -120,7 +124,7 @@ class TableViewView(BrowserView):
             self.result_length = len(storage)
         else:
             tp_catalog = getToolByName(context, 'tablepage_catalog')
-            storage = tp_catalog.searchTablePage(context, **request.form)
+            storage = tp_catalog.searchTablePage(context, **self._clean_query(request.form))
             self.result_length = getattr(storage, 'actual_result_count') or len(storage)
 
         rows = []

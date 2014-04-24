@@ -1,4 +1,5 @@
-<tal:field define="fieldName options/id">
+<tal:field define="fieldName options/id;
+                   single_value python:view.check_configuration('single_value');">
 	<label for=""
 	       tal:attributes="for string:search_${options/id}"
 		   tal:content="options/label">Search label</label><br tal:omit-tag="options/description" />
@@ -6,7 +7,10 @@
 	     tal:content="options/description">Help filling me</div>
 	<select name="" id="" multiple="multiple"
 	        tal:attributes="id string:search_${fieldName};
-	                        name string:${fieldName}:list;">
+	                        name python:single_value and fieldName or '%s:list' % fieldName;
+							multiple python:single_value==False;">
+		<option value=""
+		        tal:condition="single_value"></option>
 		<option value=""
 		        tal:repeat="val view/index_values"
 				tal:content="val"

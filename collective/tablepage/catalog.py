@@ -37,7 +37,24 @@ class CatalogDictWrapper(object):
                 self.UID = v
             elif k.startswith('_'):
                 continue
-            self.__setattr__(k, v)
+            if v and v.strip():
+                self.__setattr__(k, v)
+        self._index_from_cache(dict_obj)
+
+    def _index_from_cache(self, dict_obj):
+        # BBB: now, if we use cache, let also index values stored in cache
+        # if not already indexed
+        # this is tricky, but in this way we can index complex columns
+        # like Computed (when cache is used)
+        # I know, it's evil and I'm  a bad gui
+        if dict_obj.get('__cache__'):
+            for k,v in dict_obj.get('__cache__').items():
+                if hasattr(self, k):
+                    continue
+                if k.startswith('_'):
+                    continue
+                if v.get('data') and v.get('data').strip():
+                    self.__setattr__(k, v['data'].strip())
 
     def getPhysicalPath(self):
         return self._path.split('/')

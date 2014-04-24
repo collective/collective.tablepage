@@ -322,7 +322,7 @@ msgstr "Cerca nella tabella"
 msgid "Search configuration"
 msgstr "Configurazioni della ricerca"
 
-#: ./search/search_table.py:63
+#: ./search/search_table.py:64
 #: ./vocabularies.py:59
 msgid "Search in text"
 msgstr "Cerca nel testo"
@@ -356,6 +356,10 @@ msgstr "Mostra i dati salvati usando varie tabelle"
 #: ./content/tablepage.py:168
 msgid "Show table headers when..."
 msgstr "Mostra le intestazioni della tabella quando..."
+
+#: ./vocabularies.py:75
+msgid "Single value search"
+msgstr "Ricerca singolo valore"
 
 msgid "String"
 msgstr "Stringa"

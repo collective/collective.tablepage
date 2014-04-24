@@ -58,6 +58,7 @@ class SearchTableViewlet(ViewletBase):
             field = utilities[field_type]
             field.id = field_id
             field.configuration = tableConf.get(field_id) or {}
+            field.search_configuration = conf
             field.context = context
             field.request = self.request
             field.label = conf.get('label') or field.configuration.get('label') or _(u'Search in text')

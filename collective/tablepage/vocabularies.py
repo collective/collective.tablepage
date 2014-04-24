@@ -71,7 +71,8 @@ class SearchAdditionalOptionsVocabulary(object):
     def __call__(self, context):
         terms = [SimpleTerm(value='SearchableText', token='SearchableText',
                             title=_(u'Use in full text search')),
-
+                 SimpleTerm(value='single_value', token='single_value',
+                            title=_(u'Single value search')),
                  ]
         return SimpleVocabulary(terms)
 
