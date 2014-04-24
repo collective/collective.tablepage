@@ -339,11 +339,18 @@ Developed with the support of:
 
   .. image:: http://www.ospfe.it/ospfe-logo.jpg 
      :alt: S. Anna Hospital logo
+  
+* `Province of Vicenza`__
+
+  .. image:: http://www.provincia.vicenza.it/logo_provincia_di_vicenza.png 
+     :alt: Province of Vicenza logo
+
 
 All of them supports the `PloneGov initiative`__.
 
 __ http://www.ausl.fe.it/
 __ http://www.ospfe.it/
+__ http://www.provincia.vicenza.it/
 __ http://www.plonegov.it/
 
 Authors
