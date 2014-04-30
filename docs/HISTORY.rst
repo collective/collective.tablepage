@@ -19,8 +19,8 @@ Changelog
 - Fixed appearence of "No rows" section on Plone that are not using
   ``plone.batching``
   [keul]
-- Enable DataTables only if we have some rows to show. This fix viasual
-  issues with some layotus
+- Enable DataTables only if we have some rows to show. This fix visual
+  issues with some layouts
   [keul]
 - Link column: put the ``external`` value for ``rel`` for external links and not
   for internal ones
