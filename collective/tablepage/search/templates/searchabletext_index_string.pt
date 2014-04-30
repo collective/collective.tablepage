@@ -1,12 +1,12 @@
 <tal:field define="fieldName options/id">
-	<label for=""
-	       tal:attributes="for string:search_${options/id}"
-		   tal:content="options/label">Search label</label><br tal:omit-tag="options/description" />
-	<div class="formHelp"
-	     tal:content="options/description">Help filling me</div>
-	<input type="text" name="" id=""
-	       tal:attributes="id string:search_${fieldName};
-	                       name fieldName;
-						   value python:request.get(fieldName) or nothing;"
-		                   />
+    <label for=""
+           tal:attributes="for string:search_${options/id}"
+           tal:content="options/label">Search label</label><br tal:omit-tag="options/description" />
+    <div class="formHelp"
+         tal:content="options/description">Help filling me</div>
+    <input type="text" name="" id=""
+           tal:attributes="id string:search_${fieldName};
+                           name fieldName;
+                           value python:request.get(fieldName) or nothing;"
+                           />
 </tal:field>

@@ -1,27 +1,26 @@
 <form i18n:domain="collective.tablepage"
       id="searchTablePage" method="post" action=""
-	  tal:define="search_fields view/search_fields"
-	  tal:condition="search_fields"
+      tal:define="search_fields view/search_fields"
+      tal:condition="search_fields"
       tal:attributes="action string:${context/absolute_url}/${view/view_name}">
     
-	<fieldset>
-		<legend i18n:translate="">Seach in table</legend>
+    <fieldset>
+        <legend i18n:translate="">Seach in table</legend>
 
-		<tal:field repeat="field search_fields">
-		<div tal:define="oddfield repeat/field/even;
-		                 oddclass python:oddfield and 'even' or 'odd';"
-		     tal:attributes="class string:searchField field searchFieldCount${repeat/field/index} ${oddclass}SearchField">
-			<tal:field replace="structure field" />
-		</div>
-		</tal:field>
+        <tal:field repeat="field search_fields">
+        <div tal:define="oddfield repeat/field/even;
+                         oddclass python:oddfield and 'even' or 'odd';"
+             tal:attributes="class string:searchField field searchFieldCount${repeat/field/index} ${oddclass}SearchField">
+            <tal:field replace="structure field" />
+        </div>
+        </tal:field>
 
-		<div class="visualClear"><!-- --></div>
+        <div class="visualClear"><!-- --></div>
 
-		<input type="hidden" name="searchInTable" value="1" />
-		<input type="submit" name="Filter" value="Filter results"
-		       i18n:attributes="value" />
-		
-	</fieldset>
-		
+        <input type="hidden" name="searchInTable" value="1" />
+        <input type="submit" name="Filter" value="Filter results"
+               i18n:attributes="value" />
+        
+    </fieldset>
 
 </form>
