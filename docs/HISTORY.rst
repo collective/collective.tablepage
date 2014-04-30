@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8a1 (unreleased)
+0.8a1 (2014-04-30)
 ------------------
 
 - Fixed a bug that break CSV export when computed columns are used
