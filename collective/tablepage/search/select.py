@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from zope.interface import implements
 from collective.tablepage.search.text import TextSearch
 
 

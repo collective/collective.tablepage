@@ -2,32 +2,27 @@
 
 import re
 
-from zope.interface import implements
-from zope.component import queryUtility
-
-from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.configuration import zconf
+from Products.ATContentTypes.content import base
+from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content.document import ATDocumentSchema
 from Products.Archetypes import atapi
 from Products.CMFCore import permissions
-from Products.ATContentTypes.content.document import ATDocumentSchema
-from Products.ATContentTypes.content import schemata
-from Products.ATContentTypes.content import base
-from Products.ATContentTypes.configuration import zconf
-
+from Products.CMFCore.utils import getToolByName
+from Products.DataGridField.Column import Column
 from Products.DataGridField.DataGridField import DataGridField
 from Products.DataGridField.DataGridWidget import DataGridWidget
-from Products.DataGridField.Column import Column
-
+from Products.TinyMCE.interfaces.utility import ITinyMCE
+from collective.datagridcolumns.MultiSelectColumn import MultiSelectColumn
 from collective.datagridcolumns.SelectColumn import SelectColumn
 from collective.datagridcolumns.TextAreaColumn import TextAreaColumn
-from collective.datagridcolumns.MultiSelectColumn import MultiSelectColumn
-from collective.tablepage.interfaces import IDataStorage
-from collective.tablepage import tablepageMessageFactory as _
-from collective.tablepage.interfaces import ITablePage
-from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage import config
-
-from Products.TinyMCE.interfaces.utility import ITinyMCE
+from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage.interfaces import IDataStorage
+from collective.tablepage.interfaces import ITablePage
+from zope.component import queryUtility
+from zope.interface import implements
 
 try:
     from archetypes.referencebrowserwidget import ReferenceBrowserWidget
@@ -301,7 +296,6 @@ class TablePage(base.ATCTContent):
     def validate_searchConfig(self, value):
         """Need to check table page ids"""
         ids = []
-        columns_ids = [c.get('id') for c in self.getPageColumns()]
         for record in value:
             # do not validate the hidden empty row
             if record.get('orderindex_').isdigit():

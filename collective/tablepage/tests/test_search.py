@@ -7,7 +7,6 @@ from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from pyquery import PyQuery
-from zope.component import getMultiAdapter
 
 
 class TablePageCatalogTestCase(unittest.TestCase):

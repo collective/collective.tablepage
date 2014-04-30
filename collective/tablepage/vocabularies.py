@@ -9,7 +9,6 @@ from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.search.interfaces import ISearchableColumn
 from zope.component import getAdapters
-from zope.component import getAdapters
 from zope.component import getUtilitiesFor
 from zope.i18n import translate
 from zope.interface import implements
