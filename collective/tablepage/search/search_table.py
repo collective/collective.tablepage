@@ -25,6 +25,8 @@ class SearchTableViewlet(ViewletBase):
         index_ids = tp_catalog.indexes()
         indexes = {}
         for conf in context.getSearchConfig():
+            if not conf:
+                continue
             field_id = conf['id']
             if field_id not in index_ids:
                 continue
@@ -48,6 +50,8 @@ class SearchTableViewlet(ViewletBase):
 
         fields = []
         for conf in context.getSearchConfig():
+            if not conf:
+                continue
             field_id = conf['id']
             if field_id=='SearchableText':
                 field_type = 'Text'

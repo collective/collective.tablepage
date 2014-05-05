@@ -4,7 +4,8 @@ Changelog
 0.8a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix compatibility errors with document create with version 0.7 and below
+  [keul]
 
 
 0.8a1 (2014-04-30)
