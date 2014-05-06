@@ -6,7 +6,8 @@ Changelog
 
 - Fix compatibility errors with document create with version 0.7 and below
   [keul]
-
+- ``icon:`` and ``title:`` features also for internal links
+  [keul]
 
 0.8a1 (2014-04-30)
 ------------------

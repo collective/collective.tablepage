@@ -86,7 +86,9 @@ class LinkField(BaseField):
         self.data = data or ''
         if self.data:
             if is_url(self.data):
-                return self.view_template(external_url=self.data)
+                custom_prefs = self._getCustomPreferences()
+                return self.view_template(external_url=self.data,
+                                          **custom_prefs)
             # probably an uid
             uuid = self.data
             obj_info = self._get_obj_info(uuid)
