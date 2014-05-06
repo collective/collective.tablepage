@@ -54,12 +54,13 @@ def migrateTo05b2(context):
     logger.info("Migrated to 0.5b2")
 
 def migrateTo08(context):
+    portal = getToolByName(context, 'portal_url').getPortalObject()
     setup_tool = getToolByName(context, 'portal_setup')
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'rolemap')
     setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'cssregistry')
-    createCatalog(context)
+    createCatalog(portal)
     _uuid_all(context)
     logger.info("Now indexing all rows inside Table Page contents")
-    context.tablepage_catalog.clearFindAndRebuild()
+    portal.tablepage_catalog.clearFindAndRebuild()
     logger.info("...done")
     logger.info("Migrated to 0.8")

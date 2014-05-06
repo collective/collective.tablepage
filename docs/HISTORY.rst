@@ -8,6 +8,9 @@ Changelog
   [keul]
 - ``icon:`` and ``title:`` features also for internal links
   [keul]
+- Error migrating from 0.7: the catalog was created inside the
+  ``portal_setup`` tool!
+  [keul]
 
 0.8a1 (2014-04-30)
 ------------------
