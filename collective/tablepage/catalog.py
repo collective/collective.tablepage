@@ -17,6 +17,7 @@ from plone.memoize.instance import memoize
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import ITablePage
 from collective.tablepage import config
+from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
 
 
@@ -38,7 +39,7 @@ class CatalogDictWrapper(object):
             elif k.startswith('_'):
                 continue
             if v and v.strip():
-                self.__setattr__(k, v)
+                self.__setattr__(k, v.strip())
         self._index_from_cache(dict_obj)
 
     def _index_from_cache(self, dict_obj):
@@ -46,15 +47,23 @@ class CatalogDictWrapper(object):
         # if not already indexed
         # this is tricky, but in this way we can index complex columns
         # like Computed (when cache is used)
-        # I know, it's evil and I'm  a bad gui
-        if dict_obj.get('__cache__'):
-            for k,v in dict_obj.get('__cache__').items():
-                if hasattr(self, k):
-                    continue
-                if k.startswith('_'):
-                    continue
-                if v.get('data') and v.get('data').strip():
-                    self.__setattr__(k, v['data'].strip())
+        # I know, it's evil and I'm  a bad guy
+        if not dict_obj.get('__cache__'):
+            return
+        for k in dict_obj.get('__cache__').keys():
+            if hasattr(self, k):
+                # already saved before
+                continue
+            if k.startswith('_'):
+                continue
+            # refresh cache before using it.
+            # Calling the table page view with ignore_cache will refresh all caches
+            storage = IDataStorage(self._content)
+            table_view = getMultiAdapter((self._content, self._content.REQUEST), name=u'view-table')
+            table_view.rows(bsize=1, b_start=self.getObjPositionInParent()-1, ignore_cache=True)
+            v = storage[self.getObjPositionInParent()-1]['__cache__'][k]
+            if v.get('data') and v.get('data').strip():
+                self.__setattr__(k, v['data'].strip())
 
     def getPhysicalPath(self):
         return self._path.split('/')
@@ -117,7 +126,7 @@ class TablePageCatalog(CatalogTool):
         return self(**kwargs)
 
     def catalog_row(self, context, row_data):
-        """Remove new row data to catalog"""
+        """Add new row data to catalog"""
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
