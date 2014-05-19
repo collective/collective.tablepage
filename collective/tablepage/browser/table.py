@@ -32,6 +32,7 @@ class TableViewView(BrowserView):
         self.last_page_label = {}
         self.b_start = 0
         self.result_length = 0
+        self.now = DateTime()
 
     def __call__(self):
         storage = self.storage
@@ -144,13 +145,14 @@ class TableViewView(BrowserView):
         self.last_page_label = self._findLastPageLabel(b_start)
 
         index = b_start
-        write_attempt = 0
-        for record in storage[b_start:]:
+        write_attempt_count = 0
+        for record in storage[b_start:bsize and (b_start+bsize) or None]:
             if search:
                 record = self.storage[record.UID]
             if batch and index >= b_start+bsize:
                 # Ok, in this way we display always bsize rows, not bsize rows of data
                 # But is enough for now
+                # BBB: can this be true ever?
                 break
             
             if record.get('__label__'):
@@ -159,13 +161,13 @@ class TableViewView(BrowserView):
                 continue
 
             row = []
+            write_attempt = False
             for conf in context.getPageColumns():
                 field = adapters[conf['type']]
                 field.configuration = conf
-                now = DateTime()
                 # Cache hit
                 if not ignore_cache and field.cache_time and record.get("__cache__", {}).get(conf['id']) and \
-                        now.millis() < record["__cache__"][conf['id']]['timestamp'] + field.cache_time * 1000:
+                        self.now.millis() < record["__cache__"][conf['id']]['timestamp'] + field.cache_time * 1000:
                     output = record["__cache__"][conf['id']]['data']
                     logger.debug("Cache hit (%s)" % conf['id'])
                 # Cache miss
@@ -176,22 +178,25 @@ class TableViewView(BrowserView):
                             record["__cache__"] = PersistentDict()
                         record["__cache__"][conf['id']] = PersistentDict()
                         record["__cache__"][conf['id']]['data'] = output
-                        record["__cache__"][conf['id']]['timestamp'] = now.millis()
-                        write_attempt += 1
+                        record["__cache__"][conf['id']]['timestamp'] = self.now.millis()
+                        write_attempt = True
                         logger.debug("Cache miss (%s)" % conf['id'])
                 row.append({'content': output,
                             'classes': 'coltype-%s' % col_type})
             rows.append(row)
             index += 1
-            if write_attempt % 100 == 0:
+            if write_attempt:
+                write_attempt_count += 1
+            if write_attempt_count and write_attempt_count % 100 == 0:
                 transaction.savepoint()
+                logger.info('Writing to cache fresh data (%d rows done)' % write_attempt)
         return rows
 
     def batch(self, batch=True, bsize=0, b_start=0):
         request = self.request
         self.b_start = b_start or request.form.get('b_start') or 0
         perform_search = 'searchInTable' in request.form.keys()
-        
+
         bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
         batch = batch and bsize>0 
 

@@ -34,8 +34,10 @@ class CatalogDictWrapper(object):
         for k,v in dict_obj.items():
             if k=='__creator__':
                 self.Creator = v
+                continue
             elif k=='__uuid__':
                 self.UID = v
+                continue
             elif k.startswith('_'):
                 continue
             if v and v.strip():
@@ -58,11 +60,11 @@ class CatalogDictWrapper(object):
                 continue
             # refresh cache before using it.
             # Calling the table page view with ignore_cache will refresh all caches
-            storage = IDataStorage(self._content)
             table_view = getMultiAdapter((self._content, self._content.REQUEST), name=u'view-table')
             table_view.rows(bsize=1, b_start=self.getObjPositionInParent()-1, ignore_cache=True)
-            v = storage[self.getObjPositionInParent()-1]['__cache__'][k]
-            if v.get('data') and v.get('data').strip():
+            storage = IDataStorage(self._content)
+            v = storage[self.getObjPositionInParent()-1]['__cache__'].get(k)
+            if v and v.get('data') and v.get('data').strip():
                 self.__setattr__(k, v['data'].strip())
 
     def getPhysicalPath(self):

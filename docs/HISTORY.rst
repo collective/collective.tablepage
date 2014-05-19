@@ -16,6 +16,8 @@ Changelog
 - Indexing of cached values is now trying to invalidating cache first.
   This prevent infinite caching of conmputed columns
   [keul] 
+- Changes to cache generation, to reduce ConflictError
+  [keul]
 
 0.8a1 (2014-04-30)
 ------------------
