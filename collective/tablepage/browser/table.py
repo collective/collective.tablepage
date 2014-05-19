@@ -116,7 +116,7 @@ class TableViewView(BrowserView):
         """Return a copy of the dict where empty values are omitted"""
         return dict((k, v) for k, v in d.iteritems() if v)
 
-    def rows(self, batch=False, bsize=0, b_start=0, search=False):
+    def rows(self, batch=False, bsize=0, b_start=0, search=False, ignore_cache=False):
         context = self.context
         request = self.request
         if not search:
@@ -162,7 +162,7 @@ class TableViewView(BrowserView):
                 field.configuration = conf
                 now = DateTime()
                 # Cache hit
-                if field.cache_time and record.get("__cache__", {}).get(conf['id']) and \
+                if not ignore_cache and field.cache_time and record.get("__cache__", {}).get(conf['id']) and \
                         now.millis() < record["__cache__"][conf['id']]['timestamp'] + field.cache_time * 1000:
                     output = record["__cache__"][conf['id']]['data']
                     logger.debug("Cache hit (%s)" % conf['id'])
@@ -218,6 +218,10 @@ class TableViewView(BrowserView):
     def check_labeling_permission(self):
         sm = getSecurityManager()
         return sm.checkPermission(config.MANAGE_LABEL, self.context)
+
+    def check_manage_search_permission(self):
+        sm = getSecurityManager()
+        return sm.checkPermission(config.MANAGE_SEARCH_PERMISSION, self.context)        
 
     def mine_row(self, index):
         storage = self.storage

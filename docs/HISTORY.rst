@@ -4,13 +4,18 @@ Changelog
 0.8a2 (unreleased)
 ------------------
 
-- Fix compatibility errors with document create with version 0.7 and below
+- Fix compatibility errors with document created with version 0.7 and below
   [keul]
 - ``icon:`` and ``title:`` features also for internal links
   [keul]
 - Error migrating from 0.7: the catalog was created inside the
   ``portal_setup`` tool!
   [keul]
+- Added a new "refresh catalog" command on tables
+  [keul]
+- Indexing of cached values is now trying to invalidating cache first.
+  This prevent infinite caching of conmputed columns
+  [keul] 
 
 0.8a1 (2014-04-30)
 ------------------

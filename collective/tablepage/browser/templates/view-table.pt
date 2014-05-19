@@ -24,7 +24,8 @@
        tal:define="portal_url view/portal_url;
                    headers view/headers;
                    has_tablemanager_permission view/check_tablemanager_permission;
-                   can_add_label view/check_labeling_permission;"
+                   can_add_label view/check_labeling_permission;
+				   can_manage_search view/check_manage_search_permission;"
        tal:attributes="class view/css_classes;
                        data-batching-enabled python:view.batching_enabled() and 'true' or nothing;"
        tal:condition="python: view.edit_mode or not is_empty">
@@ -83,6 +84,14 @@
                 <span class="discreet"
                       tal:condition="not:view/edit_mode"
                       i18n:translate="">Download as CSV</span>
+            </a>            
+            <a class="command" href="" title="Refresh catalog"
+               tal:condition="python:rows and can_manage_search"
+               i18n:attributes="title"
+               tal:attributes="href string:${context/absolute_url}/@@refresh-catalog">
+                <img alt="Refresh catalog" src=""
+                     tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/refresh.png"
+                     i18n:attributes="alt"/>
             </a>            
         </td></tr>
     </tfoot>

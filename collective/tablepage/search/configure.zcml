@@ -13,6 +13,14 @@
        permission="collective.tablepage.showSearch"
 	   view="plone.app.layout.globals.interfaces.IViewView"
        />
+
+   <browser:page
+       name="refresh-catalog"
+	   for="..interfaces.ITablePage"
+       class=".view.RefreshSearchView"
+       permission="collective.tablepage.accessSearchConfiguration"
+       />	   	   	   
+
    <!--browser:viewlet
        name="collective.tablepage.search"
        manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
