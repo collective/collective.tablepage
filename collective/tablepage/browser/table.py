@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import transaction
 from Acquisition import aq_inner
 from AccessControl import getSecurityManager
 from DateTime import DateTime
@@ -143,6 +144,7 @@ class TableViewView(BrowserView):
         self.last_page_label = self._findLastPageLabel(b_start)
 
         index = b_start
+        write_attempt = 0
         for record in storage[b_start:]:
             if search:
                 record = self.storage[record.UID]
@@ -175,11 +177,14 @@ class TableViewView(BrowserView):
                         record["__cache__"][conf['id']] = PersistentDict()
                         record["__cache__"][conf['id']]['data'] = output
                         record["__cache__"][conf['id']]['timestamp'] = now.millis()
+                        write_attempt += 1
                         logger.debug("Cache miss (%s)" % conf['id'])
                 row.append({'content': output,
                             'classes': 'coltype-%s' % col_type})
             rows.append(row)
             index += 1
+            if write_attempt % 100 == 0:
+                transaction.savepoint()
         return rows
 
     def batch(self, batch=True, bsize=0, b_start=0):
