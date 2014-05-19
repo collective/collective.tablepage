@@ -277,7 +277,7 @@ msgstr "Fornisci i dati della riga"
 msgid "Provide label"
 msgstr "Fornisci un'etichetta"
 
-#: ./browser/templates/view-table.pt:88
+#: ./browser/templates/view-table.pt:92
 msgid "Refresh catalog"
 msgstr "Aggiorna catalogo"
 
@@ -374,6 +374,10 @@ msgstr "Didascalia tabella"
 
 msgid "Text"
 msgstr "Testo"
+
+#: ./browser/templates/view-table.pt:88
+msgid "This will update cache of every rows while update data saved in catalog"
+msgstr "Questo aggiornerà la cache di tutte le righe e i dati salvati nel catalogo"
 
 #: ./content/tablepage.py:62
 msgid "Type of data"

@@ -4,7 +4,7 @@ Changelog
 0.8a2 (unreleased)
 ------------------
 
-- Fix compatibility errors with document created with version 0.7 and below
+- Fix compatibility errors with documents created with version 0.7 and below
   [keul]
 - ``icon:`` and ``title:`` features also for internal links
   [keul]
