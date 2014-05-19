@@ -189,7 +189,7 @@ class TableViewView(BrowserView):
                 write_attempt_count += 1
             if write_attempt_count and write_attempt_count % 100 == 0:
                 transaction.savepoint()
-                logger.info('Writing to cache fresh data (%d rows done)' % write_attempt)
+                logger.info('Writing to cache fresh data (%d rows done)' % write_attempt_count)
         return rows
 
     def batch(self, batch=True, bsize=0, b_start=0):

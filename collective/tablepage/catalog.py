@@ -150,13 +150,14 @@ class TablePageCatalog(CatalogTool):
         self.uncatalog_object(path)
 
     security.declareProtected(manage_zcatalog_entries, 'reindex_rows')
-    def reindex_rows(self, context, uids):
+    def reindex_rows(self, context, uids, storage=None):
         """Reindex one of more rows using uuid information"""
         if isinstance(uids, basestring):
             uids = [uids]
+        storage = storage or IDataStorage(context)
         for uid in uids:
             path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), uid)
-            data = IDataStorage(context).get(uid)
+            data = storage.get(uid)
             self.uncatalog_object(path)
             self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
 

@@ -24,11 +24,14 @@ class RefreshSearchView(BrowserView):
 #        table_view.rows(ignore_cache=True)
         for index, row in enumerate(storage):
             uuid = row.get('__uuid__')
-            if uuid:
-                catalog.reindex_rows(context, uuid)
-            if index % 100 == 0:
-                logger.info("Refreshing catalog and cached (%d)" % index)
+            if not uuid:
+                # this should not happen
+                continue
+            catalog.reindex_rows(context, uuid, storage)
+            if index and index % 100 == 0:
+                logger.info("Refreshing catalog and caches (%d)" % index)
                 transaction.savepoint()
+        logger.info("Refreshing catalog and caches: done")
         getToolByName(context, 'plone_utils').addPortalMessage(_('reindex_performed_message',
                                                                  u'$count rows has been updated',
                                                                  mapping={'count': index}))
