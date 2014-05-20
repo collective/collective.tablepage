@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8a2 (unreleased)
+0.8a2 (2014-05-20)
 ------------------
 
 - Fix compatibility errors with documents created with version 0.7 and below
@@ -14,7 +14,7 @@ Changelog
 - Added a new "refresh catalog" command on tables
   [keul]
 - Indexing of cached values is now trying to invalidating cache first.
-  This prevent infinite caching of conmputed columns
+  This prevent infinite caching of computed columns
   [keul] 
 - Changes to cache generation, to reduce ConflictError
   [keul]
