@@ -55,7 +55,6 @@ class ComputedFieldTestCase(unittest.TestCase):
     def test_batching_label_at_first_page(self):
         tp = self.tp
         self._addRows(35)
-        request = self.layer['request']
         self.storage.add({'__label__': 'The Label'}, 0)
         output = tp()
         self.assertTrue('(Row data 1)' in output)

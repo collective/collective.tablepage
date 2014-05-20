@@ -108,7 +108,6 @@ class LinkFieldTestCase(unittest.TestCase):
 
     def test_template_override_text(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': 'title:Lorèm ipsum', 'options': []}])
@@ -119,7 +118,6 @@ class LinkFieldTestCase(unittest.TestCase):
 
     def test_template_override_icon(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': 'icon:src-to-an-icon', 'options': []}])

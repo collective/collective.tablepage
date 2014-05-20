@@ -34,7 +34,6 @@ class TablePageCatalogTestCase(unittest.TestCase):
 
     def add_rows(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         storage = IDataStorage(portal.table_page1)
         data = {'__creator__': 'user1', 'col_a': 'Lorem ipsum', '__uuid__': 'aaa'}
         storage.add(data)
@@ -66,7 +65,6 @@ class TablePageCatalogTestCase(unittest.TestCase):
         self.add_rows()
         tp = portal.table_page1
         view = getMultiAdapter((tp, request), name='edit-record')
-        storage = IDataStorage(tp)
         request.form['row-index'] = 0
         request.form['form.submitted'] = '1'
         request.form['col_a'] = 'foo bar baz'
@@ -82,7 +80,6 @@ class TablePageCatalogTestCase(unittest.TestCase):
         self.add_rows()
         tp = portal.table_page1
         view = getMultiAdapter((tp, request), name='delete-record')
-        storage = IDataStorage(tp)
         request.form['row-index'] = 0
         request.form['form.submitted'] = '1'
         view()
@@ -119,7 +116,6 @@ class TablePageCatalogTestCase(unittest.TestCase):
         
     def test_catalog_reindex_rows(self):
         portal = self.layer['portal']
-        request = self.layer['request']
         self.add_rows()
         tp = portal.table_page1
         storage = IDataStorage(tp)
