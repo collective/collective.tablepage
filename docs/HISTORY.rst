@@ -4,7 +4,7 @@ Changelog
 0.8a3 (unreleased)
 ------------------
 
-- Purge cache was only working for indexed contents
+- Purge cache command was only working for indexed contents
   [keul]
 
 
