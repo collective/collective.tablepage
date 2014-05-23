@@ -7,6 +7,7 @@ from collective.tablepage import config
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage import logger
 from collective.tablepage.interfaces import IDataStorage
+from zope.component import getMultiAdapter
 
 
 class RefreshSearchView(BrowserView):
@@ -17,9 +18,9 @@ class RefreshSearchView(BrowserView):
         request = self.request
         catalog = getToolByName(context, config.CATALOG_ID)
         storage = IDataStorage(context)
-#        # now we load the tabel view and rebuild all rows by using the ignore_cache parameter
-#        table_view = getMultiAdapter((context, request), name=u'view-table')
-#        table_view.rows(ignore_cache=True)
+        # now we load the tabel view and rebuild all rows by using the ignore_cache parameter
+        table_view = getMultiAdapter((context, request), name=u'view-table')
+        table_view.rows(ignore_cache=True)
         for index, row in enumerate(storage):
             uuid = row.get('__uuid__')
             if not uuid:

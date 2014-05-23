@@ -4,7 +4,8 @@ Changelog
 0.8a3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Purge cache was only working for indexed contents
+  [keul]
 
 
 0.8a2 (2014-05-20)
