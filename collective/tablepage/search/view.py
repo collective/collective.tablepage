@@ -25,6 +25,7 @@ class RefreshSearchView(BrowserView):
             uuid = row.get('__uuid__')
             if not uuid:
                 # this should not happen
+                logger.warning("Row without an uuid! index %d, document at %s" % (index, context.absolute_url_path()))
                 continue
             catalog.reindex_rows(context, uuid, storage)
             if index and index % 100 == 0:

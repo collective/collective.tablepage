@@ -2,14 +2,14 @@
 
 import unittest
 
-from zope.component import getMultiAdapter
-
+from Products.CMFCore.utils import getToolByName
+from collective.tablepage.interfaces import IColumnField
+from collective.tablepage.interfaces import IDataStorage
+from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
+from zope.component import getMultiAdapter
 
-from collective.tablepage.interfaces import IDataStorage
-from collective.tablepage.interfaces import IColumnField
-from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
 class ViewTestCase(unittest.TestCase):
 
@@ -61,3 +61,32 @@ class ViewTestCase(unittest.TestCase):
                               'type': 'String', 'vocabulary': '', 'options': []}])
         view = getMultiAdapter((tp, request), name='tablepage-edit')
         self.assertTrue('No rows' in view())
+
+
+class RefreshViewTestCase(unittest.TestCase):
+
+    layer = TABLE_PAGE_INTEGRATION_TESTING
+
+    def setUp(self):
+        portal = self.layer['portal']
+        login(portal, TEST_USER_NAME)
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []}])
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user1', 'col_a': 'Lorem', '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Ipsum', '__uuid__': 'bbb'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Sit', '__uuid__': 'ccc'})
+        self.tp_catalog = getToolByName(portal, 'tablepage_catalog')
+
+    def test_refreshing(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp_catalog = self.tp_catalog
+        self.assertEqual(len(tp_catalog.searchTablePage(portal.table_page)), 0)
+        view = getMultiAdapter((portal.table_page, request), name=u'refresh-catalog')
+        view()
+        self.assertEqual(len(tp_catalog.searchTablePage(portal.table_page)), 3)
+
+
