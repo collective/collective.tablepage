@@ -17,6 +17,7 @@ from plone.memoize.instance import memoize
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import ITablePage
 from collective.tablepage import config
+from collective.tablepage import logger
 from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
 
@@ -129,6 +130,10 @@ class TablePageCatalog(CatalogTool):
 
     def catalog_row(self, context, row_data):
         """Add new row data to catalog"""
+        if not row_data.get('__uuid__'):
+            # this should not happen
+            logger.warning("Row without an uuid! data: %s" % row_data)
+            return
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
