@@ -6,6 +6,8 @@ Changelog
 
 - Purge cache command was only working for indexed columns
   [keul]
+- uuid was not provided when CSv upload feature was used
+  [keul]
 
 
 0.8a2 (2014-05-20)

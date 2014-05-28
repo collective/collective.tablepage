@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import csv
+import uuid
 from Products.Five.browser import BrowserView
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
@@ -158,6 +159,7 @@ class UploadDataView(BrowserView):
                                                 type="warning")
                         continue
                     tobe_saved['__creator__'] = member.getId()
+                    tobe_saved['__uuid__'] = str(uuid.uuid4())
                     counter += 1
                     storage.add(tobe_saved)
             msg = _('count_rows_added',
