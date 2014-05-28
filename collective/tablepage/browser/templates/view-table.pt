@@ -117,7 +117,7 @@
 
             <td tal:condition="is_label"
                 scope="col" colspan=""
-                tal:attributes="colspan python:len(headers) + (view.edit_mode and 1 or 0)"
+                tal:attributes="colspan python:len(headers)>1 and (len(headers) + (view.edit_mode and 1 or 0)) or nothing"
                 tal:content="row">
                 Section header
             </td>
