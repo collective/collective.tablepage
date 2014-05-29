@@ -32,6 +32,7 @@ class CatalogDictWrapper(object):
         self._path = path
         self._content = context
         self._uuid = path.split('/')[-1][4:]
+        self.is_label = False
         for k,v in dict_obj.items():
             if k=='__creator__':
                 self.Creator = v
@@ -102,6 +103,38 @@ class CatalogDictWrapper(object):
         return searchable
 
 
+class CatalogDictLabelWrapper(object):
+    implements(ICatalogDictWrapper)
+
+    def __init__(self, dict_obj, context, path):
+        self._path = path
+        self._content = context
+        self._uuid = path.split('/')[-1][4:]
+        self.is_label = True
+        self.label = dict_obj.get('__label__').strip()
+        if dict_obj.get('__uuid__'):
+            self.UID = dict_obj.get('__uuid__')
+
+    def getPhysicalPath(self):
+        return self._path.split('/')
+
+    def _getRow(self):
+        storage = IDataStorage(self._content)
+        for index, row in enumerate(storage):
+            if row.get('__uuid__')==self._uuid:
+                return index, row
+
+    def getObjPositionInParent(self):
+        row = self._getRow()
+        if row:
+            index, data = row
+            return index+1
+        return 0
+
+    def SearchableText(self):
+        return None
+
+
 @indexer(ICatalogDictWrapper)
 def getObjPositionInParent(obj):
     return obj.getObjPositionInParent()
@@ -138,6 +171,17 @@ class TablePageCatalog(CatalogTool):
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
 
+    def catalog_label_row(self, context, row_data):
+        """Add new label data to catalog"""
+        if not row_data.get('__uuid__'):
+            # this should not happen
+            logger.warning("Label without an uuid! data: %s" % row_data)
+            return
+        path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
+        row_data['path'] = path
+        self.catalog_object(CatalogDictLabelWrapper(row_data, context, path), uid=path)
+        
+
     security.declareProtected(manage_zcatalog_entries, 'catalog_object')
     def catalog_object(self, obj, uid=None, idxs=None, update_metadata=1,
                        pghandler=None):
@@ -164,7 +208,10 @@ class TablePageCatalog(CatalogTool):
             path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), uid)
             data = storage.get(uid)
             self.uncatalog_object(path)
-            self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
+            if data.get('__label__'):
+                self.catalog_object(CatalogDictLabelWrapper(data, context, path), uid=path)
+            else:
+                self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
 
     security.declareProtected(search_zcatalog, 'resolve_path')
     def resolve_path(self, path):
@@ -176,6 +223,9 @@ class TablePageCatalog(CatalogTool):
             uuid = path_elements[-1][4:]
             tp = self.unrestrictedTraverse(tp_path)
             storage = IDataStorage(tp)
+            data = storage[uuid]
+            if data.get('__label__'):
+                CatalogDictLabelWrapper(data, tp, path)
             return CatalogDictWrapper(storage[uuid], tp, path)
         except Exception:
             # Very ugly, but Plone code does the same...
@@ -217,8 +267,10 @@ class TablePageCatalog(CatalogTool):
             storage = IDataStorage(obj)
             for row in storage:
                 if row.get('__label__'):
-                    continue
-                self.catalog_row(obj, row)
+                    self.catalog_label_row(obj, row)
+                else:
+                    self.catalog_row(obj, row)
+
 
 InitializeClass(TablePageCatalog)
 
@@ -252,21 +304,18 @@ def manage_addTablePageCatalog(self, REQUEST=None):
         ]
         )
     
-    # path index
     cat.addIndex('SearchableText', 'ZCTextIndex',
                  extra = args(doc_attr='SearchableText',
                               lexicon_id='pg_lexicon',
                               index_type='Okapi BM25 Rank')
                  )
-    # SearchText index
     cat.addIndex('path', 'PathIndex')
-    # getObjPositionInParent 
     cat.addIndex('getObjPositionInParent', 'FieldIndex')
     cat.addColumn('getObjPositionInParent')
-    # getObjPositionInParent 
     cat.addIndex('Creator', 'FieldIndex')
-    # UID
     cat.addColumn('UID')
+    cat.addColumn('is_label')
+    cat.addColumn('label')
 
     if REQUEST is not None:
         return self.manage_main(self, REQUEST, update_menu=1)
