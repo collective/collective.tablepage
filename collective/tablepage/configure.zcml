@@ -19,7 +19,7 @@
   <include file="vocabularies.zcml" />
 
   <adapter factory=".catalog.getObjPositionInParent" name="getObjPositionInParent" />
-
+  <adapter factory=".catalog.allowedRolesAndUsers" name="allowedRolesAndUsers" />
 
   <subscriber
       for=".interfaces.ITablePage

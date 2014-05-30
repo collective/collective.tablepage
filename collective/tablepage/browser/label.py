@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from AccessControl import Unauthorized
 from AccessControl import getSecurityManager
 from plone.memoize.view import memoize
@@ -47,6 +48,7 @@ class EditLabelView(BrowserView):
     def _save(self):
         form = self.request.form
         context = self.context
+        label = form.get('label')
         _ = getToolByName(context, 'translation_service').utranslate
         if form.get('row-index') is not None and form.get('addLabel'):
             # adding new but not in the last line

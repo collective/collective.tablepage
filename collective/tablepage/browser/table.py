@@ -156,8 +156,8 @@ class TableViewView(BrowserView):
                 # BBB: can this be true ever?
                 break
             
-            if record.get('__label__'):
-                rows.append(record.get('__label__'))
+            if record.get('__label__') or getattr(record, 'is_label', False):
+                rows.append(record.get('__label__') or getattr(record, 'label'))
                 index += 1
                 continue
 
@@ -240,19 +240,20 @@ class TableViewView(BrowserView):
         return storage[index].get('__creator__')==self.member.getId()
 
     def is_label(self, index):
+        if self._rows:
+            return  isinstance(self._rows[index], basestring)
         storage = self.storage
         return '__label__' in  storage[index].keys()
 
     def next_is_label(self, row_index):
         """True if next row is a label (or end of rows)""" 
-        storage = self.storage
+        if self._rows:
+            storage = self._rows
+        else:
+            storage = self.storage
         storage_size = len(storage)
         next_index = row_index + 1
-        if next_index>=storage_size:
-            return True
-        if self.is_label(next_index):
-            return True
-        return False
+        return next_index>=storage_size or self.is_label(next_index)
 
     def css_classes(self):
         table_classes = ['tablePage',  'nosort' ]

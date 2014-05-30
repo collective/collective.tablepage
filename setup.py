@@ -13,6 +13,7 @@ install_requires = ['setuptools',
                     'collective.autopermission',
                     #'collective.js.datatables',
                     'Products.TinyMCE',
+                    'Products.AdvancedQuery',
                     ]
 
 if sys.version_info < (2, 6):
