@@ -6,9 +6,10 @@ Changelog
 
 - Purge cache command was only working for indexed columns
   [keul]
-- uuid was not provided when CSv upload feature was used
+- uuid was not provided when CSV upload feature was used
   [keul]
-
+- Prevent `BadRequest` exception when uploading the same file twice
+  [keul]
 
 0.8a2 (2014-05-20)
 ------------------

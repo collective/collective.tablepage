@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from AccessControl import Unauthorized
 from Acquisition import aq_inner, aq_parent
-from zope.interface import implements
-from zope.component import getMultiAdapter
+from Products.ATContentTypes.permission import permissions
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage import tablepageMessageFactory as _
-from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.interfaces import IFileColumnField
 from collective.tablepage.fields.interfaces import IMultiFileColumnField
 from collective.tablepage.fields.link import LinkedObjectFinder
+from collective.tablepage.interfaces import IColumnDataRetriever
 from plone.memoize.instance import memoize
-from AccessControl import Unauthorized
-
-from Products.ATContentTypes.permission import permissions
+from zExceptions import BadRequest
+from zope.component import getMultiAdapter
+from zope.interface import implements
 
 try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
@@ -135,7 +135,8 @@ class FileDataRetriever(LinkedObjectFinder):
                 plone_utils = getToolByName(self.context, 'plone_utils')
                 plone_utils.addPortalMessage(_('duplicate_file_error',
                                                default=u'There is already an item named ${name} in this folder.\n'
-                                                       u'Loading of the attachment has been aborted.',
+                                                       u'Loading of the new attachment has been aborted '
+                                                       u'and a reference to that existing file has been created.',
                                                mapping={'name': file.filename}),
                                              type='warning')
                 return {name: folder[file.filename].UID()}
@@ -146,7 +147,16 @@ class FileDataRetriever(LinkedObjectFinder):
             new_doc._renameAfterCreation()
             # this will trigger proper lifecycle events
             new_doc.processForm()
-            new_doc.edit(file=file)
+            try:
+                new_doc.edit(file=file)
+            except BadRequest:
+                # Still don't get how, but sometimes this happen (at least on Plone 3)
+                plone_utils.addPortalMessage(_('duplicate_file_critical_error',
+                                               default=u'There is already an item named ${name} in this folder.\n'
+                                                       u'Loading of the attachment has been aborted.',
+                                               mapping={'name': file.filename}),
+                                             type='error')
+                return None
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
             return {name: request.get("existing_%s" % name)}

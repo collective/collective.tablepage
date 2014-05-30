@@ -432,7 +432,7 @@ msgstr ""
 "Il form di ricerca non le utilizzerà."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:163
+#: ./browser/updownload.py:165
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -462,11 +462,18 @@ msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:153
+msgid "duplicate_file_critical_error"
+msgstr ""
+"Esiste già un elemento chiamato ${name} in questa cartella.\n"
+"Il caricamento dell'allegato è stato annullato."
+
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
 #: ./fields/file.py:136
 msgid "duplicate_file_error"
 msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
-"Il caricamento dell'allegato è stato annullato."
+"Il caricamento del nuovo allegato è stato annullato ed è stato creato un riferimento al file esistente."
 
 #. Default: "The field \"$name\" does not fit any of the vocabulary values"
 #: ./validators/base.py:60
@@ -496,7 +503,7 @@ msgid "error_field_unique"
 msgstr "Il valore \"$value\" è già presente nella colonna \"$name\""
 
 #. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
-#: ./browser/updownload.py:108
+#: ./browser/updownload.py:109
 msgid "error_row_count_dont_match"
 msgstr "Salto la riga $line. Trovate $lrow colonne invece di $lheaders"
 
@@ -648,7 +655,7 @@ msgid "pagecolumn_validation_error_id_invalid"
 msgstr "Una valore riservato è stato utilizzato per \"id\""
 
 #. Default: "$count rows has been updated"
-#: ./search/view.py:28
+#: ./search/view.py:35
 msgid "reindex_performed_message"
 msgstr "$count righe sono state aggiornate"
 
@@ -686,17 +693,17 @@ msgstr ""
 "Per il tipo \"Calcolato\": scrivi qui l'espressione TALES."
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:154
+#: ./browser/updownload.py:155
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:132
+#: ./browser/updownload.py:133
 msgid "warn_invalid_cell"
 msgstr "Riga $line, cella $cell: non posso importare i dati per una controllo di validazione fallito"
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:125
+#: ./browser/updownload.py:126
 msgid "warn_invalid_row"
 msgstr "La riga $line non può essere importata perché mancano dati obbligatori"
 

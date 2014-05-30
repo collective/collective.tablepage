@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-19 10:14+0000\n"
+"POT-Creation-Date: 2014-05-30 10:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -431,7 +431,7 @@ msgid "bad_configured_search_cols"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:163
+#: ./browser/updownload.py:165
 msgid "count_rows_added"
 msgstr ""
 
@@ -461,6 +461,11 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:153
+msgid "duplicate_file_critical_error"
+msgstr ""
+
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
 #: ./fields/file.py:136
 msgid "duplicate_file_error"
 msgstr ""
@@ -493,7 +498,7 @@ msgid "error_field_unique"
 msgstr ""
 
 #. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
-#: ./browser/updownload.py:108
+#: ./browser/updownload.py:109
 msgid "error_row_count_dont_match"
 msgstr ""
 
@@ -635,7 +640,7 @@ msgid "pagecolumn_validation_error_id_invalid"
 msgstr ""
 
 #. Default: "$count rows has been updated"
-#: ./search/view.py:28
+#: ./search/view.py:35
 msgid "reindex_performed_message"
 msgstr ""
 
@@ -670,17 +675,17 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:154
+#: ./browser/updownload.py:155
 msgid "warn_duplicate"
 msgstr ""
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:132
+#: ./browser/updownload.py:133
 msgid "warn_invalid_cell"
 msgstr ""
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:125
+#: ./browser/updownload.py:126
 msgid "warn_invalid_row"
 msgstr ""
 
