@@ -154,3 +154,78 @@ class TablePageCatalogTestCase(unittest.TestCase):
         table = pq('table.tablePage').text()
         self.assertTrue('Foo Bar' in table)
         self.assertFalse('Qux Tux' in table)
+
+
+class SearchWithBatchAndLabelTestCase(unittest.TestCase):
+
+    layer = TABLE_PAGE_INTEGRATION_TESTING
+
+    def setUp(self):
+        portal = self.layer['portal']
+        self.tp_catalog = portal.tablepage_catalog
+        login(portal, TEST_USER_NAME)
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'foo_field', 'label': 'Foo field', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                              ],
+                batchSize=10)
+        tp.edit(searchConfig=[{'id': 'foo_field', 'label': '', 'description': '',
+                               'additionalConfiguration': ['SearchableText']}])
+        self.tp = tp
+        self.storage = IDataStorage(tp)
+        self._addRows(35)
+        self.tp_catalog.clearFindAndRebuild()
+
+    def _addRows(self, nrows):
+        for x in range(nrows):
+            self.storage.add({'foo_field': 'aa%02d' % (x+1),
+                              '__uuid__': '%05d' % (x+1)})
+
+    def test_batching(self):
+        tp = self.tp
+        request = self.layer['request']
+        request.form['searchInTable'] = '1'
+        request.form['SearchableText'] = 'a*'
+        self.storage.add({'foo_field': 'bbbbbbb', '__uuid__': '000'}, index=6)
+        self.storage.add({'__label__': 'Section 1', '__uuid__': 'lll'}, index=3)
+        self.tp_catalog.clearFindAndRebuild()
+        output = tp()
+        self.assertTrue('Section 1' in output)
+        self.assertTrue('aa01' in output)
+        self.assertTrue('aa09' in output)
+        # this should be fixed someday
+        self.assertFalse('aa10' in output)
+        self.assertFalse('bbbbbbb' in output)
+
+    def test_batching_page2(self):
+        tp = self.tp
+        request = self.layer['request']
+        request.form['searchInTable'] = '1'
+        request.form['SearchableText'] = 'a*'
+        request.form['b_start'] = 10
+        self.storage.add({'foo_field': 'bb', '__uuid__': '000'}, index=12)
+        self.storage.add({'__label__': 'Section 1', '__uuid__': 'lll'}, index=3)
+        self.tp_catalog.clearFindAndRebuild()
+        output = tp()
+        self.assertTrue('Section 1' in output)
+        self.assertTrue('aa10' in output)
+        self.assertFalse('bbbbbbb' in output)
+
+    def test_batching_label_at_previous_page(self):
+        tp = self.tp
+        request = self.layer['request']
+        request.form['searchInTable'] = '1'
+        request.form['SearchableText'] = 'a*'
+        request.form['b_start'] = 10
+        self.storage.add({'foo_field': 'bb', '__uuid__': '000'}, index=11)
+        self.storage.add({'__label__': 'Section 1', '__uuid__': 'lll'}, index=3)
+        self.storage.add({'__label__': 'Section 2', '__uuid__': 'lll2'}, index=14)
+        self.tp_catalog.clearFindAndRebuild()
+        output = tp()
+        self.assertTrue('Section 1' in output)
+        self.assertTrue('Section 2' in output)
+        self.assertTrue('aa10' in output)
+        self.assertFalse('bbbbbbb' in output)
+
+
