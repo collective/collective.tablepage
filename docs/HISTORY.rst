@@ -10,6 +10,11 @@ Changelog
   [keul]
 - Prevent `BadRequest` exception when uploading the same file twice
   [keul]
+- Restored usage of labels, also with search
+  [keul]
+- Fixed a bug with labels and batching: starting item were
+  skipped if a label from previous page was present
+  [keul]
 
 0.8a2 (2014-05-20)
 ------------------

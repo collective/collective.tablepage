@@ -289,9 +289,8 @@ Names of the indexes must be equals to columns ids.
 Limitations
 -----------
 
-You have **a lot** of limitation:
+You have some important limitations:
 
-* **no label support** right now: do not use search feature if you have label (this will be fixed)
 * no other kind of indexes are supported right now
 * you have *one* catalog, so you must handle (or avoid) columns ids used in more that one page with table
 
