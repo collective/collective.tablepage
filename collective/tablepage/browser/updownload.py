@@ -5,6 +5,7 @@ import uuid
 from Products.Five.browser import BrowserView
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
+from collective.tablepage import config
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IColumnField
@@ -57,6 +58,7 @@ class UploadDataView(BrowserView):
         context = self.context
         file = request.form.get('csv')
         check_duplicate = request.form.get('look_for_duplicate')
+        tp_catalog = getToolByName(context, config.CATALOG_ID)
         if file and file.filename:
             try:
                 dialect = csv.Sniffer().sniff(file.read(1024), delimiters=";,")
@@ -162,6 +164,7 @@ class UploadDataView(BrowserView):
                     tobe_saved['__uuid__'] = str(uuid.uuid4())
                     counter += 1
                     storage.add(tobe_saved)
+                    tp_catalog.catalog_row(context, tobe_saved)
             msg = _('count_rows_added',
                     default=u'${count} rows added',
                     mapping={'count': counter})
