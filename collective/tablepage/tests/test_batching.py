@@ -69,8 +69,8 @@ class BatchingTestCase(unittest.TestCase):
         self.storage.add({'__label__': 'The Second Label'}, 15)
         request.form['b_start'] = 10
         output = tp()
-        self.assertTrue('(Row data 11)' in output)
+        self.assertTrue('(Row data 10)' in output)
         self.assertTrue('The First Label' in output)
         self.assertTrue('The Second Label' in output)
-        self.assertTrue(output.find('The First Label') < output.find('(Row data 11)') < output.find('The Second Label'))
+        self.assertTrue(output.find('The First Label') < output.find('(Row data 10)') < output.find('The Second Label'))
 
