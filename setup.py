@@ -3,7 +3,7 @@
 import os, sys
 from setuptools import setup, find_packages
 
-version = '0.8a3.dev0'
+version = '0.8b1'
 
 tests_require = ['plone.app.testing', 'pyquery', ]
 

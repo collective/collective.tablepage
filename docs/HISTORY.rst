@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8a3 (unreleased)
+0.8b1 (2014-06-03)
 ------------------
 
 - Purge cache command was only working for indexed columns
