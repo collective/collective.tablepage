@@ -8,7 +8,7 @@ from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 
 
-class ComputedFieldTestCase(unittest.TestCase):
+class BatchingTestCase(unittest.TestCase):
 
     layer = TABLE_PAGE_INTEGRATION_TESTING
 
@@ -73,3 +73,4 @@ class ComputedFieldTestCase(unittest.TestCase):
         self.assertTrue('The First Label' in output)
         self.assertTrue('The Second Label' in output)
         self.assertTrue(output.find('The First Label') < output.find('(Row data 11)') < output.find('The Second Label'))
+
