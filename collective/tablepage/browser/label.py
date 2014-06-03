@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import uuid
 from AccessControl import Unauthorized
 from AccessControl import getSecurityManager
 from plone.memoize.view import memoize
@@ -52,7 +53,8 @@ class EditLabelView(BrowserView):
         if form.get('row-index') is not None and form.get('addLabel'):
             # adding new but not in the last line
             index = form.get('row-index')
-            self.storage.add({'__label__': label}, index)
+            self.storage.add({'__label__': label,
+                              '__uuid__': str(uuid.uuid4())}, index)
             self._addNewVersion(_(msgid="Label added",
                                   domain="collective.tablepage",
                                   context=context))
@@ -64,7 +66,8 @@ class EditLabelView(BrowserView):
                                   domain="collective.tablepage",
                                   context=context))
         else:
-            self.storage.add({'__label__': label})
+            self.storage.add({'__label__': label,
+                              '__uuid__': str(uuid.uuid4())})
             self._addNewVersion(_(msgid="Label added",
                                   domain="collective.tablepage",
                                   context=context))

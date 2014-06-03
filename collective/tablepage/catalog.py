@@ -8,6 +8,7 @@ from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from AccessControl.Permissions import search_zcatalog
 from AccessControl.Permissions import manage_zcatalog_entries
+from Products.AdvancedQuery import Eq
 from Products.CMFCore.CatalogTool import CatalogTool
 from Products.ZCatalog.ZCatalog import ZCatalog
 from plone.indexer import indexer
@@ -21,6 +22,8 @@ from collective.tablepage import logger
 from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
 
+SKIP_KEYS = ('sort_on', 'sort_order', 'searchInTable', 'Filter', 'b_start')
+
 
 class ICatalogDictWrapper(Interface):
     pass
@@ -32,6 +35,8 @@ class CatalogDictWrapper(object):
         self._path = path
         self._content = context
         self._uuid = path.split('/')[-1][4:]
+        self.is_label = False
+        self.label = self._get_label()
         for k,v in dict_obj.items():
             if k=='__creator__':
                 self.Creator = v
@@ -71,9 +76,14 @@ class CatalogDictWrapper(object):
     def getPhysicalPath(self):
         return self._path.split('/')
 
+    @property
+    @memoize
+    def storage(self):
+        return IDataStorage(self._content)
+
     @memoize
     def _getRow(self):
-        storage = IDataStorage(self._content)
+        storage = self.storage
         for index, row in enumerate(storage):
             if row.get('__uuid__')==self._uuid:
                 return index, row
@@ -84,6 +94,14 @@ class CatalogDictWrapper(object):
             index, data = row
             return index+1
         return 0
+
+    def _get_label(self):
+        position = self.getObjPositionInParent()
+        storage = self.storage
+        for x in range(position-1, 0, -1):
+            if storage[x-1].get('__label__'):
+                return storage[x-1].get('__label__')
+        return None
 
     def SearchableText(self):
         """Get searchable text from all column marked as searchable"""
@@ -102,9 +120,45 @@ class CatalogDictWrapper(object):
         return searchable
 
 
+class CatalogDictLabelWrapper(object):
+    implements(ICatalogDictWrapper)
+
+    def __init__(self, dict_obj, context, path):
+        self._path = path
+        self._content = context
+        self._uuid = path.split('/')[-1][4:]
+        self.is_label = True
+        self.label = dict_obj.get('__label__').strip()
+        if dict_obj.get('__uuid__'):
+            self.UID = dict_obj.get('__uuid__')
+
+    def getPhysicalPath(self):
+        return self._path.split('/')
+
+    def _getRow(self):
+        storage = IDataStorage(self._content)
+        for index, row in enumerate(storage):
+            if row.get('__uuid__')==self._uuid:
+                return index, row
+
+    def getObjPositionInParent(self):
+        row = self._getRow()
+        if row:
+            index, data = row
+            return index+1
+        return 0
+
+    def SearchableText(self):
+        return None
+
+
 @indexer(ICatalogDictWrapper)
 def getObjPositionInParent(obj):
     return obj.getObjPositionInParent()
+
+@indexer(ICatalogDictWrapper)
+def allowedRolesAndUsers(obj):
+    return ('Anonymous', )
 
 
 class TablePageCatalog(CatalogTool):
@@ -124,9 +178,25 @@ class TablePageCatalog(CatalogTool):
     def searchTablePage(self, tp, **kwargs):
         if 'path' not in kwargs.keys():
             kwargs['path'] = '/'.join(tp.getPhysicalPath())
-        if 'sort_on' not in kwargs.keys():
-            kwargs['sort_on'] = 'getObjPositionInParent'
-        return self(**kwargs)
+#        if 'sort_on' not in kwargs.keys():
+#            kwargs['sort_on'] = 'getObjPositionInParent'
+        if 'is_label' not in kwargs.keys():
+            kwargs['is_label'] = False
+        #raw_query = [Eq(k, v) for k,v in kwargs.items() if k not in ('sort_on', 'sort_order')]
+        query = Eq('is_label', True)
+
+        sub_query = None
+        for k,v in kwargs.items():
+            if k in SKIP_KEYS:
+                continue
+            if sub_query:
+                sub_query &= Eq(k, v)
+            else:
+                sub_query = Eq(k, v)
+        
+        query = query | sub_query
+        #return self(**kwargs)
+        return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))
 
     def catalog_row(self, context, row_data):
         """Add new row data to catalog"""
@@ -137,6 +207,17 @@ class TablePageCatalog(CatalogTool):
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
+
+    def catalog_label_row(self, context, row_data):
+        """Add new label data to catalog"""
+        if not row_data.get('__uuid__'):
+            # this should not happen
+            logger.warning("Label without an uuid! data: %s" % row_data)
+            return
+        path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
+        row_data['path'] = path
+        self.catalog_object(CatalogDictLabelWrapper(row_data, context, path), uid=path)
+        
 
     security.declareProtected(manage_zcatalog_entries, 'catalog_object')
     def catalog_object(self, obj, uid=None, idxs=None, update_metadata=1,
@@ -164,7 +245,10 @@ class TablePageCatalog(CatalogTool):
             path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), uid)
             data = storage.get(uid)
             self.uncatalog_object(path)
-            self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
+            if data.get('__label__'):
+                self.catalog_object(CatalogDictLabelWrapper(data, context, path), uid=path)
+            else:
+                self.catalog_object(CatalogDictWrapper(data, context, path), uid=path)
 
     security.declareProtected(search_zcatalog, 'resolve_path')
     def resolve_path(self, path):
@@ -176,6 +260,9 @@ class TablePageCatalog(CatalogTool):
             uuid = path_elements[-1][4:]
             tp = self.unrestrictedTraverse(tp_path)
             storage = IDataStorage(tp)
+            data = storage[uuid]
+            if data.get('__label__'):
+                CatalogDictLabelWrapper(data, tp, path)
             return CatalogDictWrapper(storage[uuid], tp, path)
         except Exception:
             # Very ugly, but Plone code does the same...
@@ -217,8 +304,10 @@ class TablePageCatalog(CatalogTool):
             storage = IDataStorage(obj)
             for row in storage:
                 if row.get('__label__'):
-                    continue
-                self.catalog_row(obj, row)
+                    self.catalog_label_row(obj, row)
+                else:
+                    self.catalog_row(obj, row)
+
 
 InitializeClass(TablePageCatalog)
 
@@ -252,21 +341,20 @@ def manage_addTablePageCatalog(self, REQUEST=None):
         ]
         )
     
-    # path index
     cat.addIndex('SearchableText', 'ZCTextIndex',
                  extra = args(doc_attr='SearchableText',
                               lexicon_id='pg_lexicon',
                               index_type='Okapi BM25 Rank')
                  )
-    # SearchText index
     cat.addIndex('path', 'PathIndex')
-    # getObjPositionInParent 
     cat.addIndex('getObjPositionInParent', 'FieldIndex')
     cat.addColumn('getObjPositionInParent')
-    # getObjPositionInParent 
     cat.addIndex('Creator', 'FieldIndex')
-    # UID
+    cat.addIndex('allowedRolesAndUsers', 'KeywordIndex')
     cat.addColumn('UID')
+    cat.addColumn('is_label')
+    cat.addIndex('is_label', 'FieldIndex') # BooleanIndex only on Plone 4+
+    cat.addColumn('label')
 
     if REQUEST is not None:
         return self.manage_main(self, REQUEST, update_menu=1)

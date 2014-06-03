@@ -33,6 +33,7 @@ class TableViewView(BrowserView):
         self.b_start = 0
         self.result_length = 0
         self.now = DateTime()
+        self._rows = []
 
     def __call__(self):
         storage = self.storage
@@ -155,8 +156,8 @@ class TableViewView(BrowserView):
                 # BBB: can this be true ever?
                 break
             
-            if record.get('__label__'):
-                rows.append(record.get('__label__'))
+            if record.get('__label__') or getattr(record, 'is_label', False):
+                rows.append(record.get('__label__') or getattr(record, 'label'))
                 index += 1
                 continue
 
@@ -201,12 +202,13 @@ class TableViewView(BrowserView):
         batch = batch and bsize>0 
 
         if not batch:
-            return self.rows(search=perform_search)
+            self._rows = self.rows(search=perform_search)
+            return self._rows
 
-        rows = self.rows(batch=batch, bsize=bsize, b_start=self.b_start, search=perform_search)        
+        self._rows = self.rows(batch=batch, bsize=bsize, b_start=self.b_start, search=perform_search)        
         # replicating foo elements to reach total size
-        rows = [None] * self.b_start + rows + [None] * (self.result_length - self.b_start - bsize)
-        return Batch(rows, bsize, start=self.b_start, end=self.b_start+bsize,
+        self._rows = [None] * self.b_start + self._rows + [None] * (self.result_length - self.b_start - bsize)
+        return Batch(self._rows, bsize, start=self.b_start, end=self.b_start+bsize,
                      orphan=int(bsize/10), overlap=0, pagerange=7)
 
     def batching_enabled(self):
@@ -238,19 +240,20 @@ class TableViewView(BrowserView):
         return storage[index].get('__creator__')==self.member.getId()
 
     def is_label(self, index):
+        if self._rows:
+            return  isinstance(self._rows[index], basestring)
         storage = self.storage
         return '__label__' in  storage[index].keys()
 
     def next_is_label(self, row_index):
         """True if next row is a label (or end of rows)""" 
-        storage = self.storage
+        if self._rows:
+            storage = self._rows
+        else:
+            storage = self.storage
         storage_size = len(storage)
         next_index = row_index + 1
-        if next_index>=storage_size:
-            return True
-        if self.is_label(next_index):
-            return True
-        return False
+        return next_index>=storage_size or self.is_label(next_index)
 
     def css_classes(self):
         table_classes = ['tablePage',  'nosort' ]

@@ -64,7 +64,7 @@ class LabelTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name=u'edit-label')
         view()
         self.assertEqual(len(self.storage), 5)
-        self.assertEqual(self.storage[-1], {'__label__': 'foo'})
+        self.assertEqual(self.storage[-1].get('__label__'), 'foo')
 
     def test_create_new_notlast_label(self):
         request = self.layer['request']
@@ -78,7 +78,7 @@ class LabelTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name=u'edit-label')
         view()
         self.assertEqual(len(self.storage), 5)
-        self.assertEqual(self.storage[3], {'__label__': 'bar'})
+        self.assertEqual(self.storage[3].get('__label__'), 'bar')
 
     def test_edit_label(self):
         request = self.layer['request']
@@ -91,4 +91,4 @@ class LabelTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name=u'edit-label')
         view()
         self.assertEqual(len(self.storage), 4)
-        self.assertEqual(self.storage[1], {'__label__': 'bar'})
+        self.assertEqual(self.storage[1].get('__label__'), 'bar')
