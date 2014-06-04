@@ -18,8 +18,13 @@ def createCatalog(portal):
 def addCatalogColumns(portal, columns):
     catalog = portal.tablepage_catalog
     for c in columns:
-        logger.info("Adding %s column" % c)
+        logger.info("Adding column %s" % c)
         catalog.addColumn(c)
+
+def addCatalogIndex(portal, name, type="FieldIndex"):
+    catalog = portal.tablepage_catalog
+    logger.info("Adding index %s (%s)" % (name, type))
+    catalog.addIndex(name, type)
 
 def setupVarious(context):
     if context.readDataFile('collective.tablepage_various.txt') is None:
@@ -71,7 +76,7 @@ def migrateTo08(context):
     logger.info("...done")
     logger.info("Migrated to 0.8")
 
-def migrateTo08a3(context):
+def migrateTo08b1(context):
     portal = getToolByName(context, 'portal_url').getPortalObject()
     logger.info("Checking rows (or labels) without an uuid")
     _uuid_all(portal)
@@ -80,4 +85,14 @@ def migrateTo08a3(context):
     logger.info("Now indexing all rows inside Table Page contents")
     portal.tablepage_catalog.clearFindAndRebuild()
     logger.info("...done")
-    logger.info("Migrated to 0.8a3")
+    logger.info("Migrated to 0.8b1")
+
+def migrateTo08b2(context):
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    logger.info("Adding new catalog indexes")
+    addCatalogIndex(portal, 'allowedRolesAndUsers', 'KeywordIndex')
+    addCatalogIndex(portal, 'is_label')
+    logger.info("Now indexing all rows inside Table Page contents")
+    portal.tablepage_catalog.clearFindAndRebuild()
+    logger.info("...done")
+    logger.info("Migrated to 0.8b2")

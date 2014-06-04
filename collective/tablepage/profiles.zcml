@@ -55,14 +55,23 @@
     />
 
   <genericsetup:upgradeStep
-        title="Upgrade to 0.8a3"
-        description="Migrate collective.tablepage to 0.8a3"
+        title="Upgrade to 0.8b1"
+        description="Migrate collective.tablepage to 0.8b1"
         source="1300"
         destination="1310"
-        handler=".setuphandlers.migrateTo08a3"
+        handler=".setuphandlers.migrateTo08b1"
         sortkey="5"
         profile="collective.tablepage:default"
     />
 
+  <genericsetup:upgradeStep
+        title="Upgrade to 0.8b2"
+        description="Migrate collective.tablepage to 0.8b2"
+        source="1310"
+        destination="1320"
+        handler=".setuphandlers.migrateTo08b2"
+        sortkey="6"
+        profile="collective.tablepage:default"
+    />
 
 </configure>

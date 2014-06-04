@@ -4,8 +4,8 @@ Changelog
 0.8b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Part of the migration step from 0.8a2 was missing
+  [keul]
 
 0.8b1 (2014-06-03)
 ------------------
