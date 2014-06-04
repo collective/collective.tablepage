@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8b2 (unreleased)
+0.8b2 (2014-06-04)
 ------------------
 
 - Part of the migration step from 0.8a2 was missing
