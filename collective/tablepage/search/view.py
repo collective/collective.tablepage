@@ -29,7 +29,7 @@ class RefreshSearchView(BrowserView):
                 continue
             catalog.reindex_rows(context, uuid, storage)
             if index and index % 100 == 0:
-                logger.info("Refreshing catalog and caches (%d)" % index)
+                logger.info("Refreshing catalog (%d)" % index)
                 transaction.savepoint()
         logger.info("Refreshing catalog and caches: done")
         getToolByName(context, 'plone_utils').addPortalMessage(_('reindex_performed_message',
