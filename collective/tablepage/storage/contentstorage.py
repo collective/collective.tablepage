@@ -38,6 +38,7 @@ class DataStorage(object):
             for row in self._ann:
                 if row.get('__uuid__') == index:
                     return row
+            raise KeyError('Cannot find element with uuid %s' % index)
         return self._ann[index]
 
     def get(self, index):
