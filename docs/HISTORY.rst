@@ -4,7 +4,7 @@ Changelog
 0.8b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Yet another Plone 3 compatibility fix [keul]
 
 
 0.8b2 (2014-06-04)

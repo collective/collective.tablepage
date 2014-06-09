@@ -128,7 +128,7 @@ class TableViewView(BrowserView):
         else:
             tp_catalog = getToolByName(context, 'tablepage_catalog')
             storage = tp_catalog.searchTablePage(context, **self._clean_query(request.form))
-            self.result_length = getattr(storage, 'actual_result_count') or len(storage)
+            self.result_length = getattr(storage, 'actual_result_count', None) or len(storage)
 
         rows = []
         adapters = {}
