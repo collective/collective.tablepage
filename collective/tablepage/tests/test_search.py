@@ -6,6 +6,7 @@ from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.testing import TABLE_PAGE_INTEGRATION_TESTING
 from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
+from plone.app.testing import logout
 from pyquery import PyQuery
 
 
@@ -175,7 +176,18 @@ class SearchWithBatchAndLabelTestCase(unittest.TestCase):
         self.tp = tp
         self.storage = IDataStorage(tp)
         self._addRows(35)
+        # now adding another tablepage: this must be always ignored by searches
+        portal.invokeFactory(type_name='TablePage', id='table_page2', title="Another Table Document")
+        portal.table_page2.edit(pageColumns=[{'id': 'foo_field', 'label': 'Foo field', 'description': '',
+                                              'type': 'String', 'vocabulary': '', 'options': []},
+                                              ],
+                                              batchSize=10)
+        storage2 = IDataStorage(portal.table_page2)
+        storage2.add({'__label__': 'A Label', '__uuid__': 'l2l2l2'})
+        storage2.add({'foo_field': 'aa001', '__uuid__': '010'})
+        portal.portal_workflow.doActionFor(tp, 'publish')
         self.tp_catalog.clearFindAndRebuild()
+        logout()
 
     def _addRows(self, nrows):
         for x in range(nrows):

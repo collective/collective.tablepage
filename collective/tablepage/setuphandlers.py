@@ -7,6 +7,7 @@ from collective.tablepage.interfaces import ITablePage
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.catalog import manage_addTablePageCatalog
 from Products.CMFCore.utils import getToolByName
+from Products.ZCatalog.Catalog import CatalogError
 
 def createCatalog(portal):
     if not hasattr(portal, config.CATALOG_ID):
@@ -24,7 +25,10 @@ def addCatalogColumns(portal, columns):
 def addCatalogIndex(portal, name, type="FieldIndex"):
     catalog = portal.tablepage_catalog
     logger.info("Adding index %s (%s)" % (name, type))
-    catalog.addIndex(name, type)
+    try:
+        catalog.addIndex(name, type)
+    except CatalogError:
+        logger.info("... already exists: skipping")
 
 def setupVarious(context):
     if context.readDataFile('collective.tablepage_various.txt') is None:
@@ -96,3 +100,13 @@ def migrateTo08b2(context):
     portal.tablepage_catalog.clearFindAndRebuild()
     logger.info("...done")
     logger.info("Migrated to 0.8b2")
+
+def migrateTo08b3(context):
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    logger.info("Removing useless catalog index allowedRolesAndUsers")
+    try:
+        portal.tablepage_catalog.delIndex('allowedRolesAndUsers')
+        logger.info("Removed!")
+    except CatalogError:
+        logger.info("...not found: doing nothing")
+    logger.info("Migrated to 0.8b3")

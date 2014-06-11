@@ -9,6 +9,7 @@ from AccessControl import ClassSecurityInfo
 from AccessControl.Permissions import search_zcatalog
 from AccessControl.Permissions import manage_zcatalog_entries
 from Products.AdvancedQuery import Eq
+from Products.AdvancedQuery.eval import eval as _eval
 from Products.CMFCore.CatalogTool import CatalogTool
 from Products.ZCatalog.ZCatalog import ZCatalog
 from plone.indexer import indexer
@@ -156,10 +157,6 @@ class CatalogDictLabelWrapper(object):
 def getObjPositionInParent(obj):
     return obj.getObjPositionInParent()
 
-@indexer(ICatalogDictWrapper)
-def allowedRolesAndUsers(obj):
-    return ('Anonymous', )
-
 
 class TablePageCatalog(CatalogTool):
     """Rows catalog for Table page"""
@@ -174,16 +171,20 @@ class TablePageCatalog(CatalogTool):
     def __init__(self):
         ZCatalog.__init__(self, self.getId(), self.title)
 
+    def evalAdvancedQuery(self, query, sortSpecs=()):
+        # Re-defining the AdvancedQuery monkey patch method, to remove some useless stuff
+        # Do not check the access inactive portal content power
+        query = query._clone()
+        return _eval(self, query, sortSpecs)
+
     security.declareProtected(search_zcatalog, 'searchTablePage')
     def searchTablePage(self, tp, **kwargs):
         if 'path' not in kwargs.keys():
             kwargs['path'] = '/'.join(tp.getPhysicalPath())
-#        if 'sort_on' not in kwargs.keys():
-#            kwargs['sort_on'] = 'getObjPositionInParent'
         if 'is_label' not in kwargs.keys():
             kwargs['is_label'] = False
-        #raw_query = [Eq(k, v) for k,v in kwargs.items() if k not in ('sort_on', 'sort_order')]
         query = Eq('is_label', True)
+        query &= Eq('path', kwargs['path'])
 
         sub_query = None
         for k,v in kwargs.items():
@@ -195,7 +196,6 @@ class TablePageCatalog(CatalogTool):
                 sub_query = Eq(k, v)
         
         query = query | sub_query
-        #return self(**kwargs)
         return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))
 
     def catalog_row(self, context, row_data):
@@ -350,7 +350,6 @@ def manage_addTablePageCatalog(self, REQUEST=None):
     cat.addIndex('getObjPositionInParent', 'FieldIndex')
     cat.addColumn('getObjPositionInParent')
     cat.addIndex('Creator', 'FieldIndex')
-    cat.addIndex('allowedRolesAndUsers', 'KeywordIndex')
     cat.addColumn('UID')
     cat.addColumn('is_label')
     cat.addIndex('is_label', 'FieldIndex') # BooleanIndex only on Plone 4+

@@ -4,8 +4,15 @@ Changelog
 0.8b3 (unreleased)
 ------------------
 
-- Yet another Plone 3 compatibility fix [keul]
-
+- Yet another Plone 3 compatibility fix
+  [keul]
+- Fixed critical bug in search: path was not used for
+  finding labels
+  [keul]
+- Fixing AdvancedQuery integration and removing unused indexes. 
+  This fix critical bug that make query look for
+  "access inactive portal content" permission
+  [keul]
 
 0.8b2 (2014-06-04)
 ------------------
