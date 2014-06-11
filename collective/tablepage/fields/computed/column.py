@@ -83,8 +83,8 @@ class ComputedField(BaseField, ComputedBase):
     def cache_time(self):
         """
         The cache_time attribute here is computed.
-        Look at the column configuration, second line, for a "cache:X" value, then
-        cache use X as cache
+        Look at the column configuration, for a "cache:X" value, then
+        column use X as cache
         """
         conf = self.configuration.get('vocabulary') or ''
         conf = conf.splitlines()
