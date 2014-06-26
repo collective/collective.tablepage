@@ -9,8 +9,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: fi\n"
+"Language-Name: Finnish\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.tablepage\n"
 "X-Generator: Poedit 1.6.5\n"
@@ -23,15 +23,15 @@ msgstr "${count} rivi(ä) poistettu"
 
 #: content/tablepage.py:356
 msgid "... always display"
-msgstr "... näytä aina"
+msgstr "näytä aina"
 
 #: content/tablepage.py:354
 msgid "... only on page view"
-msgstr "... vain esitettäessä"
+msgstr "vain esitettäessä"
 
 #: content/tablepage.py:355
 msgid "... only when editing table"
-msgstr "... vain muokattaessa"
+msgstr "vain muokattaessa"
 
 #: profiles/default/types/TablePage.xml
 msgid "A page with an editable table"
@@ -66,7 +66,7 @@ msgstr "Lisää rivi"
 
 #: browser/templates/view-table.pt:155
 msgid "Add new row above this"
-msgstr "Lisää rivi tämän yläpuolelle"
+msgstr "Lisää rivi yläpuolelle"
 
 #: browser/templates/view-table.pt:143
 msgid "Add new row below"
@@ -74,7 +74,7 @@ msgstr "Lisää rivi alapuolelle"
 
 #: browser/templates/view-table.pt:139
 msgid "Add new row below this"
-msgstr "Lisää rivi tämän alapuolelle"
+msgstr "Lisää rivi alapuolelle"
 
 #: content/tablepage.py:72
 msgid "Additional features"
@@ -133,7 +133,7 @@ msgstr "Ohjelmallinen"
 
 #: content/tablepage.py:174
 msgid "Criteria for adding new rows"
-msgstr "Rivien lisäämiskriteeristö"
+msgstr "Rivien lisäyskohta"
 
 #: browser/templates/view-table.pt:63
 msgid "Delete rows"
@@ -153,7 +153,7 @@ msgstr "Vie CSV-muodossa"
 
 #: browser/templates/multiple-tables.pt:73 browser/templates/view-table.pt:76
 msgid "Download data in CSV format"
-msgstr "Vie tiedot CSV-muodossa"
+msgstr "Vie taulukko CSV-tiedostoksi"
 
 #: browser/templates/edit-label.pt:17 browser/templates/view-table.pt:181
 msgid "Edit label"
@@ -331,7 +331,7 @@ msgid "Search in text"
 msgstr "Hae tekstistä"
 
 msgid "Select"
-msgstr "Valitse"
+msgstr "Valinta"
 
 #: fields/templates/file.pt:44
 msgid "Select an existing document"
@@ -351,14 +351,14 @@ msgstr "Näytä tietojen latauslinkki"
 
 #: content/tablepage.py:162
 msgid "Show headers"
-msgstr "Näytä otsikot"
+msgstr "Näytä otsakkeet"
 
 msgid "Show stored data in multiple tables"
 msgstr "Esitä tallennetut tiedot useissa taulukoissa"
 
 #: content/tablepage.py:163
 msgid "Show table headers when..."
-msgstr "Näytä otsikot kun..."
+msgstr "Sarakeotsakkeiden näyttöasetukset"
 
 #: vocabularies.py:74
 msgid "Single value search"
@@ -400,7 +400,7 @@ msgstr "Tuo tiedot CSV-tiedostosta"
 
 #: browser/templates/view-table.pt:68
 msgid "Upload data with CSV"
-msgstr "Tuo tiedot CSV-tiedostolla"
+msgstr "Tuo taulukko CSV-tiedostosta"
 
 #: browser/templates/upload-csv.pt:38
 msgid "Upload..."
@@ -418,11 +418,8 @@ msgstr "Tarkista tiedot"
 #: content/tablepage.py:133
 msgid "attachmentStorage_help"
 msgstr ""
-"Valitse kansio johon mahdolliset käyttäjien taulukkoon lisäämät "
-"liitetiedostot tallennetaan (jos taulukko sisältää Tiedosto - sarakkeita).\n"
-"Jos käyttäjällä ei ole oikeuksia lisätä sisältöä valittuun kansioon, he "
-"voivat vain lisätä ko. kansiossa jo olevia (liite-) tiedostoja.\n"
-"Oletuksena käytetään tämän taulukkosivun kansiota."
+"Kansio johon tiedosto(t) -sarakkeiden tiedostot tallennetaan. Jos kansiota ei valita, käytetään samaa kansiota jossa tämä taulukkosivu on.\n"
+"Jos käyttäjällä ei ole oikeuksia lisätä sisältöä kansioon, ainoastaan kansiossa jo olevien tiedostojen lisääminen taulukkoon on mahdollista.\n"
 
 #. Default: "There are columns ($cols) defined as searchable but no indexes with same has been found in the tablepage_catalog tool.\nSearch form will use them."
 #: events.py:22
@@ -462,7 +459,7 @@ msgstr "."
 #. Default: "Add, Edit or Delete rows in the main table of this content"
 #: browser/templates/tablepage-edit.pt:27
 msgid "description_edit_table_view"
-msgstr "Lisää, muokkaa tai poista tämän sivun päätaulukon rivejä"
+msgstr "Lisää, muokkaa tai poista taulukon rivejä ja otsakkeita"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
 #: fields/file.py:153
@@ -515,9 +512,9 @@ msgstr ""
 msgid "help_batchSize"
 msgstr ""
 "Aseta suurin kerralla näytettävien rivien määrä.\n"
-"Kun asetettu raja ylitetään, rivit esitetään erissä useille sivuille "
-"ryhmiteltynä. Anna nolla jos haluat että kaikki rivit näytetään aina "
-"kerralla (ei suositella suurille tai monimutkaisille taulukoille)."
+"Taulukon kasvaessa asetetun määrän yli, se ryhmitellään useille sivuille."
+"Koko taulukko voidaan pakottaa näkymään aina kerralla asettamalla arvoksi nolla "
+"(ei suositella suurille tai monimutkaisille taulukoille)."
 
 #. Default: "Display a download link for data inside the table in CSV format"
 #: content/tablepage.py:150
@@ -535,8 +532,7 @@ msgstr ""
 #: content/tablepage.py:175
 msgid "help_insertType"
 msgstr ""
-"Uuden rivin lisäämiskriteerit.\n"
-"Valitse jos olet lisäämässä rivin ryhmän loppuun tai ennen sitä."
+"Uuden rivin lisäysasetukset."
 
 #. Default: "As an alternative to the \\"URL\\" above you can provide a link to an internal document. This will override any absolute URL you put above."
 #: fields/templates/link.pt:75
@@ -560,16 +556,13 @@ msgstr "Tuo uusi sivustolle tiedostoksi lisättävä sisältö. "
 #. Default: "Definition of rows inside the table"
 #: content/tablepage.py:54
 msgid "help_pageColumns"
-msgstr "Taulukon rivien määrittely"
+msgstr "Taulukon sarakkeiden määrittely"
 
 #. Default: "Provide configuration for the search in table.\nPlease note that this section will not load live data from the \"Columns\" field. If you changed something in the columns configuration during this edit attempt you MUST save first and came back here again."
 #: content/tablepage.py:217
 msgid "help_searchConfig"
 msgstr ""
-"Hakutoiminnon asetukset.\n"
-"Huomaa että tämä toiminto ei lataa tietoja \"Sarakkeet\" - kohdasta. Jos jo "
-"muutit sarakkeiden asetuksia tallentamatta niitä, tallenna ne ensin ja palaa "
-"hakutoiminnon asetuksiin sen jälkeen."
+"Hakutoiminnon asetukset"
 
 #. Default: "A description to be used in search form"
 #: content/tablepage.py:237
