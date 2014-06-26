@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Products.PageTemplates import Expressions
+from Products.ZCatalog.CatalogBrains import AbstractCatalogBrain
 from collective.tablepage import logger
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.computed.interfaces import IComputedColumnHandler
@@ -30,6 +31,11 @@ class ComputedBase(object):
 
     def _get_row_data(self, row):
         """Return a dict of data taken from other row values"""
+        # First of all: if this is a catalog brain, let's load the "real object"
+        # BBB: can't check for ICatalogBrain until Plone 3.3 support will be dropped
+        if isinstance(row, AbstractCatalogBrain):
+            storage = IDataStorage(self.context)
+            row = storage[row.getObjPositionInParent-1]
         results = {}
         utils = {}
         configuration = self.context.getPageColumns()
@@ -56,9 +62,10 @@ class ComputedBase(object):
             results[id] = utils[col_type](data)
         return results
 
-    def eval_mappings(self, index):
+    def eval_mappings(self, index, storage=None):
         """Compute mappings for TAL evaluation"""
-        storage = IDataStorage(self.context)
+        if storage is None:
+            storage = IDataStorage(self.context)
         portal_state = getMultiAdapter((self.context, self.request),
                                        name=u'plone_portal_state')
         current_row = self._get_row_data(storage[index])
@@ -103,7 +110,7 @@ class ComputedField(BaseField, ComputedBase):
         """Will not render anything on edit"""
         return None
 
-    def render_view(self, foo, index):
+    def render_view(self, foo, index, storage=None):
         """Whatever dummy value we receive, the result will be a TAL expression evaluation"""
         self.data = None
         expression = self.configuration.get('vocabulary')
@@ -112,7 +119,7 @@ class ComputedField(BaseField, ComputedBase):
             talEngine = Expressions.getEngine()
             compiledExpr = talEngine.compile(expression)
             try:
-                self.data = compiledExpr(talEngine.getContext(self.eval_mappings(index=index)))
+                self.data = compiledExpr(talEngine.getContext(self.eval_mappings(index=index, storage=storage)))
             except CompilerError:
                 logger.debug("Can't evaluate %s" % expression)
                 self.data = None

@@ -35,7 +35,7 @@ class BaseField(object):
             self.data = data.decode('utf-8')
         return self.edit_template(data=self.data)
 
-    def render_view(self, data, index=None):
+    def render_view(self, data, index=None, storage=None):
         self.data = data or ''
         return self.view_template(data=self.data)
 

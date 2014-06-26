@@ -39,7 +39,7 @@ class MonetaryField(NumberField):
         return "%d%s" % (x, result)
 
 
-    def render_view(self, data, index=None):
+    def render_view(self, data, index=None, storage=None):
         """When in view, render data in the proper monetary (and localized) format"""
         self.data = data or ''
         if self.data:

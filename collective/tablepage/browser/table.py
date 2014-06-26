@@ -173,7 +173,7 @@ class TableViewView(BrowserView):
                     logger.debug("Cache hit (%s)" % conf['id'])
                 # Cache miss
                 else:
-                    output = field.render_view(record.get(conf['id']), index)
+                    output = field.render_view(record.get(conf['id']), index, storage)
                     if field.cache_time:
                         if not record.get("__cache__"):
                             record["__cache__"] = PersistentDict()

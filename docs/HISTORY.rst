@@ -13,6 +13,9 @@ Changelog
   This fix critical bug that make query look for
   "access inactive portal content" permission
   [keul]
+- Fixed an evil bug that populate caches of computed fields with
+  bad values when search are performed
+  [keul]
 
 0.8b2 (2014-06-04)
 ------------------

@@ -20,9 +20,10 @@ class IColumnField(Interface):
         Get the HTML field for editing. This can be None, and the field will not be rendered on editing row
         """
     
-    def render_view(data, index=None):
+    def render_view(data, index=None, storage=None):
         """Get the HTML field for final display
         @index the row index of the data in the table
+        @storage data storage to be used
         """
 
 
