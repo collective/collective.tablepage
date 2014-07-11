@@ -47,7 +47,7 @@
   <genericsetup:upgradeStep
         title="Upgrade to 0.8"
         description="Migrate collective.tablepage to 0.8"
-        source="1200"
+        source="1210"
         destination="1300"
         handler=".setuphandlers.migrateTo08"
         sortkey="4"

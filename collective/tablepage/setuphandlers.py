@@ -9,6 +9,7 @@ from collective.tablepage.catalog import manage_addTablePageCatalog
 from Products.CMFCore.utils import getToolByName
 from Products.ZCatalog.Catalog import CatalogError
 
+
 def createCatalog(portal):
     if not hasattr(portal, config.CATALOG_ID):
         manage_addTablePageCatalog(portal)
@@ -20,7 +21,10 @@ def addCatalogColumns(portal, columns):
     catalog = portal.tablepage_catalog
     for c in columns:
         logger.info("Adding column %s" % c)
-        catalog.addColumn(c)
+        try:
+            catalog.addColumn(c)
+        except CatalogError:
+            logger.info("Column %s already exists" % c)
 
 def addCatalogIndex(portal, name, type="FieldIndex"):
     catalog = portal.tablepage_catalog

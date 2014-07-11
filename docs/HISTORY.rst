@@ -4,7 +4,8 @@ Changelog
 0.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Migration fixes from older releases
+  [keul]
 
 
 0.8 (2014-07-11)
