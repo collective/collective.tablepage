@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.8b4 (unreleased)
-------------------
+0.8 (2014-07-11)
+----------------
 
 - Added Finnish translation
   [petri]
