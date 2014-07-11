@@ -6,7 +6,11 @@ Changelog
 
 - Added Finnish translation
   [petri]
+- Fixed encoding issue with vocabulary values using selection column
+  (close `#5`__)
+  [keul]
 
+__ https://github.com/RedTurtle/collective.tablepage/issues/5
 
 0.8b3 (2014-06-26)
 ------------------

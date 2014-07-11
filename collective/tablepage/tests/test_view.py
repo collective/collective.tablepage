@@ -34,6 +34,21 @@ class ViewTestCase(unittest.TestCase):
         except UnicodeDecodeError:
             self.fail("getText() raised UnicodeDecodeError unexpectedly!")
 
+    def test_selection_encoding(self):
+        """Be sure that we have no problems with non-ASCII chars in vocabulary of selection field"""
+        portal = self.layer['portal']
+        request = self.layer['request']
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'Select', 'vocabulary': 'F\xc3\xb2\xc3\xb2\nBar\nBaz', 'options': []}])
+        view = getMultiAdapter((tp, request), name='edit-record')
+        try:
+            output = view()
+        except UnicodeDecodeError:
+            self.fail("@@edit-record raised UnicodeDecodeError unexpectedly with vocabulary values!")
+        self.assertTrue('F\xc3\xb2\xc3\xb2'.decode('utf-8') in output)
+
     def test_encoding_on_rendering(self):
         """Be sure that we have no problems with non-ASCII chars"""
         portal = self.layer['portal']

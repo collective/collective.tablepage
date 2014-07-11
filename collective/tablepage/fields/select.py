@@ -19,4 +19,4 @@ class SelectField(BaseField):
 
     def vocabulary(self):
         raw_vocabulary = self.configuration['vocabulary']
-        return raw_vocabulary.rstrip().splitlines()
+        return raw_vocabulary.rstrip().decode('utf-8').splitlines()
