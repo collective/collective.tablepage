@@ -115,7 +115,7 @@
 
             var oTable = $(elem).dataTable();
 
-            var aoGroups = new Array();
+            var aoGroups = [];
             $(this).dataTableExt.aoGroups = aoGroups;
 
             function fnCreateGroupRow(sGroupCleaned, sGroup, iColspan) {
@@ -123,7 +123,7 @@
                 var nCell = document.createElement('td');
                 nGroup.id = "group-id-" + oTable.attr("id") + "_" + sGroupCleaned;
 
-                var oGroup = { id: nGroup.id, key: sGroupCleaned, text: sGroup, level: 0, groupItemClass: ".group-item-" + sGroupCleaned, dataGroup: sGroupCleaned, aoSubgroups: new Array() };
+                var oGroup = { id: nGroup.id, key: sGroupCleaned, text: sGroup, level: 0, groupItemClass: ".group-item-" + sGroupCleaned, dataGroup: sGroupCleaned, aoSubgroups: [] };
 
 
 
@@ -164,7 +164,7 @@
                 var dataGroup = oParentGroup.dataGroup + '_' + sGroup2;
 
                 var oGroup = { id: nGroup2.id, key: sGroup2, text: sGroupLabel, level: oParentGroup.level + 1, groupItemClass: ".group-item-" + dataGroup,
-                    dataGroup: dataGroup, aoSubgroups: new Array()
+                    dataGroup: dataGroup, aoSubgroups: []
                 };
 
                 if (properties.bSetGroupingClassOnTR) {
@@ -211,7 +211,7 @@
                     return (aoGroups[sGroup].state == "collapsed");
                 else
                     if (sGroup.indexOf("_") > -1)
-                        true;
+                        return true;
                     else
 						if(bInitialGrouping && (asExpandedGroups==null || asExpandedGroups.length == 0))
 							return false;// initially if asExpandedGroups is empty - no one is collapsed
@@ -270,7 +270,7 @@
                         oTable.fnClose(oTable.fnGetNodes(iDataIndex));
                     }
                     return false;
-                };
+                }
 				return true;
             } //end of function _rowGroupingRowFilter
 
@@ -517,7 +517,7 @@
             //var oTable = this;
             var iYearIndex = 6;
             var iYearLength = 4;
-            var asExpandedGroups = new Array();
+            var asExpandedGroups = [];
             var bInitialGrouping = true;
 
             var properties = $.extend(defaults, options);
@@ -581,7 +581,7 @@
 					properties.bAddAllGroupsAsExpanded = true;
                 } else if (properties.asExpandedGroups.constructor == String) {
                     var currentGroup = properties.asExpandedGroups;
-                    properties.asExpandedGroups = new Array();
+                    properties.asExpandedGroups = [];
                     properties.asExpandedGroups.push(_fnGetCleanedGroup(currentGroup));
                     asExpandedGroups = properties.asExpandedGroups;
                     bInitialGrouping = false;
@@ -594,7 +594,7 @@
                     bInitialGrouping = false;
                 }
             }else{
-				properties.asExpandedGroups = new Array();
+				properties.asExpandedGroups = [];
 				properties.bAddAllGroupsAsExpanded = true;
 			}
 			if(properties.bExpandSingleGroup){
@@ -606,7 +606,7 @@
                     sGroup = fnGetGroup(sGroupData);
 
 				var sGroupCleaned = _fnGetCleanedGroup(sGroup);
-				properties.asExpandedGroups = new Array();
+				properties.asExpandedGroups = [];
 				properties.asExpandedGroups.push(sGroupCleaned);
 							
 			}
@@ -626,7 +626,7 @@
                 "sName": "fnRowGrouping"
             });
 
-            var aaSortingFixed = new Array();
+            var aaSortingFixed = [];
             aaSortingFixed.push([properties.iGroupingOrderByColumnIndex, properties.sGroupingColumnSortDirection]);
             if (properties.iGroupingColumnIndex2 != -1) {
                 aaSortingFixed.push([properties.iGroupingOrderByColumnIndex2, properties.sGroupingColumnSortDirection2]);
