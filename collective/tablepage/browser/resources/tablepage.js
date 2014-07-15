@@ -5,10 +5,10 @@
     $(document).ready(function() {
         var dataTable = null;
         var wWidth = $("#portal-columns").width();
-        var wWidth995 = parseInt(wWidth/100*95); 
+        var wWidth995 = parseInt(wWidth/100*95, 10); 
         var innerW = $('#content').width();
         var wHeidht = $(window).height();
-        var wHeidht990 = parseInt(wHeidht/100*90);
+        var wHeidht990 = parseInt(wHeidht/100*90, 10);
 
         // expand/collapse table feature
         var selectAllCommand = $('#selectAll');
@@ -103,14 +103,14 @@
                 columns = $('thead th', this);
                 columns.each(function(index) {
                     if ($(this).is('.noData') || $(this).is('.coltype-Text')) {
-                        noDataCols.push(index)
+                        noDataCols.push(index);
                     }
                 });
 
                 // Init the DataTables, but only if we have some rows
                 if ($table.find('tr.noResults').length===0 && rowCount>=minRows) {
                     var hasLabels = allLabelRows.length>0,
-                        wHeidht = $(window).height()
+                        wHeidht = $(window).height(),
 					    batchingEnabled = !!$table.attr('data-batching-enabled');
                     
                     dataTable = $table.dataTable({
