@@ -373,7 +373,7 @@
                 }
                 e.preventDefault();
 
-            }; //end function _fnOnGroupClick
+            } //end function _fnOnGroupClick
 			
 			
 			function _fnDrawCallBackWithGrouping (oSettings) {
@@ -483,7 +483,7 @@
 
                             if (sLastGroup2 == null || _fnGetCleanedGroup(sGroup2) != _fnGetCleanedGroup(sLastGroup2)) {
                                 var sGroup2Id = _fnGetCleanedGroup(sGroup) + '-' + _fnGetCleanedGroup(sGroup2);
-                                var oGroup2 = _fnCreateGroup2Row(sGroup2Id, sGroup2, iColspan, aoGroups[sGroupCleaned])
+                                var oGroup2 = _fnCreateGroup2Row(sGroup2Id, sGroup2, iColspan, aoGroups[sGroupCleaned]);
                                 var nGroup2 = oGroup2.nGroup;
                                 nTrs[i].parentNode.insertBefore(nGroup2, nTrs[i]);
 
@@ -498,7 +498,7 @@
 
 
                     } // end for (var i = 0; i < nTrs.length; i++)
-                }; // if (oSettings.aiDisplay.length > 0)
+                } // if (oSettings.aiDisplay.length > 0)
 
 				if(sLastGroup != null)
 			    {
@@ -511,7 +511,7 @@
 
                 bInitialGrouping = false;
 				
-            }; // end of _fnDrawCallBackWithGrouping = function (oSettings)
+            } // end of _fnDrawCallBackWithGrouping = function (oSettings)
 
 
             //var oTable = this;
@@ -651,7 +651,7 @@
                             aData.push(_fnGetGroupByLetter(this.innerHTML));
                         });
                         return aData;
-                    }
+                    };
 
 
                     break;
@@ -674,7 +674,7 @@
                         });
 */
                         return aData;
-                    }
+                    };
                     break;
                 default:
                     break;
