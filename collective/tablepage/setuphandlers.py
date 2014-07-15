@@ -114,3 +114,18 @@ def migrateTo08b3(context):
     except CatalogError:
         logger.info("...not found: doing nothing")
     logger.info("Migrated to 0.8b3")
+
+def migrateTo081(context):
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    setup_tool = getToolByName(context, 'portal_setup')
+    portal_javascripts = getToolByName(context, 'portal_javascripts')
+    was_enabled = False
+    resource = portal_javascripts.getResource('++resource++collective.tablepage.resources/jquery.dataTables.rowGrouping.js')
+    if resource and resource.getEnabled():
+        was_enabled = True
+    setup_tool.runImportStepFromProfile('profile-collective.tablepage:default', 'jsregistry')
+    if was_enabled:
+        logger.info("rowGroping plugin was enabled - re-activating with new configuration")
+        portal_javascripts.getResource('++resource++collective.tablepage.resources/jquery.dataTables.rowGrouping.js').setEnabled(True)
+        portal_javascripts.cookResources()
+    logger.info("Migrated to 0.8.1")

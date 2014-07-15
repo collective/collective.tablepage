@@ -7,8 +7,11 @@ Changelog
 - Migration fixes from older releases
   [keul]
 - Some minimal JSHint cleanup on the 3rd party ``jquery.dataTables.rowGrouping.js``
-  file that sometimes can create problems with compression.
+  file that sometimes can create problems with compression. Also provided
+  a pre-minified version. See `#14279`__).
   [keul]
+
+__ https://dev.plone.org/ticket/14279
 
 0.8 (2014-07-11)
 ----------------

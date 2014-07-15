@@ -8,7 +8,7 @@
                inline="False" />
    <javascript id="++resource++collective.tablepage.resources/jquery.dataTables.rowGrouping.js"
                cacheable="True"
-               compression="safe"
+               compression="full"
                cookable="True"
                enabled="False"
                inline="False" />
