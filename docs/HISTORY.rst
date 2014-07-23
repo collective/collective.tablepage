@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.1 (unreleased)
+0.8.1 (2014-07-23)
 ------------------
 
 - Migration fixes from older releases
