@@ -80,13 +80,6 @@
        name="Computed"
        />
 
-   <adapter
-       for="collective.tablepage.interfaces.ITablePage
-                zope.publisher.interfaces.browser.IBrowserRequest"
-       provides="collective.tablepage.interfaces.IColumnField"
-       factory=".computed.column.ComputedSelectField"
-       name="ComputedSelect"
-       />
 
    <!-- data retrivers -->
    <adapter

@@ -32,6 +32,3 @@ class IMultiFileColumnField(IColumnField):
 
 class IComputedColumnField(IColumnField):
     """A column field that handle a TAL expression, for taking data from other columns value or site's documents"""
-
-class IComputedSelectColumnField(IColumnField):
-    """A select column field whose vocabulary is built from a TAL expression"""

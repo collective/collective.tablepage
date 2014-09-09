@@ -5,7 +5,7 @@ from Products.ZCatalog.CatalogBrains import AbstractCatalogBrain
 from collective.tablepage import logger
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.computed.interfaces import IComputedColumnHandler
-from collective.tablepage.fields.interfaces import IComputedColumnField, IComputedSelectColumnField
+from collective.tablepage.fields.interfaces import IComputedColumnField
 from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IDataStorage
 from plone.memoize import instance
@@ -160,36 +160,3 @@ class ComputedDataRetriever(ComputedBase):
 
     def data_to_storage(self, data):
         raise NotImplementedError("ComputedColumn will not save anything in the storage")
-
-
-class ComputedSelectField(BaseField):
-    """a select field that gets its vocabulary by a TALES expression"""
-
-    implements(IComputedSelectColumnField)
-
-    edit_template = ViewPageTemplateFile('../templates/select.pt')
-    view_template = ViewPageTemplateFile('../templates/string_view.pt')
-
-    def vocabulary(self):
-        expression = self.configuration.get('vocabulary')
-        if expression:
-            expression = expression.splitlines()[0]
-            talEngine = Expressions.getEngine()
-            compiledExpr = talEngine.compile(expression)
-
-            portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-            vals = {
-                'portal': portal_state.portal(),
-                'context': self.context,
-                'request': self.request,
-            }
-            try:
-                result = compiledExpr(talEngine.getContext(vals))
-                return result
-            except CompilerError, e:
-                msg = "Error compiling %s: %s" % (expression, e)
-                logger.debug(msg)
-                return [msg]
-            except Exception, e:
-                msg = "Error evaluating %s: %s" % (expression,e)
-                return [msg]
