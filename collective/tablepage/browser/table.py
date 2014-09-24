@@ -140,8 +140,9 @@ class TableViewView(BrowserView):
         # let's cache adapters
         for conf in self.context.getPageColumns():
             col_type = conf['type']
-            adapters[col_type] = getMultiAdapter((context, request),
-                                                 IColumnField, name=col_type)
+            if not adapters.get(col_type):
+                adapters[col_type] = getMultiAdapter((context, request),
+                                                     IColumnField, name=col_type)
 
         self.last_page_label = self._findLastPageLabel(b_start)
 
@@ -162,8 +163,7 @@ class TableViewView(BrowserView):
                 continue
 
             # every row data is a dict with the UID, and a list of data for single cells
-            row = {'UID': record.get('__uuid__') \
-                        or record.UID,
+            row = {'UID': record.get('__uuid__') or record.UID,
                    'cols': []}
             write_attempt = False
             for conf in context.getPageColumns():
