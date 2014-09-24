@@ -56,7 +56,7 @@ class CatalogDictWrapper(object):
         # if not already indexed
         # this is tricky, but in this way we can index complex columns
         # like Computed (when cache is used)
-        # I know, it's evil and I'm  a bad guy
+        # I know, it's evil and I'm a bad guy
         if not dict_obj.get('__cache__'):
             return
         for k in dict_obj.get('__cache__').keys():
