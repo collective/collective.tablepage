@@ -36,32 +36,28 @@
             <input type="hidden" name="b_start:int" value=""
                    tal:condition="request/b_start|nothing"
                    tal:attributes="value request/b_start" />
-
-            <fieldset>
-                <legend i18n:translate="">Provide data for the row</legend>
             
-                <div class="field tablePageField"
-                     tal:attributes="class python:field.configuration['id'] in view.errors.keys() and 'field tablePageField error' or default"
-                     tal:repeat="field view/fields">
-                     <div class="fieldErrorBox"
-                          tal:define="err_msg python:view.errors.get(field.configuration['id'])"
-                          tal:condition="err_msg"
-                          tal:content="err_msg">Error message</div>
-                    <tal:field define="value python:view.data.get(field.configuration['id'])"
-                               replace="structure python:field.render_edit(value)">
-                    </tal:field>
-                </div>
+            <div class="field tablePageField"
+                 tal:attributes="class python:field.configuration['id'] in view.errors.keys() and 'field tablePageField error' or default"
+                 tal:repeat="field view/fields">
+                 <div class="fieldErrorBox"
+                      tal:define="err_msg python:view.errors.get(field.configuration['id'])"
+                      tal:condition="err_msg"
+                      tal:content="err_msg">Error message</div>
+                <tal:field define="value python:view.data.get(field.configuration['id'])"
+                           replace="structure python:field.render_edit(value)">
+                </tal:field>
+            </div>
 
-                <input type="hidden" name="row-index:int" value=""
-                       tal:condition="python:request.get('row-index') is not None"
-                       tal:attributes="value request/row-index" />
-                <input type="hidden" name="addRow" value="1"
-                       tal:condition="python:request.get('addRow')" />
-                <input type="hidden" name="form.submitted" value="1" />
-                <input class="context" type="submit" name="save" value="Save" i18n:domain="plone" i18n:attributes="value" />
-                <input class="context noUnloadProtection" type="submit" name="cancel" value="Cancel"
-                       i18n:domain="plone"  i18n:attributes="value" />
-            </fieldset>
+            <input type="hidden" name="row-index:int" value=""
+                   tal:condition="python:request.get('row-index') is not None"
+                   tal:attributes="value request/row-index" />
+            <input type="hidden" name="addRow" value="1"
+                   tal:condition="python:request.get('addRow')" />
+            <input type="hidden" name="form.submitted" value="1" />
+            <input class="context" type="submit" name="save" value="Save" i18n:domain="plone" i18n:attributes="value" />
+            <input class="context noUnloadProtection" type="submit" name="cancel" value="Cancel"
+                   i18n:domain="plone"  i18n:attributes="value" />
         </form>
 
     </tal:main-macro>

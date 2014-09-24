@@ -6,7 +6,11 @@ Changelog
 
 - Row's uuid is not put on ``data-uid`` attribute on row
   [keul]
+- Removed useless fieldset legend when editing a row.
+  This close `#13`__
+  [keul]
 
+__ https://github.com/RedTurtle/collective.tablepage/issues/13
 
 0.8.1 (2014-07-23)
 ------------------
