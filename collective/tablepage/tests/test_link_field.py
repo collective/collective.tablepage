@@ -83,7 +83,7 @@ class LinkFieldTestCase(unittest.TestCase):
         storage = IDataStorage(tp)
         self.assertEqual(storage[0]['link'], portal.document.UID())
 
-    def test_reference_intenrnal_ref_precedence(self):
+    def test_reference_internal_ref_precedence(self):
         portal = self.layer['portal']
         request = self.layer['request']
         tp = portal.table_page
