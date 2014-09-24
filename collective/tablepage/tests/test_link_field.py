@@ -32,7 +32,8 @@ class LinkFieldTestCase(unittest.TestCase):
         request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID(),
+                     '__uuid__': 'aaa'})
         request.form['row-index'] = 0
         view = getMultiAdapter((tp, request), name=u'edit-record')
         self.assertTrue('value="%s"' % portal.document.Title().decode('utf-8') in view())
@@ -42,7 +43,8 @@ class LinkFieldTestCase(unittest.TestCase):
         request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': TEST_USER_NAME, 'link': 'http://foo.com/'})
+        storage.add({'__creator__': TEST_USER_NAME, 'link': 'http://foo.com/',
+                     '__uuid__': 'aaa'})
         request.form['row-index'] = 0
         view = getMultiAdapter((tp, request), name=u'edit-record')
         self.assertTrue('http://foo.com/' in view())
@@ -52,7 +54,8 @@ class LinkFieldTestCase(unittest.TestCase):
         request = self.layer['request']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': TEST_USER_NAME, 'link': 'foo bar baz'})
+        storage.add({'__creator__': TEST_USER_NAME, 'link': 'foo bar baz',
+                     '__uuid__': 'aaa'})
         request.form['row-index'] = 0
         view = getMultiAdapter((tp, request), name=u'edit-record')
         self.assertTrue('foo bar baz' not in view())
@@ -112,7 +115,8 @@ class LinkFieldTestCase(unittest.TestCase):
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': 'title:Lorèm ipsum', 'options': []}])
         storage = IDataStorage(tp)
-        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID(),
+                     '__uuid__': 'aaa'})
         output = tp()
         self.assertTrue(u'Lor\xe8m ipsum' in output)
 
@@ -122,6 +126,7 @@ class LinkFieldTestCase(unittest.TestCase):
         tp.edit(pageColumns=[{'id': 'link', 'label': 'Link', 'description': '',
                               'type': 'Link', 'vocabulary': 'icon:src-to-an-icon', 'options': []}])
         storage = IDataStorage(tp)
-        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID()})
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID(),
+                     '__uuid__': 'aaa'})
         output = tp()
         self.assertTrue(u'<img src="src-to-an-icon" alt="A d\xf2cument to reference" />' in output)

@@ -78,7 +78,8 @@ class FileFieldTestCase(unittest.TestCase):
         folder = portal.folder
         tp.manage_setLocalRoles('user0', ('Contributor',))
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user0', 'att': folder.attachment.UID()})
+        storage.add({'__creator__': 'user0', 'att': folder.attachment.UID(),
+                     '__uuid__': 'aaa'})
         logout()
         self.assertTrue('An ancient attachment' in tp())
 
@@ -235,7 +236,9 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         folder = portal.folder
         tp.manage_setLocalRoles('user0', ('Contributor',))
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user0', 'att': '\n'.join([folder.attachment1.UID(), folder.attachment2.UID()])})
+        storage.add({'__creator__': 'user0',
+                     'att': '\n'.join([folder.attachment1.UID(), folder.attachment2.UID()]),
+                     '__uuid__': 'aaa'})
         logout()
         self.assertTrue('An attachment' in tp())
         self.assertTrue('Another attachment' in tp())
@@ -270,7 +273,8 @@ class MultipleFileFieldTestCase(unittest.TestCase):
         request = self.layer['request']
         portal = self.layer['portal']
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user0', 'att': portal.folder.attachment1.UID()})
+        storage.add({'__creator__': 'user0', 'att': portal.folder.attachment1.UID(),
+                     '__uuid__': 'aaa'})
         view = getMultiAdapter((tp, request), name='tablepage-edit')
         self.assertTrue('href="resolveuid/%s/at_download/file"' % \
                                     portal.folder.attachment1.UID() in view())

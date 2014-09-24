@@ -26,7 +26,8 @@ class BatchingTestCase(unittest.TestCase):
 
     def _addRows(self, nrows):
         for x in range(nrows):
-            self.storage.add({'foo_field': '(Row data %d)' % (x+1)})
+            self.storage.add({'foo_field': '(Row data %d)' % (x+1),
+                              '__uuid__': 'uid-%05d' % (x+1)})
 
     def test_batching_disabled(self):
         tp = self.tp

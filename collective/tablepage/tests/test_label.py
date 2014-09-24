@@ -22,10 +22,13 @@ class LabelTestCase(unittest.TestCase):
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
                               'type': 'String', 'vocabulary': '', 'options': []}])
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1',
+                     '__uuid__': 'aaa'})
         storage.add({'__label__': 'A label'})
-        storage.add({'__creator__': 'user1', 'col_a': 'Other data from user1'})
-        storage.add({'__creator__': 'user1', 'col_a': 'Again data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Other data from user1',
+                     '__uuid__': 'bbb'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Again data from user1',
+                     '__uuid__': 'ccc'})
         self.storage = storage
 
     def test_create_new_label_form(self):

@@ -57,9 +57,11 @@ class CSVExportTestCase(unittest.TestCase):
                               'type': 'String', 'vocabulary': '', 'options': []},
                               {'id': 'col_b', 'label': 'Col B', 'description': '',
                               'type': 'String', 'vocabulary': '', 'options': []},])
-        self.storage.add({'__creator__': 'user1', 'col_a': 'foo', 'col_b': 'bar'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'foo', 'col_b': 'bar',
+                          '__uuid__': 'aaa'})
         self.storage.add({'__label__': 'A label'})
-        self.storage.add({'__creator__': 'user1', 'col_a': 'baz', 'col_b': 'qux'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'baz', 'col_b': 'qux',
+                          '__uuid__': 'bbb'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
         self.assertEqual(csv, '"Col A","Col B"\n'
@@ -71,8 +73,10 @@ class CSVExportTestCase(unittest.TestCase):
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
                               'type': 'String', 'vocabulary': '', 'options': []},])
-        self.storage.add({'__creator__': 'user1', 'col_a': 'foo bar'})
-        self.storage.add({'__creator__': 'user1', 'col_a': ' baz  qux'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'foo bar',
+                          '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': ' baz  qux',
+                          '__uuid__': 'bbb'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
         self.assertEqual(csv, '"Col A"\n'
@@ -84,8 +88,10 @@ class CSVExportTestCase(unittest.TestCase):
         request = self.layer['request']
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
                               'type': 'Text', 'vocabulary': '', 'options': []},])
-        self.storage.add({'__creator__': 'user1', 'col_a': 'foo\n\nbar\t\t '})
-        self.storage.add({'__creator__': 'user1', 'col_a': ' \nbaz \nqux'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'foo\n\nbar\t\t ',
+                          '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': ' \nbaz \nqux',
+                          '__uuid__': 'bbb'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
         self.assertEqual(csv, '"Col A"\n'
@@ -115,7 +121,8 @@ class CSVExportTestCase(unittest.TestCase):
         tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
                               'type': 'Files', 'vocabulary': '', 'options': []},])
         self.storage.add({'__creator__': 'user1', 'col_a': "%s\n%s" % (portal.file1.UID(),
-                                                                       portal.file2.UID(),)})
+                                                                       portal.file2.UID(),),
+                          '__uuid__': 'aaa'})
         view = getMultiAdapter((tp, request), name=u"download-table")
         csv = get_csv_content(view)
         self.assertEqual(csv, '"Col A"\n'

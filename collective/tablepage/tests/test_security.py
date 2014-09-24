@@ -51,7 +51,8 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1',
+                     '__uuid__': 'aaa'})
         login(portal, 'user1')
         view = tp.restrictedTraverse('@@edit-record')
         view.request.form['row-index'] = 0
@@ -63,7 +64,8 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1',
+                     '__uuid__': 'aaa'})
         login(portal, 'user2')
         view = tp.restrictedTraverse('@@edit-record')
         view.request.form['row-index'] = 0
@@ -74,7 +76,8 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1',
+                     '__uuid__': 'aaa'})
         login(portal, 'user3')
         view = tp.restrictedTraverse('@@edit-record')
         view.request.form['row-index'] = 0
@@ -86,8 +89,10 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
-        storage.add({'__creator__': 'user1', 'col_a': 'some other futile data'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1',
+                     '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'some other futile data',
+                     '__uuid__': 'bbb'})
         login(portal, 'user1')
         self.assertRaises(Unauthorized, tp.restrictedTraverse, '@@move-record')
 
@@ -110,7 +115,8 @@ class SecurityTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tp = portal.table_page
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'foo data from user1',
+                     '__uuid__': 'aaa'})
         login(portal, 'user1')
         view = tp.restrictedTraverse('@@delete-record')
         view.request.form['row-index'] = 0
@@ -134,12 +140,12 @@ class LabelAndGroupsSecurityTestCase(unittest.TestCase):
         login(portal, TEST_USER_NAME)
         wtool.doActionFor(tp, 'publish')
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'foo'})  # 0
-        storage.add({'__creator__': 'user1', 'col_a': 'bar'})  # 1
-        storage.add({'__label__': 'A label'})                  # 2
-        storage.add({'__label__': 'B label'})                  # 3
-        storage.add({'__creator__': 'user1', 'col_a': 'baz'})  # 4
-        storage.add({'__creator__': 'user1', 'col_a': 'qux'})  # 5
+        storage.add({'__creator__': 'user1', 'col_a': 'foo', '__uuid__': 'aaa'})  # 0
+        storage.add({'__creator__': 'user1', 'col_a': 'bar', '__uuid__': 'bbb'})  # 1
+        storage.add({'__label__': 'A label', '__uuid__': 'ccc'})                  # 2
+        storage.add({'__label__': 'B label', '__uuid__': 'ddd'})                  # 3
+        storage.add({'__creator__': 'user1', 'col_a': 'baz', '__uuid__': 'eee'})  # 4
+        storage.add({'__creator__': 'user1', 'col_a': 'qux', '__uuid__': 'fff'})  # 5
 
     def test_add_end_of_group(self):
         # user can add data at the end of every group

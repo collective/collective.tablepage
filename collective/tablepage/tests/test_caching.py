@@ -38,6 +38,7 @@ class CachingTestCase(unittest.TestCase):
         portal = self.layer['portal']
         tomorrow = DateTime() + 1
         self.storage.add({'__creator__': 'foo', 'the_text_data': 'foo bar baz',
+                          '__uuid__': 'aaa',
                           '__cache__': {'the_text_data': {'data': 'In cache we believe',
                                                           'timestamp': tomorrow.millis()}}})
         output = portal.table_page()
@@ -47,6 +48,7 @@ class CachingTestCase(unittest.TestCase):
     def test_cache_miss_timestamp_expired(self):
         portal = self.layer['portal']
         self.storage.add({'__creator__': 'foo', 'the_text_data': 'foo bar baz',
+                          '__uuid__': 'aaa',
                           '__cache__': {'the_text_data': {'data': 'In cache we believe',
                                                           'timestamp': 0}}})
         output = portal.table_page()

@@ -28,7 +28,8 @@ class ViewTestCase(unittest.TestCase):
                 pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
                               'type': 'String', 'vocabulary': '', 'options': []}])
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1',
+                     '__uuid__': 'aaa'})
         try:
             tp.getText()
         except UnicodeDecodeError:
@@ -58,7 +59,8 @@ class ViewTestCase(unittest.TestCase):
                 pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': 'Th\xc3\xacs data is futile',
                               'type': 'String', 'vocabulary': '', 'options': []}])
         storage = IDataStorage(tp)
-        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1'})
+        storage.add({'__creator__': 'user1', 'col_a': 'F\xc3\xb2\xc3\xb2 data from user1',
+                     '__uuid__': 'aaa'})
         adapter = getMultiAdapter((tp, self.layer['request']), interface=IColumnField, name=u'String')
         adapter.configuration = tp.getPageColumns()[0]
         try:
