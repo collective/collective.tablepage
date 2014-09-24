@@ -107,9 +107,10 @@
                          new_rows_at_bottom python:not new_rows_at_top;
                          is_fake_label python:not is_label and view.last_page_label and repeat['row'].start;
                          is_data_row python:not is_label;
+						 uid python:view.edit_mode and row['UID'] or nothing;
                          ">
         <tr class="tablePageSubHeader" tal:condition="is_fake_label"
-            tal:attributes="data-uid row/UID">
+            tal:attributes="data-uid uid">
             <td scope="col" colspan=""
                 tal:attributes="colspan python:len(headers) + (view.edit_mode and 2 or 0)"
                 tal:content="view/last_page_label">
@@ -117,7 +118,7 @@
             </td>
         </tr>
         <tr tal:attributes="class python:not is_data_row and 'tablePageSubHeader' or nothing;
-                            data-uid row/UID">
+                            data-uid uid">
             <td tal:condition="python:view.edit_mode and is_data_row" class="selectionCell">
                 <input class="selectRow" type="checkbox" name="row-index:int:list" value=""
                        tal:condition="python:has_tablemanager_permission or view.mine_row(row_index)"

@@ -4,7 +4,7 @@ Changelog
 0.8.2 (unreleased)
 ------------------
 
-- Row's uuid is not put on ``data-uid`` attribute on row
+- When editing table, row's uuid is put on ``data-uid`` attribute on row 
   [keul]
 - Removed useless fieldset legend when editing a row.
   This close `#13`__
