@@ -3,8 +3,9 @@
 import uuid
 from AccessControl import Unauthorized
 from AccessControl import getSecurityManager
-from Products.CMFPlone import PloneMessageFactory as pmf
+from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import PloneMessageFactory as pmf
 from Products.Five.browser import BrowserView
 from collective.tablepage import config
 from collective.tablepage import tablepageMessageFactory as _
@@ -12,6 +13,7 @@ from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.interfaces import IFieldValidator
+from persistent.dict import PersistentDict
 from plone.memoize.view import memoize
 from zope.component import getAdapter
 from zope.component import getAdapters
@@ -203,12 +205,11 @@ class EditRecordView(BrowserView):
             _ = getToolByName(context, 'translation_service').utranslate
             if form.get('row-index') is not None and not form.get('addRow'):
                 # Edit row
-                index = form.get('row-index')
-                if not self.check_manager_or_mine_record(index):
+                row_index = form.get('row-index')
+                if not self.check_manager_or_mine_record(row_index):
                     raise Unauthorized("You can't modify that record")
-                to_be_saved['__uuid__'] = storage[index]['__uuid__']
-                storage.update(index, to_be_saved)
-                storage.nullify(index, '__cache__')
+                to_be_saved['__uuid__'] = storage[row_index]['__uuid__']
+                storage.update(row_index, to_be_saved)
                 self._addNewVersion(_(msgid="Row changed",
                                       domain="collective.tablepage",
                                       context=context))
@@ -220,7 +221,32 @@ class EditRecordView(BrowserView):
                 self._addNewVersion(_(msgid="Row added",
                                       domain="collective.tablepage",
                                       context=context))
-            tp_catalog.catalog_row(context, to_be_saved)
+            self._populateCache(storage, row_index)
+            tp_catalog.catalog_row(context, storage[row_index])
+
+    def _populateCache(self, storage, index):
+        """Pre-populate cache with data in the storage"""
+        # Commonly called before first read attempt
+        context = self.context
+        record = storage[index]
+        adapters = {}
+        now = DateTime().millis()
+        if record.get("__cache__") is None:
+            record["__cache__"] = PersistentDict()
+        for conf in context.getPageColumns():
+            id = conf['id']
+            col_type = conf['type']
+            if not adapters.get(col_type):
+                adapters[col_type] = getMultiAdapter((context, self.request),
+                                                     IColumnField, name=col_type)
+            field = adapters[conf['type']]
+            if not field.cache_time:
+                continue
+            field.configuration = conf
+            output = field.render_view(record.get(id), index)
+            record["__cache__"][id] = PersistentDict()
+            record["__cache__"][id]['data'] = output
+            record["__cache__"][id]['timestamp'] = now
 
     def _addNewVersion(self, comment=''):
         """Content must be updated, so the history machinery will save a new version"""

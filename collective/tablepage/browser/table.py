@@ -178,7 +178,7 @@ class TableViewView(BrowserView):
                 else:
                     output = field.render_view(record.get(conf['id']), index, storage)
                     if field.cache_time:
-                        if not record.get("__cache__"):
+                        if record.get("__cache__") is None:
                             record["__cache__"] = PersistentDict()
                         record["__cache__"][conf['id']] = PersistentDict()
                         record["__cache__"][conf['id']]['data'] = output

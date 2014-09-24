@@ -59,17 +59,17 @@ class CatalogDictWrapper(object):
         # I know, it's evil and I'm a bad guy
         if not dict_obj.get('__cache__'):
             return
+        storage = self.storage
         for k in dict_obj.get('__cache__').keys():
             if hasattr(self, k):
                 # already saved before
                 continue
             if k.startswith('_'):
                 continue
-            # refresh cache before using it.
+            # Refresh cache before using it.
             # Calling the table page view with ignore_cache will refresh all caches
             table_view = getMultiAdapter((self._content, self._content.REQUEST), name=u'view-table')
             table_view.rows(bsize=1, b_start=self.getObjPositionInParent()-1, ignore_cache=True)
-            storage = IDataStorage(self._content)
             v = storage[self.getObjPositionInParent()-1]['__cache__'].get(k)
             if v and v.get('data') and v.get('data').strip():
                 self.__setattr__(k, v['data'].strip())

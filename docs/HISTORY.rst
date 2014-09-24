@@ -11,6 +11,10 @@ Changelog
   [keul]
 - Fixed updated row count message when using the refresh button
   [keul]
+- Caches are now pre-populated at write time, not when the first read
+  attempt happen. This will also fix a catalog index bug with Computed
+  columns
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 
