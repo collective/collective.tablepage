@@ -4,7 +4,8 @@ Changelog
 0.8.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Row's uuid is not put on ``data-uid`` attribute on row
+  [keul]
 
 
 0.8.1 (2014-07-23)

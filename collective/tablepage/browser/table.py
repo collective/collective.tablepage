@@ -161,7 +161,10 @@ class TableViewView(BrowserView):
                 index += 1
                 continue
 
-            row = []
+            # every row data is a dict with the UID, and a list of data for single cells
+            row = {'UID': record.get('__uuid__') \
+                        or record.UID,
+                   'cols': []}
             write_attempt = False
             for conf in context.getPageColumns():
                 field = adapters[conf['type']]
@@ -182,15 +185,15 @@ class TableViewView(BrowserView):
                         record["__cache__"][conf['id']]['timestamp'] = self.now.millis()
                         write_attempt = True
                         logger.debug("Cache miss (%s)" % conf['id'])
-                row.append({'content': output,
-                            'classes': 'coltype-%s' % col_type})
+                row['cols'].append({'content': output,
+                                    'classes': 'coltype-%s' % col_type})
             rows.append(row)
             index += 1
             if write_attempt:
                 write_attempt_count += 1
             if write_attempt_count and write_attempt_count % 100 == 0:
                 transaction.savepoint()
-                logger.info('Writing to cache fresh data (%d rows done)' % write_attempt_count)
+                logger.debug('Writing to cache fresh data (%d rows done)' % write_attempt_count)
         return rows
 
     def batch(self, batch=True, bsize=0, b_start=0):
