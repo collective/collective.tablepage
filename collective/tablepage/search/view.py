@@ -34,5 +34,5 @@ class RefreshSearchView(BrowserView):
         logger.info("Refreshing catalog and caches: done")
         getToolByName(context, 'plone_utils').addPortalMessage(_('reindex_performed_message',
                                                                  u'$count rows has been updated',
-                                                                 mapping={'count': index}))
+                                                                 mapping={'count': index+1}))
         request.response.redirect('%s/edit-table' % context.absolute_url())

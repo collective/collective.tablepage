@@ -9,6 +9,8 @@ Changelog
 - Removed useless fieldset legend when editing a row.
   This close `#13`__
   [keul]
+- Fixed updated row count message when using the refresh button
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 
