@@ -240,9 +240,9 @@ class EditRecordView(BrowserView):
                 adapters[col_type] = getMultiAdapter((context, self.request),
                                                      IColumnField, name=col_type)
             field = adapters[conf['type']]
+            field.configuration = conf
             if not field.cache_time:
                 continue
-            field.configuration = conf
             output = field.render_view(record.get(id), index)
             record["__cache__"][id] = PersistentDict()
             record["__cache__"][id]['data'] = output
