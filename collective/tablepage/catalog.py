@@ -198,7 +198,7 @@ class TablePageCatalog(CatalogTool):
         query = query | sub_query
         return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))
 
-    def catalog_row(self, context, row_data):
+    def catalog_row(self, context, row_data, idxs=[]):
         """Add new row data to catalog"""
         if not row_data.get('__uuid__'):
             # this should not happen
@@ -206,9 +206,10 @@ class TablePageCatalog(CatalogTool):
             return
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
-        self.catalog_object(CatalogDictWrapper(row_data, context, path), uid=path)
+        self.catalog_object(CatalogDictWrapper(row_data, context, path),
+                            uid=path, idxs=idxs)
 
-    def catalog_label_row(self, context, row_data):
+    def catalog_label_row(self, context, row_data, idxs=[]):
         """Add new label data to catalog"""
         if not row_data.get('__uuid__'):
             # this should not happen
@@ -216,8 +217,8 @@ class TablePageCatalog(CatalogTool):
             return
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
         row_data['path'] = path
-        self.catalog_object(CatalogDictLabelWrapper(row_data, context, path), uid=path)
-        
+        self.catalog_object(CatalogDictLabelWrapper(row_data, context, path),
+                            uid=path, idxs=idxs)
 
     security.declareProtected(manage_zcatalog_entries, 'catalog_object')
     def catalog_object(self, obj, uid=None, idxs=None, update_metadata=1,
