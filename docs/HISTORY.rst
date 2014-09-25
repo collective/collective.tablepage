@@ -18,6 +18,10 @@ Changelog
 - Fixed issue in Link and File columns: was not possible to delete submitted
   data but only possible to change it
   [keul]
+- Fixed critical bug: when deleting a row, following rows were still indexed
+  with old (wrong) position value. This will lead to strage behavior when
+  searches are performed
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 

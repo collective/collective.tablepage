@@ -107,3 +107,32 @@ class RefreshViewTestCase(unittest.TestCase):
         self.assertEqual(len(tp_catalog.searchTablePage(portal.table_page)), 3)
 
 
+class DeleteViewTestCase(unittest.TestCase):
+
+    layer = TABLE_PAGE_INTEGRATION_TESTING
+
+    def setUp(self):
+        portal = self.layer['portal']
+        login(portal, TEST_USER_NAME)
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []}])
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user1', 'col_a': 'Lorem', '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Ipsum', '__uuid__': 'bbb'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Sit', '__uuid__': 'ccc'})
+        self.tp_catalog = getToolByName(portal, 'tablepage_catalog')
+        self.tp_catalog.manage_catalogRebuild()
+
+    def test_getObjPositionInParent_on_delete(self):
+        # When deleting a row all following rows must update position information to fill the hole
+        portal = self.layer['portal']
+        request = self.layer['request']
+        storage = IDataStorage(portal.table_page)
+        view = getMultiAdapter((portal.table_page, request), name=u'delete-record')
+        request.form['row-index'] = 1
+        view()
+        results = self.tp_catalog.searchTablePage(portal.table_page)
+        self.assertEqual(results[0].getObjPositionInParent, 1)
+        self.assertEqual(results[1].getObjPositionInParent, 2)

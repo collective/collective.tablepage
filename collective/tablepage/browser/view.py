@@ -283,6 +283,10 @@ class DeleteRecordView(EditRecordView):
                 tp_catalog.uncatalog_row(context, storage[index-c].get('__uuid__'))
                 del storage[index-c]
 
+            # Now we need to reindex all rows that follow, to fill the hole
+            min_index = min(indexes)
+            self._reindex_following(min_index-c)
+
             if len(indexes)==1:
                 msg = _(msgid="Row deleted",
                         domain="collective.tablepage",
@@ -298,6 +302,13 @@ class DeleteRecordView(EditRecordView):
 
         request.response.redirect("%s/edit-table%s" % (context.absolute_url(),
                                                        b_start and '?b_start:int=%d' % b_start or ''))
+
+    def _reindex_following(self, start_from):
+        context = self.context
+        storage = self.storage
+        tp_catalog = getToolByName(context, config.CATALOG_ID)
+        for row in storage[start_from:]:
+            tp_catalog.catalog_row(context, row, idxs=['getObjPositionInParent'])
 
 
 class MoveRecordView(EditRecordView):
