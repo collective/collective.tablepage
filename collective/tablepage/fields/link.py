@@ -125,7 +125,7 @@ class LinkDataRetriever(LinkedObjectFinder):
             return {name: request.get("internal_%s" % name)}
         if request.get("external_%s" % name, '').strip():
             return {name: request.get("external_%s" % name)}
-        return None
+        return {name: ''}
 
     def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid, or directly the URL"""

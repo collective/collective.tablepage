@@ -15,6 +15,9 @@ Changelog
   attempt happen. This will also fix a catalog index bug with Computed
   columns
   [keul]
+- Fixed issue in Link and File columns: was not possible to delete submitted
+  data but only possible to change it
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 

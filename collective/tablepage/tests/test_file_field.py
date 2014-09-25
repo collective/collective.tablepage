@@ -169,6 +169,21 @@ class FileFieldTestCase(unittest.TestCase):
         view()
         self.assertEqual(request.response.status, 302)
 
+    def test_delete_old_data(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user0', 'att': portal.folder.attachment.UID(),
+                     '__uuid__': 'aaa'})
+        request.form['row-index'] = 0
+        request.form['form.submitted'] = "1"
+        request.form['existing_att'] = ''
+        view = getMultiAdapter((tp, request), name='edit-record')
+        view()
+        self.assertFalse(storage[0]['att']==portal.folder.attachment.UID())
+        self.assertEqual(storage[0]['att'], '')
+
 
 class MultipleFileFieldTestCase(unittest.TestCase):
     

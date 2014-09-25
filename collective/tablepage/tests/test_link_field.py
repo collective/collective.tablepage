@@ -72,6 +72,22 @@ class LinkFieldTestCase(unittest.TestCase):
         storage = IDataStorage(tp)
         self.assertEqual(storage[0]['link'], 'http://mycompany.com/')
 
+    def test_delete_old_data(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': TEST_USER_NAME, 'link': portal.document.UID(),
+                     '__uuid__': 'aaa'})
+        request.form['row-index'] = 0
+        request.form['form.submitted'] = '1'
+        request.form['external_link'] = ''
+        request.form['internal_link'] = ''
+        view = getMultiAdapter((tp, request), name=u'edit-record')
+        view()
+        self.assertFalse(storage[0]['link']==portal.document.UID())
+        self.assertEqual(storage[0]['link'], '')
+
     def test_reference_save(self):
         portal = self.layer['portal']
         request = self.layer['request']

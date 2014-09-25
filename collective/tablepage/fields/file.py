@@ -160,7 +160,7 @@ class FileDataRetriever(LinkedObjectFinder):
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
             return {name: request.get("existing_%s" % name)}
-        return None
+        return {name: ''}
 
     def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
