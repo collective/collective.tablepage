@@ -9,7 +9,7 @@
 <div class="formHelp" tal:content="view/configuration/description">
 	Help filling me
 </div>
-<select id="" name="" value=""
+<select id="" name=""
         tal:attributes="id view/configuration/id;
 	                    name view/configuration/id;">
 		<option value=""></option>
