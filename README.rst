@@ -126,6 +126,16 @@ Table Page is distributed with a know set of columns. Right now you can choose f
 ``Select``
     Still a simple line of text, but user must choose it from a vocabulary you will define in the 
     "*Column configuration*".
+    
+    You can alternatively provide a single line with...
+    
+    ::
+    
+        vocabulary:TAL expression
+    
+    ...and the vocabulary values will be taken by evaluating a TAL expression.
+    
+    You can use vars like ``portal``, ``request`` and ``content`` (the current TablePage).
 ``File``
     A link to a file in the site. Cached for 1 hour. See below.
 ``Files``

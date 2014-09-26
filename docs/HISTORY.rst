@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.2 (unreleased)
+0.9 (unreleased)
 ------------------
 
 - When editing table, row's uuid is put on ``data-uid`` attribute on row 
@@ -22,8 +22,12 @@ Changelog
   with old (wrong) position value. This will lead to strage behavior when
   searches are performed
   [keul]
+- Implemented the computed vocabulary feature: vocabulary source can be taken
+  from a TALES evaluation (close `#10`__)
+  [petri, keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
+__ https://github.com/RedTurtle/collective.tablepage/issues/10
 
 0.8.1 (2014-07-23)
 ------------------
