@@ -10,7 +10,7 @@
 
 <metal:main fill-slot="main">
     <tal:main-macro metal:define-macro="main"
-	    tal:define="text here/getText;">
+        tal:define="text here/getText;">
 
        <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -32,58 +32,66 @@
 
         <metal:body define-macro="body">
 
-			<div tal:define="portal_url view/portal_url;
+            <div tal:define="portal_url view/portal_url;
                              headers view/headers;
-							 rows view/rows;">
-		    <tal:tables tal:condition="python:len(rows)>0">
+                             rows view/batch;
+                               batch rows;">
 
-        		<h2 tal:condition="context/getTableCaption"
-                  		 tal:content="context/getTableCaption">This table is for...</h2>
-				
-				<tal:rows tal:repeat="row rows">
+            <tal:batching condition="view/batching_enabled"> 
+                <div metal:use-macro="context/batch_macros/macros/navigation" />
+            </tal:batching>
 
-					<h3 class="multiTablePageRowHeader"
-					     tal:condition="python:view.is_label(row)"
-						 tal:content="python:view.is_label(row)">
-						Section Foo
-					</h3>
-					
-					<table class="multiTablePageRowData"
-					       tal:attributes="class python:'multiTablePageRowData ' + ' '.join(context.getCssClasses())"
-					       tal:condition="python:not view.is_label(row)">
-					
-						<tal:sub-table-rows repeat="data row">
-						<tr tal:define="col_index repeat/data/index">
-							<th scope="row" class="nosort"
-							    tal:define="header python:view.getHeader(col_index)">
-							    	<span tal:replace="header/label" />
-									<div class="discreet" tal:content="header/description">This is for...</div>
-							    </th>
-							<td class=""
-							    tal:attributes="class data/classes"
-							    tal:content="structure data/content">aaa</td>
-						</tr>
-						</tal:sub-table-rows>
-					
-					</table>
-				
-				</tal:rows>
+            <tal:tables tal:condition="python:len(rows)>0">
 
-	            <tal:download_enabled tal:condition="python:rows and context.getDownloadEnabled()">
-	                <a class="command" href="" title="Download data in CSV format"
-	                   i18n:attributes="title"
-	                   tal:attributes="href string:${context/absolute_url}/@@download-table">
-	                    <img alt="Download data in CSV format" src=""
-	                         tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
-	                         i18n:attributes="alt"/>
-	                    <span class="discreet"
-	                          tal:condition="not:view/edit_mode"
-	                          i18n:translate="">Download as CSV</span>
-	                </a>            
-	            </tal:download_enabled>
+                <h2 tal:condition="context/getTableCaption"
+                    tal:content="context/getTableCaption">This table is for...</h2>
+                
+                <tal:rows tal:repeat="row rows">
+                <tal:row define="single_table row/cols;">
 
-			</tal:tables>
-			</div>
+                    <h3 class="multiTablePageRowHeader"
+                         tal:condition="python:view.is_label(single_table)"
+                         tal:content="python:view.is_label(single_table)">
+                        Section Foo
+                    </h3>
+                    
+                    <table class="multiTablePageRowData"
+                           tal:attributes="class python:'multiTablePageRowData ' + ' '.join(context.getCssClasses());"
+                           tal:condition="python:not view.is_label(single_table)">
+                    
+                        <tal:sub-table-rows repeat="data single_table">
+                        <tr tal:define="col_index repeat/data/index">
+                            <th scope="row" class="nosort"
+                                tal:define="header python:view.getHeader(col_index)">
+                                    <span tal:replace="header/label" />
+                                    <div class="discreet" tal:content="header/description">This is for...</div>
+                                </th>
+                            <td class=""
+                                tal:attributes="class data/classes"
+                                tal:content="structure data/content">aaa</td>
+                        </tr>
+                        </tal:sub-table-rows>
+                    
+                    </table>
+                
+                </tal:row>
+                </tal:rows>
+
+                <tal:download_enabled tal:condition="python:rows and context.getDownloadEnabled()">
+                    <a class="command" href="" title="Download data in CSV format"
+                       i18n:attributes="title"
+                       tal:attributes="href string:${context/absolute_url}/@@download-table">
+                        <img alt="Download data in CSV format" src=""
+                             tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
+                             i18n:attributes="alt"/>
+                        <span class="discreet"
+                              tal:condition="not:view/edit_mode"
+                              i18n:translate="">Download as CSV</span>
+                    </a>            
+                </tal:download_enabled>
+
+            </tal:tables>
+            </div>
 
         </metal:body>
 

@@ -25,6 +25,8 @@ Changelog
 - Implemented the computed vocabulary feature: vocabulary source can be taken
   from a TALES evaluation (close `#10`__)
   [petri, keul]
+- Multi tales view was not using batchin or search
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 __ https://github.com/RedTurtle/collective.tablepage/issues/10
