@@ -1,5 +1,5 @@
 <form i18n:domain="collective.tablepage"
-      id="searchTablePage" method="post" action=""
+      id="searchTablePage" method="get" action=""
       tal:define="search_fields view/search_fields"
       tal:condition="search_fields"
       tal:attributes="action string:${context/absolute_url}/${view/view_name}">

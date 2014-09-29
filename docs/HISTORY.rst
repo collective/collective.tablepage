@@ -27,6 +27,8 @@ Changelog
   [petri, keul]
 - Multi tables view was not using batchin or search
   [keul]
+- Search form method from ``POST`` to ``GET`` (batching was using ``GET`` already)
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 __ https://github.com/RedTurtle/collective.tablepage/issues/10
