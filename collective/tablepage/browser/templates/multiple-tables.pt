@@ -35,7 +35,7 @@
             <div tal:define="portal_url view/portal_url;
                              headers view/headers;
                              rows view/batch;
-                               batch rows;">
+                             batch rows;">
 
             <tal:batching condition="view/batching_enabled"> 
                 <div metal:use-macro="context/batch_macros/macros/navigation" />
