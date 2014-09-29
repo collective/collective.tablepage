@@ -47,7 +47,7 @@
                     tal:content="context/getTableCaption">This table is for...</h2>
                 
                 <tal:rows tal:repeat="row rows">
-                <tal:row define="single_table row/cols;">
+                <tal:row define="single_table row/cols|row">
 
                     <h3 class="multiTablePageRowHeader"
                          tal:condition="python:view.is_label(single_table)"
