@@ -31,6 +31,26 @@ class LabelTestCase(unittest.TestCase):
                      '__uuid__': 'ccc'})
         self.storage = storage
 
+    def test_view_pages_with_labels(self):
+        # Basic test: all views, when labels are used, are working?
+        request = self.layer['request']
+        portal = self.layer['portal']
+        tp = portal.table_page
+        try:
+            tp()
+        except Exception:
+            self.fail("Table view raised an unexpected error!")
+        view = getMultiAdapter((tp, request), name=u'multiple-tables-view')
+        try:
+            view()
+        except Exception:
+            self.fail("Multiple tables view raised an unexpected error!")
+        view = getMultiAdapter((tp, request), name=u'tablepage-edit')
+        try:
+            view()
+        except Exception:
+            self.fail("Edit view raised an unexpected error!")
+
     def test_create_new_label_form(self):
         request = self.layer['request']
         portal = self.layer['portal']
