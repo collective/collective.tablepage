@@ -81,5 +81,5 @@ class SelectFieldTestCase(unittest.TestCase):
         request.form['form.submitted'] = '1'
         request.form['col1'] = 'baz'
         view = getMultiAdapter((tp, request), name='edit-record')
-        output = view()
+        view()
         self.assertEqual(self.storage[0]['col1'], 'baz')

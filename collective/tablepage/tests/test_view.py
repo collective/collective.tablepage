@@ -129,7 +129,6 @@ class DeleteViewTestCase(unittest.TestCase):
         # When deleting a row all following rows must update position information to fill the hole
         portal = self.layer['portal']
         request = self.layer['request']
-        storage = IDataStorage(portal.table_page)
         view = getMultiAdapter((portal.table_page, request), name=u'delete-record')
         request.form['row-index'] = 1
         view()
