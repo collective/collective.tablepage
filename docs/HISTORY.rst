@@ -34,11 +34,15 @@ Changelog
 - Usability improvements. When using DataTables and we don't have any row groups,
   move the (only) "*Add row*" button in the lower section (close `#11`__)
   [keul]
+- Fixed an issue that store absolute URL to icons in the cache for "linkable"
+  columns (close `#14`__)
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 __ https://github.com/RedTurtle/collective.tablepage/issues/10
 __ https://github.com/RedTurtle/collective.tablepage/issues/16
 __ https://github.com/RedTurtle/collective.tablepage/issues/11
+__ https://github.com/RedTurtle/collective.tablepage/issues/14
 
 0.8.1 (2014-07-23)
 ------------------

@@ -18,8 +18,8 @@
     <tal:textlink condition="not:options/main_icon">
         <img src="" alt=""
              tal:condition="options/icon"
-             tal:define="portal_url context/@@plone_portal_state/portal_url"
-             tal:attributes="src string:${portal_url}/${options/icon}" />
+             tal:define="portal_url nocall:context/portal_url"
+             tal:attributes="src string:${portal_url/getPortalPath}/${options/icon}" />
         <span tal:replace="options/title" />
     </tal:textlink>
     <tal:iconlink condition="options/main_icon">
