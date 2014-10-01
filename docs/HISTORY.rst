@@ -31,10 +31,14 @@ Changelog
   [keul]
 - Removed min number of rows needed for enabling DataTables (close `#16`__)
   [keul]
+- Usability improvements. When using DataTables and we don't have any row groups,
+  move the (only) "*Add row*" button in the lower section (close `#11`__)
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 __ https://github.com/RedTurtle/collective.tablepage/issues/10
 __ https://github.com/RedTurtle/collective.tablepage/issues/16
+__ https://github.com/RedTurtle/collective.tablepage/issues/11
 
 0.8.1 (2014-07-23)
 ------------------

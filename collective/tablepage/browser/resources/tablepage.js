@@ -77,25 +77,34 @@
                     $labels.each(function() {
                         var label = $(this),
                             myGroup = label.nextUntil('.tablePageSubHeader'),
-						    commandContainer = null;
+                            commandContainer = null;
 
                         // If in edit mode, we could have label commands
-						if (label.find('.rowCommands')) {
-							commandContainer = $('<div class="labelCommandContainer"></div>');
-							commandContainer.append(label.find('.rowCommands').children());
-						}
+                        if (label.find('.rowCommands')) {
+                            commandContainer = $('<div class="labelCommandContainer"></div>');
+                            commandContainer.append(label.find('.rowCommands').children());
+                        }
 
                         myGroup.each(function() {
                             var $row = $(this),
                                 newCell = $('<td class="labelCell"></td>');
                             $row.prepend(newCell);
                             newCell.html(label.children().html());
-							if (commandContainer) {
-								newCell.append(commandContainer.clone());
-							}
+                            if (commandContainer) {
+                                newCell.append(commandContainer.clone());
+                            }
                         });
                         label.remove();
                     });
+                }
+
+                /*
+                 * Usability. If we don't use labels (so we don't have row groups)
+                 * we move the "+" in the non-scrollable section at bottom
+                 */
+                if ($labels.length===0) {
+                    var addCommand = $table.find("tbody .rowCommands a[href$='@@edit-record']");
+                    addCommand.appendTo('tfoot .rowCommands td');
                 }
 
                 // Calc which columns will not be sortable (all of them is we have labels)
@@ -110,7 +119,7 @@
                 if ($table.find('tr.noResults').length===0) {
                     var hasLabels = allLabelRows.length>0,
                         wHeidht = $(window).height(),
-					    batchingEnabled = !!$table.attr('data-batching-enabled');
+                        batchingEnabled = !!$table.attr('data-batching-enabled');
                     
                     dataTable = $table.dataTable({
                         oLanguage: {sUrl: portal_url + '/@@collective.js.datatables.translation'},
@@ -125,7 +134,7 @@
                         sScrollY: wHeidht990 + "px",
                         bScrollCollapse: true,
                         bAutoWidth: false,
-						bInfo: batchingEnabled ? false : true,
+                        bInfo: batchingEnabled ? false : true,
                         aoColumnDefs: [
                               { 'bSortable': false, 'aTargets': noDataCols }
                            ],
