@@ -47,7 +47,10 @@ class SelectFieldTestCase(unittest.TestCase):
         request = self.layer['request']
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'col1', 'label': 'Select one', 'description': '',
-                              'type': 'Select', 'vocabulary': 'vocabulary:context/Subject',
+                              'type': 'Select', 'vocabulary': 'vocabulary:context/Subject\n'
+                                                              'alpha\n'
+                                                              'vocabulary:python:["item-1", "item-2", "item-3"]\n'
+                                                              'omega\n',
                               'options': []}
         ])
         tp.setSubject(['foo', 'bar', 'baz'])
@@ -56,13 +59,20 @@ class SelectFieldTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name='edit-record')
         output = view()
         self.assertTrue('<option value="bar" selected="selected">bar</option>' in output)
+        self.assertTrue('<option value="alpha">alpha</option>' in output)
+        self.assertTrue('<option value="item-1">item-1</option>' in output)
+        self.assertTrue('<option value="item-2">item-2</option>' in output)        
+        self.assertTrue('<option value="omega">omega</option>' in output)
 
     def test_edit_computed_vocabulary(self):
         portal = self.layer['portal']
         request = self.layer['request']
         tp = portal.table_page
         tp.edit(pageColumns=[{'id': 'col1', 'label': 'Select one', 'description': '',
-                              'type': 'Select', 'vocabulary': 'vocabulary:context/Subject',
+                              'type': 'Select', 'vocabulary': 'vocabulary:context/Subject\n'
+                                                              'alpha\n'
+                                                              'vocabulary:python:["item-1", "item-2", "item-3"]'
+                                                              'omega\n',
                               'options': []}
         ])
         tp.setSubject(['foo', 'bar', 'baz'])
