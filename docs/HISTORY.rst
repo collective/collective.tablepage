@@ -4,6 +4,10 @@ Changelog
 0.9 (unreleased)
 ------------------
 
+Special thanks to `Petri Savolainen`__ for lot of stuff done in this release
+
+__ https://github.com/petri
+
 - When editing table, row's uuid is put on ``data-uid`` attribute on row 
   [keul]
 - Removed useless fieldset legend when editing a row.
