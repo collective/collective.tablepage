@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.9 (unreleased)
-------------------
+0.9 (2014-10-01)
+----------------
 
 Special thanks to `Petri Savolainen`__ for lot of stuff done in this release
 
