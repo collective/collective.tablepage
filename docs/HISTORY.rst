@@ -29,9 +29,12 @@ Changelog
   [keul]
 - Search form method from ``POST`` to ``GET`` (batching was using ``GET`` already)
   [keul]
+- Removed min number of rows needed for enabling DataTables (close `#16`__)
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/13
 __ https://github.com/RedTurtle/collective.tablepage/issues/10
+__ https://github.com/RedTurtle/collective.tablepage/issues/16
 
 0.8.1 (2014-07-23)
 ------------------
