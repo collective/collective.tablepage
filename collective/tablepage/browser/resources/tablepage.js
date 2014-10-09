@@ -107,7 +107,7 @@
                     addCommand.appendTo('tfoot .rowCommands td');
                 }
 
-                // Calc which columns will not be sortable (all of them is we have labels)
+                // Calc which columns will not be sortable (all of them if we have labels)
                 columns = $('thead th', this);
                 columns.each(function(index) {
                     if ($(this).is('.noData') || $(this).is('.coltype-Text')) {

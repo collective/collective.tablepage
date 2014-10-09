@@ -10,7 +10,21 @@
 <metal:js fill-slot="javascript_head_slot">
 <script type="text/javascript" src=""
         tal:attributes="src string:$portal_url/++resource++collective.tablepage.resources/edit-record.js"></script>
+<script type="text/javascript" src=""
+        tal:attributes="src string:${portal_url}/jscalendar/calendar_stripped.js">
+</script>
+<tal:comment condition="nothing">Loading EN version due to Plone issue #13189</tal:comment>
+<script type="text/javascript" src=""
+        tal:define="lang context/@@plone_portal_state/language;"
+        tal:attributes="src string:${portal_url}/jscalendar/calendar-en.js">
+</script>
 </metal:js>
+
+<metal:css fill-slot="style_slot">
+    <link rel="stylesheet" type="text/css" href="jscalendar/calendar-system.css"
+	      tal:attributes="href string:$portal_url/jscalendar/calendar-system.css" />
+</metal:css>
+
 </head>
 
 <body>

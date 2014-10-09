@@ -32,3 +32,6 @@ class IMultiFileColumnField(IColumnField):
 
 class IComputedColumnField(IColumnField):
     """A column field that handle a TAL expression, for taking data from other columns value or site's documents"""
+
+class IDateTimeColumnField(IColumnField):
+    """A column field that handle strings in date/datetime format"""

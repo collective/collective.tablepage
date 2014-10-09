@@ -80,6 +80,20 @@
        name="Computed"
        />
 
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".date_time.DateTimeField"
+       name="Date/Time"
+       />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".date_time.DateField"
+       name="Date"
+       />
 
    <!-- data retrivers -->
    <adapter
@@ -113,6 +127,19 @@
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
        factory=".computed.column.ComputedDataRetriever"
 	   name="Computed"
+       />
+
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".date_time.DateTimeDataRetriever"
+	   name="Date/Time"
+       />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".date_time.DateDataRetriever"
+	   name="Date"
        />
 
    <include package=".computed" />
