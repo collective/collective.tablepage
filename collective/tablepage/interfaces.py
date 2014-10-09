@@ -56,17 +56,21 @@ class IColumnDataRetriever(Interface):
     """An object that can handle data stored (or to be stored) inside the IDataStorage"""
 
     def get_from_request(name, request):
-        """Read data from the request and return a {id: value} dict, or None"""
+        """Read data from the request and return a {id: value} dict, or None
+        The scope of the method is to obtain data in the proper format, that is commonly a string
+        """
 
     def data_for_display(data, backend=False, row_index=None):
-        """Transform data, to be displayed outside Plone
+        """Transform data, to be displayed outside Plone (commonly: to CSV)
         @backend specify that data is for backend purpose
         @row_index index of the row were extraction is taking place
         """
 
     def data_to_storage(data):
-        """Sanitize data that will be saved to storage"""
-    
+        """Sanitize data that came outside Plone before save it to storage.
+        This is commonly called by the CSV import utility, to know how to handle a single CSV entry
+        """
+
 
 class IFieldValidator(Interface):
     """A validator for the submitted data"""
