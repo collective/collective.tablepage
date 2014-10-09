@@ -42,9 +42,9 @@ __ https://github.com/petri
 - Removed min number of rows needed for enabling DataTables (close `#16`__)
   [keul]
 - Usability improvements. When using DataTables and we don't have any row groups,
-  move the (only) "*Add row*" button in the lower section (close `#11`__)
+  move the (unique) "*Add row*" button in the lower section (close `#11`__)
   [keul]
-- Fixed an issue that store absolute URL to icons in the cache for "linkable"
+- Fixed an issue that store icons absolute URL in the cache for "linkable"
   columns (close `#14`__)
   [keul]
 
