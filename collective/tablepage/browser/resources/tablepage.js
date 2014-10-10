@@ -108,9 +108,13 @@
                 }
 
                 // Calc which columns will not be sortable (all of them if we have labels)
+                // BBB: sorting with dates is disabled by default to prevent issues
+                // see http://legacy.datatables.net/usage/columns#sType
+                // probably some plugins is needed: http://datatables.net/plug-ins/sorting/
                 columns = $('thead th', this);
                 columns.each(function(index) {
-                    if ($(this).is('.noData') || $(this).is('.coltype-text')) {
+                    if ($(this).is('.noData') || $(this).is('.coltype-text') || $(this).is('.coltype-date')
+                                || $(this).is('.coltype-date-time')) {
                         noDataCols.push(index);
                     }
                 });
@@ -135,8 +139,6 @@
                         bScrollCollapse: true,
                         bAutoWidth: false,
                         bInfo: batchingEnabled ? false : true,
-                        // BBB: sorting issues with dates probably... see http://legacy.datatables.net/usage/columns#sType
-                        // probably some plugins there in needed: http://datatables.net/plug-ins/sorting/
                         aoColumnDefs: [
                               { 'bSortable': false, 'aTargets': noDataCols }
                            ],
