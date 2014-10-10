@@ -79,6 +79,11 @@ class TableViewView(BrowserView):
         return IDataStorage(self.context)
 
     @property
+    @memoize
+    def ploneview(self):
+        return getMultiAdapter((self.context, self.request), name=u'plone')
+
+    @property
     def is_empty(self):
         return self.result_length==0
 
@@ -100,7 +105,7 @@ class TableViewView(BrowserView):
                 continue
             results.append(dict(label=tablepageMessageFactory(d['label'].decode('utf-8')),
                                 description=tablepageMessageFactory(d.get('description', '').decode('utf-8')),
-                                classes='coltype-%s' % d['type'],
+                                classes='coltype-%s' % self.ploneview.normalizeString(d['type']),
                                 ))
         return results
 
@@ -186,7 +191,7 @@ class TableViewView(BrowserView):
                         write_attempt = True
                         logger.debug("Cache miss (%s)" % conf['id'])
                 row['cols'].append({'content': output,
-                                    'classes': 'coltype-%s' % col_type})
+                                    'classes': 'coltype-%s' % self.ploneview.normalizeString(col_type)})
             rows.append(row)
             index += 1
             if write_attempt:
