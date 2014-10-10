@@ -71,12 +71,18 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
         return None
 
     def data_for_display(self, data, backend=False, row_index=None):
-        """Default implementation... just return data""" 
-        return DateTime(data)
+        """Return the data formatted in the propert locales format""" 
+        ploneview = getMultiAdapter((self.context, self.context.REQUEST), name=u'plone')
+        return ploneview.toLocalizedTime(data, long_format=self.show_hm)
 
     def data_to_storage(self, data):
-        """Default implementation... just return data (stripped)"""
-        return data and data.strip() or None
+        """Try to convert data to a DateTime"""
+        data = data and data.strip() or ''
+        try:
+            DateTime(data)
+        except DateTimeError:
+            return None
+        return data
 
 
 class DateDataRetriever(DateTimeDataRetriever):
