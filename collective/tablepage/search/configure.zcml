@@ -56,5 +56,15 @@
       factory=".select.SelectSearch"
       provides="collective.tablepage.search.interfaces.ISearchableColumn"
       />
+   <utility
+      name="Date/Time"
+      factory=".date_time.DateTimeSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
+      name="Date"
+      factory=".date_time.DateSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
 
 </configure>

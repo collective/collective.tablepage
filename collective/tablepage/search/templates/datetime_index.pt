@@ -1,0 +1,27 @@
+<tal:field define="fieldName options/id;
+                   formname string:searchTablePage;
+                   show_hm view/show_hm;
+                   ">
+    <label for=""
+           tal:attributes="for string:search_${options/id}"
+           tal:content="options/label">Search label</label><br tal:omit-tag="options/description" />
+    <div class="formHelp"
+         tal:content="options/description">Help filling me</div>
+
+	<div tal:define="inputname string:${fieldName}_from;
+				     inputvalue python:request.get(fieldName+'_from', '');">
+		<label for="">From</label>
+	    <metal:box use-macro="context/calendar_macros/macros/calendarDatePickerBox">
+	      <!-- a calendar, hopefully -->
+	    </metal:box>
+	</div>
+
+	<div tal:define="inputname string:${fieldName}_to;
+				     inputvalue python:request.get(fieldName+'_to', '');">
+		<label for="">To</label>
+	    <metal:box use-macro="context/calendar_macros/macros/calendarDatePickerBox">
+	      <!-- a calendar, hopefully -->
+	    </metal:box>
+	</div>
+
+</tal:field>

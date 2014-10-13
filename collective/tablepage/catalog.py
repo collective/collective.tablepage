@@ -9,6 +9,7 @@ from AccessControl import ClassSecurityInfo
 from AccessControl.Permissions import search_zcatalog
 from AccessControl.Permissions import manage_zcatalog_entries
 from Products.AdvancedQuery import Eq
+from Products.AdvancedQuery import Le, Ge, Between
 from Products.AdvancedQuery.eval import eval as _eval
 from Products.CMFCore.CatalogTool import CatalogTool
 from Products.ZCatalog.ZCatalog import ZCatalog
@@ -177,6 +178,15 @@ class TablePageCatalog(CatalogTool):
         query = query._clone()
         return _eval(self, query, sortSpecs)
 
+    def _buildRangeQuery(self, index, query):
+        """Transform a complex range query to an Advancedquery version"""
+        if query['range'] == 'min:max':
+            return Between(index, min(query['query']), max(query['query']))
+        elif query['range'] == 'min':
+            return Ge(index, min(query['query']))
+        elif query['range'] == 'max':
+            return Le(index, max(query['query']))
+
     security.declareProtected(search_zcatalog, 'searchTablePage')
     def searchTablePage(self, tp, **kwargs):
         if 'path' not in kwargs.keys():
@@ -191,7 +201,13 @@ class TablePageCatalog(CatalogTool):
             if k in SKIP_KEYS:
                 continue
             if sub_query:
-                sub_query &= Eq(k, v)
+                if type(v)==dict:
+                    # Handle complex subqueries (range?)
+                    complex_query = self._buildRangeQuery(k, v)
+                    if complex_query:
+                        sub_query &= complex_query
+                else:
+                    sub_query &= Eq(k, v)
             else:
                 sub_query = Eq(k, v)
         

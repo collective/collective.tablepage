@@ -4,8 +4,11 @@ Changelog
 0.10 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- New columns: "*Date*" and "*Date/Time*".
+  This close `7`__
+  [keul]
 
+__ https://github.com/RedTurtle/collective.tablepage/issues/7
 
 0.9 (2014-10-01)
 ----------------

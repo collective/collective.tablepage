@@ -1,9 +1,20 @@
 <form i18n:domain="collective.tablepage"
       id="searchTablePage" method="get" action=""
-      tal:define="search_fields view/search_fields"
+      tal:define="search_fields view/search_fields;
+	              portal_url context/@@plone_portal_state/portal_url;"
       tal:condition="search_fields"
       tal:attributes="action string:${context/absolute_url}/${view/view_name}">
-    
+
+	<script type="text/javascript" src=""
+	        tal:attributes="src string:${portal_url}/jscalendar/calendar_stripped.js">
+	</script>
+	<script type="text/javascript" src=""
+	        tal:attributes="src string:${portal_url}/jscalendar/calendar-en.js">
+	</script>
+
+    <link rel="stylesheet" type="text/css" href="jscalendar/calendar-system.css"
+	      tal:attributes="href string:$portal_url/jscalendar/calendar-system.css" />
+
     <fieldset>
         <legend i18n:translate="">Seach in table</legend>
 

@@ -54,18 +54,20 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
     def get_from_request(self, name, request):
         """Return data only if is a real date formatted string"""
         
-        datestr = "%(year)s-%(month)s-%(day)s" % {'year': request.get("%s_year" % name),
+        datestr = "%(year)s/%(month)s/%(day)s" % {'year': request.get("%s_year" % name),
                                                   'month': request.get("%s_month" % name),
                                                   'day': request.get("%s_day" % name),
                                                   }
         if self.show_hm:
-            timestr = "%(hour)s:%(minute)s:00" % {'hour': request.get("%s_hour" % name),
+            timestr = " %(hour)s:%(minute)s:00" % {'hour': request.get("%s_hour" % name),
                                                    'minute': request.get("%s_minute" % name),
                                                    }
-            datestr = datestr + ' ' + timestr
+        else:
+            timestr = ' 00:00:00'
+        datestr += timestr
 
         try:
-            return {name: DateTime(datestr).strftime('%Y-%m-%d %H:%M:%S')}
+            return {name: DateTime(datestr).strftime('%Y/%m/%d %H:%M:%S')}
         except DateTimeError:
             pass
         return None

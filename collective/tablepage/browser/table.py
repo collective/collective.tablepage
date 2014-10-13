@@ -121,8 +121,43 @@ class TableViewView(BrowserView):
         return {}
 
     def _clean_query(self, d):
-        """Return a copy of the dict where empty values are omitted"""
-        return dict((k, v) for k, v in d.iteritems() if v)
+        """
+        Return a copy of the dict where empty values are omitted and
+        clean out some dates elements if a datetime search has been performed
+        """
+        # 1. remove empty values from search
+        cleaned = dict((k, v) for k, v in d.iteritems() if v)
+
+        # 2. look for dates, they must be handled in a special way
+        # BBB: if another "special case" will arise, let's move this somewhere else
+        context = self.context
+        tp_catalog = getToolByName(context, 'tablepage_catalog')
+        catalog_indexes = tp_catalog.indexes()
+        to_be_added = {}
+        for id in cleaned:
+            from_to = {}
+            for suffix in ('_from', '_to'):
+                if not id.endswith(suffix):
+                    continue
+                real_id = id[:-len(suffix)]
+                if real_id in catalog_indexes and tp_catalog.Indexes[real_id].meta_type=='DateIndex':
+                    # now I preprare the catalog query by dates
+                    from_to[suffix] = DateTime(cleaned[id])
+            if from_to:
+                if to_be_added.get(real_id):
+                    to_be_added[real_id]['query'].extend(from_to.values()),
+                    to_be_added[real_id]['range'] = 'min:max'
+                else:
+                    to_be_added[real_id] = {'query': from_to.values(),
+                                            'range': '_from' in from_to and 'min' or 'max'}
+
+        # 3. remove values not handled by the catalog, to prevent AdvancedQuery errors
+        col_ids = [conf['id'] for conf in context.getSearchConfig()]
+        cleaned = dict((k, v) for k, v in cleaned.items() if k in catalog_indexes)
+        
+        # 4. merge with to_be_added
+        cleaned = dict(cleaned.items() + to_be_added.items())
+        return cleaned
 
     def rows(self, batch=False, bsize=0, b_start=0, search=False, ignore_cache=False):
         context = self.context
