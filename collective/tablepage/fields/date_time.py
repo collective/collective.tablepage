@@ -70,7 +70,7 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
             return {name: DateTime(datestr).strftime('%Y/%m/%d %H:%M:%S')}
         except DateTimeError:
             pass
-        return None
+        return {name: None}
 
     def data_for_display(self, data, backend=False, row_index=None):
         """Return the data formatted in the propert locales format""" 
