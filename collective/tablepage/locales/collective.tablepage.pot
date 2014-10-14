@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-14 10:49+0000\n"
+"POT-Creation-Date: 2014-10-14 12:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,6 +197,10 @@ msgstr ""
 msgid "Filter results"
 msgstr ""
 
+#: ./search/templates/datetime_index.pt:16
+msgid "From"
+msgstr ""
+
 #: ./fields/templates/link.pt:73
 msgid "Internal link"
 msgstr ""
@@ -383,6 +387,10 @@ msgstr ""
 
 #: ./browser/templates/view-table.pt:88
 msgid "This will update cache of every rows while update data saved in catalog"
+msgstr ""
+
+#: ./search/templates/datetime_index.pt:24
+msgid "To"
 msgstr ""
 
 #: ./content/tablepage.py:62

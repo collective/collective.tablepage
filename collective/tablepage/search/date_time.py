@@ -2,6 +2,7 @@
 
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 from collective.tablepage.search.interfaces import ISearchableColumn
 from collective.tablepage.search.base import BaseSearch
 
@@ -17,6 +18,11 @@ class DateTimeSearch(BaseSearch):
 
     template = ViewPageTemplateFile('templates/datetime_index.pt')
     show_hm = True
+    
+    @classmethod
+    def RealIndexIterator(csl):
+        # Plone 3 compatibility
+        return utils.RealIndexIterator(pos=0)
     
     def render(self, meta_type):
         if meta_type=='DateIndex':

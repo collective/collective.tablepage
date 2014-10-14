@@ -193,6 +193,10 @@ msgstr "Compila i dati di questa riga della tabella"
 msgid "Filter results"
 msgstr "Filtra risultati"
 
+#: ./search/templates/datetime_index.pt:16
+msgid "From"
+msgstr "Dal"
+
 #: ./fields/templates/link.pt:73
 msgid "Internal link"
 msgstr "Collegamento interno"
@@ -381,6 +385,10 @@ msgstr "Testo"
 msgid "This will update cache of every rows while update data saved in catalog"
 msgstr "Questo aggiornerà la cache di tutte le righe e i dati salvati nel catalogo"
 
+#: ./search/templates/datetime_index.pt:24
+msgid "To"
+msgstr "Al"
+
 #: ./content/tablepage.py:62
 msgid "Type of data"
 msgstr "Tipo di dato"
@@ -480,6 +488,7 @@ msgstr ""
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
 #: ./fields/file.py:136
 msgid "duplicate_file_error_with_link"
+msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
 "Il caricamento del nuovo allegato è stato annullato ed è stato creato un riferimento al file esistente."
 

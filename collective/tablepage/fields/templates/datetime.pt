@@ -1,8 +1,10 @@
 <tal:calendar define="formname string:edit-row;
                       inputname view/configuration/id;
-					  inputvalue options/data|nothing;
-					  show_hm view/show_hm;
-					  ">
+                      inputvalue options/data|nothing;
+                      show_hm view/show_hm;
+                      uniqueItemIndex view/RealIndexIterator;
+                      here nocall:context;
+                      ">
 <label class="subFieldLabel"
        tal:attributes="for view/configuration/id"
        tal:content="view/configuration/label">A good field</label>

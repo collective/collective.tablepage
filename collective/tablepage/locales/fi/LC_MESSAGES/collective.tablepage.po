@@ -194,6 +194,10 @@ msgstr ""
 msgid "Filter results"
 msgstr "Suodata tulokset"
 
+#: ./search/templates/datetime_index.pt:16
+msgid "From"
+msgstr ""
+
 #: ./fields/templates/link.pt:73
 msgid "Internal link"
 msgstr "Sisäinen linkki"
@@ -381,6 +385,10 @@ msgstr "Teksti"
 #: ./browser/templates/view-table.pt:88
 msgid "This will update cache of every rows while update data saved in catalog"
 msgstr "Päivittää jokaisen rivin välimuistin ja päivittää hakuluettelon"
+
+#: ./search/templates/datetime_index.pt:24
+msgid "To"
+msgstr ""
 
 #: ./content/tablepage.py:62
 msgid "Type of data"

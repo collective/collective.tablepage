@@ -3,6 +3,7 @@
 from DateTime import DateTime
 from DateTime.interfaces import DateTimeError
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.base import BaseFieldDataRetriever
 from collective.tablepage.fields.interfaces import IDateTimeColumnField
@@ -24,6 +25,11 @@ class DateTimeField(BaseField):
     view_template = ViewPageTemplateFile('templates/string_view.pt')
 
     show_hm = True
+
+    @classmethod
+    def RealIndexIterator(csl):
+        # Plone 3 compatibility
+        return utils.RealIndexIterator(pos=0)
 
     def render_view(self, data, index=None, storage=None):
         self.data = data or ''
