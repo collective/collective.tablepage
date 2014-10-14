@@ -3,12 +3,13 @@
  */
 (function($){
     $(document).ready(function() {
-        var dataTable = null;
-        var wWidth = $("#portal-columns").width();
-        var wWidth995 = parseInt(wWidth/100*95, 10); 
-        var innerW = $('#content').width();
-        var wHeidht = $(window).height();
-        var wHeidht990 = parseInt(wHeidht/100*90, 10);
+        var dataTable = null,
+            wWidth = $("#portal-columns").width(),
+            wWidth995 = parseInt(wWidth/100*95, 10), 
+            innerW = $('#content').width(),
+            innerW998 = parseInt(innerW/100*98, 10),
+            wHeidht = $(window).height(),
+            wHeidht995 = parseInt(wHeidht/100*95, 10);
 
         // expand/collapse table feature
         var selectAllCommand = $('#selectAll');
@@ -54,7 +55,7 @@
                     allLabelRows = [],
                     rowCount = $table.find('tbody tr').length;
                 
-                $table.css('width', innerW+'px');
+                $table.css('width', innerW998+'px');
 
                 /*
                  * We manage complexity of having labels (DataTable do not support it at all)
@@ -133,9 +134,9 @@
                         bLengthChange: hasLabels ? false : true,
                         bPaginate: hasLabels || batchingEnabled ? false : true,
                         asStripClasses: null,
-                        sScrollX: innerW+"px",
+                        sScrollX: innerW998+"px",
                         // sScrollXInner: "95%",
-                        sScrollY: wHeidht990 + "px",
+                        sScrollY: wHeidht995 + "px",
                         bScrollCollapse: true,
                         bAutoWidth: false,
                         bInfo: batchingEnabled ? false : true,
@@ -144,6 +145,11 @@
                            ],
                         iDisplayLength: 100,
                         fnInitComplete: function() {
+                            // Force a min-height when few rows are available
+                            var tbodyContainer = $('div.dataTables_scrollBody');
+                            if (tbodyContainer.find('tr').length<3) {
+                                tbodyContainer.css('height', "100px");    
+                            }
                             if ($labels.length > 0) {
                                 dataTable.rowGrouping();
                             }

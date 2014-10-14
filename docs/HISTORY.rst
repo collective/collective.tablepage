@@ -7,6 +7,8 @@ Changelog
 - New columns: "*Date*" and "*Date/Time*".
   This close `7`__
   [keul]
+- Some visual changes to very small tables
+  [keul]
 
 __ https://github.com/RedTurtle/collective.tablepage/issues/7
 
