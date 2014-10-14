@@ -79,7 +79,9 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
         return {name: None}
 
     def data_for_display(self, data, backend=False, row_index=None):
-        """Return the data formatted in the propert locales format""" 
+        """Return the data formatted in the propert locales format"""
+        if backend:
+            return data 
         ploneview = getMultiAdapter((self.context, self.context.REQUEST), name=u'plone')
         return ploneview.toLocalizedTime(data, long_format=self.show_hm)
 
