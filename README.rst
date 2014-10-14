@@ -154,6 +154,8 @@ Table Page is distributed with a know set of columns. Right now you can choose f
     "*Column configuration*". For this reason it will not be putted in the edit row form.
     Not cached by default but can be configured. 
     See below.
+``Date`` and ``Date/Time``
+    A string that store a date (or date and time). 
 
 Adding new type of column is not hard (for a Plone developer), but remember to stay simple: we don't want
 to rewrite `PloneFormGen`__ from scratch!
@@ -269,7 +271,8 @@ __ http://jquery-datatables-row-grouping.googlecode.com/svn/trunk/index.html
 Searching the table
 ===================
 
-Apart the live search filter that came from DataTables integration (see above) you can rely also on advanced search features.
+Apart the live search filter that came from DataTables integration (see above) you can rely also on advanced search
+features.
 This will give to your users a search form automatically generated looking at search configurations.
 
 The search feature is based on a ZMI tool: ``tablepage_catalog`` really similar to the same catalog used by
@@ -279,20 +282,22 @@ While some UI configuration are possibile through Plone, a ZMI access to that to
 For every "searchable" column you have defined, you can create a field in the search form, customizing the label
 and the helper text. Plus, you can define one or more columns as searchable in full text search.
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-01.png/image_large
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.10-01.png/image_large
    :alt: Configuring searches
-   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-01.png
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.10-01.png
 
 When you users will perform searches from the table view, only rows that match the search will be displayed.
 
-.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-02.png/image_large
+.. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.10-02.png/image_large
    :alt: Configuring searches
-   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.8a1-02.png
+   :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.10-02.png
 
 The widget displayed in the form depends on the catalog index you user:
 
 * for a ``ZCTextIndex`` you will get a text input
-* for a ``FieldIndex`` you will get a selection on all possible values
+* for a ``FieldIndex`` you will get a selection (bot single or multiple) on all possible values
+* for a ``DateIndex`` you will be able to query range of dates (commonly for "Date" "Date/Time"
+  columns)
 
 Names of the indexes must be equals to columns ids.
 
@@ -369,5 +374,4 @@ This product was developed by RedTurtle Technology team.
 .. image:: http://www.redturtle.it/redturtle_banner.png
    :alt: RedTurtle Technology Site
    :target: http://www.redturtle.it/
-
 
