@@ -58,5 +58,11 @@ msgstr ""
 msgid "Computed"
 msgstr ""
 
+msgid "Date/Time"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
 # FIELD - end
 

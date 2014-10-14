@@ -21,3 +21,4 @@ msgstr "Taulukon sisältö"
 
 msgid "label_schema_search"
 msgstr "Hakutoiminto"
+

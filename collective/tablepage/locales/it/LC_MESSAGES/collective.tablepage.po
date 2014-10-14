@@ -16,7 +16,7 @@ msgstr ""
 "X-Is-Fallback-For: it-ch it-it\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:265
+#: ./browser/view.py:295
 msgid "${count} rows deleted"
 msgstr "${count} righe eliminate"
 
@@ -59,19 +59,19 @@ msgstr "Aggiungi nuova etichetta sopra"
 msgid "Add new label above that row"
 msgstr "Aggiungi una nuova etichetta sopra questa riga"
 
-#: ./browser/templates/view-table.pt:151
+#: ./browser/templates/view-table.pt:155
 msgid "Add new row"
 msgstr "Aggiungi una nuova riga"
 
-#: ./browser/templates/view-table.pt:155
+#: ./browser/templates/view-table.pt:159
 msgid "Add new row above this"
 msgstr "Aggiunga nuova riga sopra"
 
-#: ./browser/templates/view-table.pt:143
+#: ./browser/templates/view-table.pt:147
 msgid "Add new row below"
 msgstr "Aggiunga nuova riga sotto"
 
-#: ./browser/templates/view-table.pt:139
+#: ./browser/templates/view-table.pt:143
 msgid "Add new row below this"
 msgstr "Aggiungi una nuova riga sotto questa"
 
@@ -130,6 +130,12 @@ msgstr "Calcolato"
 msgid "Criteria for adding new rows"
 msgstr "Criterio di inserimento nuove righe"
 
+msgid "Date"
+msgstr "Data"
+
+msgid "Date/Time"
+msgstr "Data/Ora"
+
 #: ./browser/templates/view-table.pt:63
 msgid "Delete rows"
 msgstr "Elimina righe"
@@ -142,23 +148,23 @@ msgstr "Elimina le righe selezionate"
 msgid "Delete selection"
 msgstr "Cancella selezione"
 
-#: ./browser/templates/multiple-tables.pt:79
+#: ./browser/templates/multiple-tables.pt:87
 #: ./browser/templates/view-table.pt:84
 msgid "Download as CSV"
 msgstr "Scarica come CSV"
 
-#: ./browser/templates/multiple-tables.pt:73
+#: ./browser/templates/multiple-tables.pt:81
 #: ./browser/templates/view-table.pt:76
 msgid "Download data in CSV format"
 msgstr "Scarica i dati in formato CSV"
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:181
+#: ./browser/templates/view-table.pt:185
 msgid "Edit label"
 msgstr "Modifica etichetta"
 
-#: ./browser/templates/edit-record.pt:24
-#: ./browser/templates/view-table.pt:173
+#: ./browser/templates/edit-record.pt:38
+#: ./browser/templates/view-table.pt:177
 msgid "Edit row"
 msgstr "Modifica riga"
 
@@ -179,11 +185,11 @@ msgstr ""
 msgid "Files"
 msgstr "Più file"
 
-#: ./browser/templates/edit-record.pt:29
+#: ./browser/templates/edit-record.pt:43
 msgid "Fill data of this table's row"
 msgstr "Compila i dati di questa riga della tabella"
 
-#: ./search/templates/search.pt:21
+#: ./search/templates/search.pt:32
 msgid "Filter results"
 msgstr "Filtra risultati"
 
@@ -196,20 +202,20 @@ msgid "Label"
 msgstr "Etichetta"
 
 #. Default: "collective.tablepage"
-#: ./browser/label.py:56
+#: ./browser/label.py:58
 msgid "Label added"
 msgstr "Etichetta aggiunta"
 
 #. Default: "collective.tablepage"
-#: ./browser/label.py:63
+#: ./browser/label.py:65
 msgid "Label changed"
 msgstr "Etichetta modificata"
 
-#: ./browser/label.py:90
+#: ./browser/label.py:93
 msgid "Label has been saved"
 msgstr "L'etichetta è stata salvata"
 
-#: ./browser/label.py:85
+#: ./browser/label.py:88
 msgid "Label is required"
 msgstr "L'etichetta è richiesta"
 
@@ -235,11 +241,11 @@ msgstr "Muovi dopo"
 msgid "Move before"
 msgstr "Muovi prima"
 
-#: ./browser/templates/view-table.pt:214
+#: ./browser/templates/view-table.pt:218
 msgid "Move row down"
 msgstr "Muovi riga giù"
 
-#: ./browser/templates/view-table.pt:206
+#: ./browser/templates/view-table.pt:210
 msgid "Move row up"
 msgstr "Muovi riga su"
 
@@ -250,11 +256,11 @@ msgstr "Tabelle multiple"
 msgid "New label"
 msgstr "Nuova etichetta"
 
-#: ./browser/templates/edit-record.pt:20
+#: ./browser/templates/edit-record.pt:34
 msgid "New row"
 msgstr "Nuova riga"
 
-#: ./browser/templates/view-table.pt:227
+#: ./browser/templates/view-table.pt:232
 msgid "No rows"
 msgstr "Nessuna riga"
 
@@ -269,10 +275,6 @@ msgstr "Pagina con Tabella"
 msgid "Please enter a number in a proper format, for example: 1234.56"
 msgstr "Prego, inserisci un numero in un formato adatto, per esempio: 1234.56"
 
-#: ./browser/templates/edit-record.pt:41
-msgid "Provide data for the row"
-msgstr "Fornisci i dati della riga"
-
 #: ./browser/templates/edit-label.pt:34
 msgid "Provide label"
 msgstr "Fornisci un'etichetta"
@@ -285,40 +287,40 @@ msgstr "Aggiorna catalogo"
 msgid "Remove"
 msgstr "Rimuovi"
 
-#: ./browser/templates/view-table.pt:197
+#: ./browser/templates/view-table.pt:201
 msgid "Remove row"
 msgstr "Elimina riga"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:220
+#: ./browser/view.py:221
 msgid "Row added"
 msgstr "Riga aggiunta"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:212
+#: ./browser/view.py:213
 msgid "Row changed"
 msgstr "Riga cambiata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:261
+#: ./browser/view.py:291
 msgid "Row deleted"
 msgstr "Riga eliminata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:297
+#: ./browser/view.py:334
 msgid "Row has been moved"
 msgstr "La riga è stata spostata"
 
-#: ./browser/view.py:82
+#: ./browser/view.py:84
 msgid "Row has been saved"
 msgstr "La riga è stata salvata"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:301
+#: ./browser/view.py:338
 msgid "Row moved"
 msgstr "Riga mossa"
 
-#: ./search/templates/search.pt:8
+#: ./search/templates/search.pt:19
 msgid "Seach in table"
 msgstr "Cerca nella tabella"
 
@@ -432,7 +434,7 @@ msgstr ""
 "Il form di ricerca non le utilizzerà."
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:165
+#: ./browser/updownload.py:168
 msgid "count_rows_added"
 msgstr "${count} righe aggiunte"
 
@@ -462,21 +464,27 @@ msgid "description_edit_table_view"
 msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:153
+#: ./fields/file.py:154
 msgid "duplicate_file_critical_error"
 msgstr ""
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
 "Il caricamento dell'allegato è stato annullato."
 
-#. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
-#: ./fields/file.py:136
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:220
 msgid "duplicate_file_error"
 msgstr ""
+"Esiste già un elemento chiamato ${name} in questa cartella.\n"
+"Il caricamento del nuovo allegato è stato annullato."
+
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
+#: ./fields/file.py:136
+msgid "duplicate_file_error_with_link"
 "Esiste già un elemento chiamato ${name} in questa cartella.\n"
 "Il caricamento del nuovo allegato è stato annullato ed è stato creato un riferimento al file esistente."
 
 #. Default: "The field \"$name\" does not fit any of the vocabulary values"
-#: ./validators/base.py:60
+#: ./validators/base.py:59
 msgid "error_enforce_vocabulary"
 msgstr "Il campo \"$name\" non rispetta nessuno dei valori del vocabolario"
 
@@ -503,7 +511,7 @@ msgid "error_field_unique"
 msgstr "Il valore \"$value\" è già presente nella colonna \"$name\""
 
 #. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
-#: ./browser/updownload.py:109
+#: ./browser/updownload.py:111
 msgid "error_row_count_dont_match"
 msgstr "Salto la riga $line. Trovate $lrow colonne invece di $lheaders"
 
@@ -693,17 +701,17 @@ msgstr ""
 "Per il tipo \"Calcolato\": scrivi qui l'espressione TALES."
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:155
+#: ./browser/updownload.py:157
 msgid "warn_duplicate"
 msgstr "La riga ${line_number} non è stata aggiunta perché vi sono stati trovati dati duplicati"
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:133
+#: ./browser/updownload.py:135
 msgid "warn_invalid_cell"
 msgstr "Riga $line, cella $cell: non posso importare i dati per una controllo di validazione fallito"
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:126
+#: ./browser/updownload.py:128
 msgid "warn_invalid_row"
 msgstr "La riga $line non può essere importata perché mancano dati obbligatori"
 

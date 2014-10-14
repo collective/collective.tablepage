@@ -133,7 +133,7 @@ class FileDataRetriever(LinkedObjectFinder):
             if not title and file.filename in folder.objectIds():
                 # WARNING: we don't get the file title, to obtain the id
                 plone_utils = getToolByName(self.context, 'plone_utils')
-                plone_utils.addPortalMessage(_('duplicate_file_error',
+                plone_utils.addPortalMessage(_('duplicate_file_error_with_link',
                                                default=u'There is already an item named ${name} in this folder.\n'
                                                        u'Loading of the new attachment has been aborted '
                                                        u'and a reference to that existing file has been created.',

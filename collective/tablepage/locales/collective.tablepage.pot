@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-30 10:52+0000\n"
+"POT-Creation-Date: 2014-10-14 10:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Domain: collective.tablepage\n"
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:265
+#: ./browser/view.py:295
 msgid "${count} rows deleted"
 msgstr ""
 
@@ -58,19 +58,19 @@ msgstr ""
 msgid "Add new label above that row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:151
+#: ./browser/templates/view-table.pt:155
 msgid "Add new row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:155
+#: ./browser/templates/view-table.pt:159
 msgid "Add new row above this"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:143
+#: ./browser/templates/view-table.pt:147
 msgid "Add new row below"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:139
+#: ./browser/templates/view-table.pt:143
 msgid "Add new row below this"
 msgstr ""
 
@@ -134,6 +134,12 @@ msgstr ""
 msgid "Criteria for adding new rows"
 msgstr ""
 
+msgid "Date"
+msgstr ""
+
+msgid "Date/Time"
+msgstr ""
+
 #: ./browser/templates/view-table.pt:63
 msgid "Delete rows"
 msgstr ""
@@ -146,23 +152,23 @@ msgstr ""
 msgid "Delete selection"
 msgstr ""
 
-#: ./browser/templates/multiple-tables.pt:79
+#: ./browser/templates/multiple-tables.pt:87
 #: ./browser/templates/view-table.pt:84
 msgid "Download as CSV"
 msgstr ""
 
-#: ./browser/templates/multiple-tables.pt:73
+#: ./browser/templates/multiple-tables.pt:81
 #: ./browser/templates/view-table.pt:76
 msgid "Download data in CSV format"
 msgstr ""
 
 #: ./browser/templates/edit-label.pt:17
-#: ./browser/templates/view-table.pt:181
+#: ./browser/templates/view-table.pt:185
 msgid "Edit label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:24
-#: ./browser/templates/view-table.pt:173
+#: ./browser/templates/edit-record.pt:38
+#: ./browser/templates/view-table.pt:177
 msgid "Edit row"
 msgstr ""
 
@@ -183,11 +189,11 @@ msgstr ""
 msgid "Files"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:29
+#: ./browser/templates/edit-record.pt:43
 msgid "Fill data of this table's row"
 msgstr ""
 
-#: ./search/templates/search.pt:21
+#: ./search/templates/search.pt:32
 msgid "Filter results"
 msgstr ""
 
@@ -200,20 +206,20 @@ msgid "Label"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/label.py:56
+#: ./browser/label.py:58
 msgid "Label added"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/label.py:63
+#: ./browser/label.py:65
 msgid "Label changed"
 msgstr ""
 
-#: ./browser/label.py:90
+#: ./browser/label.py:93
 msgid "Label has been saved"
 msgstr ""
 
-#: ./browser/label.py:85
+#: ./browser/label.py:88
 msgid "Label is required"
 msgstr ""
 
@@ -239,11 +245,11 @@ msgstr ""
 msgid "Move before"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:214
+#: ./browser/templates/view-table.pt:218
 msgid "Move row down"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:206
+#: ./browser/templates/view-table.pt:210
 msgid "Move row up"
 msgstr ""
 
@@ -254,11 +260,11 @@ msgstr ""
 msgid "New label"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:20
+#: ./browser/templates/edit-record.pt:34
 msgid "New row"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:227
+#: ./browser/templates/view-table.pt:232
 msgid "No rows"
 msgstr ""
 
@@ -273,10 +279,6 @@ msgstr ""
 msgid "Please enter a number in a proper format, for example: 1234.56"
 msgstr ""
 
-#: ./browser/templates/edit-record.pt:41
-msgid "Provide data for the row"
-msgstr ""
-
 #: ./browser/templates/edit-label.pt:34
 msgid "Provide label"
 msgstr ""
@@ -289,40 +291,40 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: ./browser/templates/view-table.pt:197
+#: ./browser/templates/view-table.pt:201
 msgid "Remove row"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:220
+#: ./browser/view.py:221
 msgid "Row added"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:212
+#: ./browser/view.py:213
 msgid "Row changed"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:261
+#: ./browser/view.py:291
 msgid "Row deleted"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:297
+#: ./browser/view.py:334
 msgid "Row has been moved"
 msgstr ""
 
-#: ./browser/view.py:82
+#: ./browser/view.py:84
 msgid "Row has been saved"
 msgstr ""
 
 #. Default: "collective.tablepage"
-#: ./browser/view.py:301
+#: ./browser/view.py:338
 msgid "Row moved"
 msgstr ""
 
-#: ./search/templates/search.pt:8
+#: ./search/templates/search.pt:19
 msgid "Seach in table"
 msgstr ""
 
@@ -431,7 +433,7 @@ msgid "bad_configured_search_cols"
 msgstr ""
 
 #. Default: "${count} rows added"
-#: ./browser/updownload.py:165
+#: ./browser/updownload.py:168
 msgid "count_rows_added"
 msgstr ""
 
@@ -461,17 +463,22 @@ msgid "description_edit_table_view"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
-#: ./fields/file.py:153
+#: ./fields/file.py:154
 msgid "duplicate_file_critical_error"
+msgstr ""
+
+#. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
+#: ./fields/file.py:220
+msgid "duplicate_file_error"
 msgstr ""
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the new attachment has been aborted and a reference to that existing file has been created."
 #: ./fields/file.py:136
-msgid "duplicate_file_error"
+msgid "duplicate_file_error_with_link"
 msgstr ""
 
 #. Default: "The field \"$name\" does not fit any of the vocabulary values"
-#: ./validators/base.py:60
+#: ./validators/base.py:59
 msgid "error_enforce_vocabulary"
 msgstr ""
 
@@ -498,7 +505,7 @@ msgid "error_field_unique"
 msgstr ""
 
 #. Default: "Skipping line $line. Found $lrow columns instead of $lheaders"
-#: ./browser/updownload.py:109
+#: ./browser/updownload.py:111
 msgid "error_row_count_dont_match"
 msgstr ""
 
@@ -675,17 +682,17 @@ msgid "vocabulary_column_description"
 msgstr ""
 
 #. Default: "Line ${line_number} not added because duplicated data has been found"
-#: ./browser/updownload.py:155
+#: ./browser/updownload.py:157
 msgid "warn_duplicate"
 msgstr ""
 
 #. Default: "Line $line, cell $cell: can't import data due to failed validator check"
-#: ./browser/updownload.py:133
+#: ./browser/updownload.py:135
 msgid "warn_invalid_cell"
 msgstr ""
 
 #. Default: "Line $line can't be imported due to missing required data"
-#: ./browser/updownload.py:126
+#: ./browser/updownload.py:128
 msgid "warn_invalid_row"
 msgstr ""
 
