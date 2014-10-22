@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10 (unreleased)
+0.10 (2014-10-22)
 -----------------
 
 - New columns: "*Date*" and "*Date/Time*".
