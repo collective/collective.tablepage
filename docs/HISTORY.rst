@@ -5,7 +5,7 @@ Changelog
 -----------------
 
 - New columns: "*Date*" and "*Date/Time*".
-  This close `7`__
+  This close `#7`__
   [keul]
 - Some visual changes to very small tables
   [keul]
