@@ -2,7 +2,6 @@
 
 from DateTime import DateTime
 from DateTime.interfaces import DateTimeError
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.base import BaseFieldDataRetriever

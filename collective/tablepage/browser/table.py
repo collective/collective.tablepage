@@ -152,7 +152,6 @@ class TableViewView(BrowserView):
                                             'range': '_from' in from_to and 'min' or 'max'}
 
         # 3. remove values not handled by the catalog, to prevent AdvancedQuery errors
-        col_ids = [conf['id'] for conf in context.getSearchConfig()]
         cleaned = dict((k, v) for k, v in cleaned.items() if k in catalog_indexes)
         
         # 4. merge with to_be_added

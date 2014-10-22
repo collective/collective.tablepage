@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from collective.tablepage.search.interfaces import ISearchableColumn
 from collective.tablepage.search.base import BaseSearch
