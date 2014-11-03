@@ -200,17 +200,17 @@ class TablePageCatalog(CatalogTool):
         for k,v in kwargs.items():
             if k in SKIP_KEYS:
                 continue
-            if sub_query:
-                if type(v)==dict:
-                    # Handle complex subqueries (range?)
-                    complex_query = self._buildRangeQuery(k, v)
-                    if complex_query:
-                        sub_query &= complex_query
-                else:
-                    sub_query &= Eq(k, v)
+            if type(v)==dict:
+                # Handle complex subqueries (range?)
+                term = self._buildRangeQuery(k, v)
             else:
-                sub_query = Eq(k, v)
-        
+                term = Eq(k, v)
+
+            if sub_query:
+                sub_query &= term
+            else:
+                sub_query = term
+
         query = query | sub_query
         return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))
 

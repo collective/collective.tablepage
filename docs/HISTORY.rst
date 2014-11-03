@@ -4,8 +4,8 @@ Changelog
 0.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fixed issue when using date search without other search criteria
+  [keul]
 
 0.10 (2014-10-22)
 -----------------
