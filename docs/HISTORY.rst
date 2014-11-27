@@ -6,6 +6,9 @@ Changelog
 
 - Fixed issue when using date search without other search criteria
   [keul]
+- Row commands were not displayed properly on first row in subs page
+  if a label was present of first ones
+  [keul]
 
 0.10 (2014-10-22)
 -----------------
