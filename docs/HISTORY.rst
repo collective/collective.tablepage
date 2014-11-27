@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.1 (unreleased)
+0.10.1 (2014-11-27)
 -------------------
 
 - Fixed issue when using date search without other search criteria
