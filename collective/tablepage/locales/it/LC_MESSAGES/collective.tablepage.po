@@ -469,7 +469,7 @@ msgstr ","
 #. Default: "Add, Edit or Delete rows in the main table of this content"
 #: ./browser/templates/tablepage-edit.pt:27
 msgid "description_edit_table_view"
-msgstr "Aggiunti, Modifica o Elimina righe della tabella principale di questo contenuto"
+msgstr "Aggiungi, Modifica o Elimina righe della tabella principale di questo contenuto"
 
 #. Default: "There is already an item named ${name} in this folder.\nLoading of the attachment has been aborted."
 #: ./fields/file.py:154
