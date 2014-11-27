@@ -40,15 +40,32 @@ class TableEditView(BrowserView):
     """Render the table for editing it"""
     implements(ITableEditView)
 
+    def __call__(self, *args, **kwargs):
+        """If view is called without b_start params, redirect me to last page"""
+        request = self.request
+        context = self.context
+        if 'b_start' not in request.form.keys() and context.getInsertType()=='append':
+            batch = self.table_view.batch()
+            if batch.lastpage - 1 > 0:
+                request.response.redirect("%s/edit-table?b_start:int=%d" % (context.absolute_url(),
+                                                                            batch.pagesize * (batch.lastpage - 1)))
+                return
+        return self.index()
+
+    @property
+    @memoize
+    def table_view(self):
+        table_view = getMultiAdapter((self.context, self.request), name=u'view-table')
+        table_view.edit_mode = True
+        return table_view
+
     @memoize
     def portal_url(self):
         return getMultiAdapter((self.context, self.request),
                                name=u'plone_portal_state').portal_url()
 
     def render_table(self):
-        table_view = getMultiAdapter((self.context, self.request), name=u'view-table')
-        table_view.edit_mode = True
-        return table_view()
+        return self.table_view()
 
 
 class EditRecordView(BrowserView):

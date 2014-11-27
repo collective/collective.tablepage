@@ -9,6 +9,8 @@ Changelog
 - Row commands were not displayed properly on first row in subs page
   if a label was present of first ones
   [keul]
+- When editing table redirect user to last page if we are in append mode
+  [keul]
 
 0.10 (2014-10-22)
 -----------------
