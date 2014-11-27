@@ -12,6 +12,7 @@ install_requires = ['setuptools',
                     'collective.datagridcolumns>=0.6.1',
                     'collective.autopermission',
                     #'collective.js.datatables',
+                    'Products.ATReferenceBrowserWidget',
                     'Products.TinyMCE',
                     'Products.AdvancedQuery',
                     ]
