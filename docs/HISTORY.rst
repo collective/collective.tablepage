@@ -10,6 +10,8 @@ Changelog
   selected [keul]
 - Download as CSV was not taking care of applying search filters
   [keul]
+- Added a new "col-*columnid*" CSS class to every header and data cell
+  [keul]
 
 
 0.10.1 (2014-11-27)
