@@ -13,7 +13,8 @@ Changelog
 - Do not show search form when table is empty
   [keul]
 - Search form was not working properly when "*Single value search*" was not
-  selected [keul]
+  selected
+  [keul]
 - Download as CSV was not taking care of applying search filters
   [keul]
 - Added a new "col-*columnid*" CSS class to every header and data cell
