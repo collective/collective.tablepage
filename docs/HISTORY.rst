@@ -12,7 +12,8 @@ Changelog
   [keul]
 - Added a new "col-*columnid*" CSS class to every header and data cell
   [keul]
-
+- Multi page view was not applying any CSS class to table headers
+  [keul]
 
 0.10.1 (2014-11-27)
 -------------------

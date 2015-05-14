@@ -62,7 +62,8 @@
                         <tal:sub-table-rows repeat="data single_table">
                         <tr tal:define="col_index repeat/data/index">
                             <th scope="row" class="nosort"
-                                tal:define="header python:view.getHeader(col_index)">
+                                tal:define="header python:view.getHeader(col_index)"
+								tal:attributes="class string:nosort ${header/classes}">
                                     <span tal:replace="header/label" />
                                     <div class="discreet" tal:content="header/description">This is for...</div>
                                 </th>
