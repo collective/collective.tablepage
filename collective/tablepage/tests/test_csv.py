@@ -33,6 +33,7 @@ class CSVExportTestCase(unittest.TestCase):
         portal.invokeFactory(type_name='File', id='file1', title="Attachment 1")
         portal.invokeFactory(type_name='File', id='file2', title="Attachment 2")
         portal.invokeFactory(type_name='Document', id='document1', title="Page 1")
+        self.tp_catalog = portal.tablepage_catalog
         self.storage = IDataStorage(portal.table_page)
 
     def test_emtpy_csv(self):
@@ -182,6 +183,24 @@ class CSVExportTestCase(unittest.TestCase):
         csv = get_csv_content(view, skipHeaders=True)
         self.assertEqual(csv, '"col_a","col_b"\n'
                               '"lorem ipsum",""')
+
+    def test_search_filter_used(self):
+        tp = self.layer['portal'].table_page
+        request = self.layer['request']
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'foo bar',
+                          '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': ' baz  qux',
+                          '__uuid__': 'bbb'})
+        self.tp_catalog.addIndex('col_a', 'FieldIndex')
+        self.tp_catalog.clearFindAndRebuild()
+        view = getMultiAdapter((tp, request), name=u"download-table")
+        request.form['searchInTable'] = '1'
+        request.form['col_a'] = ['foo bar']
+        csv = get_csv_content(view)
+        self.assertEqual(csv, '"Col A"\n'
+                              '"foo bar"')
 
 
 class CSVImportTestCase(unittest.TestCase):

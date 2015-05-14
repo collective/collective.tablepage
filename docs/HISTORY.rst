@@ -6,8 +6,9 @@ Changelog
 
 - Do not show search form when table is empty
   [keul]
-- Search form was not working properly when
-  "*Single value search*" was not selected
+- Search form was not working properly when "*Single value search*" was not
+  selected [keul]
+- Download as CSV was not taking care of applying search filters
   [keul]
 
 

@@ -153,7 +153,7 @@ class TableViewView(BrowserView):
 
         # 3. remove values not handled by the catalog, to prevent AdvancedQuery errors
         cleaned = dict((k, v) for k, v in cleaned.items() if k in catalog_indexes)
-        
+
         # 4. merge with to_be_added
         cleaned = dict(cleaned.items() + to_be_added.items())
         return cleaned
@@ -311,3 +311,14 @@ class TableViewView(BrowserView):
             return 'edit-table'
         return ''
 
+    @property
+    @memoize
+    def search_query(self):
+        results = []
+        for key, param in [(k,v) for k,v in self.request.form.items() if k!='Filter']:
+            if type(param)==list:
+                for subi in param:
+                    results.append('%s:list=%s' % (key, subi))
+            else:
+                results.append('%s=%s' % (key, param))
+        return results

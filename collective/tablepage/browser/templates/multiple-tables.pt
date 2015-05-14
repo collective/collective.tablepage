@@ -80,7 +80,9 @@
                 <tal:download_enabled tal:condition="python:rows and context.getDownloadEnabled()">
                     <a class="command" href="" title="Download data in CSV format"
                        i18n:attributes="title"
-                       tal:attributes="href string:${context/absolute_url}/@@download-table">
+                       tal:define="params  python:view.search_query and view.search_query or [];
+						           query_params  python: params and ('?' + '&amp;'.join(params)) or '';"
+                       tal:attributes="href string:${context/absolute_url}/@@download-table${query_params}">
                         <img alt="Download data in CSV format" src=""
                              tal:attributes="src string:${view/portal_url}/++resource++collective.tablepage.images/download_data.png"
                              i18n:attributes="alt"/>

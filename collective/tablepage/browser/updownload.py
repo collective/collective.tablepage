@@ -203,24 +203,33 @@ class DownloadDataView(BrowserView):
     """
     
     def __call__(self):
-        target = self.request.form.get('target')
+        request = self.request
+        context = self.context
+        target = request.form.get('target')
         for_editor = target == 'editor' or False
         columns = []
-        table_configuration = self.context.getPageColumns()
+        search = 'searchInTable' in request.form.keys()
+
+        table_configuration = context.getPageColumns()
         for conf in table_configuration:
             column = {}
             column['display_header'] = for_editor and conf.get('id') or (conf.get('label') or conf.get('id'))
             column['header_code'] = conf.get('id')
             column['configuration'] = conf
             try:
-                retriever = getAdapter(self.context,
-                                       IColumnDataRetriever,
-                                       name=conf['type'])
+                retriever = getAdapter(context, IColumnDataRetriever, name=conf['type'])
             except ComponentLookupError:
                 retriever = IColumnDataRetriever(self.context)
             column['adapter'] = retriever
             columns.append(column)
+
+        real_storage = None
         storage = IDataStorage(self.context)
+        if search:
+            real_storage = storage 
+            tp_catalog = getToolByName(context, 'tablepage_catalog')
+            tableview = getMultiAdapter((context, request), name=u'view-table')
+            storage = tp_catalog.searchTablePage(context, **tableview._clean_query(request.form))            
 
         file = StringIO()
         csvparams = {'quoting' :csv.QUOTE_ALL,
@@ -230,6 +239,8 @@ class DownloadDataView(BrowserView):
         writer.writerow([h['display_header'] for h in columns])
 
         for row_index, data in enumerate(storage):
+            if search:
+                data = real_storage[data.UID]
             row = []
             if data.get('__label__'):
                 continue
@@ -248,7 +259,7 @@ class DownloadDataView(BrowserView):
                     col_val = '\n'.join(col_val)
                 row.append(col_val.strip())
             writer.writerow(row)
-        response = self.request.response
+        response = request.response
         response.setHeader('Content-Type','text/csv')
-        response.addHeader('Content-Disposition', 'attachment; filename=%s.csv' % self.context.getId())
+        response.addHeader('Content-Disposition', 'attachment; filename=%s.csv' % context.getId())
         response.write(file.getvalue())
