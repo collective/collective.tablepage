@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.2 (unreleased)
+0.10.2 (2015-05-14)
 -------------------
 
 - Do not show search form when table is empty
