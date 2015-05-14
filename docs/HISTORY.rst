@@ -4,7 +4,8 @@ Changelog
 0.10.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Do not show search form when table is empty
+  [keul]
 
 
 0.10.1 (2014-11-27)

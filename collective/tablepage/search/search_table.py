@@ -2,6 +2,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage import tablepageMessageFactory as _
+from collective.tablepage.interfaces import IDataStorage
 from collective.tablepage.search.interfaces import ISearchableColumn
 from plone.app.layout.viewlets.common import ViewletBase
 from zope.component import getUtilitiesFor
@@ -12,7 +13,7 @@ class SearchTableViewlet(ViewletBase):
 
     @property
     def view_name(self):
-        # remove this uglyness when Plone 3 will be removed and we ere able to
+        # remove this uglyness when Plone 3 compatibility will be dropped and we ere able to
         # define our basic view for tablepage
         if self.view.__name__=='plone':
             return ''
@@ -69,3 +70,9 @@ class SearchTableViewlet(ViewletBase):
             field.description = conf.get('description') or field.configuration.get('description') or ''
             fields.append(field.render(meta_type=catalog_keys[field_id].meta_type))
         return fields
+
+    def render(self):
+        storage = IDataStorage(self.context)
+        if len(storage)==0:
+            return ""
+        return self.index()

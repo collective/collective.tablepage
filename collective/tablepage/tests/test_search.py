@@ -49,6 +49,7 @@ class TablePageCatalogTestCase(unittest.TestCase):
         tp = portal.table_page
         tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '', 'additionalConfiguration': []}])
         self.tp_catalog.addIndex('col_a', 'FieldIndex')
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
         output = tp()
         self.assertTrue('id="searchTablePage"' in output)
 
