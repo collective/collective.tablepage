@@ -357,7 +357,8 @@ Developed with the support of:
 
   .. image:: http://www.provincia.vicenza.it/logo_provincia_di_vicenza.png 
      :alt: Province of Vicenza logo
-
+  
+* `Guardia di Finanza`__
 
 All of them supports the `PloneGov initiative`__.
 
@@ -365,6 +366,7 @@ __ http://www.ausl.fe.it/
 __ http://www.ospfe.it/
 __ http://www.provincia.vicenza.it/
 __ http://www.plonegov.it/
+__ http://www.gdf.gov.it/
 
 Authors
 =======
