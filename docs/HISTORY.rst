@@ -6,6 +6,9 @@ Changelog
 
 - Do not show search form when table is empty
   [keul]
+- Search form was not working properly when
+  "*Single value search*" was not selected
+  [keul]
 
 
 0.10.1 (2014-11-27)

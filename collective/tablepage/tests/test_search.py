@@ -93,6 +93,23 @@ class TablePageCatalogTestCase(unittest.TestCase):
         portal = self.layer['portal']
         request = self.layer['request']
         tp = portal.table_page
+        tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '',
+                               'additionalConfiguration': ['single_value']}])
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
+        self.storage.add({'__creator__': 'user1', 'col_a': 'Qux Tux', '__uuid__': 'bbb'})
+        self.tp_catalog.addIndex('col_a', 'FieldIndex')
+        self.tp_catalog.clearFindAndRebuild()
+        request.form['col_a'] = ['Foo Bar Baz']
+        request.form['searchInTable'] = '1'
+        pq = PyQuery(tp())
+        table = pq('table.tablePage').text()
+        self.assertTrue('Foo Bar Baz' in table)
+        self.assertFalse('Qux Tux' in table)
+
+    def test_search_simple_filter_singlevalued(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        tp = portal.table_page
         tp.edit(searchConfig=[{'id': 'col_a', 'label': '', 'description': '', 'additionalConfiguration': []}])
         self.storage.add({'__creator__': 'user1', 'col_a': 'Foo Bar Baz', '__uuid__': 'aaa'})
         self.storage.add({'__creator__': 'user1', 'col_a': 'Qux Tux', '__uuid__': 'bbb'})

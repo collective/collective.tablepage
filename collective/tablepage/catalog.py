@@ -8,7 +8,7 @@ from App.special_dtml import DTMLFile
 from AccessControl import ClassSecurityInfo
 from AccessControl.Permissions import search_zcatalog
 from AccessControl.Permissions import manage_zcatalog_entries
-from Products.AdvancedQuery import Eq
+from Products.AdvancedQuery import Eq, In
 from Products.AdvancedQuery import Le, Ge, Between
 from Products.AdvancedQuery.eval import eval as _eval
 from Products.CMFCore.CatalogTool import CatalogTool
@@ -203,6 +203,8 @@ class TablePageCatalog(CatalogTool):
             if type(v)==dict:
                 # Handle complex subqueries (range?)
                 term = self._buildRangeQuery(k, v)
+            elif type(v)==list:
+                term = In(k, v)
             else:
                 term = Eq(k, v)
 
