@@ -31,6 +31,12 @@ except ImportError:
     # No versioning support for Plone 3.3 version of CMFEditions
     VERSIONING_SUPPORT = False
 
+try:
+    from plone.batching import Batch
+    PBATCH = True
+except ImportError:
+    PBATCH = False
+
 
 class ITableEditView(Interface):
     """Marker interface for TableEditView"""
@@ -46,7 +52,7 @@ class TableEditView(BrowserView):
         context = self.context
         if 'b_start' not in request.form.keys() and context.getInsertType()=='append':
             batch = self.table_view.batch()
-            if batch.lastpage - 1 > 0:
+            if PBATCH and batch.lastpage - 1 > 0:
                 request.response.redirect("%s/edit-table?b_start:int=%d" % (context.absolute_url(),
                                                                             batch.pagesize * (batch.lastpage - 1)))
                 return

@@ -4,8 +4,9 @@ Changelog
 0.10.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fixed an issue introduced on version 0.10.1, that make tablepage impossible to be run
+  on Plone<4.3.
+  [keul]
 
 0.10.2 (2015-05-14)
 -------------------
