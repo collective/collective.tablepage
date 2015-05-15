@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.4 (unreleased)
+0.10.4 (2015-05-15)
 -------------------
 
 - Numeric and Monetary fields were not selectable for searches
