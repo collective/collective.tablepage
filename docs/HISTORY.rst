@@ -4,8 +4,8 @@ Changelog
 0.10.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Numeric and Monetary fields were not selectable for searches
+  [keul]
 
 0.10.3 (2015-05-15)
 -------------------

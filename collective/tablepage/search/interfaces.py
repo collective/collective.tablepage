@@ -3,6 +3,7 @@
 from zope.interface import Interface
 from zope.interface import Attribute
 
+
 class ISearchableColumn(Interface):
     """Define an object able to provide search support for collective.tablepage columns"""
 

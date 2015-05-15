@@ -42,6 +42,16 @@
       provides="collective.tablepage.search.interfaces.ISearchableColumn"
       />
    <utility
+      name="Numeric"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
+      name="Monetary"
+      factory=".text.TextSearch"
+      provides="collective.tablepage.search.interfaces.ISearchableColumn"
+      />
+   <utility
       name="Email"
       factory=".text.TextSearch"
       provides="collective.tablepage.search.interfaces.ISearchableColumn"
