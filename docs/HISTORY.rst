@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.3 (unreleased)
+0.10.3 (2015-05-15)
 -------------------
 
 - Fixed an issue introduced on version 0.10.1, that make tablepage impossible to be run
