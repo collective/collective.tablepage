@@ -4,8 +4,10 @@ Changelog
 0.10.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fixed versioning issue that force tablepages to be updated
+  (in AT edit) to see versioning working if versioning is enabled
+  during the document life-cycle
+  [keul]
 
 0.10.4 (2015-05-15)
 -------------------

@@ -275,7 +275,7 @@ class EditRecordView(BrowserView):
         """Content must be updated, so the history machinery will save a new version"""
         context = self.context
         context.reindexObject()
-        if VERSIONING_SUPPORT and isObjectChanged(context) and isObjectVersioned(context):
+        if VERSIONING_SUPPORT and isObjectChanged(context):
             maybeSaveVersion(context, comment=comment)
 
 
