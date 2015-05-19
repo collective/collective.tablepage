@@ -60,7 +60,7 @@ class FileField(BaseField):
                                    path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
                                          'depth': 1,
                                          },
-                                   order_by = 'getObjPositionInParent')
+                                   sort_on = 'getObjPositionInParent')
         if self.data:
             # we must handle the special case where the storage has been changed and
             # when editing we haven't the old file still there
@@ -104,7 +104,7 @@ class MultipleFilesField(FileField):
                                             'depth': 1,
                                             },
                                       UID = uid,
-                                      order_by = 'getObjPositionInParent')
+                                      sort_on = 'getObjPositionInParent')
             if file_in_storage:
                 files_in_storage.append(file_in_storage[0])
         return files_in_storage

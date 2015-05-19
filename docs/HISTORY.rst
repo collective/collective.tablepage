@@ -8,6 +8,8 @@ Changelog
   (in AT edit) to see versioning working if versioning is enabled
   during the document life-cycle
   [keul]
+- Files columns was not sorting attachments in any way
+  [keul]
 
 0.10.4 (2015-05-15)
 -------------------
