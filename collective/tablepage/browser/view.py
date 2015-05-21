@@ -25,7 +25,6 @@ from zope.interface import implements
 try:
     from Products.CMFEditions.utilities import isObjectChanged
     from Products.CMFEditions.utilities import maybeSaveVersion
-    from Products.CMFEditions.utilities import isObjectVersioned
     VERSIONING_SUPPORT = True
 except ImportError:
     # No versioning support for Plone 3.3 version of CMFEditions
