@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.5 (unreleased)
+0.10.5 (2015-05-21)
 -------------------
 
 - Fixed versioning issue that force tablepages to be updated
