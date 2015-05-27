@@ -4,8 +4,8 @@ Changelog
 0.10.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Updated Finnish translations
+  [petri]
 
 0.10.5 (2015-05-21)
 -------------------
