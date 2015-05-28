@@ -4,6 +4,9 @@ Changelog
 0.10.6 (unreleased)
 -------------------
 
+- Fixed #21, SelectField validator always failed validating non-ascii
+  vocabulary characters
+  [petri]
 - Updated Finnish translations
   [petri]
 
