@@ -254,7 +254,7 @@ class TableViewView(BrowserView):
         # replicating foo elements to reach total size
         self._rows = [None] * self.b_start + self._rows + [None] * (self.result_length - self.b_start - bsize)
         return Batch(self._rows, bsize, start=self.b_start, end=self.b_start+bsize,
-                     orphan=int(bsize/10), overlap=0, pagerange=7)
+                     orphan=0, overlap=0, pagerange=7)
 
     def batching_enabled(self):
         return self.context.getBatchSize() > 0 

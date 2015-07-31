@@ -9,6 +9,9 @@ Changelog
   [petri]
 - Updated Finnish translations
   [petri]
+- Removed the ``orphan`` usage in batching.
+  It's leading to an error with plone.batching 1.0.4, and a strange behavior with 1.0.5.
+  [keul]
 
 0.10.5 (2015-05-21)
 -------------------
