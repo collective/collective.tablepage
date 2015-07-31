@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.10.6 (unreleased)
+0.10.6 (2015-07-31)
 -------------------
 
 - Fixed #21, SelectField validator always failed validating non-ascii
