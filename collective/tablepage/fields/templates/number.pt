@@ -14,7 +14,7 @@
 <div class="formHelp" tal:content="view/configuration/description">
     Help filling me
 </div>
-<input type="text" pattern="[0-9]+(\.[0-9]+)?" id="" name="" value=""
+<input type="text" pattern="-?[0-9]+(\.[0-9]+)?" id="" name="" value=""
        i18n:attributes="title"
        title="Please enter a number in a proper format, for example: 1234.56"
        tal:attributes="id view/configuration/id;

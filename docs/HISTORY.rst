@@ -4,8 +4,7 @@ Changelog
 0.10.7 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Number field HTML5 validator now allows negative numbers (fixes #29) [petri]
 
 0.10.6 (2015-07-31)
 -------------------
