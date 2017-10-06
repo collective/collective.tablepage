@@ -36,10 +36,9 @@ class FileField(BaseField):
     def render_view(self, data, index=None, storage=None):
         self.data = data or ''
         if data:
-            options = self._getCustomPreferences()
-            options.update(self._get_obj_info(data))
-            if options:
-                return self.view_template(**options)
+            obj_info = self._get_obj_info(data)
+            if obj_info:
+                return self.view_template(**obj_info)
         return ''
 
     def can_add_file(self):
