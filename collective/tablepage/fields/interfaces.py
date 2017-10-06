@@ -27,6 +27,9 @@ class ILinkColumnField(IColumnField):
 class IFileColumnField(IColumnField):
     """A column field that handle file upload or selection"""
 
+class IImageColumnField(IFileColumnField):
+    """A column field that handle image upload or selection"""
+
 class IMultiFileColumnField(IColumnField):
     """A column field that handle set of files, to be uploaded or selected"""
 

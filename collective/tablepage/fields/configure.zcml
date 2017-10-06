@@ -95,6 +95,13 @@
        name="Date"
        />
 
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage
+	        zope.publisher.interfaces.browser.IBrowserRequest"
+       provides="collective.tablepage.interfaces.IColumnField"
+       factory=".image.ImageField"
+       name="Image"
+       />
    <!-- data retrivers -->
    <adapter
        for="collective.tablepage.interfaces.ITablePage"
@@ -106,13 +113,19 @@
        for="collective.tablepage.interfaces.ITablePage"
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
        factory=".file.FileDataRetriever"
-	   name="File"
+       name="File"
+       />
+   <adapter
+       for="collective.tablepage.interfaces.ITablePage"
+       provides="collective.tablepage.interfaces.IColumnDataRetriever"
+       factory=".file.FileDataRetriever"
+       name="Image"
        />
    <adapter
        for="collective.tablepage.interfaces.ITablePage"
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
        factory=".file.MultipleFilesDataRetriever"
-	   name="Files"
+	     name="Files"
        />
 
    <adapter
