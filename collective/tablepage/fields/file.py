@@ -27,6 +27,8 @@ TYPE_TO_CREATE = 'File'
 class FileField(BaseField):
     implements(IFileColumnField)
 
+    portal_type = TYPE_TO_CREATE
+
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
     cache_time = 60 * 60 # 2 hours
@@ -34,14 +36,15 @@ class FileField(BaseField):
     def render_view(self, data, index=None, storage=None):
         self.data = data or ''
         if data:
-            obj_info = self._get_obj_info(data)
-            if obj_info:
-                return self.view_template(**obj_info)
+            options = self._getCustomPreferences()
+            options.update(self._get_obj_info(data))
+            if options:
+                return self.view_template(**options)
         return ''
 
     def can_add_file(self):
         member = getMultiAdapter((self.context, self.request), name=u'plone_portal_state').member()
-        return member.has_permission(permissions[TYPE_TO_CREATE], self.attachment_storage)
+        return member.has_permission(permissions[self.portal_type], self.attachment_storage)
 
     @property
     @memoize
@@ -56,7 +59,7 @@ class FileField(BaseField):
 
     def attachments(self):
         catalog = getToolByName(self.context, 'portal_catalog')
-        files_in_storage = catalog(portal_type='File',
+        files_in_storage = catalog(portal_type=self.portal_type,
                                    path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
                                          'depth': 1,
                                          },
@@ -66,7 +69,7 @@ class FileField(BaseField):
             # when editing we haven't the old file still there
             old = catalog(UID=self.data)
             if old and old[0].getPath() not in [a.getPath() for a in files_in_storage]:
-                return old + files_in_storage 
+                return old + files_in_storage
         return files_in_storage
 
 
@@ -99,7 +102,7 @@ class MultipleFilesField(FileField):
         catalog = getToolByName(self.context, 'portal_catalog')
         files_in_storage = []
         for uid in filterUIDs:
-            file_in_storage = catalog(portal_type='File',
+            file_in_storage = catalog(portal_type=self.portal_type,
                                       path={'query': '/'.join(self.attachment_storage.getPhysicalPath()),
                                             'depth': 1,
                                             },
@@ -117,6 +120,7 @@ class FileDataRetriever(LinkedObjectFinder):
      * return the UID of the new File
     """
 
+    portal_type = TYPE_TO_CREATE
     implements(IColumnDataRetriever)
 
     def __init__(self, context):
@@ -129,10 +133,10 @@ class FileDataRetriever(LinkedObjectFinder):
             title = request.get('title_%s' % name)
             description = request.get('description_%s' % name)
             file = request.get(name)
-            newId = folder.generateUniqueId(TYPE_TO_CREATE)
+            newId = folder.generateUniqueId(self.portal_type)
+            plone_utils = getToolByName(self.context, 'plone_utils')
             if not title and file.filename in folder.objectIds():
                 # WARNING: we don't get the file title, to obtain the id
-                plone_utils = getToolByName(self.context, 'plone_utils')
                 plone_utils.addPortalMessage(_('duplicate_file_error_with_link',
                                                default=u'There is already an item named ${name} in this folder.\n'
                                                        u'Loading of the new attachment has been aborted '
@@ -140,7 +144,7 @@ class FileDataRetriever(LinkedObjectFinder):
                                                mapping={'name': file.filename}),
                                              type='warning')
                 return {name: folder[file.filename].UID()}
-            folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
+            folder.invokeFactory(id=newId, type_name=self.portal_type,
                                  title=title, description=description)
             new_doc = folder[newId]
             # force rename (processForm will not work with files)
@@ -193,6 +197,8 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
      * return a list of UID
     """
 
+    portal_type = TYPE_TO_CREATE
+
     implements(IColumnDataRetriever)
 
     def __init__(self, context):
@@ -214,7 +220,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                 description = request.get('description_%s_%s' % (name, cnt))
                 file = request.get("%s_%s" % (name, cnt))
                 cnt += 1
-                newId = folder.generateUniqueId(TYPE_TO_CREATE)
+                newId = folder.generateUniqueId(self.portal_type)
                 if not title and file.filename in folder.objectIds():
                     # WARNING: we don't get the file title, to obtain the id
                     plone_utils.addPortalMessage(_('duplicate_file_error',
@@ -224,7 +230,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                                                  type='warning')
                     results.append(folder[file.filename].UID())
                     continue
-                folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
+                folder.invokeFactory(id=newId, type_name=self.portal_type,
                                      title=title, description=description)
                 new_doc = folder[newId]
                 # force rename (processForm will not work with files)

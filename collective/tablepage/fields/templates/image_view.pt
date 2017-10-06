@@ -1,0 +1,10 @@
+<a href="" tal:attributes="href string:${options/url};
+                           title string:${options/description};">
+  <img src="" alt="" title=""
+       tal:define="portal_url nocall:context/portal_url;
+                   size options/size|string:tile"
+       tal:attributes="
+       src string:${options/url}/image_${size};
+       alt options/title;
+       title options/title"/>
+</a>
