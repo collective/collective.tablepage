@@ -257,7 +257,21 @@ class TableViewView(BrowserView):
                      orphan=0, overlap=0, pagerange=7)
 
     def batching_enabled(self):
-        return self.context.getBatchSize() > 0 
+        return self.context.getBatchSize() > 0
+
+    def sort_by(self):
+        sort_by = self.context.getSortBy()
+        if not sort_by:
+            return None
+
+        for index, col in enumerate(self.context.getPageColumns()):
+            if col['id'] == sort_by:
+                return index
+        else:
+            return None
+
+    def sort_order(self):
+        return self.context.getSortOrder() or 'asc'
 
     @memoize
     def portal_url(self):
