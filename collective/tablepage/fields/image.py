@@ -32,6 +32,14 @@ class ImageField(FileField):
     edit_template = ViewPageTemplateFile('templates/image.pt')
     view_template = ViewPageTemplateFile('templates/image_view.pt')
 
+    def _get_obj_info(self, uuid):
+        info = super(ImageField, self)._get_obj_info(uuid)
+        preferences = self._getCustomPreferences()
+        if preferences.get('size', None):
+            info['size'] = preferences['size']
+
+        return info
+
     def _getCustomPreferences(self):
         """Override some preferences when displaying the linkable content
         @size will override image size displayed
