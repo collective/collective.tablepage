@@ -1,18 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from AccessControl import Unauthorized
-from Acquisition import aq_inner, aq_parent
-from Products.ATContentTypes.permission import permissions
-from Products.CMFCore.utils import getToolByName
-from collective.tablepage import tablepageMessageFactory as _
-from collective.tablepage.fields.base import BaseField
 from collective.tablepage.fields.interfaces import IImageColumnField
-from collective.tablepage.fields.interfaces import IMultiFileColumnField
-from collective.tablepage.fields.link import LinkedObjectFinder
-from collective.tablepage.interfaces import IColumnDataRetriever
-from plone.memoize.instance import memoize
-from zExceptions import BadRequest
-from zope.component import getMultiAdapter
 from zope.interface import implements
 from .file import FileField
 
@@ -24,10 +12,21 @@ except ImportError:
 
 TYPE_TO_CREATE = 'Image'
 
+try:
+    from plone.dexterity.interfaces import IDexterityContent
+    from plone.namedfile.file import NamedBlobImage
+    HAS_DEXTERITY = True
+except ImportError:
+    HAS_DEXTERITY = False
+    IDexterityContent = None
+    NamedBlobImage = None
+
+from .file import FileDataRetriever
 
 class ImageField(FileField):
     implements(IImageColumnField)
     portal_type = TYPE_TO_CREATE
+    field_value_class = NamedBlobImage
 
     edit_template = ViewPageTemplateFile('templates/image.pt')
     view_template = ViewPageTemplateFile('templates/image_view.pt')
@@ -36,8 +35,18 @@ class ImageField(FileField):
         info = super(ImageField, self)._get_obj_info(uuid)
         preferences = self._getCustomPreferences()
         if preferences.get('size', None):
-            info['size'] = preferences['size']
+            size = preferences['size']
+        else:
+            size = 'tile'
 
+        if 'url' in info:
+            url = info['url'].rstrip('/')
+            if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
+                thumbnail_url = url + '/@@images/image/' + size
+            else:
+                thumbnail_url = url + '/image_' + size
+
+            info['thumbnail_url'] = thumbnail_url
         return info
 
     def _getCustomPreferences(self):
@@ -51,3 +60,9 @@ class ImageField(FileField):
                 prefs['size'] = c.split(':', 1)[1]
 
         return prefs
+
+
+class ImageDataRetriever(FileDataRetriever):
+    portal_type = TYPE_TO_CREATE
+    field_name = 'image'
+    field_value_class = NamedBlobImage

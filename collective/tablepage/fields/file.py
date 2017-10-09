@@ -14,12 +14,21 @@ from plone.memoize.instance import memoize
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.interface import implements
-
+from zope.lifecycleevent import modified
 try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 except ImportError:
     # Plone < 4.1
     from zope.app.pagetemplate.viewpagetemplatefile import ViewPageTemplateFile
+
+try:
+    from plone.dexterity.interfaces import IDexterityContent
+    from plone.namedfile.file import NamedBlobFile
+    HAS_DEXTERITY = True
+except ImportError:
+    HAS_DEXTERITY = False
+    IDexterityContent = None
+    NamedBlobFile = None
 
 TYPE_TO_CREATE = 'File'
 
@@ -32,6 +41,19 @@ class FileField(BaseField):
     edit_template = ViewPageTemplateFile('templates/file.pt')
     view_template = ViewPageTemplateFile('templates/file_view.pt')
     cache_time = 60 * 60 # 2 hours
+
+    def _get_obj_info(self, uuid):
+        # for fields that need to refer to other contents
+        info = super(FileField, self)._get_obj_info(uuid)
+        if 'url' in info:
+            url = info['url'].rstrip('/')
+            if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
+                download_url = url + '/download'
+            else:
+                download_url = url + '/at_download/file'
+            info['download_url'] = download_url
+
+        return info
 
     def render_view(self, data, index=None, storage=None):
         self.data = data or ''
@@ -121,6 +143,8 @@ class FileDataRetriever(LinkedObjectFinder):
 
     portal_type = TYPE_TO_CREATE
     implements(IColumnDataRetriever)
+    field_name = 'file'
+    field_value_class = NamedBlobFile
 
     def __init__(self, context):
         self.context = context
@@ -146,20 +170,28 @@ class FileDataRetriever(LinkedObjectFinder):
             folder.invokeFactory(id=newId, type_name=self.portal_type,
                                  title=title, description=description)
             new_doc = folder[newId]
-            # force rename (processForm will not work with files)
-            new_doc._renameAfterCreation()
-            # this will trigger proper lifecycle events
-            new_doc.processForm()
-            try:
-                new_doc.edit(file=file)
-            except BadRequest:
-                # Still don't get how, but sometimes this happen (at least on Plone 3)
-                plone_utils.addPortalMessage(_('duplicate_file_critical_error',
-                                               default=u'There is already an item named ${name} in this folder.\n'
-                                                       u'Loading of the attachment has been aborted.',
-                                               mapping={'name': file.filename}),
-                                             type='error')
-                return None
+            if HAS_DEXTERITY and IDexterityContent.providedBy(new_doc):
+                setattr(new_doc, self.field_name, self.field_value_class(file, filename=unicode(file.filename)))
+                modified(new_doc)
+                if not folder.has_key(file.filename):
+                    folder.manage_renameObject(new_doc.getId(), file.filename)
+            else:
+                # force rename (processForm will not work with files)
+                new_doc._renameAfterCreation()
+                # this will trigger proper lifecycle events
+                new_doc.processForm()
+
+                try:
+                    new_doc.edit(**{self.field_name: file})
+
+                except BadRequest:
+                    # Still don't get how, but sometimes this happen (at least on Plone 3)
+                    plone_utils.addPortalMessage(_('duplicate_file_critical_error',
+                                                   default=u'There is already an item named ${name} in this folder.\n'
+                                                           u'Loading of the attachment has been aborted.',
+                                                   mapping={'name': file.filename}),
+                                                 type='error')
+                    return None
             return {name: new_doc.UID()}
         elif request.get("existing_%s" % name):
             return {name: request.get("existing_%s" % name)}
@@ -197,6 +229,8 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
     """
 
     portal_type = TYPE_TO_CREATE
+    field_name = 'file'
+    field_value_class = NamedBlobFile
 
     implements(IColumnDataRetriever)
 
@@ -232,11 +266,17 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                 folder.invokeFactory(id=newId, type_name=self.portal_type,
                                      title=title, description=description)
                 new_doc = folder[newId]
-                # force rename (processForm will not work with files)
-                new_doc._renameAfterCreation()
-                # this will trigger proper lifecycle events
-                new_doc.processForm()
-                new_doc.edit(file=file)
+                if HAS_DEXTERITY and IDexterityContent.providedBy(new_doc):
+                    setattr(new_doc, self.field_name, self.field_value_class(file, filename=unicode(file.filename)))
+                    modified(new_doc)
+                    if not folder.has_key(file.filename):
+                        folder.manage_renameObject(new_doc.getId(), file.filename)
+                else:
+                    # force rename (processForm will not work with files)
+                    new_doc._renameAfterCreation()
+                    # this will trigger proper lifecycle events
+                    new_doc.processForm()
+                new_doc.edit(**{self.field_name: file})
                 results.append(new_doc.UID())
             else:
                 break

@@ -4,6 +4,7 @@ Changelog
 0.10.7 (unreleased)
 -------------------
 
+- FileField is Dexterity compatible [thomasdesvenain]
 - Added ImageField [thomasdesvenain]
 - Number field HTML5 validator now allows negative numbers (fixes #29) [petri]
 
