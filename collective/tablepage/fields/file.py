@@ -45,12 +45,14 @@ class FileField(BaseField):
     def _get_obj_info(self, uuid):
         # for fields that need to refer to other contents
         info = super(FileField, self)._get_obj_info(uuid)
-        url = info['url'].rstrip('/')
-        if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
-            download_url = url + '/download'
-        else:
-            download_url = url + '/at_download/file'
-        info['download_url'] = download_url
+        if 'url' in info:
+            url = info['url'].rstrip('/')
+            if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
+                download_url = url + '/download'
+            else:
+                download_url = url + '/at_download/file'
+            info['download_url'] = download_url
+
         return info
 
     def render_view(self, data, index=None, storage=None):

@@ -14,7 +14,7 @@ TYPE_TO_CREATE = 'Image'
 
 try:
     from plone.dexterity.interfaces import IDexterityContent
-    from plone.namedfile.image import NamedBlobImage
+    from plone.namedfile.file import NamedBlobImage
     HAS_DEXTERITY = True
 except ImportError:
     HAS_DEXTERITY = False
@@ -39,13 +39,14 @@ class ImageField(FileField):
         else:
             size = 'tile'
 
-        url = info['url'].rstrip('/')
-        if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
-            thumbnail_url = url + '/@@images/image/' + size
-        else:
-            thumbnail_url = url + '/image_' + size
+        if 'url' in info:
+            url = info['url'].rstrip('/')
+            if HAS_DEXTERITY and IDexterityContent.providedBy(info['object']):
+                thumbnail_url = url + '/@@images/image/' + size
+            else:
+                thumbnail_url = url + '/image_' + size
 
-        info['thumbnail_url'] = thumbnail_url
+            info['thumbnail_url'] = thumbnail_url
         return info
 
     def _getCustomPreferences(self):
