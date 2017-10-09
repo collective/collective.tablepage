@@ -1,6 +1,6 @@
-<a href="" tal:attributes="href string:${options/url}/at_download/file;
+<a href="" tal:attributes="href string:${options/download_url};
                            title string:${options/description};">
-	<img src="" alt="" 
+	<img src="" alt=""
 	     tal:define="portal_url nocall:context/portal_url"
 		 tal:attributes="src string:${portal_url/getPortalPath}/${options/icon}" />
 	<span tal:replace="options/title" />

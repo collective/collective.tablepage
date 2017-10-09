@@ -118,7 +118,7 @@
    <adapter
        for="collective.tablepage.interfaces.ITablePage"
        provides="collective.tablepage.interfaces.IColumnDataRetriever"
-       factory=".file.FileDataRetriever"
+       factory=".image.ImageDataRetriever"
        name="Image"
        />
    <adapter

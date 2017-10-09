@@ -5,7 +5,8 @@ Changelog
 -------------------
 
 - We can set a default ordering [thomasdesvenain]
-
+- FileField is Dexterity compatible [thomasdesvenain]
+- Added ImageField [thomasdesvenain]
 - Number field HTML5 validator now allows negative numbers (fixes #29) [petri]
 
 0.10.6 (2015-07-31)
@@ -87,7 +88,7 @@ Special thanks to `Petri Savolainen`__ for lot of stuff done in this release
 
 __ https://github.com/petri
 
-- When editing table, row's uuid is put on ``data-uid`` attribute on row 
+- When editing table, row's uuid is put on ``data-uid`` attribute on row
   [keul]
 - Removed useless fieldset legend when editing a row.
   This close `#13`__
@@ -158,7 +159,7 @@ __ https://github.com/RedTurtle/collective.tablepage/issues/5
 - Fixed critical bug in search: path was not used for
   finding labels
   [keul]
-- Fixing AdvancedQuery integration and removing unused indexes. 
+- Fixing AdvancedQuery integration and removing unused indexes.
   This fix critical bug that make query look for
   "access inactive portal content" permission
   [keul]
@@ -201,7 +202,7 @@ __ https://github.com/RedTurtle/collective.tablepage/issues/5
   [keul]
 - Indexing of cached values is now trying to invalidating cache first.
   This prevent infinite caching of computed columns
-  [keul] 
+  [keul]
 - Changes to cache generation, to reduce ConflictError
   [keul]
 
@@ -297,7 +298,7 @@ __ https://github.com/RedTurtle/collective.tablepage/issues/5
   [keul]
 - Do not fail the whole import procedure if a CSV row is missing
   some columns
-  [keul] 
+  [keul]
 
 __ http://code.google.com/p/chromium/issues/detail?id=78520
 
@@ -374,7 +375,7 @@ __ https://github.com/RedTurtle/collective.tablepage/issues/1
 - CSV import now validate data: do not import every text you
   read from the file
   [keul]
-- CSV import now transform URL/path to valid content uuids  
+- CSV import now transform URL/path to valid content uuids
   [keul]
 
 0.3 (2013-10-18)
