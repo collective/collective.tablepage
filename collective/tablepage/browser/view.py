@@ -132,7 +132,7 @@ class EditRecordView(BrowserView):
     def _first_index_in_section(self, row_index):
         """Find the first row in that section"""
         storage = self.storage
-        if row_index<=0:
+        if row_index<=0 and len(storage) > 0:
             return storage[0].get('__label__') and 1 or 0
         for x in range(row_index, 0, -1):
             if storage[x].get('__label__') and x==row_index:
