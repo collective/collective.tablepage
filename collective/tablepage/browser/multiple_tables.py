@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from collective.tablepage.browser.table import TableViewView
+from plone.app.layout.globals.interfaces import IViewView
+from zope.interface import implements
 
 
 class MultipleTablesView(TableViewView):
     """View with multiple tables"""
+    implements(IViewView)
 
     def __call__(self):
         return self.index()
