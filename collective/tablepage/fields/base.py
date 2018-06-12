@@ -6,6 +6,9 @@ from zope.interface import implements
 from zope.component import getUtility
 from collective.tablepage.interfaces import IColumnDataRetriever
 from zope.schema.interfaces import IVocabularyFactory
+from plone.app.uuid.utils import uuidToObject
+from plone.app.contenttypes.browser.utils import Utils
+from plone import api
 
 if sys.version_info < (2, 6):
     PLONE3 = True
@@ -56,8 +59,9 @@ class BaseField(object):
 
     def _get_obj_info(self, uuid):
         # for fields that need to refer to other contents
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
+        #rcatalog = getToolByName(self.context, 'reference_catalog')
+        #obj = rcatalog.lookupObject(uuid)
+        obj = uuidToObject(uuid)
         if obj:
             custom_prefs = self._getCustomPreferences()
             # BBB: final slash below is important for Plone 3.3 compatibility
@@ -65,11 +69,26 @@ class BaseField(object):
             RESOLVE_UID_STR = "resolveuid/%s"
             if PLONE3:
                 RESOLVE_UID_STR += '/'
+            
+            download_url = None
+            file_icon = None
+            if obj.portal_type == 'File':
+                download_url = RESOLVE_UID_STR % uuid + '/@@download/file/%s' % obj.file.filename
+                utils_view = api.content.get_view(
+                    name='contenttype_utils', 
+                    context=obj,
+                    request=obj.REQUEST
+                )
+                file_icon = utils_view.getMimeTypeIcon(obj.file)
+            else:
+                file_icon = custom_prefs.get('icon')
+
             return dict(title=custom_prefs.get('title') or obj.Title() or obj.getId(),
                         url=RESOLVE_UID_STR % uuid,
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1),
-                        main_icon=custom_prefs.get('icon'))
+                        download_url = download_url,
+                        main_icon=file_icon)
         return {}
 
     @property

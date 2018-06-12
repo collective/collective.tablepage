@@ -18,9 +18,14 @@
     component=".vocabularies.searchableColumnsVocabularyFactory"
     />
 
-  <utility
-    name="collective.tablepage.vocabulary.search_additional_options"
-    component=".vocabularies.searchAdditionalOptionsVocabularyFactory"
+    <utility
+      name="collective.tablepage.vocabulary.search_additional_options"
+      component=".vocabularies.searchAdditionalOptionsVocabularyFactory"
+      />
+
+    <utility
+        component=".vocabularies.CSSClassesFactory"
+        name="collective.tablepage.vocabulary.css_classes"
     />
 
 </configure>

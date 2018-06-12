@@ -16,6 +16,26 @@
 	 />
 
   <browser:page
+    for="..interfaces.ITablePage"
+    name="edit"
+    class=".add_edit_view.DefaultEditView"
+    permission="cmf.ModifyPortalContent"
+    />
+  <adapter
+        for="..interfaces.ITablePage
+             zope.publisher.interfaces.browser.IDefaultBrowserLayer
+             plone.dexterity.interfaces.IDexterityFTI"
+        provides="zope.publisher.interfaces.browser.IBrowserPage"
+        factory=".add_edit_view.DefaultAddView"
+        />
+  <class class=".add_edit_view.DefaultAddView">
+        <require
+            permission="cmf.AddPortalContent"
+            interface="zope.publisher.interfaces.browser.IBrowserPage"
+            />
+  </class>
+
+  <browser:page
 	 for="..interfaces.ITablePage"
 	 name="tablepage-edit"
 	 class=".view.TableEditView"
@@ -81,6 +101,12 @@
 	 name="multiple-tables-view"
 	 class=".multiple_tables.MultipleTablesView"
 	 template="templates/multiple-tables.pt"
+	 permission="zope2.View"
+	 />
+  <browser:page
+	 for="..interfaces.ITablePage"
+	 name="view"
+	 template="templates/view.pt"
 	 permission="zope2.View"
 	 />
   <browser:menuItem

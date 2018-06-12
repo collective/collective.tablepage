@@ -4,7 +4,7 @@
 		                           title string:${file/description};">
 			<img src="" alt="" 
 			     tal:define="portal_url nocall:context/portal_url"
-				 tal:attributes="src string:${portal_url/getPortalPath}/${file/icon}" />
+				 tal:attributes="src string:${portal_url/getPortalPath}/${file/main_icon}" />
 			<span tal:replace="file/title" />
 		</a>
 	</li>

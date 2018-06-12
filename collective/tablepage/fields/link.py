@@ -10,6 +10,7 @@ from collective.tablepage.interfaces import IColumnDataRetriever
 from collective.tablepage.fields.interfaces import ILinkColumnField
 from zope.component import getMultiAdapter
 from zope.interface import implements
+from plone.app.uuid.utils import uuidToObject
 
 try:
     from plone.uuid.interfaces import IUUID
@@ -46,6 +47,7 @@ class LinkedObjectFinder(object):
 
     def get_referenced_object_from_path(self, path):
         """If you call on /folder/content1 you'll get uuid of content1 inside the folder"""
+
         portal_state = getMultiAdapter((self.context, self.context.REQUEST), name=u'plone_portal_state')
         portal = portal_state.portal()
         if path.startswith('/'):
@@ -82,6 +84,23 @@ class LinkField(BaseField):
         storage = self.context.getAttachmentStorage() or self.context
         return storage.absolute_url()
 
+    def _get_obj_info(self, uuid):
+        # for fields that need to refer to other contents
+        obj = uuidToObject(uuid)
+        if obj:
+            custom_prefs = self._getCustomPreferences()
+            # BBB: final slash below is important for Plone 3.3 compatibility
+            # remove this mess when finally we drop Plone 3.3 support
+            RESOLVE_UID_STR = "resolveuid/%s"
+            if PLONE3:
+                RESOLVE_UID_STR += '/'
+            return dict(title=custom_prefs.get('title') or obj.Title() or obj.getId(),
+                        url=RESOLVE_UID_STR % uuid,
+                        description=obj.Description(),
+                        icon=obj.getIcon(relative_to_portal=1),
+                        main_icon=custom_prefs.get('icon'))
+        return {}
+
     def render_view(self, data, index=None, storage=None):
         self.data = data or ''
         if self.data:
@@ -105,8 +124,7 @@ class LinkField(BaseField):
     def getReferencedDocument(self):
         uuid = self.data
         if uuid:
-            rcatalog = getToolByName(self.context, 'reference_catalog')
-            obj = rcatalog.lookupObject(uuid)
+            obj = uuidToObject(uuid)
             return obj and {'title': obj.Title().decode('utf-8'), 'uuid':  obj.UID()} or None
 
 
@@ -133,8 +151,9 @@ class LinkDataRetriever(LinkedObjectFinder):
             if is_url(data):
                 return data
             uuid = data
-            rcatalog = getToolByName(self.context, 'reference_catalog')
-            obj = rcatalog.lookupObject(uuid)
+            #rcatalog = getToolByName(self.context, 'reference_catalog')
+            #obj = rcatalog.lookupObject(uuid)
+            obj = uuidToObject(uuid)
             if obj:
                 return backend and get_uuid(obj) or obj.absolute_url()
         return ''

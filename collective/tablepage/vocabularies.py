@@ -13,6 +13,9 @@ from zope.component import getUtilitiesFor
 from zope.i18n import translate
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from Products.CMFPlone.interfaces.controlpanel import ITinyMCELayoutSchema       
+from zope.component import getUtility                                            
+from plone.registry.interfaces import IRegistry 
 
 
 class ColumnTypesVocabulary(object):
@@ -21,12 +24,21 @@ class ColumnTypesVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        request = context.REQUEST
-        adapters = getAdapters((context, context.REQUEST), IColumnField)
-        elements = [a[0] for a in adapters]
-        elements.sort(cmp=lambda x,y: cmp(translate(_(x), context=request),
-                                          translate(_(y), context=request)))
-        terms = [SimpleTerm(value=e, token=e, title=_(e)) for e in elements]
+        items = [                                                                   
+            (u'Computed', _(u'Computed')),                                 
+            (u'Link', _(u'Link')),                                         
+            (u'Date', _(u'Date')),                                         
+            (u'Date/Time', _(u'Date/Time')),                               
+            (u'Email', _(u'Email')),                                       
+            (u'File', _(u'File')),                                         
+            (u'Monetary', _(u'Monetary')),                                 
+            (u'Numeric', _(u'Numeric')),                                   
+            (u'Files', _(u'Files')),                                       
+            (u'Select', _(u'Select')),                                     
+            (u'String', _(u'String')),                                     
+            (u'Text', _(u'Text')),                                         
+        ]
+        terms = [SimpleTerm(value=e[0], token=e[0], title=e[1]) for e in items]
         return SimpleVocabulary(terms)
 
 
@@ -53,7 +65,8 @@ class SearchableColumnsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        configuration = context.getPageColumns()
+        import pdb;pdb.set_trace()
+        configuration = context.pageColumns
         adaptables = [x[0] for x in getUtilitiesFor(ISearchableColumn)]
         terms = [SimpleTerm(value='SearchableText', token='SearchableText', title=_(u'Search in text'))]
         for conf in configuration:
@@ -76,7 +89,29 @@ class SearchAdditionalOptionsVocabulary(object):
         return SimpleVocabulary(terms)
 
 
+class CSSClassesVocabulary(object):
+    implements(IVocabularyFactory)
+
+    def get_table_styles(self):                                                  
+        registry = getUtility(IRegistry)                                         
+        styles = registry['plone.table_styles']                                  
+        if not styles:                                                           
+            return []                                                            
+        else:                                                                    
+            return [                                                             
+                SimpleTerm(
+                    token=style.split('|')[1],
+                    value=style.split('|')[1],
+                    title=style.split('|')[0]) 
+                for style in styles                                              
+            ]  
+
+    def __call__(self, context):
+        return SimpleVocabulary(self.get_table_styles())
+
+
 columnTypesVocabularyFactory = ColumnTypesVocabulary()
 rowOptionsVocabularyFactory = RowOptionsVocabulary()
 searchableColumnsVocabularyFactory = SearchableColumnsVocabulary()
 searchAdditionalOptionsVocabularyFactory = SearchAdditionalOptionsVocabulary()
+CSSClassesFactory = CSSClassesVocabulary()

@@ -8,6 +8,7 @@ except ImportError:
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 from collective.tablepage.fields.computed.interfaces import IComputedColumnHandler
+from plone.app.uuid.utils import uuidToObject
 
 
 class BaseHandler(object):
@@ -24,8 +25,9 @@ class FileHandler(object):
 
     def __call__(self, data):
         # data is a file uuid
-        rcatalog = getToolByName(getSite(), 'reference_catalog')
-        obj = rcatalog.lookupObject(data)
+        # rcatalog = getToolByName(getSite(), 'reference_catalog')
+        # obj = rcatalog.lookupObject(data)
+        obj = uuidToObject(data)
         if not obj:
             return None
         return obj
@@ -39,11 +41,12 @@ class MultiFilesHandler(object):
         # data is a set of uuids to files
         if not data:
             return None
-        rcatalog = getToolByName(getSite(), 'reference_catalog')
+        # rcatalog = getToolByName(getSite(), 'reference_catalog')
         uuids = data.splitlines()
         results = []
         for uuid in uuids:
-            obj = rcatalog.lookupObject(uuid)
+            # obj = rcatalog.lookupObject(uuid)
+            obj = uuidToObject(data)
             if not obj:
                 continue
             results.append(obj)
@@ -56,8 +59,9 @@ class LinkHandler(object):
 
     def __call__(self, data):
         # data can be an uuid
-        rcatalog = getToolByName(getSite(), 'reference_catalog')
-        obj = rcatalog.lookupObject(data)
+        # rcatalog = getToolByName(getSite(), 'reference_catalog')
+        # obj = rcatalog.lookupObject(data)
+        obj = uuidToObject(data)
         if not obj:
             return data
         return obj

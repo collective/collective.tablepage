@@ -14,6 +14,9 @@ from plone.memoize.instance import memoize
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.interface import implements
+from plone import api
+from plone.namedfile.file import NamedBlobFile
+from plone.app.uuid.utils import uuidToObject
 
 try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
@@ -140,17 +143,21 @@ class FileDataRetriever(LinkedObjectFinder):
                                                mapping={'name': file.filename}),
                                              type='warning')
                 return {name: folder[file.filename].UID()}
-            folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
-                                 title=title, description=description)
-            new_doc = folder[newId]
-            # force rename (processForm will not work with files)
-            new_doc._renameAfterCreation()
-            # this will trigger proper lifecycle events
-            new_doc.processForm()
             try:
-                new_doc.edit(file=file)
+                new_doc = api.content.create(
+                    container=folder,
+                    type='File',
+                    id=newId,
+                    title=title,
+                    **{
+                        'description': description,
+                        'file': NamedBlobFile(
+                            file,
+                            filename=file.filename.decode('utf-8')
+                        )
+                    }
+                )
             except BadRequest:
-                # Still don't get how, but sometimes this happen (at least on Plone 3)
                 plone_utils.addPortalMessage(_('duplicate_file_critical_error',
                                                default=u'There is already an item named ${name} in this folder.\n'
                                                        u'Loading of the attachment has been aborted.',
@@ -165,8 +172,9 @@ class FileDataRetriever(LinkedObjectFinder):
     def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
         uuid = data
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
+        # rcatalog = getToolByName(self.context, 'reference_catalog')
+        # obj = rcatalog.lookupObject(uuid)
+        obj = uuidToObject(uuid)
         if obj:
             return backend and obj.UID() or obj.absolute_url()
         return ''
@@ -224,14 +232,27 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
                                                  type='warning')
                     results.append(folder[file.filename].UID())
                     continue
-                folder.invokeFactory(id=newId, type_name=TYPE_TO_CREATE,
-                                     title=title, description=description)
-                new_doc = folder[newId]
-                # force rename (processForm will not work with files)
-                new_doc._renameAfterCreation()
-                # this will trigger proper lifecycle events
-                new_doc.processForm()
-                new_doc.edit(file=file)
+                try:
+                    new_doc = api.content.create(
+                        container=folder,
+                        type='File',
+                        id=newId,
+                        title=title,
+                        **{
+                            'description': description,
+                            'file': NamedBlobFile(
+                                file,
+                                filename=file.filename.decode('utf-8')
+                            )
+                        }
+                    )
+                except BadRequest:
+                    plone_utils.addPortalMessage(_('duplicate_file_critical_error',
+                                                default=u'There is already an item named ${name} in this folder.\n'
+                                                        u'Loading of the attachment has been aborted.',
+                                                mapping={'name': file.filename}),
+                                                type='error')
+                    return None
                 results.append(new_doc.UID())
             else:
                 break
@@ -239,10 +260,11 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
 
     def data_for_display(self, data, backend=False, row_index=None):
         """Get proper URL to the resource mapped by an uuid"""
-        rcatalog = getToolByName(self.context, 'reference_catalog')
+        # rcatalog = getToolByName(self.context, 'reference_catalog')
         results = []
         for uuid in data.splitlines():
-            obj = rcatalog.lookupObject(uuid)
+            # obj = rcatalog.lookupObject(uuid)
+            obj = uuidToObject(uuid)
             if obj:
                 results.append(backend and obj.UID() or obj.absolute_url())
         return results

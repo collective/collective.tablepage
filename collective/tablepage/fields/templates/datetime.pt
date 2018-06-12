@@ -16,7 +16,14 @@
 <div class="formHelp" tal:content="view/configuration/description">
     Help filling me
 </div>
-<metal:box use-macro="context/calendar_macros/macros/calendarDatePickerBox">
-  <!-- a calendar, hopefully -->
-</metal:box>
+<!--metal:box use-macro="context/calendar_macros/macros/calendarDatePickerBox">
+</metal:box-->
+ <input tal:condition="show_hm"
+        tal:attributes="name inputname; value inputvalue"
+        class="pat-pickadate" />
+ <input tal:condition="not:show_hm"
+        class="pat-pickadate" 
+        tal:attributes="name inputname; value inputvalue"
+        data-pat-pickadate="time:false"/>
+
 </tal:calendar>

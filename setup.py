@@ -3,27 +3,14 @@
 import os, sys
 from setuptools import setup, find_packages
 
-version = '0.10.7.dev0'
+version = '1.0.0'
 
 tests_require = ['plone.app.testing', 'pyquery', ]
 
 install_requires = ['setuptools',
-                    'Products.ATContentTypes',
-                    'collective.datagridcolumns>=0.6.1',
-                    'collective.autopermission',
-                    #'collective.js.datatables',
-                    'Products.ATReferenceBrowserWidget',
-                    'Products.TinyMCE',
                     'Products.AdvancedQuery',
+                    'collective.z3cform.datagridfield'
                     ]
-
-if sys.version_info < (2, 6):
-    # A RedTurtle branch (see https://github.com/RedTurtle/Products.DataGridField/tree/1.6)
-    # Sorry for this but we want to make live easy to our Plone 3 customers!
-    install_requires.append('Products.DataGridField>1.6.3')
-    install_requires.append('uuid')
-else:
-    install_requires.append('Products.DataGridField>=1.9.0') 
 
 setup(name='collective.tablepage',
       version=version,
@@ -34,11 +21,7 @@ setup(name='collective.tablepage',
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Plone :: 3.3',
-        'Framework :: Plone :: 4.0',
-        'Framework :: Plone :: 4.1',
-        'Framework :: Plone :: 4.2',
-        'Framework :: Plone :: 4.3',
+        'Framework :: Plone :: 5.1',
         'Programming Language :: Python',
         'License :: OSI Approved :: GNU General Public License (GPL)',
         ],

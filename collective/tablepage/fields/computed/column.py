@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Products.PageTemplates import Expressions
+# from Products.CMFCore.Expression import Expression, getExprContext
 from Products.ZCatalog.CatalogBrains import AbstractCatalogBrain
 from collective.tablepage import logger
 from collective.tablepage.fields.base import BaseField
@@ -118,6 +119,7 @@ class ComputedField(BaseField, ComputedBase):
             expression = expression.splitlines()[0]
             talEngine = Expressions.getEngine()
             compiledExpr = talEngine.compile(expression)
+            self.data = compiledExpr(talEngine.getContext(self.eval_mappings(index=index, storage=storage)))
             try:
                 self.data = compiledExpr(talEngine.getContext(self.eval_mappings(index=index, storage=storage)))
             except CompilerError:

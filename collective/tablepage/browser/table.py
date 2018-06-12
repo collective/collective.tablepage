@@ -14,6 +14,7 @@ from collective.tablepage.interfaces import IDataStorage
 from persistent.dict import PersistentDict
 from plone.memoize.view import memoize
 from zope.component import getMultiAdapter
+from plone.protect.utils import addTokenToUrl
 
 try:
     from plone.batching import Batch
@@ -27,7 +28,7 @@ class TableViewView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.datagrid = context.getField('pageColumns')
+        self.datagrid = context.pageColumns
         self.edit_mode = False
         self.last_page_label = {}
         self.b_start = 0
@@ -98,13 +99,15 @@ class TableViewView(BrowserView):
         return True
 
     def headers(self):
-        data = self.datagrid.get(self.context)
+        data = self.datagrid
         results = []
         for d in data:
             if not d:
                 continue
-            results.append(dict(label=tablepageMessageFactory(d['label'].decode('utf-8')),
-                                description=tablepageMessageFactory(d.get('description', '').decode('utf-8')),
+            label = d['label'] and d['label'].decode('utf-8') or u''
+            description = d['description'] and d.get('description', '').decode('utf-8') or u''
+            results.append(dict(label=tablepageMessageFactory(label),
+                                description=tablepageMessageFactory(description),
                                 classes='coltype-%s col-%s' % (self.ploneview.normalizeString(d['type']),
                                                                self.ploneview.normalizeString(d['id']),),
                                 ))
@@ -325,3 +328,6 @@ class TableViewView(BrowserView):
             else:
                 results.append('%s=%s' % (key, param))
         return results
+
+    def add_token_to_url(self, url):
+        return addTokenToUrl(url)

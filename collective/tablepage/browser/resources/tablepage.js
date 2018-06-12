@@ -4,6 +4,7 @@
 (function($){
     $(document).ready(function() {
         var dataTable = null,
+            portal_url = $('body').attr('data-portal-url'),
             wWidth = $("#portal-columns").width(),
             wWidth995 = parseInt(wWidth/100*95, 10), 
             innerW = $('#content').width(),

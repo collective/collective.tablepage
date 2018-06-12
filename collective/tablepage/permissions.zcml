@@ -38,5 +38,9 @@
       id="collective.tablepage.showSearch"
       title="collective.tablepage: Show Search"
      />
+  <permission
+      id="collective.tablepage.AddTablepage"
+      title="collective.tablepage: Add TablePage"
+     />
 
 </configure>

@@ -4,7 +4,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="collective.tablepage">
 
-  <genericsetup:registerProfile
+  <!--genericsetup:registerProfile
       name="to1100"
       title="Migrate to 1100"
       directory="profiles/to_1100"
@@ -24,74 +24,7 @@
         handler=".setuphandlers.migrateTo04"
         sortkey="1"
         profile="collective.tablepage:default"
-    />
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.5"
-        description="Migrate collective.tablepage to 0.5"
-        source="1100"
-        destination="1200"
-        handler=".setuphandlers.migrateTo05"
-        sortkey="2"
-        profile="collective.tablepage:default"
-    />
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.5b2"
-        description="Migrate collective.tablepage to 0.5b2"
-        source="1200"
-        destination="1210"
-        handler=".setuphandlers.migrateTo05b2"
-        sortkey="3"
-        profile="collective.tablepage:default"
-    />
+    /-->
 
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.8"
-        description="Migrate collective.tablepage to 0.8"
-        source="1210"
-        destination="1300"
-        handler=".setuphandlers.migrateTo08"
-        sortkey="4"
-        profile="collective.tablepage:default"
-    />
-
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.8b1"
-        description="Migrate collective.tablepage to 0.8b1"
-        source="1300"
-        destination="1310"
-        handler=".setuphandlers.migrateTo08b1"
-        sortkey="5"
-        profile="collective.tablepage:default"
-    />
-
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.8b2"
-        description="Migrate collective.tablepage to 0.8b2"
-        source="1310"
-        destination="1320"
-        handler=".setuphandlers.migrateTo08b2"
-        sortkey="6"
-        profile="collective.tablepage:default"
-    />
-
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.8b3"
-        description="Migrate collective.tablepage to 0.8b3"
-        source="1320"
-        destination="1330"
-        handler=".setuphandlers.migrateTo08b3"
-        sortkey="7"
-        profile="collective.tablepage:default"
-    />
-
-  <genericsetup:upgradeStep
-        title="Upgrade to 0.8.1"
-        description="Migrate collective.tablepage to 0.8.1"
-        source="1330"
-        destination="1340"
-        handler=".setuphandlers.migrateTo081"
-        sortkey="8"
-        profile="collective.tablepage:default"
-    />
 
 </configure>

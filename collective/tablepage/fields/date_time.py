@@ -8,6 +8,7 @@ from collective.tablepage.fields.base import BaseFieldDataRetriever
 from collective.tablepage.fields.interfaces import IDateTimeColumnField
 from zope.component import getMultiAdapter
 from zope.interface import implements
+from datetime import datetime
 
 try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
@@ -40,11 +41,23 @@ class DateTimeField(BaseField):
             except DateTimeError:
                 self.data = ''
         return self.view_template(data=self.data)
+ 
+    def render_edit(self, data):
+        # trying to keep the same date/time format used in P4,
+        # we need to elaborate the data
+        self.data = data and data[:-3].replace('/', '-') or ''
+        return self.edit_template(data=self.data)
 
 
 class DateField(DateTimeField):
     """A field that store date formatted string"""
     show_hm = False
+
+    def render_edit(self, data):
+        # trying to keep the same date/time format used in P4,
+        # we need to elaborate the data
+        self.data = data and data[:-9].replace('/', '-') or ''
+        return self.edit_template(data=self.data)
 
 
 class DateTimeDataRetriever(BaseFieldDataRetriever):
@@ -58,22 +71,21 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
 
     def get_from_request(self, name, request):
         """Return data only if is a real date formatted string"""
+        # using mockup arrives something like: '2018-06-12 09:50'
+        value = request.get(name)
         
-        datestr = "%(year)s/%(month)s/%(day)s" % {'year': request.get("%s_year" % name),
-                                                  'month': request.get("%s_month" % name),
-                                                  'day': request.get("%s_day" % name),
-                                                  }
-        if self.show_hm:
-            timestr = " %(hour)s:%(minute)s:00" % {'hour': request.get("%s_hour" % name),
-                                                   'minute': request.get("%s_minute" % name),
-                                                   }
+        # let's try to keep data the more similar to the plone4 code version
+        if not self.show_hm:
+            value = value + ' 00:00:00'
         else:
-            timestr = ' 00:00:00'
-        datestr += timestr
+            value = value + ':00'
+
+        # except that now we ships a datetime
+        datetime_object = datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
 
         try:
-            return {name: DateTime(datestr).strftime('%Y/%m/%d %H:%M:%S')}
-        except DateTimeError:
+            return {name: datetime_object.strftime('%Y/%m/%d %H:%M:%S')}
+        except Exception:
             pass
         return {name: None}
 
@@ -85,7 +97,7 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
         return ploneview.toLocalizedTime(data, long_format=self.show_hm)
 
     def data_to_storage(self, data):
-        """Try to convert data to a DateTime"""
+        """Try to convert data to a datetime"""
         data = data and data.strip() or ''
         try:
             DateTime(data)
