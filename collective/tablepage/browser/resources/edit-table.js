@@ -8,11 +8,7 @@
          * select/unselect all
          */ 
         $('#selectAll').click(function(event) {
-            if ($(this).is(':checked')) {
-                $('.selectRow').attr('checked', 'checked');
-            } else {
-                $('.selectRow').removeAttr('checked');
-            }
+            $('.selectRow').prop('checked', $(this).prop('checked'));
         });
 
 		/**
