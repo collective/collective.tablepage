@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.0 (unreleased)
+------------------
+
+- plone 5 version; no migration yet
+  [lucabel]
+
 0.10.7 (unreleased)
 -------------------
 
