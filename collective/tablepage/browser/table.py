@@ -104,8 +104,8 @@ class TableViewView(BrowserView):
         for d in data:
             if not d:
                 continue
-            label = d.get('label', '')
-            description = d.get('description', '')
+            label = d.get('label', '') or ''
+            description = d.get('description', '') or ''
             results.append(
                 dict(
                     label=tablepageMessageFactory(label),
