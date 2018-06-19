@@ -24,7 +24,7 @@ except ImportError:
 
 class TableViewView(BrowserView):
     """Render only the table"""
-    
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -104,13 +104,18 @@ class TableViewView(BrowserView):
         for d in data:
             if not d:
                 continue
-            label = d['label'] and d['label'].decode('utf-8') or u''
-            description = d['description'] and d.get('description', '').decode('utf-8') or u''
-            results.append(dict(label=tablepageMessageFactory(label),
-                                description=tablepageMessageFactory(description),
-                                classes='coltype-%s col-%s' % (self.ploneview.normalizeString(d['type']),
-                                                               self.ploneview.normalizeString(d['id']),),
-                                ))
+            label = d.get('label', '')
+            description = d.get('description', '')
+            results.append(
+                dict(
+                    label=tablepageMessageFactory(label),
+                    description=tablepageMessageFactory(description),
+                    classes='coltype-{0} col-{1}'.format(
+                        self.ploneview.normalizeString(d['type']),
+                        self.ploneview.normalizeString(d['id'])
+                    ),
+                )
+            )
         return results
 
     def _findLastPageLabel(self, b_start):
@@ -199,7 +204,7 @@ class TableViewView(BrowserView):
                 # But is enough for now
                 # BBB: can this be true ever?
                 break
-            
+
             if record.get('__label__') or getattr(record, 'is_label', False):
                 rows.append(record.get('__label__') or getattr(record, 'label'))
                 index += 1
@@ -247,20 +252,20 @@ class TableViewView(BrowserView):
         perform_search = 'searchInTable' in request.form.keys()
 
         bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
-        batch = batch and bsize>0 
+        batch = batch and bsize>0
 
         if not batch:
             self._rows = self.rows(search=perform_search)
             return self._rows
 
-        self._rows = self.rows(batch=batch, bsize=bsize, b_start=self.b_start, search=perform_search)        
+        self._rows = self.rows(batch=batch, bsize=bsize, b_start=self.b_start, search=perform_search)
         # replicating foo elements to reach total size
         self._rows = [None] * self.b_start + self._rows + [None] * (self.result_length - self.b_start - bsize)
         return Batch(self._rows, bsize, start=self.b_start, end=self.b_start+bsize,
                      orphan=0, overlap=0, pagerange=7)
 
     def batching_enabled(self):
-        return self.context.getBatchSize() > 0 
+        return self.context.getBatchSize() > 0
 
     @memoize
     def portal_url(self):
@@ -281,7 +286,7 @@ class TableViewView(BrowserView):
 
     def check_manage_search_permission(self):
         sm = getSecurityManager()
-        return sm.checkPermission(config.MANAGE_SEARCH_PERMISSION, self.context)        
+        return sm.checkPermission(config.MANAGE_SEARCH_PERMISSION, self.context)
 
     def mine_row(self, index):
         storage = self.storage
@@ -294,7 +299,7 @@ class TableViewView(BrowserView):
         return '__label__' in  storage[index].keys()
 
     def next_is_label(self, row_index):
-        """True if next row is a label (or end of rows)""" 
+        """True if next row is a label (or end of rows)"""
         if self._rows:
             storage = self._rows
         else:
