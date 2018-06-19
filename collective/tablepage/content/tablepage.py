@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-                                                       
-from collective.tablepage.interfaces import ITablePage                           
-from zope.interface import implementer                                           
-from plone.dexterity.content import Item  
-from Acquisition import aq_inner                                       
-                                                                                 
-                                                                                 
-@implementer(ITablePage)                                                            
-class TablePage(Item):                                                              
-    """                                                                             
+
+from collective.tablepage.interfaces import ITablePage
+from zope.interface import implementer
+from plone.dexterity.content import Item
+from Acquisition import aq_inner
+
+
+@implementer(ITablePage)
+class TablePage(Item):
+    """
     """
 
     def getInsertType(self):
@@ -16,7 +16,7 @@ class TablePage(Item):
 
     def getBatchSize(self):
         return self.batchSize
-    
+
     def getPageColumns(self):
         return self.pageColumns
 
@@ -167,7 +167,7 @@ class TablePage(Item):
 
 #     atapi.ComputedField('text',
 #         expression="object/getText",
-#         searchable=True,        
+#         searchable=True,
 #         widget=atapi.ComputedWidget(
 #             label=ATDocumentSchema['text'].widget.label,
 #             description=ATDocumentSchema['text'].widget.description,

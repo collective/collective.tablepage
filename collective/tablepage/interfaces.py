@@ -11,37 +11,37 @@ from plone.autoform import directives as form
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from plone.app.textfield import RichText
 from z3c.relationfield.schema import RelationChoice
-from zope.schema.vocabulary import SimpleTerm                                    
+from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.interface import invariant, Invalid
 from collective.tablepage import config
 import re
 
 
-showHeadersVocabulary = SimpleVocabulary([                                                      
+showHeadersVocabulary = SimpleVocabulary([
     SimpleTerm(
-        value='view_only', 
+        value='view_only',
         title=_("... only on page view")
-    ),  
+    ),
     SimpleTerm(
-        value='edit_only', 
+        value='edit_only',
         title=_("... only when editing table")
     ),
     SimpleTerm(
-        value='always', 
+        value='always',
         title=_("... always display")
     ),
-]) 
+])
 
 insertTypeVocabulary = SimpleVocabulary([
     SimpleTerm(
-        value='append', 
+        value='append',
         title=_("At the end")
-    ),  
+    ),
     SimpleTerm(
-        value='prepend', 
+        value='prepend',
         title=_("At the beginning")
-    ),  
+    ),
 ])
 
 class IColumnField(Interface):
@@ -169,7 +169,7 @@ class ISearchConfigRow(Interface):
 
     id = schema.Choice(
         title=_(u"Search configuration"),
-        description=_('help_searchConfig',                                   
+        description=_('help_searchConfig',
                     default=u"Provide configuration for the search in table.\n"
                             u"Please note that this section will not load live data from the \"Columns\" field. "
                             u"If you changed something in the columns configuration during this edit attempt you MUST "
@@ -180,14 +180,14 @@ class ISearchConfigRow(Interface):
     )
 
     label = schema.TextLine(
-        title=_(u"Column label"), 
-        description=_('help_searchConfig_label',   
+        title=_(u"Column label"),
+        description=_('help_searchConfig_label',
                     default=u"The label to be used in the search form. "
                             u"Default is the column original label.")
     )
     description = schema.Text(
         required=False,
-        title=_(u"Column description"),        
+        title=_(u"Column description"),
         description=_('help_searchConfig_description',
                      default=u"A description to be used in search form"),
     )
@@ -278,10 +278,10 @@ class ITablePage(model.Schema):
 
     insertType = schema.Choice(
         title=_(u'Criteria for adding new rows'),
-        description=_('help_insertType',                         
+        description=_('help_insertType',
                       default=u'Criteria of inserting new row.\n'
                               u'Choose if add row at the end of group (append) '
-                              u'or before group (prepend).'),    
+                              u'or before group (prepend).'),
         required=False,
         default="append",
         vocabulary=insertTypeVocabulary,
@@ -289,11 +289,11 @@ class ITablePage(model.Schema):
 
     batchSize = schema.Int(
         title=_(u'Max number of rows'),
-        description=_('help_batchSize',                          
+        description=_('help_batchSize',
                         default=u'Insert the maximum number of rows to be displayed '
-                                u'in a single page.\n'             
+                                u'in a single page.\n'
                                 u'When this limit is reached a batching navigation section '
-                                u'will be displayed.\n'            
+                                u'will be displayed.\n'
                                 u'Use 0 to disable batching (NOT suggested on very large tables or '
                                 u'extremly complex column types).'
         ),
@@ -302,11 +302,11 @@ class ITablePage(model.Schema):
 
     # searchConfig = schema.List(
     #     title=_(u"Search configuration"),
-    #     description=_('help_searchConfig',                                   
+    #     description=_('help_searchConfig',
     #                 default=u"Provide configuration for the search in table.\n"
     #                         u"Please note that this section will not load live data from the \"Columns\" field. "
     #                         u"If you changed something in the columns configuration during this edit attempt you MUST "
-    #                         u"save first and came back here again."), 
+    #                         u"save first and came back here again."),
     #     required=False,
     #     value_type=DictRow(
     #         schema=ISearchConfigRow
