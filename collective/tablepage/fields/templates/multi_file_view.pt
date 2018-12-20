@@ -1,6 +1,6 @@
 <ul class="tablePageFileList">
 	<li tal:repeat="file options/files">
-		<a href="" tal:attributes="href string:${file/url}/at_download/file;
+		<a href="" tal:attributes="href string:${file/url}/@@download/file;
 		                           title string:${file/description};">
 			<img src="" alt="" 
 			     tal:define="portal_url nocall:context/portal_url"

@@ -17,6 +17,8 @@ from zope.interface import implements
 from plone import api
 from plone.namedfile.file import NamedBlobFile
 from plone.app.uuid.utils import uuidToObject
+from Products.CMFCore.interfaces import IFolderish
+
 
 try:
     from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
@@ -50,7 +52,8 @@ class FileField(BaseField):
     @memoize
     def attachment_storage(self):
         try:
-            attachment_storage = self.context.getAttachmentStorage() or aq_parent(aq_inner(self.context))
+            attachment_storage = self.context.getAttachmentStorage() if IFolderish.providedBy(self.context.getAttachmentStorage()) else aq_parent(aq_inner(self.context))
+#            attachment_storage = self.context.getAttachmentStorage() or aq_parent(aq_inner(self.context))
             # just check permissions
             self.context.restrictedTraverse('/'.join(attachment_storage.getPhysicalPath()))
             return attachment_storage
@@ -128,7 +131,7 @@ class FileDataRetriever(LinkedObjectFinder):
 
     def get_from_request(self, name, request):
         if request.get(name) and request.get(name).filename:
-            folder = self.context.getAttachmentStorage() or aq_parent(aq_inner(self.context))
+            folder = self.context.getAttachmentStorage() if IFolderish.providedBy(self.context.getAttachmentStorage()) else aq_parent(aq_inner(self.context))
             title = request.get('title_%s' % name)
             description = request.get('description_%s' % name)
             file = request.get(name)
@@ -210,7 +213,7 @@ class MultipleFilesDataRetriever(LinkedObjectFinder):
     def get_from_request(self, name, request):
         results = []
         context = self.context
-        folder = context.getAttachmentStorage() or aq_parent(aq_inner(context))
+        folder = self.context.getAttachmentStorage() if IFolderish.providedBy(self.context.getAttachmentStorage()) else aq_parent(aq_inner(self.context))
         plone_utils = getToolByName(context, 'plone_utils')
         # first of all we need also to check for existings selected files
         for existing_selection in request.get("existing_%s" % name, []):

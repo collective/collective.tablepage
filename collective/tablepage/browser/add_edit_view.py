@@ -38,8 +38,8 @@ def validate_pageColumns(data):
             )
         except ValueError:
             ids.append(id)
-
         if not re.match(r"^[a-zA-Z][a-zA-Z0-9.\-_]*$", id):
+            'pageColumns', 
             raise WidgetActionExecutionError(
                 Invalid(_('pagecolumn_validation_error_id_format',
                         default=u'Invalid value: "${col_name}". "Column Id" must not contains special characters',
