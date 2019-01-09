@@ -7,8 +7,8 @@
                   is_empty view/is_empty;
                   template_id view/template_id;
                   b_start request/b_start|nothing;
-                  main_b_start_param python:b_start and '?b_start:int=%d' % b_start or '';
-                  b_start_param python:b_start and '&b_start:int=%d' % b_start or '';"
+                  main_b_start_param python:b_start and '?b_start:int=%d' % int(b_start) or '';
+                  b_start_param python:b_start and '&b_start:int=%d' % int(b_start) or '';"
       tal:attributes="action string:${context/absolute_url}/@@delete-record">
 
 <input type="hidden" name="b_start:int" value=""

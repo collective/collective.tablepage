@@ -21,6 +21,7 @@ from zope.component import getMultiAdapter
 from zope.component.interfaces import ComponentLookupError
 from zope.interface import Interface
 from zope.interface import implements
+import re
 
 try:
     from Products.CMFEditions.utilities import isObjectChanged
@@ -49,6 +50,16 @@ class TableEditView(BrowserView):
         """If view is called without b_start params, redirect me to last page"""
         request = self.request
         context = self.context
+
+        if 'b_start' not in request.form.keys():
+            url = request.REQUEST.HTTP_REFERER
+            m = re.search('b_start:int=([0-9]+)', url)
+            if m:
+                request.form.update({'b_start': m.group(1)})
+            else:
+                request.form.update({'b_start': 0})
+
+
         if 'b_start' not in request.form.keys() and context.getInsertType()=='append':
             batch = self.table_view.batch()
             if PBATCH and batch.lastpage - 1 > 0:

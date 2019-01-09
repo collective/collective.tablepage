@@ -249,6 +249,7 @@ class TableViewView(BrowserView):
     def batch(self, batch=True, bsize=0, b_start=0):
         request = self.request
         self.b_start = b_start or request.form.get('b_start') or 0
+        self.b_start = int(self.b_start)
         perform_search = 'searchInTable' in request.form.keys()
 
         bsize = bsize or self.context.getBatchSize() or request.form.get('bsize') or 0
