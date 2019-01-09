@@ -90,7 +90,7 @@ class UploadDataView(BrowserView):
                         headers = [(h, headers.index(h)) for h in headers if h in valid_headers]
                     else:
                         # No configuration. Let's guess a configuration using CSV headers
-                        self.context.setPageColumns([{'id' : h,
+                        self.context.pageColumns = ([{'id' : h,
                                                       'label' : h,
                                                       'description' : '',
                                                       'type' : 'String',

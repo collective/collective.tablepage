@@ -73,7 +73,10 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
         """Return data only if is a real date formatted string"""
         # using mockup arrives something like: '2018-06-12 09:50'
         value = request.get(name)
-        
+       
+        if not value:
+            return {name: None}
+
         # let's try to keep data the more similar to the plone4 code version
         if not self.show_hm:
             value = value + ' 00:00:00'
