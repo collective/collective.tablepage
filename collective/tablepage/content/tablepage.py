@@ -46,36 +46,58 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
     ),
 
     DataGridField('pageColumns',
-        required=True,
-        storage=atapi.AnnotationStorage(),
-        columns=("id", "label", "description", "type", "vocabulary", "options"),
-        widget=DataGridWidget(
-            label=_(u"Columns"),
-            description=_('help_pageColumns',
-                          default=u"Definition of rows inside the table"),
-            visible={'view': 'invisible', 'edit': 'visible'},
-            helper_js= ('datagridwidget.js', 'datagridwidget_patches.js', 'datagridmultiselect.js'),
-            columns={
-                 'id' : Column(_(u"Column id"), required=True),
-                 'label' : Column(_(u"Column label"), required=True),
-                 'description' : TextAreaColumn(_(u"Column description")),
-                 'type' : SelectColumn(_(u"Type of data"),
-                                       vocabulary_factory="collective.tablepage.vocabulary.column_types",
-                                       required=True,
-                                       default="String"),
-                 'vocabulary' : TextAreaColumn(_(u"Column configuration"),
-                                               col_description=_("vocabulary_column_description",
-                                                                   default=u"Some columns types will need this.\n"
-                                                                           u"For \"Select\" type: used for defining the "
-                                                                           u"vocabulary (one item on per row).\n"
-                                                                           u"For \"Computed\" type: write there the TALES expression.")),
-                 'options' : MultiSelectColumn(_(u"Additional features"),
-                                               col_description=_("options_column_description",
-                                                                   default=u"Other options you can activate on the column"),
-                                               vocabulary_factory="collective.tablepage.vocabulary.row_options"),
-            },
-        ),
-    ),
+                  required=True,
+                  storage=atapi.AnnotationStorage(),
+                  columns=("id", "label", "description", "type", "vocabulary", "options"),
+                  widget=DataGridWidget(
+                      label=_(u"Columns"),
+                      description=_('help_pageColumns',
+                                    default=u"Definition of rows inside the table"),
+                      visible={'view': 'invisible', 'edit': 'visible'},
+                      helper_js=('datagridwidget.js', 'datagridwidget_patches.js', 'datagridmultiselect.js'),
+                      columns={
+                          'id': Column(_(u"Column id"), required=True),
+                          'label': Column(_(u"Column label"), required=True),
+                          'description': TextAreaColumn(_(u"Column description")),
+                          'type': SelectColumn(_(u"Type of data"),
+                                               vocabulary_factory="collective.tablepage.vocabulary.column_types",
+                                               required=True,
+                                               default="String"),
+                          'vocabulary': TextAreaColumn(_(u"Column configuration"),
+                                                       col_description=_("vocabulary_column_description",
+                                                                         default=u"Some columns types will need this.\n"
+                                                                                 u"For \"Select\" type: used for defining the "
+                                                                                 u"vocabulary (one item on per row).\n"
+                                                                                 u"For \"Computed\" type: write there the TALES expression.")),
+                          'options': MultiSelectColumn(_(u"Additional features"),
+                                                       col_description=_("options_column_description",
+                                                                         default=u"Other options you can activate on the column"),
+                                                       vocabulary_factory="collective.tablepage.vocabulary.row_options"),
+                      },
+                  ),
+                  ),
+
+    atapi.StringField('sortBy',
+                      required=False,
+                      searchable=False,
+                      widget=atapi.StringWidget(
+                          label=_(u'Default sorted column'),
+                          description=_("Id of the column we sort on by default. Leave empty if you don't want a default sort"),
+                          size=50,
+                          visible={'view': 'invisible', 'edit': 'visible'},
+                      )),
+
+    atapi.StringField('sortOrder',
+                      required=False,
+                      searchable=False,
+                      vocabulary='sortOrderVocabulary',
+                      default='asc',
+                      widget=atapi.SelectionWidget(
+                          label=_(u'Default sorted order'),
+                          description=_('Default sort order. Relevant if you have selected a default sorted column.'),
+                          size=50,
+                          visible={'view': 'invisible', 'edit': 'visible'},
+                      )),
 
     atapi.StringField('tableCaption',
               required=False,
@@ -106,7 +128,7 @@ TablePageSchema = ATDocumentSchema.copy() + atapi.Schema((
 
     atapi.ComputedField('text',
         expression="object/getText",
-        searchable=True,        
+        searchable=True,
         widget=atapi.ComputedWidget(
             label=ATDocumentSchema['text'].widget.label,
             description=ATDocumentSchema['text'].widget.description,
@@ -362,6 +384,14 @@ class TablePage(base.ATCTContent):
             (('append', _("At the end")),
             ('prepend', _("At the beginning"))),
         )
+
+    security.declarePublic('sortOrderVocabulary')
+
+    def sortOrderVocabulary(self):
+        return atapi.DisplayList((
+            ('asc', _("Ascending")),
+            ('desc', _("Descending")),
+        ))
 
     def __bobo_traverse__(self, REQUEST, name):
         """Allows transparent access to rows"""

@@ -79,6 +79,47 @@ class ViewTestCase(unittest.TestCase):
         view = getMultiAdapter((tp, request), name='tablepage-edit')
         self.assertTrue('No rows' in view())
 
+    def test_sort(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                             {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []}],
+                sortBy='col_b',
+                sortOrder='desc')
+        view = getMultiAdapter((tp, request), name='view-table')
+        self.assertEqual(view.sort_by(), 1)
+        self.assertEqual(view.sort_order(), 'desc')
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user1', 'col_a': 'Lorem', 'col_b': 'Lorem', '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Ipsum', 'col_b': 'Ipsum', '__uuid__': 'bbb'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Sit', 'col_b': 'Sit', '__uuid__': 'ccc'})
+        out = view()
+        self.assertIn('data-sort-by="1"', out)
+        self.assertIn('data-sort-order="desc"', out)
+
+    def test_sort_no_values(self):
+        portal = self.layer['portal']
+        request = self.layer['request']
+        portal.invokeFactory(type_name='TablePage', id='table_page', title="The Table Document")
+        tp = portal.table_page
+        tp.edit(pageColumns=[{'id': 'col_a', 'label': 'Col A', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []},
+                             {'id': 'col_b', 'label': 'Col B', 'description': '',
+                              'type': 'String', 'vocabulary': '', 'options': []}])
+        view = getMultiAdapter((tp, request), name='view-table')
+        self.assertEqual(view.sort_by(), None)
+        self.assertEqual(view.sort_order(), 'asc')
+        storage = IDataStorage(tp)
+        storage.add({'__creator__': 'user1', 'col_a': 'Lorem', 'col_b': 'Lorem', '__uuid__': 'aaa'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Ipsum', 'col_b': 'Ipsum', '__uuid__': 'bbb'})
+        storage.add({'__creator__': 'user1', 'col_a': 'Sit', 'col_b': 'Sit', '__uuid__': 'ccc'})
+        out = view()
+        self.assertNotIn('data-sort-by', out)
+        self.assertIn('data-sort-order="asc"', out)
 
 class RefreshViewTestCase(unittest.TestCase):
 
