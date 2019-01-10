@@ -32,6 +32,10 @@ class ImageField(FileField):
     view_template = ViewPageTemplateFile('templates/image_view.pt')
 
     def _get_obj_info(self, uuid):
+        """
+        Get object info based on FileField type,
+        + add a thumbnail
+        """
         info = super(ImageField, self)._get_obj_info(uuid)
         preferences = self._getCustomPreferences()
         if preferences.get('size', None):
