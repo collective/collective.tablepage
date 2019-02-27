@@ -4,6 +4,10 @@ Changelog
 1.0.0 (unreleased)
 ------------------
 
+- Fixed uid format in catalog for tablepage records. Added extra fields (ospfe.singole_procedure).
+  [daniele]
+- Fixed batch issue in edit template. Improved table editing.
+  [daniele]
 - plone 5 version; no migration yet
   [lucabel]
 
