@@ -21,6 +21,12 @@ class ColumnTypesVocabulary(object):
 
     def __call__(self, context):
         items = [
+            (u'CIG', _(u'CIG')),
+            (u'Struttura proponente', _(u'Struttura proponente')),
+            (u'Oggetto', _(u'Oggetto')),
+            (u'Procedura scelta contraente', _(u'Procedura scelta contraente')),
+            (u'Operatori / Aggiudicatari', _(u'Operatori / Aggiudicatari')),
+            (u'Dal-Al', _(u'Dal-Al')),
             (u'Computed', _(u'Computed')),
             (u'Link', _(u'Link')),
             (u'Date', _(u'Date')),

@@ -223,6 +223,7 @@ class TablePageCatalog(CatalogTool):
             logger.warning("Row without an uuid! data: %s" % row_data)
             return
         path = '%s/row-%s' % ('/'.join(context.getPhysicalPath()), row_data['__uuid__'])
+        path = str(path)
         row_data['path'] = path
         self.catalog_object(CatalogDictWrapper(row_data, context, path),
                             uid=path, idxs=idxs)
@@ -243,6 +244,8 @@ class TablePageCatalog(CatalogTool):
                        pghandler=None):
         if not IIndexableObjectWrapper.providedBy(obj):
             obj = IndexableObjectWrapper(obj, self)
+#        if not isinstance(uid, str):
+#            uid = str(uid)
         super(TablePageCatalog,
               self).catalog_object(obj, uid=uid, idxs=idxs,
                                    update_metadata=update_metadata,
