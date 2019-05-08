@@ -4,6 +4,8 @@ Changelog
 1.0.0 (unreleased)
 ------------------
 
+- Added serach tab configuration
+  [daniele]
 - Fixed uid format in catalog for tablepage records. Added extra fields (ospfe.singole_procedure).
   [daniele]
 - Fixed batch issue in edit template. Improved table editing.

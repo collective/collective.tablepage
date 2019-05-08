@@ -35,7 +35,7 @@ class BaseField(object):
         data = data or ''
         if isinstance(data, basestring):
             # on validation error we can get a FileUpload instance
-            self.data = data.encode('utf-8')
+            self.data = data.decode('utf-8')
         return self.edit_template(data=self.data)
 
     def render_view(self, data, index=None, storage=None):

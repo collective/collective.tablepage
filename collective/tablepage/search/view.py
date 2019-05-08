@@ -14,6 +14,7 @@ class RefreshSearchView(BrowserView):
     """Refresh rows indexed"""
 
     def __call__(self, *args, **kwargs):
+        #import pdb; pdb.set_trace()
         context = self.context
         request = self.request
         catalog = getToolByName(context, config.CATALOG_ID)

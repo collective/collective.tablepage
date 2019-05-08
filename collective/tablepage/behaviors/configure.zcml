@@ -1,0 +1,14 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  i18n_domain="collective.tablepage">
+
+  <plone:behavior
+    name="collective_tablepage_search_behavior"
+    title="Additional search options"
+    description="Adds tab to edit form to search in columns"
+    for="collective.tablepage.interfaces.ITablePage"
+    provides=".search_columns.ITableSearchRow"
+  />
+
+</configure>

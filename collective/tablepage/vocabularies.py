@@ -12,6 +12,8 @@ from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from plone.dexterity.interfaces import IDexterityContent
+from zope.globalrequest import getRequest
 
 
 class ColumnTypesVocabulary(object):
@@ -20,6 +22,7 @@ class ColumnTypesVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
+        #import pdb; pdb.set_trace()
         items = [
             (u'CIG', _(u'CIG')),
             (u'Struttura proponente', _(u'Struttura proponente')),
@@ -67,8 +70,10 @@ class SearchableColumnsVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        import pdb;pdb.set_trace()
-        configuration = context.pageColumns
+        if not IDexterityContent.providedBy(context):
+            req = getRequest()
+            context = req.PARENTS[0]
+        configuration = getattr(context, 'pageColumns', [])
         adaptables = [x[0] for x in getUtilitiesFor(ISearchableColumn)]
         terms = [SimpleTerm(value='SearchableText', token='SearchableText', title=_(u'Search in text'))]
         for conf in configuration:

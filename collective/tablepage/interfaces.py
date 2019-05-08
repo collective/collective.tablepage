@@ -165,44 +165,44 @@ class ITableRow(Interface):
     form.widget(options=CheckBoxFieldWidget)
 
 
-class ISearchConfigRow(Interface):
+# class ISearchConfigRow(Interface):
 
-    id = schema.Choice(
-        title=_(u"Search configuration"),
-        description=_('help_searchConfig',
-                    default=u"Provide configuration for the search in table.\n"
-                            u"Please note that this section will not load live data from the \"Columns\" field. "
-                            u"If you changed something in the columns configuration during this edit attempt you MUST "
-                            u"save first and came back here again."),
-        required=True,
-        default="",
-        vocabulary="collective.tablepage.vocabulary.searchable_columns",
-    )
+#     id = schema.Choice(
+#         title=_(u"Search configuration"),
+#         description=_('help_searchConfig',
+#                     default=u"Provide configuration for the search in table.\n"
+#                             u"Please note that this section will not load live data from the \"Columns\" field. "
+#                             u"If you changed something in the columns configuration during this edit attempt you MUST "
+#                             u"save first and came back here again."),
+#         required=True,
+#         default="",
+#         vocabulary="collective.tablepage.vocabulary.searchable_columns",
+#     )
 
-    label = schema.TextLine(
-        title=_(u"Column label"),
-        description=_('help_searchConfig_label',
-                    default=u"The label to be used in the search form. "
-                            u"Default is the column original label.")
-    )
-    description = schema.Text(
-        required=False,
-        title=_(u"Column description"),
-        description=_('help_searchConfig_description',
-                     default=u"A description to be used in search form"),
-    )
+#     label = schema.TextLine(
+#         title=_(u"Column label"),
+#         description=_('help_searchConfig_label',
+#                     default=u"The label to be used in the search form. "
+#                             u"Default is the column original label.")
+#     )
+#     description = schema.Text(
+#         required=False,
+#         title=_(u"Column description"),
+#         description=_('help_searchConfig_description',
+#                      default=u"A description to be used in search form"),
+#     )
 
-    additionalConfiguration = schema.Tuple(
-        title=_(u"Additional features"),
-        description=_("options_column_description",
-                    default=u"Other options you can activate on the column"),
-        required=False,
-        missing_value=(),
-        value_type=schema.Choice(
-            source="collective.tablepage.vocabulary.search_additional_options"
-        )
-    )
-    form.widget(options=CheckBoxFieldWidget)
+#     additionalConfiguration = schema.Tuple(
+#         title=_(u"Additional features"),
+#         description=_("options_column_description",
+#                     default=u"Other options you can activate on the column"),
+#         required=False,
+#         missing_value=(),
+#         value_type=schema.Choice(
+#             source="collective.tablepage.vocabulary.search_additional_options"
+#         )
+#     )
+#     form.widget(options=CheckBoxFieldWidget)
 
 class ITablePage(model.Schema):
     """ Marker interface and Dexterity Python Schema for Tablepage

@@ -37,6 +37,7 @@
     <element value="plone.app.dexterity.behaviors.metadata.ICategorization"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
     <element value="plone.app.lockingbehavior.behaviors.ILocking" />
+    <element value="collective.tablepage.behaviors.search_columns.ITableSearchRow" />
   </property>
 
   <!-- View information -->

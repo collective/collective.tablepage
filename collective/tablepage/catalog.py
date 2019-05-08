@@ -116,9 +116,13 @@ class CatalogDictWrapper(object):
         search_conf = content.getSearchConfig()
         index, data = row
         columns = [c['id'] for c in conf]
+        if not search_conf:
+            return searchable
+
         for c in [x for x in search_conf if x]: # in this way fix some migration issues
             if c['id'] in columns and 'SearchableText' in c['additionalConfiguration']:
                 searchable += data.get(c['id'], '') + ' '
+
         return searchable
 
 
@@ -189,13 +193,17 @@ class TablePageCatalog(CatalogTool):
 
     security.declareProtected(search_zcatalog, 'searchTablePage')
     def searchTablePage(self, tp, **kwargs):
+       # import pdb;pdb.set_trace()
         if 'path' not in kwargs.keys():
             kwargs['path'] = '/'.join(tp.getPhysicalPath())
         if 'is_label' not in kwargs.keys():
             kwargs['is_label'] = False
         query = Eq('is_label', True)
         query &= Eq('path', kwargs['path'])
-
+        #query = Eq('path', kwargs['path'])
+        #if 'SearchableText' in kwargs.keys():
+	#	    query &= Eq('SearchableText', kwargs['SearchableText'])
+        
         sub_query = None
         for k,v in kwargs.items():
             if k in SKIP_KEYS:
@@ -212,6 +220,7 @@ class TablePageCatalog(CatalogTool):
                 sub_query &= term
             else:
                 sub_query = term
+        #import pdb; pdb.set_trace()
 
         query = query | sub_query
         return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))

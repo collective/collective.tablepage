@@ -37,6 +37,7 @@ class TableViewView(BrowserView):
         self._rows = []
 
     def __call__(self):
+        #import pdb; pdb.set_trace()
         storage = self.storage
         if not self.edit_mode and len(storage)==0:
             return ""

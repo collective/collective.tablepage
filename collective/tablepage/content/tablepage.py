@@ -30,7 +30,7 @@ class TablePage(Item):
         return self.showHeaders
 
     def getSearchConfig(self):
-        return {}
+        return self.searchConfig
 
     def getTextBefore(self):
         return self.textBefore and self.textBefore.output or ''
