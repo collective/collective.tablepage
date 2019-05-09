@@ -74,7 +74,7 @@ class DateTimeDataRetriever(BaseFieldDataRetriever):
         # using mockup arrives something like: '2018-06-12 09:50'
         value = request.get(name)
        
-        if not value:
+        if not value or len(value) < 10:
             return {name: None}
 
         # let's try to keep data the more similar to the plone4 code version
