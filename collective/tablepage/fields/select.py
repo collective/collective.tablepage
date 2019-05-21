@@ -25,7 +25,7 @@ class SelectField(BaseField):
     def vocabulary(self):
         """Vocabulary can be a static list of values, or a vocabulary:TAL espression"""
         raw_vocabulary = self.configuration.get('vocabulary')
-        values = raw_vocabulary.rstrip().encode('utf-8').splitlines()
+        values = raw_vocabulary.rstrip().splitlines()
         talEngine = Expressions.getEngine()
         portal_state = getMultiAdapter((self.context, self.request),
                                        name=u'plone_portal_state')

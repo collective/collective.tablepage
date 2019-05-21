@@ -58,4 +58,4 @@ class ValidatorEnforceVocabulary(object):
         if data and data.decode("utf-8") not in vocabulary:
             return _('error_enforce_vocabulary',
                      default='The field "$name" does not fit any of the vocabulary values',
-                     mapping={'name': configuration.get('label', col_id).decode('utf-8')})
+                     mapping={'name': configuration.get('label', col_id).encode('utf-8')})
