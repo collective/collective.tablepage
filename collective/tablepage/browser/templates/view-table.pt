@@ -142,6 +142,7 @@
                 Section header
             </td>
 
+
             <td tal:condition="is_data_row"
                 tal:repeat="cell row/cols"
                 tal:attributes="class cell/classes">

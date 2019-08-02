@@ -21,6 +21,7 @@ class SearchTableViewlet(ViewletBase):
 
     def get_valid_catalog_indexes(self):
         """Look for TablePage portal catalog configuration"""
+
         context = self.context
         tp_catalog = getToolByName(context, 'tablepage_catalog')
         index_ids = tp_catalog.indexes()

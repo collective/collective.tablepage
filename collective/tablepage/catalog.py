@@ -193,7 +193,6 @@ class TablePageCatalog(CatalogTool):
 
     security.declareProtected(search_zcatalog, 'searchTablePage')
     def searchTablePage(self, tp, **kwargs):
-       # import pdb;pdb.set_trace()
         if 'path' not in kwargs.keys():
             kwargs['path'] = '/'.join(tp.getPhysicalPath())
         if 'is_label' not in kwargs.keys():
@@ -201,8 +200,8 @@ class TablePageCatalog(CatalogTool):
         query = Eq('is_label', True)
         query &= Eq('path', kwargs['path'])
         #query = Eq('path', kwargs['path'])
-        #if 'SearchableText' in kwargs.keys():
-	#	    query &= Eq('SearchableText', kwargs['SearchableText'])
+        if 'SearchableText' in kwargs.keys():
+		    query &= Eq('SearchableText', kwargs['SearchableText'])
         
         sub_query = None
         for k,v in kwargs.items():
@@ -220,7 +219,6 @@ class TablePageCatalog(CatalogTool):
                 sub_query &= term
             else:
                 sub_query = term
-        #import pdb; pdb.set_trace()
 
         query = query | sub_query
         return self.evalAdvancedQuery(query, sortSpecs=(kwargs.get('sort_on', 'getObjPositionInParent'), ))
