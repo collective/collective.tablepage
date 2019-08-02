@@ -118,10 +118,11 @@ class CatalogDictWrapper(object):
         columns = [c['id'] for c in conf]
         if not search_conf:
             return searchable
-
+        
         for c in [x for x in search_conf if x]: # in this way fix some migration issues
             if c['id'] in columns and 'SearchableText' in c['additionalConfiguration']:
-                searchable += data.get(c['id'], '') + ' '
+                if data.get(c['id'], ''):
+                    searchable += data.get(c['id'], '') + ' '
 
         return searchable
 
@@ -251,8 +252,8 @@ class TablePageCatalog(CatalogTool):
                        pghandler=None):
         if not IIndexableObjectWrapper.providedBy(obj):
             obj = IndexableObjectWrapper(obj, self)
-#        if not isinstance(uid, str):
-#            uid = str(uid)
+        if not isinstance(uid, str):
+            uid = str(uid)
         super(TablePageCatalog,
               self).catalog_object(obj, uid=uid, idxs=idxs,
                                    update_metadata=update_metadata,
