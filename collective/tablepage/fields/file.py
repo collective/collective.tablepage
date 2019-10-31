@@ -2,7 +2,7 @@
 
 from AccessControl import Unauthorized
 from Acquisition import aq_inner, aq_parent
-from Products.ATContentTypes.permission import permissions
+from plone.app.contenttypes.permissions import AddFile as AddFile_permission
 from Products.CMFCore.utils import getToolByName
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.fields.base import BaseField
@@ -46,7 +46,7 @@ class FileField(BaseField):
 
     def can_add_file(self):
         member = getMultiAdapter((self.context, self.request), name=u'plone_portal_state').member()
-        return member.has_permission(permissions[TYPE_TO_CREATE], self.attachment_storage)
+        return member.has_permission(AddFile_permission, self.attachment_storage)
 
     @property
     @memoize
