@@ -196,6 +196,8 @@ You can change how the link itself is displayed by adding some rows in the "*Col
 
 ``title:something``
     The link text will be always "something"
+``title:column:something``
+    The link text will be the content of "something" column
 ``icon:url-or-relative-path-to-image``
     An image will be displayed and, in case of an internal link, no text will be displayed
 

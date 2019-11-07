@@ -56,7 +56,7 @@ class BaseField(object):
         conf = self.configuration.get('vocabulary') or ''
         for c in conf.splitlines():
             if c.startswith('title:'):
-                prefs['title'] = c[6:]
+                prefs['title'] = c[len('title:'):]
             elif c.startswith('icon:'):
                 prefs['icon'] = c[5:]
         return prefs

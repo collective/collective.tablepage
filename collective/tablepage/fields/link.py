@@ -34,11 +34,12 @@ def is_url(data):
     return data.startswith('http://') or data.startswith('/') or data.startswith('../') \
             or data.startswith('https://') or data.startswith('ftp://')
 
+
 def get_uuid(obj):
     # BBB: can be removed when we get rid of Plone 3.3 compatibility
     if IUUID is not None:
         return IUUID(obj)
-    return obj.UID() # AT only
+    return obj.UID()  # AT only
 
 
 class LinkedObjectFinder(object):
@@ -83,17 +84,29 @@ class LinkField(BaseField):
         return storage.absolute_url()
 
     def render_view(self, data, index=None, storage=None):
-        self.data = data or ''
-        if self.data:
-            if is_url(self.data):
-                custom_prefs = self._getCustomPreferences()
-                return self.view_template(external_url=self.data,
-                                          **custom_prefs)
-            # probably an uid
-            uuid = self.data
-            obj_info = self._get_obj_info(uuid)
-            return self.view_template(**obj_info)
-        return self.view_template(data=self.data)
+        if not data:
+            return self.view_template(data=self.data)
+
+        self.data = data
+
+        if is_url(self.data):
+            custom_prefs = self._getCustomPreferences()
+            if custom_prefs.get('title', '').startswith('column:'):
+                title_column_id = custom_prefs['title'].split(':', 1)[1]
+                if title_column_id in storage[index]:
+                    custom_prefs['title'] = storage[index][title_column_id]
+
+            return self.view_template(external_url=self.data,
+                                      **custom_prefs)
+        # probably an uid
+        uuid = self.data
+        obj_info = self._get_obj_info(uuid)
+        if obj_info.get('title', '').startswith('column:'):
+            title_column_id = obj_info['title'].split(':', 1)[1]
+            if title_column_id in storage[index]:
+                obj_info['title'] = storage[index][title_column_id]
+
+        return self.view_template(**obj_info)
 
     def render_edit(self, data):
         data = data or ''

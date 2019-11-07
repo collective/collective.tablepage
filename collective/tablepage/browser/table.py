@@ -175,10 +175,10 @@ class TableViewView(BrowserView):
         # check if b_start is out on index
         if b_start>self.result_length:
             b_start = 0
-        b_start
 
         # let's cache adapters
-        for conf in self.context.getPageColumns():
+        page_columns = self.context.getPageColumns()
+        for conf in page_columns:
             col_type = conf['type']
             if not adapters.get(col_type):
                 adapters[col_type] = getMultiAdapter((context, request),
@@ -206,7 +206,7 @@ class TableViewView(BrowserView):
             row = {'UID': record.get('__uuid__') or record.UID,
                    'cols': []}
             write_attempt = False
-            for conf in context.getPageColumns():
+            for conf in page_columns:
                 field = adapters[conf['type']]
                 field.configuration = conf
                 # Cache hit
