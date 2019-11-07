@@ -27,7 +27,9 @@
                    can_add_label view/check_labeling_permission;
                    can_manage_search view/check_manage_search_permission;"
        tal:attributes="class view/css_classes;
-                       data-batching-enabled python:view.batching_enabled() and 'true' or nothing;"
+                       data-batching-enabled python:view.batching_enabled() and 'true' or nothing;
+                       data-sort-by python:view.sort_by();
+                       data-sort-order python:view.sort_order();"
        tal:condition="python: view.edit_mode or not is_empty">
         <caption tal:condition="context/getTableCaption"
                  tal:content="context/getTableCaption">This table is for...</caption>

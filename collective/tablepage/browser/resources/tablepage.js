@@ -125,7 +125,9 @@
                     var hasLabels = allLabelRows.length>0,
                         wHeidht = $(window).height(),
                         batchingEnabled = !!$table.attr('data-batching-enabled');
-                    
+                    var sortBy = parseInt($table.attr('data-sort-by'));
+                    var sortOrder = $table.attr('data-sort-order') || 'asc';
+
                     dataTable = $table.dataTable({
                         oLanguage: {sUrl: portal_url + '/@@collective.js.datatables.translation'},
                         sPaginationType: "full_numbers",
@@ -152,6 +154,9 @@
                             }
                             if ($labels.length > 0) {
                                 dataTable.rowGrouping();
+                            }
+                            if (!isNaN(sortBy)) {
+                                dataTable.fnSort([sortBy, sortOrder]);
                             }
                         }
 /*

@@ -6,6 +6,7 @@ Changelog
 
 - FileField is Dexterity compatible [thomasdesvenain]
 - Added ImageField [thomasdesvenain]
+- We can set a default ordering [thomasdesvenain]
 - Number field HTML5 validator now allows negative numbers (fixes #29) [petri]
 
 0.10.6 (2015-07-31)
