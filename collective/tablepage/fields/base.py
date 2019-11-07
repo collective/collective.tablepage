@@ -12,6 +12,13 @@ if sys.version_info < (2, 6):
 else:
     PLONE3 = False
 
+try:
+    from plone.dexterity.interfaces import IDexterityContent
+    HAS_DEXTERITY = True
+except ImportError:
+    HAS_DEXTERITY = False
+    IDexterityContent = None
+
 
 class BaseField(object):
     """Generic class for all columns"""
@@ -56,8 +63,19 @@ class BaseField(object):
 
     def _get_obj_info(self, uuid):
         # for fields that need to refer to other contents
-        rcatalog = getToolByName(self.context, 'reference_catalog')
-        obj = rcatalog.lookupObject(uuid)
+        if not HAS_DEXTERITY:
+            rcatalog = getToolByName(self.context, 'reference_catalog')
+            obj = rcatalog.lookupObject(uuid)
+        else:
+            results = self.context.portal_catalog.searchResults(UID=uuid)
+            if len(results) == 1:
+                obj = results[0].getObject()
+            elif len(results) == 0:
+                obj = None
+            else:
+                raise Exception("Too many objects found for UID: %s" % uuid)
+
+
         if obj:
             custom_prefs = self._getCustomPreferences()
             # BBB: final slash below is important for Plone 3.3 compatibility
@@ -65,11 +83,14 @@ class BaseField(object):
             RESOLVE_UID_STR = "resolveuid/%s"
             if PLONE3:
                 RESOLVE_UID_STR += '/'
+
             return dict(title=custom_prefs.get('title') or obj.Title() or obj.getId(),
                         url=RESOLVE_UID_STR % uuid,
                         description=obj.Description(),
                         icon=obj.getIcon(relative_to_portal=1),
-                        main_icon=custom_prefs.get('icon'))
+                        main_icon=custom_prefs.get('icon'),
+                        object=obj)
+
         return {}
 
     @property

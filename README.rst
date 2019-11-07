@@ -32,7 +32,7 @@ Configuring the table
 The most important field is "**Columns**", where you can define the column structure of you table.
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-02.png/image_large
-   :alt: Page with Table configuration 
+   :alt: Page with Table configuration
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-02.png
 
 For every column you can define some information like header's content and other description, but you must also define
@@ -47,14 +47,14 @@ Configuration is not changing anything in your layout, but users with *Contribut
 new tab: "**Edit table**".
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png/image_large
-   :alt: Page with Table view 
+   :alt: Page with Table view
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-01.png
 
 When accessing the "*Edit table data*" view, users will be able to add new rows to the table and edit their own rows.
 The form given to the user is generated using the configuration options that the document creator defined before.
 
 .. image:: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-03.png/image_large
-   :alt: Add new row in the table 
+   :alt: Add new row in the table
    :target: http://blog.redturtle.it/pypi-images/collective.tablepage/collective.tablepage-0.1-03.png
 
 Some note:
@@ -102,7 +102,7 @@ Download and Upload data
 Data stored  in the table can be downloaded, and optionally you can display a download link also to page visitors
 (activate the "*Show download link for data*" inside "*Settings*").
 When the download icon is used in the "*Edit table*" view, downloaded data is compatible to the upload CSV feature
-described above (columns ids are used instead of titles, contents uids instead of URL to referenced contents, ...) 
+described above (columns ids are used instead of titles, contents uids instead of URL to referenced contents, ...)
 
 .. image:: https://raw.github.com/RedTurtle/collective.tablepage/36961df4ddfd49daa014375e8956db878780e726/collective/tablepage/browser/images/upload_data.png
    :alt: Upload CSV icon
@@ -124,17 +124,17 @@ Table Page is distributed with a know set of columns. Right now you can choose f
 ``Text``
     A textarea, for saving more text and take care of carriage returns. Cached for 12 hours.
 ``Select``
-    Still a simple line of text, but user must choose it from a vocabulary you will define in the 
+    Still a simple line of text, but user must choose it from a vocabulary you will define in the
     "*Column configuration*".
-    
+
     You can alternatively provide lines with...
-    
+
     ::
-    
+
         vocabulary:TAL expression
-    
+
     ...and the vocabulary values will be taken by evaluating the provided TAL expression.
-    
+
     You can use vars like ``portal``, ``request`` and ``context`` (the current TablePage).
 ``File``
     A link to a file in the site. Cached for 1 hour. See below.
@@ -152,10 +152,10 @@ Table Page is distributed with a know set of columns. Right now you can choose f
 ``Computed``
     A column that will display a value based on a computed TAL espression you must put in the
     "*Column configuration*". For this reason it will not be putted in the edit row form.
-    Not cached by default but can be configured. 
+    Not cached by default but can be configured.
     See below.
 ``Date`` and ``Date/Time``
-    A string that store a date (or date and time). 
+    A string that store a date (or date and time).
 
 Adding new type of column is not hard (for a Plone developer), but remember to stay simple: we don't want
 to rewrite `PloneFormGen`__ from scratch!
@@ -213,7 +213,7 @@ When writing the TALES expression to be used in computed fields you can access g
 ``row``
     The current row. using this you can access data taken from other columns in the same row.
 
-The ``row`` var in the most powerful: based on the type of column you are referencing, you can read different data.    
+The ``row`` var in the most powerful: based on the type of column you are referencing, you can read different data.
 For example: accessing a *File*, *Files* and *Link* column, you can read information of the referenced object.
 
 Some examples::
@@ -338,6 +338,17 @@ For Plone 3.3 you need some special configuration like:
 
 __ https://github.com/RedTurtle/Products.DataGridField/tree/1.6
 
+
+Running tests
+=============
+
+In a virtualenv with Python 2.7, run:
+
+    python bootstrap.py
+    ./bin/buildout
+    ./bin/test
+
+
 Credits
 =======
 
@@ -347,17 +358,17 @@ Developed with the support of:
 
   .. image:: http://www.ausl.fe.it/logo_ausl.gif
      :alt: Azienda USL's logo
-  
+
 * `S. Anna Hospital, Ferrara`__
 
-  .. image:: http://www.ospfe.it/ospfe-logo.jpg 
+  .. image:: http://www.ospfe.it/ospfe-logo.jpg
      :alt: S. Anna Hospital logo
-  
+
 * `Province of Vicenza`__
 
-  .. image:: http://www.provincia.vicenza.it/logo_provincia_di_vicenza.png 
+  .. image:: http://www.provincia.vicenza.it/logo_provincia_di_vicenza.png
      :alt: Province of Vicenza logo
-  
+
 * `Guardia di Finanza`__
 
 All of them supports the `PloneGov initiative`__.
@@ -372,7 +383,7 @@ Authors
 =======
 
 This product was developed by RedTurtle Technology team.
-  
+
 .. image:: http://www.redturtle.it/redturtle_banner.png
    :alt: RedTurtle Technology Site
    :target: http://www.redturtle.it/
