@@ -4,6 +4,7 @@ Changelog
 0.10.7 (unreleased)
 -------------------
 
+- We can hide a column [thomasdesvenain]
 - We can define on Link a column to use for link title [thomasdesvenain]
 - We can set a default ordering [thomasdesvenain]
 - FileField is Dexterity compatible [thomasdesvenain]
