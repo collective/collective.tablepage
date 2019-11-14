@@ -8,6 +8,7 @@ except ImportError:
 from collective.tablepage import tablepageMessageFactory as _
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.search.interfaces import ISearchableColumn
+
 from zope.component import getAdapters
 from zope.component import getUtilitiesFor
 from zope.i18n import translate
@@ -29,6 +30,7 @@ class ColumnTypesVocabulary(object):
         terms = [SimpleTerm(value=e, token=e, title=_(e)) for e in elements]
         return SimpleVocabulary(terms)
 
+HIDDEN_OPTION = 'hidden'
 
 class RowOptionsVocabulary(object):
     """Column's options vocavulary
@@ -37,13 +39,15 @@ class RowOptionsVocabulary(object):
 
     def __call__(self, context):
         terms = [
-                 SimpleTerm(value='required', token='required', title=_('row_options_required',
-                                                                        default=u'Required')),
-                 SimpleTerm(value='unique', token='unique', title=_('row_options_unique',
-                                                                        default=u'Unique')),
-#                 SimpleTerm(value='enforceVocabulary', token='enforceVocabulary', title=_('row_options_enforceVocabulary',
-#                                                                                          default=u'Fulfil vocabulary')),
-                 ]
+            SimpleTerm(value='required', token='required',
+                       title=_('row_options_required', default=u'Required')),
+            SimpleTerm(value='unique', token='unique',
+                       title=_('row_options_unique', default=u'Unique')),
+            SimpleTerm(value=HIDDEN_OPTION, token='hidden',
+                       title=_('row_options_hidden', default=u'Hidden')),
+            # SimpleTerm(value='enforceVocabulary', token='enforceVocabulary',
+            #            title=_('row_options_enforceVocabulary', default=u'Fulfil vocabulary')),
+        ]
         return SimpleVocabulary(terms)
 
 
