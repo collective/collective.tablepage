@@ -236,7 +236,7 @@ class DownloadDataView(BrowserView):
                      'delimiter': self.request.form.get('delimiter', ',')
                      }
         writer = csv.writer(file, **csvparams)
-        writer.writerow([h['display_header'] for h in columns])
+        writer.writerow([h['display_header'].encode('utf-8') for h in columns])
 
         for row_index, data in enumerate(storage):
             if search:
