@@ -11,6 +11,7 @@ from collective.tablepage import config
 from collective.tablepage import tablepageMessageFactory
 from collective.tablepage.interfaces import IColumnField
 from collective.tablepage.interfaces import IDataStorage
+from collective.tablepage.vocabularies import HIDDEN_OPTION
 from persistent.dict import PersistentDict
 from plone.memoize.view import memoize
 from zope.component import getMultiAdapter
@@ -98,15 +99,17 @@ class TableViewView(BrowserView):
         return True
 
     def headers(self):
-        data = self.datagrid.get(self.context)
+        page_columns = self.datagrid.get(self.context)
         results = []
-        for d in data:
-            if not d:
+        for conf in page_columns:
+            if not conf:
                 continue
-            results.append(dict(label=tablepageMessageFactory(d['label'].decode('utf-8')),
-                                description=tablepageMessageFactory(d.get('description', '').decode('utf-8')),
-                                classes='coltype-%s col-%s' % (self.ploneview.normalizeString(d['type']),
-                                                               self.ploneview.normalizeString(d['id']),),
+            if HIDDEN_OPTION in conf.get('options', []):
+                continue
+            results.append(dict(label=tablepageMessageFactory(conf['label'].decode('utf-8')),
+                                description=tablepageMessageFactory(conf.get('description', '').decode('utf-8')),
+                                classes='coltype-%s col-%s' % (self.ploneview.normalizeString(conf['type']),
+                                                               self.ploneview.normalizeString(conf['id']),),
                                 ))
         return results
 
@@ -177,7 +180,7 @@ class TableViewView(BrowserView):
             b_start = 0
 
         # let's cache adapters
-        page_columns = self.context.getPageColumns()
+        page_columns = [c for c in self.context.getPageColumns() if HIDDEN_OPTION not in c.get('options', [])]
         for conf in page_columns:
             col_type = conf['type']
             if not adapters.get(col_type):
