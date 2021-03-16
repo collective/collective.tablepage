@@ -49,7 +49,7 @@
     </thead>
 
     <tfoot class="visualNoPrint" tal:condition="python: view.edit_mode or context.getDownloadEnabled()">
-        <tr class="rowCommands"><td tal:attributes="colspan python:len(headers)+2">
+        <tr class="rowCommands"><td tal:attributes="colspan python:len(headers) + (view.edit_mode and 2 or 0)">
             <tal:canedit condition="python: view.edit_mode and context.getPageColumns()">
                 <a class="command" href="" title="Add new label above"
                    tal:condition="can_add_label"
