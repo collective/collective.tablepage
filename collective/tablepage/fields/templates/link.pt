@@ -48,7 +48,7 @@
           tal:define="portal_url nocall:context/portal_url;
                       portal_url string:${portal_url/getPortalPath};
                       href string:$portal_url/@@getVocabulary?name=plone.app.vocabularies.Catalog&amp;field=relatedItems;
-                      fromreq python: 'data' in options and options.get('data')"
+                      fromreq python: options.get('data', '')"
           tal:attributes="id string:internal_${view/configuration/id};
                           name string:internal_${view/configuration/id};
                           href href;

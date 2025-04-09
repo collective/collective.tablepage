@@ -139,10 +139,12 @@ class LinkDataRetriever(LinkedObjectFinder):
 
     def get_from_request(self, name, request):
         # internal link take precedence
-        if request.get("internal_%s" % name):
-            return {name: request.get("internal_%s" % name)}
-        if request.get("external_%s" % name, '').strip():
-            return {name: request.get("external_%s" % name)}
+        internal_value = request.get("internal_%s" % name, "")
+        external_value = request.get("external_%s" % name, "").strip()
+        if internal_value and internal_value.lower() != 'false':
+            return {name: internal_value}
+        if external_value:
+            return {name: external_value}
         return {name: ''}
 
     def data_for_display(self, data, backend=False, row_index=None):

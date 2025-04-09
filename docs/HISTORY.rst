@@ -12,6 +12,8 @@ Changelog
   [daniele]
 - plone 5 version; no migration yet
   [lucabel]
+- Fix link widget: now can update external urls on existing rows.
+  [cekk]
 
 0.10.7 (unreleased)
 -------------------
